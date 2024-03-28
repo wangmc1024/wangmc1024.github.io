@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>WangMC Blog</title>
+    <link>https://MengChangWang.github.io/</link>
+    
+    <atom:link href="https://mengchangwang.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>this is a blog</description>
+    <pubDate>Thu, 28 Mar 2024 02:32:13 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://mengchangwang.github.io/2024/03/27/hello-world/</link>
+      <guid>https://mengchangwang.github.io/2024/03/27/hello-world/</guid>
+      <pubDate>Wed, 27 Mar 2024 07:20:58 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Welcome to my personal blog, this is the first attemp.&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Welcome to my personal blog, this is the first attemp.</p>]]></content:encoded>
+      
+      
+      <category domain="https://MengChangWang.github.io/categories/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95%E4%B8%80/">分类测试一</category>
+      
+      
+      
+      <comments>https://mengchangwang.github.io/2024/03/27/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>
