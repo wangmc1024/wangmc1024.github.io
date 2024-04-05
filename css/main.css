@@ -1219,7 +1219,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #13ff9a;
+  background: #57c601;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2605,7 +2605,7 @@ ul.breadcrumb li + li:last-child {
   }
 }
 body {
-  background: url("/images/background.jpg");
+  background: url("https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
