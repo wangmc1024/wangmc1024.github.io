@@ -660,7 +660,8 @@ QTableWidget 有几个函数自动调整表格的行高和列宽，分别如下�
   <entry>
     <title>订餐程序涉及知识</title>
     <url>/2024/05/16/%E8%AE%A2%E9%A4%90%E7%A8%8B%E5%BA%8F%E6%B6%89%E5%8F%8A%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>记录了一下项目制作过程中 所涉及的不熟悉的部分源码可至GitHub查看</p>
+<span id="more"></span>
 <h1>相关知识</h1>
 <h3 id="1-ctime-头文件"><strong>1. ctime 头文件</strong></h3>
 <p><strong>1.1</strong>  <code>time_t time(time_t *timer)</code>: 返回自纪元以来经过的时间，以秒为单位</p>
