@@ -2016,10 +2016,10 @@ QTableWidget 有几个函数自动调整表格的行高和列宽，分别如下�
       </tags>
   </entry>
   <entry>
-    <title>JavaWeb前端基础</title>
+    <title>Web前端基础</title>
     <url>/2024/04/05/JavaWeb%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<blockquote>
-<p>Java Web 前端的一些基础知识和相关工具的使用</p>
+<p>Web 前端的一些基础知识和相关工具的使用</p>
 </blockquote>
 <span id="more"></span>
 <h1><u><strong>Java Web</strong></u></h1>
@@ -2725,7 +2725,7 @@ QTableWidget 有几个函数自动调整表格的行高和列宽，分别如下�
 <p>一款轻量级的web服务器，反向代理服务器，电子邮件代理服务器</p>
 ]]></content>
       <categories>
-        <category>Java</category>
+        <category>Web</category>
       </categories>
   </entry>
 </search>
