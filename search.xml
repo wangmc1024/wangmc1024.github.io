@@ -7,7 +7,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>书生大模型练习笔记-Lv1</title>
+    <title>书生大模型---微调</title>
     <url>/2024/09/29/%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0-Lv1-2/</url>
     <content><![CDATA[<blockquote>
 <p>利用XTuner微调预训练模型</p>
@@ -110,7 +110,7 @@
       </tags>
   </entry>
   <entry>
-    <title>书生大模型练习笔记-Lv1</title>
+    <title>书生大模型---RAG实践</title>
     <url>/2024/09/29/%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0-Lv1-1/</url>
     <content><![CDATA[<blockquote>
 <p>RAG实践</p>
@@ -153,7 +153,7 @@
       </tags>
   </entry>
   <entry>
-    <title>书生大模型练习笔记-Lv1</title>
+    <title>书生大模型--提示词工程</title>
     <url>/2024/09/29/%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0-Lv1/</url>
     <content><![CDATA[<blockquote>
 <p>搭建环境、部署模型、提示词工程</p>
@@ -192,7 +192,7 @@
       </tags>
   </entry>
   <entry>
-    <title>书生大模型练习笔记</title>
+    <title>书生大模型---前置知识</title>
     <url>/2024/09/13/%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%97%AF%E5%85%B3%E7%BB%83%E4%B9%A0-Lv0/</url>
     <content><![CDATA[<blockquote>
 <p>基础知识</p>
