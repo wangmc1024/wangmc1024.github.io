@@ -28,7 +28,7 @@
 <meta property="og:description" content="记录了一下项目制作过程中 所涉及的不熟悉的部分源码可至GitHub查看">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-16T07:39:36.000Z">
-<meta property="article:modified_time" content="2024-05-30T08:33:52.571Z">
+<meta property="article:modified_time" content="2025-05-04T06:54:07.140Z">
 <meta property="article:author" content="三子曰">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-30 16:33:52" itemprop="dateModified" datetime="2024-05-30T16:33:52+08:00">2024-05-30</time>
+                <time title="修改时间：2025-05-04 14:54:07" itemprop="dateModified" datetime="2025-05-04T14:54:07+08:00">2025-05-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +243,7 @@
 </blockquote>
 <span id="more"></span>
 <h1>相关知识</h1>
-<h3 id="1-ctime-头文件"><strong>1. ctime 头文件</strong></h3>
+<h3 id="ctime-头文件"><strong>ctime 头文件</strong></h3>
 <p><strong>1.1</strong>  <code>time_t time(time_t *timer)</code>: 返回自纪元以来经过的时间，以秒为单位</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">time_t</span> currentTime;</span><br><span class="line"><span class="built_in">time</span>(&amp; currentTime);</span><br></pre></td></tr></table></figure>
 <p><strong>1.2 <code>struct tm *localtime(const time_t *timer)</code>: 将 <code>time_t</code> 格式的时间转换为本地时间，返回一个指向 <code>tm</code> 结构体的指针</strong></p>
@@ -257,7 +257,7 @@
 <p>先使用time()函数获取自1970年1月1日午夜（格林威治时间）起算的秒数，然后使用localtime()函数将其转化为本地时间 (使用tm结构体存储)，最后根据需要进行打印</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">time_t</span> now;</span><br><span class="line">    <span class="built_in">time</span>(&amp;now);</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">tm</span>* lt = <span class="built_in">localtime</span>(&amp;now);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Local time is: &quot;</span> &lt;&lt; lt-&gt;tm_year + <span class="number">1900</span> &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; lt-&gt;tm_mon + <span class="number">1</span> &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; lt-&gt;tm_mday &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; lt-&gt;tm_hour &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; lt-&gt;tm_min &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; lt-&gt;tm_sec &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span>* timeStr = <span class="built_in">asctime</span>(lt);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Formatted time is: &quot;</span> &lt;&lt; timeStr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">255</span>];</span><br><span class="line">    <span class="built_in">strftime</span>(buffer, <span class="number">255</span>, <span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, lt);</span><br><span class="line">    <span class="comment">//sprintf(buffer,&quot;%04d-%02d-%02d %02d:%02d:%02d&quot;, lt-&gt;tm_year + 1900, lt-&gt;tm_mon + 1, lt-&gt;tm_mday, lt-&gt;tm_hour,lt-&gt;tm_min,lt-&gt;tm_sec);</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Formatted time is: &quot;</span> &lt;&lt; buffer &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------输出结果-----------------</span><br><span class="line">Local time is: <span class="number">2024</span><span class="number">-4</span><span class="number">-28</span> <span class="number">17</span>:<span class="number">15</span>:<span class="number">42</span></span><br><span class="line">Formatted time is: Sun Apr <span class="number">28</span> <span class="number">17</span>:<span class="number">15</span>:<span class="number">42</span> <span class="number">2024</span></span><br><span class="line">Formatted time is: <span class="number">2024</span><span class="number">-04</span><span class="number">-28</span> <span class="number">17</span>:<span class="number">15</span>:<span class="number">42</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-CMake简单使用"><strong>2. CMake简单使用</strong></h3>
+<h3 id="CMake简单使用"><strong>CMake简单使用</strong></h3>
 <p><strong>2.1 创建一个CMakeLists.txt文件</strong></p>
 <p><strong>2.2 创建一个名为build的文件夹</strong></p>
 <blockquote>
@@ -268,9 +268,9 @@
 <p><strong>2.4 在build文件夹中打开cmd</strong></p>
 <p>输入<code>cmake ..</code></p>
 <p><code>cmake --build .</code></p>
-<h3 id="3-解决中文乱码">3. 解决中文乱码</h3>
+<h3 id="解决中文乱码">解决中文乱码</h3>
 <p>使用UTF-8 无BOM  可以在VS2022下载插件Force UTF-8(No BOM)</p>
-<h3 id="4-Qt的基础使用">4.Qt的基础使用</h3>
+<h3 id="Qt的基础使用">Qt的基础使用</h3>
 <p>见另一篇笔记</p>
 
     </div>
@@ -358,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ctime-%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. ctime 头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CMake%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. CMake简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 解决中文乱码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Qt%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.Qt的基础使用</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ctime-%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">ctime 头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMake%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.2.</span> <span class="nav-text">CMake简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81"><span class="nav-number">1.0.3.</span> <span class="nav-text">解决中文乱码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Qt%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.4.</span> <span class="nav-text">Qt的基础使用</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -374,14 +374,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -435,7 +435,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">106k</span>
+    <span title="站点总字数">108k</span>
 </div>
 
         
