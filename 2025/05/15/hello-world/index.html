@@ -263,8 +263,7 @@
 
 
           </div>
-            <!-- 修正后的代码：使用 Nunjucks 的 default 过滤器 -->
-
+            
     <div class="comments" id="gitalk-container"></div>
 
 <script>
@@ -510,26 +509,6 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
 </script>
 
 
-<script src="/js/spa.js"></script>  <!-- 引入 SPA 核心脚本 -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '2719e26e1ea715ee8429',
-      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
-      repo        : 'mengchangwang.github.io',
-      owner       : 'MengChangWang',
-      admin       : ['MengChangWang'],
-      id          : 'f1fc5d772fa756b63a833b56a18f44c0',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
 
 </body>
 </html>
