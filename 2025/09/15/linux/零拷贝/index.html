@@ -80,6 +80,7 @@
 
 </head>
 
+
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
@@ -154,8 +155,8 @@
 
     <main class="main">
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        <div id="spa-content-wrap" class="content-wrap">
+            
 
           <div class="content post posts-expand">
             
@@ -471,8 +472,8 @@
       <i class="fa fa-chevron-left"></i> PyBind11使用指北(补充)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2025/10/09/web/Vue%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20idb%20%E6%93%8D%E4%BD%9C%20IndexedDB%20%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/" rel="next" title="Vue+IndexedDB+idb">
-      Vue+IndexedDB+idb <i class="fa fa-chevron-right"></i>
+    <a href="/2025/10/09/web/Vue%20%E8%B7%AF%E7%94%B1/" rel="next" title="Vue路由">
+      Vue路由 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -485,7 +486,8 @@
 
 
           </div>
-          
+            <!-- 修正后的代码：使用 Nunjucks 的 default 过滤器 -->
+
     <div class="comments" id="gitalk-container"></div>
 
 <script>
@@ -711,6 +713,28 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'mengchangwang.github.io',
+      owner       : 'MengChangWang',
+      admin       : ['MengChangWang'],
+      id          : 'f80376d8d1a5cae55225b443eb913570',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+<script src="/js/spa.js"></script>  <!-- 引入 SPA 核心脚本 -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
