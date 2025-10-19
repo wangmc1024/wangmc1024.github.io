@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"db.json"};
+  </script>
+
+  <meta name="description" content="使用场景和相关用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fcntl函数">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/08/18/linux/fcntl%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="使用场景和相关用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-18T06:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-19T09:59:37.112Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/08/18/linux/fcntl%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>fcntl函数 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/08/18/linux/fcntl%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fcntl函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-18 14:00:00" itemprop="dateCreated datePublished" datetime="2025-08-18T14:00:00+08:00">2025-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-19 17:59:37" itemprop="dateModified" datetime="2025-10-19T17:59:37+08:00">2025-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用场景和相关用法</p>
+ <span id="more"></span>
+<h1>fcntl函数</h1>
+<h3 id="一、fcntl-函数基础">一、<code>fcntl</code> 函数基础</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fcntl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> cmd, ... <span class="comment">/* 可选参数 arg */</span> )</span>;</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>返回值</strong>：成功时返回与 <code>cmd</code> 相关的值（如标志、文件描述符），失败返回 <code>-1</code> 并设置 <code>errno</code>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>核心作用</strong>：通过 <code>cmd</code> 命令对 <code>fd</code>（文件描述符）执行控制操作，涵盖文件状态、I/O 模式、锁机制等。</p>
+</li>
+</ul>
+<h3 id="二、与-O-NONBLOCK-相关的操作（文件状态标志）">二、与 <code>O_NONBLOCK</code> 相关的操作（文件状态标志）</h3>
+<p><code>O_NONBLOCK</code> 是 <strong>非阻塞模式标志</strong>，用于设置文件描述符的 I/O 行为：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>阻塞模式（默认）</strong>：当执行 <code>read</code>/<code>write</code> 等操作时，若暂时无法完成（如无数据可读、缓冲区满），进程会进入睡眠等待。</p>
+</li>
+<li class="lvl-2">
+<p><strong>非阻塞模式（<code>O_NONBLOCK</code>）</strong>：操作无法立即完成时，函数会立即返回 <code>-1</code> 并设置 <code>errno</code> 为 <code>EAGAIN</code> 或 <code>EWOULDBLOCK</code>，不阻塞进程。</p>
+</li>
+</ul>
+<h4 id="相关-cmd-命令：">相关 <code>cmd</code> 命令：</h4>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_GETFL</code></strong>：获取当前文件状态标志（包含是否设置 <code>O_NONBLOCK</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL, <span class="number">0</span>);  <span class="comment">// 0 表示无额外参数</span></span><br><span class="line"><span class="keyword">if</span> (flags == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETFL</code></strong>：设置文件状态标志（用于开启 / 关闭 <code>O_NONBLOCK</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启非阻塞模式（保留原有标志，添加 O_NONBLOCK）</span></span><br><span class="line"><span class="type">int</span> new_flags = flags | O_NONBLOCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETFL, new_flags) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭非阻塞模式（清除 O_NONBLOCK 标志）</span></span><br><span class="line">new_flags = flags &amp; ~O_NONBLOCK;</span><br><span class="line">fcntl(fd, F_SETFL, new_flags);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="适用场景：">适用场景：</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>网络套接字（<code>socket</code>）：避免 <code>recv</code>/<code>send</code> 阻塞导致进程卡死。</p>
+</li>
+<li class="lvl-2">
+<p>管道（<code>pipe</code>）、FIFO：处理读写端不同步的情况。</p>
+</li>
+<li class="lvl-2">
+<p>设备文件（如终端、串口）：实时响应 I/O 状态变化。</p>
+</li>
+</ul>
+<h3 id="三、文件锁操作（进程间同步）">三、文件锁操作（进程间同步）</h3>
+<p><code>fcntl</code> 支持对文件的部分或全部内容加锁，避免多进程竞争。相关 <code>cmd</code> 命令需配合 <code>struct flock</code> 结构体使用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">flock</span> &#123;</span></span><br><span class="line">    <span class="type">short</span> l_type;   <span class="comment">// 锁类型：F_RDLCK（读锁）、F_WRLCK（写锁）、F_UNLCK（解锁）</span></span><br><span class="line">    <span class="type">short</span> l_whence; <span class="comment">// 偏移基准：SEEK_SET（文件头）、SEEK_CUR（当前位置）、SEEK_END（文件尾）</span></span><br><span class="line">    <span class="type">off_t</span> l_start;  <span class="comment">// 锁的起始偏移量</span></span><br><span class="line">    <span class="type">off_t</span> l_len;    <span class="comment">// 锁的长度（0 表示至文件末尾）</span></span><br><span class="line">    <span class="type">pid_t</span> l_pid;    <span class="comment">// 持有锁的进程 ID（仅 F_GETLK 时有效）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_GETLK</code></strong>：检查锁冲突（获取当前阻塞当前锁请求的锁信息）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">flock</span> <span class="title">lock</span>;</span></span><br><span class="line">lock.l_type = F_WRLCK;  <span class="comment">// 尝试获取写锁</span></span><br><span class="line">lock.l_whence = SEEK_SET;</span><br><span class="line">lock.l_start = <span class="number">0</span>;</span><br><span class="line">lock.l_len = <span class="number">0</span>;         <span class="comment">// 锁整个文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_GETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETLK failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (lock.l_type != F_UNLCK) &#123;</span><br><span class="line">    <span class="comment">// 存在冲突的锁，lock.l_pid 为持有锁的进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETLK</code></strong>：设置或释放锁（非阻塞模式，失败立即返回）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加写锁</span></span><br><span class="line">lock.l_type = F_WRLCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (errno == EAGAIN || errno == EACCES) &#123;</span><br><span class="line">        <span class="comment">// 锁被占用，无法获取</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解锁</span></span><br><span class="line">lock.l_type = F_UNLCK;</span><br><span class="line">fcntl(fd, F_SETLK, &amp;lock);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETLKW</code></strong>：设置或释放锁（阻塞模式，若无法获取则等待）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等待获取锁，直到成功或被信号中断</span></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLKW, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETLKW failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="四、文件描述符管理">四、文件描述符管理</h3>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_DUPFD</code></strong>：复制文件描述符（类似 <code>dup</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成一个 &gt;= min_fd 的新描述符，与原 fd 指向同一文件</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD, min_fd);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_DUPFD_CLOEXEC</code></strong>：复制描述符并设置 <code>FD_CLOEXEC</code> 标志</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新描述符在进程执行 exec 时自动关闭，避免资源泄漏</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD_CLOEXEC, min_fd);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_GETFD</code>/<code>F_SETFD</code></strong>：获取 / 设置文件描述符标志（仅 <code>FD_CLOEXEC</code> 有效）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取标志</span></span><br><span class="line"><span class="type">int</span> fd_flags = fcntl(fd, F_GETFD);</span><br><span class="line"><span class="comment">// 设置 FD_CLOEXEC（exec 时关闭）</span></span><br><span class="line">fcntl(fd, F_SETFD, fd_flags | FD_CLOEXEC);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="五、异步-I-O-与信号通知">五、异步 I/O 与信号通知</h3>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_SETOWN</code></strong>：设置接收 <code>SIGIO</code> 和 <code>SIGURG</code> 信号的进程 / 进程组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定进程 ID 接收信号（负数表示进程组 ID）</span></span><br><span class="line">fcntl(fd, F_SETOWN, pid);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_GETOWN</code></strong>：获取当前接收信号的进程 / 进程组 ID</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pid_t</span> owner = fcntl(fd, F_GETOWN);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETFL</code> 配合 <code>O_ASYNC</code></strong>：开启异步 I/O 通知（数据可读 / 可写时触发 <code>SIGIO</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL);</span><br><span class="line">fcntl(fd, F_SETFL, flags | O_ASYNC | O_NONBLOCK);  <span class="comment">// 同时开启异步和非阻塞</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="六、其他系统相关命令">六、其他系统相关命令</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong><code>F_GETPIPE_SZ</code>/<code>F_SETPIPE_SZ</code></strong>：获取 / 设置管道（pipe）的缓冲区大小</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pipe_size = fcntl(fd, F_GETPIPE_SZ);  <span class="comment">// 获取大小</span></span><br><span class="line">fcntl(fd, F_SETPIPE_SZ, new_size);        <span class="comment">// 设置大小（需权限）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong><code>F_ADD_SEALS</code>/<code>F_GET_SEALS</code></strong>：为文件添加 / 查询 “密封” 标志（限制修改）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加写密封（禁止后续写入）</span></span><br><span class="line">fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE);</span><br><span class="line"><span class="comment">// 查询当前密封标志</span></span><br><span class="line"><span class="type">int</span> seals = fcntl(fd, F_GET_SEALS);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong><code>F_GETLEASE</code>/<code>F_SETLEASE</code></strong>：获取 / 设置文件租约（协调进程间文件访问）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置读租约（其他进程写操作会触发通知）</span></span><br><span class="line">fcntl(fd, F_SETLEASE, F_RDLEASE);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>fcntl</code> 是一个功能强大的多用途函数，核心能力包括：</p>
+<ol>
+<li class="lvl-3">
+<p>控制 I/O 模式（如 <code>O_NONBLOCK</code> 非阻塞）；</p>
+</li>
+<li class="lvl-3">
+<p>进程间文件锁（读锁、写锁）；</p>
+</li>
+<li class="lvl-3">
+<p>文件描述符管理（复制、标志设置）；</p>
+</li>
+<li class="lvl-3">
+<p>异步 I/O 信号通知；</p>
+</li>
+<li class="lvl-3">
+<p>系统特定扩展功能（管道大小、文件密封等）。</p>
+</li>
+</ol>
+<p>使用时需注意：不同 Unix/Linux 系统对命令的支持可能有差异，建议通过 <code>man 2 fcntl</code> 查看本地系统的详细文档。非阻塞模式（<code>O_NONBLOCK</code>）常与 I/O 多路复用（<code>select</code>/<code>poll</code>/<code>epoll</code>）结合，是高性能网络编程的基础。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/16/linux/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" rel="prev" title="IO多路复用">
+      <i class="fa fa-chevron-left"></i> IO多路复用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/21/linux/Linux%E4%B8%AD%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E7%9A%84ppid/" rel="next" title="Linux中孤儿进程的ppid">
+      Linux中孤儿进程的ppid <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">fcntl函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81fcntl-%E5%87%BD%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、fcntl 函数基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8E-O-NONBLOCK-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%88%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、与 O_NONBLOCK 相关的操作（文件状态标志）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3-cmd-%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">相关 cmd 命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">适用场景：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E9%94%81%E6%93%8D%E4%BD%9C%EF%BC%88%E8%BF%9B%E7%A8%8B%E9%97%B4%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、文件锁操作（进程间同步）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%AE%A1%E7%90%86"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、文件描述符管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BC%82%E6%AD%A5-I-O-%E4%B8%8E%E4%BF%A1%E5%8F%B7%E9%80%9A%E7%9F%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、异步 I&#x2F;O 与信号通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">六、其他系统相关命令</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChangWang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChangWang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">549k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'mengchangwang.github.io',
+      owner       : 'MengChangWang',
+      admin       : ['MengChangWang'],
+      id          : 'af42c1b555229d126c736c206e689837',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

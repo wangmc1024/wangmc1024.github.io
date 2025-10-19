@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"db.json"};
+  </script>
+
+  <meta name="description" content="如题，结合官方文档与网络帖子，利用AI整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue基本组件">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/09/09/web/Vue.js%20%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="如题，结合官方文档与网络帖子，利用AI整理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-09T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-19T09:57:20.349Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/09/09/web/Vue.js%20%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E6%95%B4%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vue基本组件 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/09/09/web/Vue.js%20%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue基本组件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-09-09 16:00:00" itemprop="dateCreated datePublished" datetime="2025-09-09T16:00:00+08:00">2025-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-19 17:57:20" itemprop="dateModified" datetime="2025-10-19T17:57:20+08:00">2025-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>如题，结合官方文档与网络帖子，利用AI整理</p>
+</blockquote>
+<span id="more"></span>
+<h1>Vue.js 基本组件属性与方法讲解</h1>
+<h2 id="目录">目录</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a href="#1-button-%E6%8C%89%E9%92%AE">1. Button 按钮</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#2-input-%E8%BE%93%E5%85%A5%E6%A1%86">2. Input 输入框</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#3-form-%E8%A1%A8%E5%8D%95">3. Form 表单</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#4-table-%E8%A1%A8%E6%A0%BC">4. Table 表格</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#5-checkbox-%E5%A4%8D%E9%80%89%E6%A1%86">5. Checkbox 复选框</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#6-radio-%E5%8D%95%E9%80%89%E6%A1%86">6. Radio 单选框</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#7-select-%E4%B8%8B%E6%8B%89%E9%80%89%E6%8B%A9%E5%99%A8">7. Select 下拉选择器</a></p>
+</li>
+<li class="lvl-2">
+<p><a href="#8-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1">8. 组件通信</a></p>
+</li>
+</ul>
+<hr>
+<h2 id="1-Button-按钮">1. Button 按钮</h2>
+<h3 id="主要属性">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>String</td>
+<td>‘button’</td>
+<td>按钮类型，可选值：‘button’、‘submit’、‘reset’</td>
+</tr>
+<tr>
+<td><code>variant</code></td>
+<td>String</td>
+<td>‘primary’</td>
+<td>按钮样式变体，可选值：‘primary’、‘secondary’、‘danger’、‘success’</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>String</td>
+<td>‘medium’</td>
+<td>按钮尺寸，可选值：‘small’、‘medium’、‘large’</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否禁用按钮</td>
+</tr>
+<tr>
+<td><code>loading</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否显示加载状态</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>String</td>
+<td>‘按钮’</td>
+<td>按钮文本内容</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>String</td>
+<td>-</td>
+<td>按钮图标</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handleClick</code></td>
+<td>-</td>
+<td>点击事件处理函数</td>
+</tr>
+<tr>
+<td><code>handleSubmit</code></td>
+<td>-</td>
+<td>提交事件处理函数（仅当type为’submit’时有效）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>click</code>: 点击事件</p>
+</li>
+<li class="lvl-2">
+<p><code>submit</code>: 提交事件</p>
+</li>
+</ul>
+<h3 id="使用示例">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseButton </span><br><span class="line">      variant=&quot;primary&quot;</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      :loading=&quot;isLoading&quot;</span><br><span class="line">      @click=&quot;handleClick&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      提交</span><br><span class="line">    &lt;/BaseButton&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseButton </span><br><span class="line">      variant=&quot;danger&quot;</span><br><span class="line">      :disabled=&quot;!canDelete&quot;</span><br><span class="line">      @click=&quot;handleDelete&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      删除</span><br><span class="line">    &lt;/BaseButton&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isLoading: false,</span><br><span class="line">      canDelete: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">      this.isLoading = true</span><br><span class="line">      // 处理逻辑</span><br><span class="line">      setTimeout(() =&gt; &#123;</span><br><span class="line">        this.isLoading = false</span><br><span class="line">      &#125;, 2000)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDelete() &#123;</span><br><span class="line">      if (confirm(&#x27;确定要删除吗？&#x27;)) &#123;</span><br><span class="line">        // 删除逻辑</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="2-Input-输入框">2. Input 输入框</h2>
+<h3 id="主要属性-2">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelValue</code></td>
+<td>String/Number</td>
+<td>‘’</td>
+<td>绑定值（v-model）</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>String</td>
+<td>‘text’</td>
+<td>输入框类型</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>String</td>
+<td>‘’</td>
+<td>标签文本</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td>String</td>
+<td>‘’</td>
+<td>占位文本</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否禁用</td>
+</tr>
+<tr>
+<td><code>readonly</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否只读</td>
+</tr>
+<tr>
+<td><code>required</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否必填</td>
+</tr>
+<tr>
+<td><code>maxlength</code></td>
+<td>Number</td>
+<td>-</td>
+<td>最大输入长度</td>
+</tr>
+<tr>
+<td><code>minlength</code></td>
+<td>Number</td>
+<td>-</td>
+<td>最小输入长度</td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td>RegExp</td>
+<td>-</td>
+<td>正则表达式验证</td>
+</tr>
+<tr>
+<td><code>errorMessage</code></td>
+<td>String</td>
+<td>‘’</td>
+<td>错误提示信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-2">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handleInput</code></td>
+<td>event</td>
+<td>输入事件处理</td>
+</tr>
+<tr>
+<td><code>handleFocus</code></td>
+<td>-</td>
+<td>获得焦点事件</td>
+</tr>
+<tr>
+<td><code>handleBlur</code></td>
+<td>-</td>
+<td>失去焦点事件</td>
+</tr>
+<tr>
+<td><code>validate</code></td>
+<td>-</td>
+<td>验证输入内容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-2">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>input</code>: 输入事件</p>
+</li>
+<li class="lvl-2">
+<p><code>focus</code>: 获得焦点事件</p>
+</li>
+<li class="lvl-2">
+<p><code>blur</code>: 失去焦点事件</p>
+</li>
+<li class="lvl-2">
+<p><code>validate</code>: 验证事件</p>
+</li>
+</ul>
+<h3 id="使用示例-2">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;username&quot;</span><br><span class="line">      label=&quot;用户名&quot;</span><br><span class="line">      placeholder=&quot;请输入用户名&quot;</span><br><span class="line">      required</span><br><span class="line">      :pattern=&quot;/^[a-zA-Z0-9_]&#123;4,16&#125;$/&quot;</span><br><span class="line">      @validate=&quot;handleValidate&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;password&quot;</span><br><span class="line">      type=&quot;password&quot;</span><br><span class="line">      label=&quot;密码&quot;</span><br><span class="line">      placeholder=&quot;请输入密码&quot;</span><br><span class="line">      required</span><br><span class="line">      :errorMessage=&quot;passwordError&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      username: &#x27;&#x27;,</span><br><span class="line">      password: &#x27;&#x27;,</span><br><span class="line">      passwordError: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleValidate(isValid) &#123;</span><br><span class="line">      console.log(&#x27;用户名验证结果:&#x27;, isValid)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-Form-表单">3. Form 表单</h2>
+<h3 id="主要属性-3">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>Object</td>
+<td>{}</td>
+<td>表单数据对象</td>
+</tr>
+<tr>
+<td><code>rules</code></td>
+<td>Object</td>
+<td>{}</td>
+<td>验证规则</td>
+</tr>
+<tr>
+<td><code>submitText</code></td>
+<td>String</td>
+<td>‘提交’</td>
+<td>提交按钮文本</td>
+</tr>
+<tr>
+<td><code>labelWidth</code></td>
+<td>String/Number</td>
+<td>‘120px’</td>
+<td>标签宽度</td>
+</tr>
+<tr>
+<td><code>inline</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否行内表单</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-3">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>validate</code></td>
+<td>-</td>
+<td>验证表单</td>
+</tr>
+<tr>
+<td><code>handleSubmit</code></td>
+<td>-</td>
+<td>提交表单</td>
+</tr>
+<tr>
+<td><code>handleReset</code></td>
+<td>-</td>
+<td>重置表单</td>
+</tr>
+<tr>
+<td><code>clearError</code></td>
+<td>field</td>
+<td>清除指定字段错误</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-3">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>submit</code>: 表单提交事件</p>
+</li>
+<li class="lvl-2">
+<p><code>reset</code>: 表单重置事件</p>
+</li>
+<li class="lvl-2">
+<p><code>invalid</code>: 表单验证失败事件</p>
+</li>
+</ul>
+<h3 id="使用示例-3">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;BaseForm</span><br><span class="line">    :model=&quot;form&quot;</span><br><span class="line">    :rules=&quot;rules&quot;</span><br><span class="line">    @submit=&quot;handleSubmit&quot;</span><br><span class="line">    @invalid=&quot;handleInvalid&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;form.username&quot;</span><br><span class="line">      label=&quot;用户名&quot;</span><br><span class="line">      placeholder=&quot;请输入用户名&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;form.email&quot;</span><br><span class="line">      type=&quot;email&quot;</span><br><span class="line">      label=&quot;邮箱&quot;</span><br><span class="line">      placeholder=&quot;请输入邮箱&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;template #actions&gt;</span><br><span class="line">      &lt;BaseButton type=&quot;primary&quot; @click=&quot;$parent.handleSubmit&quot;&gt;</span><br><span class="line">        提交</span><br><span class="line">      &lt;/BaseButton&gt;</span><br><span class="line">      &lt;BaseButton type=&quot;secondary&quot; @click=&quot;$parent.handleReset&quot;&gt;</span><br><span class="line">        重置</span><br><span class="line">      &lt;/BaseButton&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/BaseForm&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      form: &#123;</span><br><span class="line">        username: &#x27;&#x27;,</span><br><span class="line">        email: &#x27;&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      rules: &#123;</span><br><span class="line">        username: &#123;</span><br><span class="line">          required: true,</span><br><span class="line">          message: &#x27;请输入用户名&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        email: &#123;</span><br><span class="line">          required: true,</span><br><span class="line">          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,</span><br><span class="line">          message: &#x27;请输入正确的邮箱格式&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleSubmit(formData) &#123;</span><br><span class="line">      console.log(&#x27;表单提交:&#x27;, formData)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleInvalid(errors) &#123;</span><br><span class="line">      console.log(&#x27;表单验证失败:&#x27;, errors)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4-Table-表格">4. Table 表格</h2>
+<h3 id="主要属性-4">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>Array</td>
+<td>[]</td>
+<td>表格数据</td>
+</tr>
+<tr>
+<td><code>columns</code></td>
+<td>Array</td>
+<td>[]</td>
+<td>列配置</td>
+</tr>
+<tr>
+<td><code>keyField</code></td>
+<td>String</td>
+<td>‘id’</td>
+<td>数据唯一标识字段</td>
+</tr>
+<tr>
+<td><code>emptyText</code></td>
+<td>String</td>
+<td>‘暂无数据’</td>
+<td>空数据提示文本</td>
+</tr>
+<tr>
+<td><code>sortKey</code></td>
+<td>String</td>
+<td>‘’</td>
+<td>排序字段</td>
+</tr>
+<tr>
+<td><code>sortOrder</code></td>
+<td>String</td>
+<td>‘asc’</td>
+<td>排序方向</td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否显示边框</td>
+</tr>
+<tr>
+<td><code>striped</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否斑马纹</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-4">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handleSort</code></td>
+<td>key, order</td>
+<td>处理排序</td>
+</tr>
+<tr>
+<td><code>handleSelection</code></td>
+<td>rows</td>
+<td>处理选择</td>
+</tr>
+<tr>
+<td><code>handleRowClick</code></td>
+<td>row, index</td>
+<td>处理行点击</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-4">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sort</code>: 排序事件</p>
+</li>
+<li class="lvl-2">
+<p><code>selection-change</code>: 选择变化事件</p>
+</li>
+<li class="lvl-2">
+<p><code>row-click</code>: 行点击事件</p>
+</li>
+</ul>
+<h3 id="使用示例-4">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;BaseTable</span><br><span class="line">    :data=&quot;users&quot;</span><br><span class="line">    :columns=&quot;columns&quot;</span><br><span class="line">    :sort-key=&quot;sortKey&quot;</span><br><span class="line">    :sort-order=&quot;sortOrder&quot;</span><br><span class="line">    @sort=&quot;handleSort&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    &lt;template #status=&quot;&#123; row &#125;&quot;&gt;</span><br><span class="line">      &lt;span :class=&quot;row.status === &#x27;active&#x27; ? &#x27;status-active&#x27; : &#x27;status-inactive&#x27;&quot;&gt;</span><br><span class="line">        &#123;&#123; row.status === &#x27;active&#x27; ? &#x27;启用&#x27; : &#x27;禁用&#x27; &#125;&#125;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;template #actions=&quot;&#123; row &#125;&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;action-buttons&quot;&gt;</span><br><span class="line">        &lt;button @click=&quot;handleEdit(row)&quot;&gt;编辑&lt;/button&gt;</span><br><span class="line">        &lt;button @click=&quot;handleDelete(row)&quot;&gt;删除&lt;/button&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/BaseTable&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      users: [</span><br><span class="line">        &#123; id: 1, name: &#x27;张三&#x27;, email: &#x27;zhangsan@example.com&#x27;, status: &#x27;active&#x27; &#125;,</span><br><span class="line">        &#123; id: 2, name: &#x27;李四&#x27;, email: &#x27;lisi@example.com&#x27;, status: &#x27;inactive&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      columns: [</span><br><span class="line">        &#123; key: &#x27;name&#x27;, title: &#x27;姓名&#x27;, sortable: true &#125;,</span><br><span class="line">        &#123; key: &#x27;email&#x27;, title: &#x27;邮箱&#x27;, sortable: true &#125;,</span><br><span class="line">        &#123; key: &#x27;status&#x27;, title: &#x27;状态&#x27; &#125;,</span><br><span class="line">        &#123; key: &#x27;actions&#x27;, title: &#x27;操作&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      sortKey: &#x27;&#x27;,</span><br><span class="line">      sortOrder: &#x27;asc&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleSort(key, order) &#123;</span><br><span class="line">      this.sortKey = key</span><br><span class="line">      this.sortOrder = order</span><br><span class="line">      // 处理排序逻辑</span><br><span class="line">    &#125;,</span><br><span class="line">    handleEdit(row) &#123;</span><br><span class="line">      console.log(&#x27;编辑:&#x27;, row)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDelete(row) &#123;</span><br><span class="line">      console.log(&#x27;删除:&#x27;, row)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-Checkbox-复选框">5. Checkbox 复选框</h2>
+<h3 id="主要属性-5">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelValue</code></td>
+<td>Boolean/Array</td>
+<td>false</td>
+<td>绑定值（v-model）</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>String</td>
+<td>‘’</td>
+<td>标签文本</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否禁用</td>
+</tr>
+<tr>
+<td><code>indeterminate</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否半选状态</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>-</td>
+<td>表单名称</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-5">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handleChange</code></td>
+<td>value</td>
+<td>变化事件处理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-5">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>change</code>: 变化事件</p>
+</li>
+</ul>
+<h3 id="使用示例-5">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!-- 单个复选框 --&gt;</span><br><span class="line">    &lt;BaseCheckbox</span><br><span class="line">      v-model=&quot;agree&quot;</span><br><span class="line">      label=&quot;我同意用户协议&quot;</span><br><span class="line">      @change=&quot;handleAgreeChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 复选框组 --&gt;</span><br><span class="line">    &lt;div class=&quot;checkbox-group&quot;&gt;</span><br><span class="line">      &lt;BaseCheckbox</span><br><span class="line">        v-for=&quot;item in hobbies&quot;</span><br><span class="line">        :key=&quot;item.value&quot;</span><br><span class="line">        v-model=&quot;selectedHobbies&quot;</span><br><span class="line">        :label=&quot;item.label&quot;</span><br><span class="line">        :value=&quot;item.value&quot;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      agree: false,</span><br><span class="line">      selectedHobbies: [],</span><br><span class="line">      hobbies: [</span><br><span class="line">        &#123; value: &#x27;reading&#x27;, label: &#x27;阅读&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;sports&#x27;, label: &#x27;运动&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;music&#x27;, label: &#x27;音乐&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleAgreeChange(checked) &#123;</span><br><span class="line">      console.log(&#x27;同意状态:&#x27;, checked)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="6-Radio-单选框">6. Radio 单选框</h2>
+<h3 id="主要属性-6">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelValue</code></td>
+<td>String/Number/Boolean</td>
+<td>‘’</td>
+<td>绑定值（v-model）</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>-</td>
+<td>表单名称</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>Array</td>
+<td>[]</td>
+<td>选项数组</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否禁用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-6">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handleChange</code></td>
+<td>value</td>
+<td>变化事件处理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-6">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>change</code>: 变化事件</p>
+</li>
+</ul>
+<h3 id="使用示例-6">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseRadio</span><br><span class="line">      v-model=&quot;gender&quot;</span><br><span class="line">      name=&quot;gender&quot;</span><br><span class="line">      :options=&quot;genderOptions&quot;</span><br><span class="line">      @change=&quot;handleGenderChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseRadio</span><br><span class="line">      v-model=&quot;city&quot;</span><br><span class="line">      name=&quot;city&quot;</span><br><span class="line">      :options=&quot;cityOptions&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      gender: &#x27;&#x27;,</span><br><span class="line">      city: &#x27;&#x27;,</span><br><span class="line">      genderOptions: [</span><br><span class="line">        &#123; value: &#x27;male&#x27;, label: &#x27;男&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;female&#x27;, label: &#x27;女&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      cityOptions: [</span><br><span class="line">        &#123; value: &#x27;beijing&#x27;, label: &#x27;北京&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shanghai&#x27;, label: &#x27;上海&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;guangzhou&#x27;, label: &#x27;广州&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleGenderChange(value) &#123;</span><br><span class="line">      console.log(&#x27;性别选择:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="7-Select-下拉选择器">7. Select 下拉选择器</h2>
+<h3 id="主要属性-7">主要属性</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelValue</code></td>
+<td>String/Number/Boolean</td>
+<td>‘’</td>
+<td>绑定值（v-model）</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>Array</td>
+<td>[]</td>
+<td>选项数组</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td>String</td>
+<td>‘请选择’</td>
+<td>占位文本</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否禁用</td>
+</tr>
+<tr>
+<td><code>filterable</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否可搜索</td>
+</tr>
+<tr>
+<td><code>multiple</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否多选</td>
+</tr>
+<tr>
+<td><code>clearable</code></td>
+<td>Boolean</td>
+<td>false</td>
+<td>是否可清空</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>String</td>
+<td>‘medium’</td>
+<td>尺寸</td>
+</tr>
+</tbody>
+</table>
+<h3 id="主要方法-7">主要方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toggleDropdown</code></td>
+<td>-</td>
+<td>切换下拉框显示/隐藏</td>
+</tr>
+<tr>
+<td><code>selectOption</code></td>
+<td>option</td>
+<td>选择选项</td>
+</tr>
+<tr>
+<td><code>handleSearch</code></td>
+<td>keyword</td>
+<td>搜索处理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事件-7">事件</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>change</code>: 变化事件</p>
+</li>
+<li class="lvl-2">
+<p><code>open</code>: 下拉框打开事件</p>
+</li>
+<li class="lvl-2">
+<p><code>close</code>: 下拉框关闭事件</p>
+</li>
+<li class="lvl-2">
+<p><code>clear</code>: 清空事件</p>
+</li>
+</ul>
+<h3 id="使用示例-7">使用示例</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseSelect</span><br><span class="line">      v-model=&quot;selectedCity&quot;</span><br><span class="line">      :options=&quot;cityOptions&quot;</span><br><span class="line">      placeholder=&quot;请选择城市&quot;</span><br><span class="line">      filterable</span><br><span class="line">      @change=&quot;handleCityChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseSelect</span><br><span class="line">      v-model=&quot;selectedTags&quot;</span><br><span class="line">      :options=&quot;tagOptions&quot;</span><br><span class="line">      placeholder=&quot;请选择标签&quot;</span><br><span class="line">      multiple</span><br><span class="line">      clearable</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      selectedCity: &#x27;&#x27;,</span><br><span class="line">      selectedTags: [],</span><br><span class="line">      cityOptions: [</span><br><span class="line">        &#123; value: &#x27;beijing&#x27;, label: &#x27;北京&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shanghai&#x27;, label: &#x27;上海&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;guangzhou&#x27;, label: &#x27;广州&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shenzhen&#x27;, label: &#x27;深圳&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      tagOptions: [</span><br><span class="line">        &#123; value: &#x27;vue&#x27;, label: &#x27;Vue.js&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;react&#x27;, label: &#x27;React&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;angular&#x27;, label: &#x27;Angular&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleCityChange(value) &#123;</span><br><span class="line">      console.log(&#x27;城市选择:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="8-组件通信">8. 组件通信</h2>
+<h3 id="Props-父传子">Props 父传子</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ParentComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ChildComponent </span><br><span class="line">    :message=&quot;parentMessage&quot;</span><br><span class="line">    :user=&quot;currentUser&quot;</span><br><span class="line">    :is-visible=&quot;showChild&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      parentMessage: &#x27;来自父组件的消息&#x27;,</span><br><span class="line">      currentUser: &#123; name: &#x27;张三&#x27;, age: 25 &#125;,</span><br><span class="line">      showChild: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ChildComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div v-if=&quot;isVisible&quot;&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;用户名: &#123;&#123; user.name &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    message: String,</span><br><span class="line">    user: Object,</span><br><span class="line">    isVisible: Boolean</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Emit-子传父">Emit 子传父</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ChildComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;handleClick&quot;&gt;点击我&lt;/button&gt;</span><br><span class="line">  &lt;input v-model=&quot;inputValue&quot; @input=&quot;handleInput&quot; /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      inputValue: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">      this.$emit(&#x27;click&#x27;, &#x27;按钮被点击了&#x27;)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleInput() &#123;</span><br><span class="line">      this.$emit(&#x27;input&#x27;, this.inputValue)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ParentComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ChildComponent </span><br><span class="line">    @click=&quot;handleChildClick&quot;</span><br><span class="line">    @input=&quot;handleChildInput&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleChildClick(message) &#123;</span><br><span class="line">      console.log(&#x27;收到:&#x27;, message)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleChildInput(value) &#123;</span><br><span class="line">      console.log(&#x27;输入:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Provide-Inject">Provide/Inject</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- AncestorComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;DescendantComponent /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  provide() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      theme: this.theme,</span><br><span class="line">      updateTheme: this.updateTheme</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      theme: &#x27;dark&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    updateTheme(newTheme) &#123;</span><br><span class="line">      this.theme = newTheme</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- DescendantComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div :class=&quot;theme&quot;&gt;</span><br><span class="line">    &lt;button @click=&quot;updateTheme(&#x27;light&#x27;)&quot;&gt;</span><br><span class="line">      切换到亮色主题</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  inject: [&#x27;theme&#x27;, &#x27;updateTheme&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Web/" rel="tag"><i class="fa fa-tag"></i> Web</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/28/linux/linux%E4%BF%A1%E5%8F%B7/" rel="prev" title="Linux 信号">
+      <i class="fa fa-chevron-left"></i> Linux 信号
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/09/09/C++/pybind11%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="next" title="PyBind11使用指北">
+      PyBind11使用指北 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Vue.js 基本组件属性与方法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Button-%E6%8C%89%E9%92%AE"><span class="nav-number">1.2.</span> <span class="nav-text">1. Button 按钮</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Input-%E8%BE%93%E5%85%A5%E6%A1%86"><span class="nav-number">1.3.</span> <span class="nav-text">2. Input 输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Form-%E8%A1%A8%E5%8D%95"><span class="nav-number">1.4.</span> <span class="nav-text">3. Form 表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-3"><span class="nav-number">1.4.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.4.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Table-%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.5.</span> <span class="nav-text">4. Table 表格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-4"><span class="nav-number">1.5.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">1.5.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Checkbox-%E5%A4%8D%E9%80%89%E6%A1%86"><span class="nav-number">1.6.</span> <span class="nav-text">5. Checkbox 复选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-5"><span class="nav-number">1.6.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-5"><span class="nav-number">1.6.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Radio-%E5%8D%95%E9%80%89%E6%A1%86"><span class="nav-number">1.7.</span> <span class="nav-text">6. Radio 单选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-6"><span class="nav-number">1.7.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-6"><span class="nav-number">1.7.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-6"><span class="nav-number">1.7.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-6"><span class="nav-number">1.7.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Select-%E4%B8%8B%E6%8B%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">7. Select 下拉选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-7"><span class="nav-number">1.8.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-7"><span class="nav-number">1.8.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-7"><span class="nav-number">1.8.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-7"><span class="nav-number">1.8.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1"><span class="nav-number">1.9.</span> <span class="nav-text">8. 组件通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Props-%E7%88%B6%E4%BC%A0%E5%AD%90"><span class="nav-number">1.9.1.</span> <span class="nav-text">Props 父传子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Emit-%E5%AD%90%E4%BC%A0%E7%88%B6"><span class="nav-number">1.9.2.</span> <span class="nav-text">Emit 子传父</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Provide-Inject"><span class="nav-number">1.9.3.</span> <span class="nav-text">Provide&#x2F;Inject</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChangWang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChangWang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">549k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'mengchangwang.github.io',
+      owner       : 'MengChangWang',
+      admin       : ['MengChangWang'],
+      id          : '49c4fec61db1a36ce72881f57b8d96bd',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"db.json"};
+  </script>
+
+  <meta name="description" content="在看蒋炎炎老师的OS课后一段时间记录下的操作，记得当时实现了另一种作法，但未及时记录，现在也忘了怎么复刻😅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不从main开始执行C++程序">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/08/09/C++/%E5%A6%82%E4%BD%95%E8%AE%A9C++%E7%A8%8B%E5%BA%8F%E4%B8%8D%E4%BB%8Emain%E5%BC%80%E5%A7%8B%E6%89%A7%E8%A1%8C/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="在看蒋炎炎老师的OS课后一段时间记录下的操作，记得当时实现了另一种作法，但未及时记录，现在也忘了怎么复刻😅">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-09T04:40:28.000Z">
+<meta property="article:modified_time" content="2025-10-19T09:56:36.007Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/08/09/C++/%E5%A6%82%E4%BD%95%E8%AE%A9C++%E7%A8%8B%E5%BA%8F%E4%B8%8D%E4%BB%8Emain%E5%BC%80%E5%A7%8B%E6%89%A7%E8%A1%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>不从main开始执行C++程序 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/08/09/C++/%E5%A6%82%E4%BD%95%E8%AE%A9C++%E7%A8%8B%E5%BA%8F%E4%B8%8D%E4%BB%8Emain%E5%BC%80%E5%A7%8B%E6%89%A7%E8%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          不从main开始执行C++程序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-09 12:40:28" itemprop="dateCreated datePublished" datetime="2025-08-09T12:40:28+08:00">2025-08-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-19 17:56:36" itemprop="dateModified" datetime="2025-10-19T17:56:36+08:00">2025-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>在看蒋炎炎老师的OS课后一段时间记录下的操作，记得当时实现了另一种作法，但未及时记录，现在也忘了怎么复刻😅</p>
+</blockquote>
+<span id="more"></span>
+<h1>如何让C/C++程序不从main开始执行</h1>
+<h3 id="一、核心操作步骤（以-GCC-G-为例）">一、核心操作步骤（以 GCC/G++ 为例）</h3>
+<p>以<code>test.cpp</code>为例，代码需手动定义<code>_start</code>（汇编级入口，需处理系统调用），而非<code>main</code>。</p>
+<h4 id="1-编写示例代码">1. 编写示例代码</h4>
+<p><code>_start</code>是 Linux 内核规定的程序入口（ELF 文件格式定义），需用汇编或内嵌汇编实现系统调用（如<code>exit</code>），否则程序会崩溃。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test.cpp</span></span><br><span class="line"><span class="type">void</span> _start() &#123;</span><br><span class="line">    <span class="comment">// 内嵌汇编：调用Linux系统调用 exit(0)，避免程序异常退出</span></span><br><span class="line">    <span class="function"><span class="keyword">asm</span> <span class="title">volatile</span> <span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="string">&quot;mov $60, %rax;&quot;</span>  <span class="comment">// 系统调用号：60对应exit</span></span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="string">&quot;mov $0, %rdi;&quot;</span>   <span class="comment">// 退出码：0（成功）</span></span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="string">&quot;syscall;&quot;</span>        <span class="comment">// 触发系统调用</span></span></span></span><br><span class="line"><span class="params"><span class="function">    )</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-编译与链接参数">2. 编译与链接参数</h4>
+<p>关键参数用于<strong>禁用自动链接的初始化代码</strong>和<strong>指定入口点</strong>，分两步执行或合并为一条命令：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>分步执行</strong>：</p>
+<ol>
+<li class="lvl-5">编译为目标文件（仅编译，不链接）：<code>g++ -c test.cpp -o test.o</code></li>
+<li class="lvl-5">链接为可执行文件（禁用 libc 和 crt0）：<code>ld -o test test.o -nostdlib -e _start</code></li>
+</ol>
+</li>
+<li class="lvl-2">
+<p><strong>合并执行</strong>（更简洁）：<br>
+<mark>g++ -o test test.cpp -nostdlib -e _start</mark></p>
+</li>
+<li class="lvl-2">
+<p>g++ test.cpp -nostartfiles -nostdlib -static -o test</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-nostdlib</code></td>
+<td>不链接 C 标准库（libc）和运行时初始化代码（crt0、crtbegin 等），这是核心</td>
+</tr>
+<tr>
+<td><code>-e _start</code></td>
+<td>显式指定程序入口点为<code>_start</code>（默认入口由 crt0 定义，最终调用<code>main</code>）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二、必须注意的-3-个关键点">二、必须注意的 3 个关键点</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>不能使用任何 C++/C 标准库功能</strong><br>
+由于<code>-nostdlib</code>禁用了 libc，<code>cout</code>、<code>printf</code>、<code>new</code>、<code>malloc</code>、<code>string</code>等所有依赖标准库的代码都会编译失败，甚至<code>return</code>语句也无效（需手动调用系统调用退出）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>必须手动处理程序退出</strong><br>
+内核要求程序通过系统调用（如<code>exit</code>）终止，若<code>_start</code>执行完直接返回，会触发内核异常（段错误）。示例中通过内嵌汇编调用<code>exit(0)</code>，是唯一正确的退出方式。</p>
+</li>
+<li class="lvl-3">
+<p><strong>C++ 的 “高级特性” 失效</strong><br>
+没有运行时初始化代码（crt0），C++ 的全局对象构造 / 析构、虚函数表初始化、异常处理（<code>try/catch</code>）等功能全部无法工作，代码本质退化为 “用 C++ 语法写的汇编级程序”。</p>
+</li>
+</ol>
+<h3 id="三、背后的底层原理">三、背后的底层原理</h3>
+<p>核心是<strong>揭开 “main 函数是入口” 的假象</strong>，理解程序从内核加载到执行<code>main</code>的完整链路：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>内核加载程序时的入口是<code>_start</code></strong><br>
+Linux 下可执行文件为 ELF 格式，ELF 头中会记录 “程序入口地址”。默认情况下，链接器会将入口地址设为<code>crt0.o</code>（C 运行时初始化文件）中的<code>_start</code>符号，这是内核执行的第一个函数，而非<code>main</code>。</p>
+</li>
+<li class="lvl-3">
+<p><strong><code>main</code>是被<code>crt0</code>调用的 “用户级入口”</strong><br>
+默认流程（未禁用<span style="font-size:20px"> <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> </span>时）：<code>内核加载→执行crt0的_start→初始化libc（堆、全局变量、I/O等）→调用main→main返回后调用exit→程序终止</code><br>
+可见，<code>main</code>是 crt0 为用户代码提供的 “封装入口”，而非内核直接调用的入口。</p>
+</li>
+<li class="lvl-3">
+<p><strong><code>-nostdlib</code>和<code>-e _start</code>的本质</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>-nostdlib</code>去掉了 crt0 这个 “中间层”，让程序直接对接内核；</li>
+<li class="lvl-5"><code>-e _start</code>告诉链接器：“不用 crt0 的_start 了，用我自己定义的_start 作为 ELF 入口”。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>这种操作的本质是<strong>跳过 C/C++ 运行时的封装，直接与操作系统内核交互</strong>，它暴露了程序执行的底层真相：<strong>内核只认 ELF 头指定的入口（默认<code>_start</code>），<code>main</code>只是运行时库为开发者提供的便捷接口</strong></p>
+</blockquote>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><code>crt0</code>（C Runtime Zero）是<strong>C/C++ 程序运行时的 “初始化启动代码”</strong>，是连接操作系统内核与用户代码（如<code>main</code>函数）的关键中间层，默认由编译器工具链（如 GCC）自动链接，开发者通常感知不到它的存在。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/07/C++/CMake%E6%93%8D%E4%BD%9C/" rel="prev" title="CMake用法">
+      <i class="fa fa-chevron-left"></i> CMake用法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/11/linux/%E5%B9%B6%E5%8F%91%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="next" title="事件处理模式">
+      事件处理模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">如何让C&#x2F;C++程序不从main开始执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4%EF%BC%88%E4%BB%A5-GCC-G-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、核心操作步骤（以 GCC&#x2F;G++ 为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BC%96%E5%86%99%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 编写示例代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91%E4%B8%8E%E9%93%BE%E6%8E%A5%E5%8F%82%E6%95%B0"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 编译与链接参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%BF%85%E9%A1%BB%E6%B3%A8%E6%84%8F%E7%9A%84-3-%E4%B8%AA%E5%85%B3%E9%94%AE%E7%82%B9"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、必须注意的 3 个关键点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%83%8C%E5%90%8E%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、背后的底层原理</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChangWang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChangWang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">549k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'mengchangwang.github.io',
+      owner       : 'MengChangWang',
+      admin       : ['MengChangWang'],
+      id          : 'dd682129910b435d4c481e3c69b1ab9f',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
