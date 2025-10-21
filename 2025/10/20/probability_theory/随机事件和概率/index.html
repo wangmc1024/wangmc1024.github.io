@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="概率论；第一章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机事件和概率">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/10/20/probability_theory/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%92%8C%E6%A6%82%E7%8E%87/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="概率论；第一章">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-20T13:48:34.000Z">
+<meta property="article:modified_time" content="2025-10-21T13:13:17.918Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="概率论">
+<meta property="article:tag" content="考研">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/10/20/probability_theory/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%92%8C%E6%A6%82%E7%8E%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>随机事件和概率 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/20/probability_theory/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%92%8C%E6%A6%82%E7%8E%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          随机事件和概率
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-10-20 21:48:34" itemprop="dateCreated datePublished" datetime="2025-10-20T21:48:34+08:00">2025-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-21 21:13:17" itemprop="dateModified" datetime="2025-10-21T21:13:17+08:00">2025-10-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>概率论；第一章</p>
+</blockquote>
+<span id="more"></span>
+<h1>随机事件和概率 知识点总结</h1>
+<h2 id="1-随机事件与样本空间">1. 随机事件与样本空间</h2>
+<h3 id="1-1-基本概念">1.1 基本概念</h3>
+<p><strong>随机试验（E）</strong>：满足以下三个条件的试验：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>可以在相同条件下重复进行</p>
+</li>
+<li class="lvl-2">
+<p>每次试验的可能结果不止一个，但能事先明确所有可能结果</p>
+</li>
+<li class="lvl-2">
+<p>进行一次试验之前不能确定哪一个结果会出现</p>
+</li>
+</ul>
+<p><strong>样本空间（Ω）</strong>：随机试验所有可能结果组成的集合</p>
+<p><strong>样本点（ω）</strong>：样本空间中的每个元素，即随机试验的每个可能结果</p>
+<p><strong>随机事件（A, B, C, …）</strong>：样本空间的子集，即由若干个样本点组成的集合</p>
+<h3 id="1-2-事件的分类">1.2 事件的分类</h3>
+<p><strong>基本事件</strong>：由一个样本点组成的单点集</p>
+<p><strong>复合事件</strong>：由多个样本点组成的集合</p>
+<p><strong>必然事件</strong>：样本空间 Ω 本身，每次试验一定发生，记为 Ω</p>
+<p><strong>不可能事件</strong>：空集∅，每次试验一定不发生，记为∅</p>
+<h2 id="2-事件的关系与运算">2. 事件的关系与运算</h2>
+<h3 id="2-1-事件的关系">2.1 事件的关系</h3>
+<h4 id="包含关系">包含关系</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：若事件 A 发生必然导致事件 B 发生，则称 A 包含于 B，记为 A ⊂ B</p>
+</li>
+<li class="lvl-2">
+<p><strong>性质</strong>：</p>
+</li>
+<li class="lvl-2">
+<p>A ⊂ Ω</p>
+</li>
+<li class="lvl-2">
+<p>∅ ⊂ A</p>
+</li>
+<li class="lvl-2">
+<p>若 A ⊂ B 且 B ⊂ A，则 A = B</p>
+</li>
+</ul>
+<h4 id="相等关系">相等关系</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：若 A ⊂ B 且 B ⊂ A，则称 A 与 B 相等，记为 A = B</p>
+</li>
+</ul>
+<h4 id="互斥关系（互不相容）">互斥关系（互不相容）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：若事件 A 与 B 不能同时发生，即 A ∩ B = ∅，则称 A 与 B 互斥</p>
+</li>
+<li class="lvl-2">
+<p><strong>注意</strong>：互斥事件不一定是对立事件</p>
+</li>
+</ul>
+<h4 id="对立关系（互逆）">对立关系（互逆）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：若 A ∩ B = ∅且 A ∪ B = Ω，则称 A 与 B 互为对立事件，记为 B = (\overline{A})</p>
+</li>
+<li class="lvl-2">
+<p><strong>性质</strong>：</p>
+</li>
+<li class="lvl-2">
+<p>(\overline{\overline{A}} = A)</p>
+</li>
+<li class="lvl-2">
+<p>A 与(\overline{A})必互斥</p>
+</li>
+<li class="lvl-2">
+<p>P(A) + P((\overline{A})) = 1</p>
+</li>
+</ul>
+<h3 id="2-2-事件的运算">2.2 事件的运算</h3>
+<h4 id="并集（和事件）">并集（和事件）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：事件 A 与 B 至少有一个发生，记为 A ∪ B 或 A + B</p>
+</li>
+<li class="lvl-2">
+<p><strong>性质</strong>：</p>
+</li>
+<li class="lvl-2">
+<p>A ∪ A = A</p>
+</li>
+<li class="lvl-2">
+<p>A ∪ Ω = Ω</p>
+</li>
+<li class="lvl-2">
+<p>A ∪ ∅ = A</p>
+</li>
+<li class="lvl-2">
+<p>若 A ⊂ B，则 A ∪ B = B</p>
+</li>
+</ul>
+<h4 id="交集（积事件）">交集（积事件）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：事件 A 与 B 同时发生，记为 A ∩ B 或 AB</p>
+</li>
+<li class="lvl-2">
+<p><strong>性质</strong>：</p>
+</li>
+<li class="lvl-2">
+<p>A ∩ A = A</p>
+</li>
+<li class="lvl-2">
+<p>A ∩ Ω = A</p>
+</li>
+<li class="lvl-2">
+<p>A ∩ ∅ = ∅</p>
+</li>
+<li class="lvl-2">
+<p>若 A ⊂ B，则 A ∩ B = A</p>
+</li>
+</ul>
+<h4 id="差集">差集</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：事件 A 发生而 B 不发生，记为 A - B</p>
+</li>
+<li class="lvl-2">
+<p><strong>等价关系</strong>：A - B = A(\overline{B}) = A - AB</p>
+</li>
+</ul>
+<h4 id="对称差">对称差</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：事件 A 与 B 恰好有一个发生，记为 A Δ B</p>
+</li>
+<li class="lvl-2">
+<p><strong>等价关系</strong>：A Δ B = (A - B) ∪ (B - A) = (A ∪ B) - (A ∩ B)</p>
+</li>
+</ul>
+<h3 id="2-3-运算律">2.3 运算律</h3>
+<h4 id="交换律">交换律</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A ∪ B = B ∪ A</p>
+</li>
+<li class="lvl-2">
+<p>A ∩ B = B ∩ A</p>
+</li>
+</ul>
+<h4 id="结合律">结合律</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(A ∪ B) ∪ C = A ∪ (B ∪ C)</p>
+</li>
+<li class="lvl-2">
+<p>(A ∩ B) ∩ C = A ∩ (B ∩ C)</p>
+</li>
+</ul>
+<h4 id="分配律">分配律</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</p>
+</li>
+<li class="lvl-2">
+<p>A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</p>
+</li>
+</ul>
+<h4 id="对偶律（德摩根律）">对偶律（德摩根律）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(\overline{A ∪ B} = \overline{A} ∩ \overline{B})</p>
+</li>
+<li class="lvl-2">
+<p>(\overline{A ∩ B} = \overline{A} ∪ \overline{B})</p>
+</li>
+<li class="lvl-2">
+<p><strong>推广</strong>：(\overline{\bigcup_{i=1}^{n} A_i} = \bigcap_{i=1}^{n} \overline{A_i})，(\overline{\bigcap_{i=1}^{n} A_i} = \bigcup_{i=1}^{n} \overline{A_i})</p>
+</li>
+</ul>
+<h2 id="3-概率的定义与性质">3. 概率的定义与性质</h2>
+<h3 id="3-1-概率的公理化定义">3.1 概率的公理化定义</h3>
+<p>设 E 是随机试验，Ω 是样本空间，对于 E 的每个事件 A，赋予一个实数 P (A)，满足：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>非负性</strong>：P(A) ≥ 0</p>
+</li>
+<li class="lvl-3">
+<p><strong>规范性</strong>：P(Ω) = 1</p>
+</li>
+<li class="lvl-3">
+<p><strong>可列可加性</strong>：对于两两互斥的事件 A₁, A₂, …，有</p>
+</li>
+</ol>
+<p>(P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i))</p>
+<p>则称 P (A) 为事件 A 的概率。</p>
+<h3 id="3-2-概率的基本性质">3.2 概率的基本性质</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>不可能事件概率</strong>：P(∅) = 0</p>
+</li>
+<li class="lvl-3">
+<p><strong>有限可加性</strong>：若 A₁, A₂, …, Aₙ两两互斥，则</p>
+</li>
+</ol>
+<p>(P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i))</p>
+<ol>
+<li class="lvl-3">
+<p><strong>单调性</strong>：若 A ⊂ B，则 P (A) ≤ P (B)，且 P (B - A) = P (B) - P (A)</p>
+</li>
+<li class="lvl-3">
+<p><strong>加法公式</strong>：P(A ∪ B) = P(A) + P(B) - P(AB)</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>推广</strong>：P(A ∪ B ∪ C) = P(A) + P(B) + P© - P(AB) - P(AC) - P(BC) + P(ABC)</p>
+</li>
+</ul>
+<ol>
+<li class="lvl-3">
+<p><strong>减法公式</strong>：P(A - B) = P(A) - P(AB) = P(A(\overline{B}))</p>
+</li>
+<li class="lvl-3">
+<p><strong>对立事件概率</strong>：P((\overline{A})) = 1 - P(A)</p>
+</li>
+</ol>
+<h2 id="4-古典概型与几何概型">4. 古典概型与几何概型</h2>
+<h3 id="4-1-古典概型">4.1 古典概型</h3>
+<h4 id="定义">定义</h4>
+<p>满足以下两个条件的概率模型：</p>
+<ol>
+<li class="lvl-3">
+<p>样本空间中只有有限个基本事件</p>
+</li>
+<li class="lvl-3">
+<p>每个基本事件发生的可能性相等</p>
+</li>
+</ol>
+<h4 id="计算公式">计算公式</h4>
+<p>(P(A) = \frac{A包含的基本事件数}{基本事件总数} = \frac{m}{n})</p>
+<h4 id="适用场景">适用场景</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>摸球问题</p>
+</li>
+<li class="lvl-2">
+<p>分房问题</p>
+</li>
+<li class="lvl-2">
+<p>随机取数问题</p>
+</li>
+<li class="lvl-2">
+<p>排列组合问题</p>
+</li>
+</ul>
+<h4 id="典型例题">典型例题</h4>
+<p><strong>例 1</strong>：从 6 个圆中随机取出 2 个，已知相邻的圆都相切，求这 2 个圆不相切的概率。</p>
+<p><strong>解析</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>总取法：C₆² = 15 种</p>
+</li>
+<li class="lvl-2">
+<p>相切的情况：7 种（数切点个数）</p>
+</li>
+<li class="lvl-2">
+<p>不相切的概率：1 - 7/15 = 8/15</p>
+</li>
+</ul>
+<h3 id="4-2-几何概型">4.2 几何概型</h3>
+<h4 id="定义-2">定义</h4>
+<p>满足以下两个条件的概率模型：</p>
+<ol>
+<li class="lvl-3">
+<p>样本空间是一个几何区域（长度、面积、体积等）</p>
+</li>
+<li class="lvl-3">
+<p>每个基本事件的发生与区域的几何度量成正比</p>
+</li>
+</ol>
+<h4 id="计算公式-2">计算公式</h4>
+<p>(P(A) = \frac{A的几何度量}{Ω的几何度量})</p>
+<h4 id="适用场景-2">适用场景</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>会面问题</p>
+</li>
+<li class="lvl-2">
+<p>蒲丰投针问题</p>
+</li>
+<li class="lvl-2">
+<p>随机变量取值问题</p>
+</li>
+</ul>
+<h4 id="典型例题-2">典型例题</h4>
+<p><strong>例 2</strong>：甲乙两人约定在 6 点到 7 点之间会面，先到者等候 15 分钟，过时即离去。求两人能会面的概率。</p>
+<p><strong>解析</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>设甲到达时间为 x，乙到达时间为 y</p>
+</li>
+<li class="lvl-2">
+<p>样本空间：Ω = {(x,y)|6 ≤ x ≤ 7, 6 ≤ y ≤ 7}</p>
+</li>
+<li class="lvl-2">
+<p>会面条件：|x - y| ≤ 1/4</p>
+</li>
+<li class="lvl-2">
+<p>概率：P = 1 - 2×(3/4×3/4)/2 = 7/16</p>
+</li>
+</ul>
+<h2 id="5-条件概率与五大公式">5. 条件概率与五大公式</h2>
+<h3 id="5-1-条件概率">5.1 条件概率</h3>
+<h4 id="定义-3">定义</h4>
+<p>设 A, B 是两个事件，且 P (B) &gt; 0，则在事件 B 发生的条件下事件 A 发生的概率为：</p>
+<p>(P(A|B) = \frac{P(AB)}{P(B)})</p>
+<h4 id="性质">性质</h4>
+<ol>
+<li class="lvl-3">
+<p>P(A|Ω) = P(A)</p>
+</li>
+<li class="lvl-3">
+<p>若 A ⊂ B，则 P (A|B) = P (A)/P (B)</p>
+</li>
+<li class="lvl-3">
+<p>若 A 与 B 互斥，则 P (A|B) = 0</p>
+</li>
+<li class="lvl-3">
+<p>P((\overline{A} )|B) = 1 - P(A|B)</p>
+</li>
+</ol>
+<h3 id="5-2-乘法公式">5.2 乘法公式</h3>
+<p>(P(AB) = P(A|B)P(B) = P(B|A)P(A))</p>
+<p><strong>推广</strong>：</p>
+<p>(P(A_1A_2…A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1A_2)…P(A_n|A_1A_2…A_{n-1}))</p>
+<h3 id="5-3-全概率公式">5.3 全概率公式</h3>
+<h4 id="完备事件组">完备事件组</h4>
+<p>设 B₁, B₂, …, Bₙ是样本空间 Ω 的一个划分，即：</p>
+<ol>
+<li class="lvl-3">
+<p>Bᵢ ∩ Bⱼ = ∅ (i ≠ j)</p>
+</li>
+<li class="lvl-3">
+<p>(\bigcup_{i=1}^{n} B_i = Ω)</p>
+</li>
+<li class="lvl-3">
+<p>P(Bᵢ) &gt; 0 (i = 1,2,…,n)</p>
+</li>
+</ol>
+<h4 id="全概率公式">全概率公式</h4>
+<p>(P(A) = \sum_{i=1}^{n} P(A|B_i)P(B_i))</p>
+<h4 id="典型例题-3">典型例题</h4>
+<p><strong>例 3</strong>：三个箱子，第一个箱子有 4 黑 1 白，第二个有 3 黑 3 白，第三个有 3 黑 5 白。随机取一个箱子，再取一个球，求取得白球的概率。</p>
+<p><strong>解析</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>P(A₁) = P(A₂) = P(A₃) = 1/3</p>
+</li>
+<li class="lvl-2">
+<p>P(B|A₁) = 1/5，P(B|A₂) = 3/6 = 1/2，P(B|A₃) = 5/8</p>
+</li>
+<li class="lvl-2">
+<p>P(B) = (1/3)(1/5) + (1/3)(1/2) + (1/3)(5/8) = 53/120</p>
+</li>
+</ul>
+<h3 id="5-4-贝叶斯公式">5.4 贝叶斯公式</h3>
+<p>(P(B_i|A) = \frac{P(A|B_i)P(B_i)}{\sum_{j=1}^{n} P(A|B_j)P(B_j)})</p>
+<h4 id="意义">意义</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>先验概率：P (Bᵢ)</p>
+</li>
+<li class="lvl-2">
+<p>后验概率：P (Bᵢ|A)</p>
+</li>
+<li class="lvl-2">
+<p>用于由果溯因的推断</p>
+</li>
+</ul>
+<h4 id="典型例题-4">典型例题</h4>
+<p><strong>例 4</strong>：某种疾病的发病率为 0.001，诊断试验的准确率为 0.95（患病者 95% 呈阳性，健康者 95% 呈阴性）。若某人试验呈阳性，求其实际患病的概率。</p>
+<p><strong>解析</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>P© = 0.001，P((\overline{C} )) = 0.999</p>
+</li>
+<li class="lvl-2">
+<p>P(A|C) = 0.95，P(A|(\overline{C})) = 0.05</p>
+</li>
+<li class="lvl-2">
+<p>P(C|A) = (0.95×0.001)/(0.95×0.001 + 0.05×0.999) ≈ 0.0187</p>
+</li>
+</ul>
+<h2 id="6-事件的独立性">6. 事件的独立性</h2>
+<h3 id="6-1-两个事件的独立性">6.1 两个事件的独立性</h3>
+<h4 id="定义-4">定义</h4>
+<p>若 P (AB) = P (A) P (B)，则称事件 A 与 B 相互独立。</p>
+<h4 id="等价定义">等价定义</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>P(A|B) = P(A) (P(B) &gt; 0)</p>
+</li>
+<li class="lvl-2">
+<p>P(B|A) = P(B) (P(A) &gt; 0)</p>
+</li>
+</ul>
+<h4 id="性质-2">性质</h4>
+<ol>
+<li class="lvl-3">
+<p>若 A 与 B 独立，则 A 与(\overline{B})，(\overline{A})与 B，(\overline{A})与(\overline{B})也相互独立</p>
+</li>
+<li class="lvl-3">
+<p>若 P (A) = 0 或 P (A) = 1，则 A 与任意事件独立</p>
+</li>
+<li class="lvl-3">
+<p>独立性与互斥性的关系：</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若 P (A) &gt; 0，P (B) &gt; 0，则 A 与 B 独立和互斥不能同时成立</p>
+</li>
+<li class="lvl-2">
+<p>若 A 与 B 既独立又互斥，则 P (A) = 0 或 P (B) = 0</p>
+</li>
+</ul>
+<ol start="4">
+<li class="lvl-3">
+<p>(P(B|\overline{A}) + P(\overline{B}|\overline{A}) = 1 ) 则A和B独立</p>
+</li>
+</ol>
+<h3 id="6-2-多个事件的独立性">6.2 多个事件的独立性</h3>
+<h4 id="三个事件的独立性">三个事件的独立性</h4>
+<p>A, B, C 相互独立需要满足：</p>
+<ol>
+<li class="lvl-3">
+<p>P(AB) = P(A)P(B)</p>
+</li>
+<li class="lvl-3">
+<p>P(AC) = P(A)P©</p>
+</li>
+<li class="lvl-3">
+<p>P(BC) = P(B)P©</p>
+</li>
+<li class="lvl-3">
+<p>P(ABC) = P(A)P(B)P©</p>
+</li>
+</ol>
+<h4 id="性质-3">性质</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若 A, B, C 相互独立，则任意两个事件也相互独立（两两独立）</p>
+</li>
+<li class="lvl-2">
+<p>反之不成立，即两两独立不一定相互独立</p>
+</li>
+</ul>
+<h3 id="6-3-n-重伯努利试验">6.3 n 重伯努利试验</h3>
+<h4 id="定义-5">定义</h4>
+<p>满足以下条件的试验：</p>
+<ol>
+<li class="lvl-3">
+<p>每次试验只有两种可能结果：A 和(\overline{A})</p>
+</li>
+<li class="lvl-3">
+<p>每次试验中 P (A) = p，P ((\overline{A})) = 1-p</p>
+</li>
+<li class="lvl-3">
+<p>各次试验相互独立</p>
+</li>
+<li class="lvl-3">
+<p>共进行 n 次试验</p>
+</li>
+</ol>
+<h4 id="二项概率公式">二项概率公式</h4>
+<p>n 次试验中 A 恰好发生 k 次的概率：</p>
+<p>(P(X = k) = C_n^k p^k (1-p)^{n-k}, \quad k = 0,1,…,n)</p>
+<h4 id="典型例题-5">典型例题</h4>
+<p><strong>例 5</strong>：设每次试验成功的概率为 p，进行 3 次独立试验，在至少成功 1 次的条件下 3 次都成功的概率为 4/13，求 p。</p>
+<p><strong>解析</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>P (3 次都成功) = p³</p>
+</li>
+<li class="lvl-2">
+<p>P (至少 1 次成功) = 1 - (1-p)³</p>
+</li>
+<li class="lvl-2">
+<p>条件概率：p³ / [1 - (1-p)³] = 4/13</p>
+</li>
+<li class="lvl-2">
+<p>解得：p = 2/3</p>
+</li>
+</ul>
+<h2 id="7-数学一真题分析">7. 数学一真题分析</h2>
+<h3 id="7-1-历年真题考点分布">7.1 历年真题考点分布</h3>
+<h4 id="古典概型与几何概型">古典概型与几何概型</h4>
+<p><strong>2020 年数学一第 14 题</strong>：</p>
+<p>设随机事件 A 与 B 相互独立，A 与 C 相互独立，BC = ∅，若 P (A) = P (B) = 1/2，P (AC|AB ∪ C) = 1/4，则 P © = 1/4。</p>
+<h4 id="条件概率与五大公式">条件概率与五大公式</h4>
+<p><strong>2019 年数学一第 7 题</strong>：</p>
+<p>设随机事件 A，B 满足 P (A) = 1/3，P (B|A) = 1/6，则 P (AB) = 1/18。</p>
+<h4 id="事件的独立性">事件的独立性</h4>
+<p><strong>2018 年数学一第 14 题</strong>：</p>
+<p>设随机事件 A 与 B 相互独立，A 与 C 相互独立，BC = AB + AC，则 P (BC) = 1/4。</p>
+<h2 id="8-模拟训练">8 模拟训练</h2>
+<h4 id="基础训练题">基础训练题</h4>
+<ol>
+<li class="lvl-3">
+<p>设 A, B 为随机事件，P (A) = 0.5，P (B) = 0.6，P (B|A) = 0.8，求 P (A ∪ B)。</p>
+</li>
+<li class="lvl-3">
+<p>从 52 张扑克牌中随机抽取 5 张，求其中有 4 张 A 的概率。</p>
+</li>
+</ol>
+<h4 id="综合应用题">综合应用题</h4>
+<ol>
+<li class="lvl-3">
+<p>某工厂有三条生产线，合格率分别为 0.95, 0.9, 0.85，产量占比分别为 25%, 35%, 40%。现随机抽取一件产品，求：</p>
+</li>
+</ol>
+<p>(1) 该产品为合格品的概率；</p>
+<p>(2) 若该产品为合格品，求其来自第一条生产线的概率。</p>
+<p><strong>Date</strong>: 2025 年 10 月 19 日</p>
+<p><strong>Code</strong>: 考研数学一随机事件和概率知识点总结</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 概率论</a>
+              <a href="/tags/%E8%80%83%E7%A0%94/" rel="tag"><i class="fa fa-tag"></i> 考研</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/20/windows/windows%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/" rel="prev" title="windows批处理脚本相关概念">
+      <i class="fa fa-chevron-left"></i> windows批处理脚本相关概念
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/10/21/probability_theory/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/" rel="next" title="随机变量及其概率分布">
+      随机变量及其概率分布 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">随机事件和概率 知识点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A0%B7%E6%9C%AC%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">1. 随机事件与样本空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 事件的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%85%B3%E7%B3%BB%E4%B8%8E%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.</span> <span class="nav-text">2. 事件的关系与运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 事件的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">包含关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E7%AD%89%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">相等关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%85%B3%E7%B3%BB%EF%BC%88%E4%BA%92%E4%B8%8D%E7%9B%B8%E5%AE%B9%EF%BC%89"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">互斥关系（互不相容）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E7%AB%8B%E5%85%B3%E7%B3%BB%EF%BC%88%E4%BA%92%E9%80%86%EF%BC%89"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">对立关系（互逆）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 事件的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E9%9B%86%EF%BC%88%E5%92%8C%E4%BA%8B%E4%BB%B6%EF%BC%89"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">并集（和事件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E9%9B%86%EF%BC%88%E7%A7%AF%E4%BA%8B%E4%BB%B6%EF%BC%89"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">交集（积事件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%AE%E9%9B%86"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">差集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%B7%AE"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">对称差</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%BF%90%E7%AE%97%E5%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 运算律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">交换律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E5%BE%8B"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">结合律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E5%BE%8B"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">分配律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E5%BE%8B%EF%BC%88%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%BE%8B%EF%BC%89"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">对偶律（德摩根律）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%A6%82%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%80%A7%E8%B4%A8"><span class="nav-number">1.3.</span> <span class="nav-text">3. 概率的定义与性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A6%82%E7%8E%87%E7%9A%84%E5%85%AC%E7%90%86%E5%8C%96%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 概率的公理化定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%A6%82%E7%8E%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 概率的基本性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%8F%A4%E5%85%B8%E6%A6%82%E5%9E%8B%E4%B8%8E%E5%87%A0%E4%BD%95%E6%A6%82%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. 古典概型与几何概型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%8F%A4%E5%85%B8%E6%A6%82%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 古典概型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">计算公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%87%A0%E4%BD%95%E6%A6%82%E5%9E%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 几何概型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F-2"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">计算公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-2"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">典型例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E4%B8%8E%E4%BA%94%E5%A4%A7%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">5. 条件概率与五大公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 条件概率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E4%B9%98%E6%B3%95%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 乘法公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 全概率公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E5%A4%87%E4%BA%8B%E4%BB%B6%E7%BB%84"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">完备事件组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">全概率公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-3"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.4.</span> <span class="nav-text">5.4 贝叶斯公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%8F%E4%B9%89"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-4"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">典型例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.6.</span> <span class="nav-text">6. 事件的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E4%B8%A4%E4%B8%AA%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 两个事件的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%89%E4%BB%B7%E5%AE%9A%E4%B9%89"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">等价定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E5%A4%9A%E4%B8%AA%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 多个事件的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">三个事件的独立性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-n-%E9%87%8D%E4%BC%AF%E5%8A%AA%E5%88%A9%E8%AF%95%E9%AA%8C"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 n 重伯努利试验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%A1%B9%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">二项概率公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-5"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">典型例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%95%B0%E5%AD%A6%E4%B8%80%E7%9C%9F%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">7. 数学一真题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E5%8E%86%E5%B9%B4%E7%9C%9F%E9%A2%98%E8%80%83%E7%82%B9%E5%88%86%E5%B8%83"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 历年真题考点分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A4%E5%85%B8%E6%A6%82%E5%9E%8B%E4%B8%8E%E5%87%A0%E4%BD%95%E6%A6%82%E5%9E%8B"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">古典概型与几何概型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E4%B8%8E%E4%BA%94%E5%A4%A7%E5%85%AC%E5%BC%8F"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">条件概率与五大公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">事件的独立性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%A8%A1%E6%8B%9F%E8%AE%AD%E7%BB%83"><span class="nav-number">1.8.</span> <span class="nav-text">8 模拟训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%AD%E7%BB%83%E9%A2%98"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">基础训练题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8%E9%A2%98"><span class="nav-number">1.8.0.2.</span> <span class="nav-text">综合应用题</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">587k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '170f9d0f4694dcfcdec373b27ebfb100',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>
