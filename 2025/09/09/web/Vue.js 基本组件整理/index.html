@@ -242,38 +242,29 @@
 <p>如题，结合官方文档与网络帖子，利用AI整理</p>
 </blockquote>
 <span id="more"></span>
-<h1>Vue.js 基本组件属性与方法讲解</h1>
+<h1 id="vue.js-基本组件属性与方法讲解">Vue.js
+基本组件属性与方法讲解</h1>
 <h2 id="目录">目录</h2>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a href="#1-button-%E6%8C%89%E9%92%AE">1. Button 按钮</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#2-input-%E8%BE%93%E5%85%A5%E6%A1%86">2. Input 输入框</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#3-form-%E8%A1%A8%E5%8D%95">3. Form 表单</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#4-table-%E8%A1%A8%E6%A0%BC">4. Table 表格</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#5-checkbox-%E5%A4%8D%E9%80%89%E6%A1%86">5. Checkbox 复选框</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#6-radio-%E5%8D%95%E9%80%89%E6%A1%86">6. Radio 单选框</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#7-select-%E4%B8%8B%E6%8B%89%E9%80%89%E6%8B%A9%E5%99%A8">7. Select 下拉选择器</a></p>
-</li>
-<li class="lvl-2">
-<p><a href="#8-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1">8. 组件通信</a></p>
-</li>
+<ul>
+<li><a href="#1-button-按钮">1. Button 按钮</a></li>
+<li><a href="#2-input-输入框">2. Input 输入框</a></li>
+<li><a href="#3-form-表单">3. Form 表单</a></li>
+<li><a href="#4-table-表格">4. Table 表格</a></li>
+<li><a href="#5-checkbox-复选框">5. Checkbox 复选框</a></li>
+<li><a href="#6-radio-单选框">6. Radio 单选框</a></li>
+<li><a href="#7-select-下拉选择器">7. Select 下拉选择器</a></li>
+<li><a href="#8-组件通信">8. 组件通信</a></li>
 </ul>
-<hr>
-<h2 id="1-Button-按钮">1. Button 按钮</h2>
+<hr />
+<h2 id="button-按钮">1. Button 按钮</h2>
 <h3 id="主要属性">主要属性</h3>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 21%" />
+<col style="width: 28%" />
+<col style="width: 21%" />
+</colgroup>
 <thead>
 <tr>
 <th>属性名</th>
@@ -350,19 +341,15 @@
 </tbody>
 </table>
 <h3 id="事件">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>click</code>: 点击事件</p>
-</li>
-<li class="lvl-2">
-<p><code>submit</code>: 提交事件</p>
-</li>
+<ul>
+<li><code>click</code>: 点击事件</li>
+<li><code>submit</code>: 提交事件</li>
 </ul>
 <h3 id="使用示例">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseButton </span><br><span class="line">      variant=&quot;primary&quot;</span><br><span class="line">      size=&quot;large&quot;</span><br><span class="line">      :loading=&quot;isLoading&quot;</span><br><span class="line">      @click=&quot;handleClick&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      提交</span><br><span class="line">    &lt;/BaseButton&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseButton </span><br><span class="line">      variant=&quot;danger&quot;</span><br><span class="line">      :disabled=&quot;!canDelete&quot;</span><br><span class="line">      @click=&quot;handleDelete&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      删除</span><br><span class="line">    &lt;/BaseButton&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isLoading: false,</span><br><span class="line">      canDelete: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">      this.isLoading = true</span><br><span class="line">      // 处理逻辑</span><br><span class="line">      setTimeout(() =&gt; &#123;</span><br><span class="line">        this.isLoading = false</span><br><span class="line">      &#125;, 2000)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDelete() &#123;</span><br><span class="line">      if (confirm(&#x27;确定要删除吗？&#x27;)) &#123;</span><br><span class="line">        // 删除逻辑</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="2-Input-输入框">2. Input 输入框</h2>
-<h3 id="主要属性-2">主要属性</h3>
+<hr />
+<h2 id="input-输入框">2. Input 输入框</h2>
+<h3 id="主要属性-1">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -376,7 +363,7 @@
 <tr>
 <td><code>modelValue</code></td>
 <td>String/Number</td>
-<td>‘’</td>
+<td>’’</td>
 <td>绑定值（v-model）</td>
 </tr>
 <tr>
@@ -388,13 +375,13 @@
 <tr>
 <td><code>label</code></td>
 <td>String</td>
-<td>‘’</td>
+<td>’’</td>
 <td>标签文本</td>
 </tr>
 <tr>
 <td><code>placeholder</code></td>
 <td>String</td>
-<td>‘’</td>
+<td>’’</td>
 <td>占位文本</td>
 </tr>
 <tr>
@@ -436,12 +423,12 @@
 <tr>
 <td><code>errorMessage</code></td>
 <td>String</td>
-<td>‘’</td>
+<td>’’</td>
 <td>错误提示信息</td>
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-2">主要方法</h3>
+<h3 id="主要方法-1">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -473,26 +460,18 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-2">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>input</code>: 输入事件</p>
-</li>
-<li class="lvl-2">
-<p><code>focus</code>: 获得焦点事件</p>
-</li>
-<li class="lvl-2">
-<p><code>blur</code>: 失去焦点事件</p>
-</li>
-<li class="lvl-2">
-<p><code>validate</code>: 验证事件</p>
-</li>
+<h3 id="事件-1">事件</h3>
+<ul>
+<li><code>input</code>: 输入事件</li>
+<li><code>focus</code>: 获得焦点事件</li>
+<li><code>blur</code>: 失去焦点事件</li>
+<li><code>validate</code>: 验证事件</li>
 </ul>
-<h3 id="使用示例-2">使用示例</h3>
+<h3 id="使用示例-1">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;username&quot;</span><br><span class="line">      label=&quot;用户名&quot;</span><br><span class="line">      placeholder=&quot;请输入用户名&quot;</span><br><span class="line">      required</span><br><span class="line">      :pattern=&quot;/^[a-zA-Z0-9_]&#123;4,16&#125;$/&quot;</span><br><span class="line">      @validate=&quot;handleValidate&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;password&quot;</span><br><span class="line">      type=&quot;password&quot;</span><br><span class="line">      label=&quot;密码&quot;</span><br><span class="line">      placeholder=&quot;请输入密码&quot;</span><br><span class="line">      required</span><br><span class="line">      :errorMessage=&quot;passwordError&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      username: &#x27;&#x27;,</span><br><span class="line">      password: &#x27;&#x27;,</span><br><span class="line">      passwordError: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleValidate(isValid) &#123;</span><br><span class="line">      console.log(&#x27;用户名验证结果:&#x27;, isValid)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="3-Form-表单">3. Form 表单</h2>
-<h3 id="主要属性-3">主要属性</h3>
+<hr />
+<h2 id="form-表单">3. Form 表单</h2>
+<h3 id="主要属性-2">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -535,7 +514,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-3">主要方法</h3>
+<h3 id="主要方法-2">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -567,23 +546,17 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-3">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>submit</code>: 表单提交事件</p>
-</li>
-<li class="lvl-2">
-<p><code>reset</code>: 表单重置事件</p>
-</li>
-<li class="lvl-2">
-<p><code>invalid</code>: 表单验证失败事件</p>
-</li>
+<h3 id="事件-2">事件</h3>
+<ul>
+<li><code>submit</code>: 表单提交事件</li>
+<li><code>reset</code>: 表单重置事件</li>
+<li><code>invalid</code>: 表单验证失败事件</li>
 </ul>
-<h3 id="使用示例-3">使用示例</h3>
+<h3 id="使用示例-2">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;BaseForm</span><br><span class="line">    :model=&quot;form&quot;</span><br><span class="line">    :rules=&quot;rules&quot;</span><br><span class="line">    @submit=&quot;handleSubmit&quot;</span><br><span class="line">    @invalid=&quot;handleInvalid&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;form.username&quot;</span><br><span class="line">      label=&quot;用户名&quot;</span><br><span class="line">      placeholder=&quot;请输入用户名&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseInput</span><br><span class="line">      v-model=&quot;form.email&quot;</span><br><span class="line">      type=&quot;email&quot;</span><br><span class="line">      label=&quot;邮箱&quot;</span><br><span class="line">      placeholder=&quot;请输入邮箱&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;template #actions&gt;</span><br><span class="line">      &lt;BaseButton type=&quot;primary&quot; @click=&quot;$parent.handleSubmit&quot;&gt;</span><br><span class="line">        提交</span><br><span class="line">      &lt;/BaseButton&gt;</span><br><span class="line">      &lt;BaseButton type=&quot;secondary&quot; @click=&quot;$parent.handleReset&quot;&gt;</span><br><span class="line">        重置</span><br><span class="line">      &lt;/BaseButton&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/BaseForm&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      form: &#123;</span><br><span class="line">        username: &#x27;&#x27;,</span><br><span class="line">        email: &#x27;&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      rules: &#123;</span><br><span class="line">        username: &#123;</span><br><span class="line">          required: true,</span><br><span class="line">          message: &#x27;请输入用户名&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        email: &#123;</span><br><span class="line">          required: true,</span><br><span class="line">          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,</span><br><span class="line">          message: &#x27;请输入正确的邮箱格式&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleSubmit(formData) &#123;</span><br><span class="line">      console.log(&#x27;表单提交:&#x27;, formData)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleInvalid(errors) &#123;</span><br><span class="line">      console.log(&#x27;表单验证失败:&#x27;, errors)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="4-Table-表格">4. Table 表格</h2>
-<h3 id="主要属性-4">主要属性</h3>
+<hr />
+<h2 id="table-表格">4. Table 表格</h2>
+<h3 id="主要属性-3">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -621,7 +594,7 @@
 <tr>
 <td><code>sortKey</code></td>
 <td>String</td>
-<td>‘’</td>
+<td>’’</td>
 <td>排序字段</td>
 </tr>
 <tr>
@@ -644,7 +617,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-4">主要方法</h3>
+<h3 id="主要方法-3">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -671,23 +644,17 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-4">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>sort</code>: 排序事件</p>
-</li>
-<li class="lvl-2">
-<p><code>selection-change</code>: 选择变化事件</p>
-</li>
-<li class="lvl-2">
-<p><code>row-click</code>: 行点击事件</p>
-</li>
+<h3 id="事件-3">事件</h3>
+<ul>
+<li><code>sort</code>: 排序事件</li>
+<li><code>selection-change</code>: 选择变化事件</li>
+<li><code>row-click</code>: 行点击事件</li>
 </ul>
-<h3 id="使用示例-4">使用示例</h3>
+<h3 id="使用示例-3">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;BaseTable</span><br><span class="line">    :data=&quot;users&quot;</span><br><span class="line">    :columns=&quot;columns&quot;</span><br><span class="line">    :sort-key=&quot;sortKey&quot;</span><br><span class="line">    :sort-order=&quot;sortOrder&quot;</span><br><span class="line">    @sort=&quot;handleSort&quot;</span><br><span class="line">  &gt;</span><br><span class="line">    &lt;template #status=&quot;&#123; row &#125;&quot;&gt;</span><br><span class="line">      &lt;span :class=&quot;row.status === &#x27;active&#x27; ? &#x27;status-active&#x27; : &#x27;status-inactive&#x27;&quot;&gt;</span><br><span class="line">        &#123;&#123; row.status === &#x27;active&#x27; ? &#x27;启用&#x27; : &#x27;禁用&#x27; &#125;&#125;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;template #actions=&quot;&#123; row &#125;&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;action-buttons&quot;&gt;</span><br><span class="line">        &lt;button @click=&quot;handleEdit(row)&quot;&gt;编辑&lt;/button&gt;</span><br><span class="line">        &lt;button @click=&quot;handleDelete(row)&quot;&gt;删除&lt;/button&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/BaseTable&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      users: [</span><br><span class="line">        &#123; id: 1, name: &#x27;张三&#x27;, email: &#x27;zhangsan@example.com&#x27;, status: &#x27;active&#x27; &#125;,</span><br><span class="line">        &#123; id: 2, name: &#x27;李四&#x27;, email: &#x27;lisi@example.com&#x27;, status: &#x27;inactive&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      columns: [</span><br><span class="line">        &#123; key: &#x27;name&#x27;, title: &#x27;姓名&#x27;, sortable: true &#125;,</span><br><span class="line">        &#123; key: &#x27;email&#x27;, title: &#x27;邮箱&#x27;, sortable: true &#125;,</span><br><span class="line">        &#123; key: &#x27;status&#x27;, title: &#x27;状态&#x27; &#125;,</span><br><span class="line">        &#123; key: &#x27;actions&#x27;, title: &#x27;操作&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      sortKey: &#x27;&#x27;,</span><br><span class="line">      sortOrder: &#x27;asc&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleSort(key, order) &#123;</span><br><span class="line">      this.sortKey = key</span><br><span class="line">      this.sortOrder = order</span><br><span class="line">      // 处理排序逻辑</span><br><span class="line">    &#125;,</span><br><span class="line">    handleEdit(row) &#123;</span><br><span class="line">      console.log(&#x27;编辑:&#x27;, row)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDelete(row) &#123;</span><br><span class="line">      console.log(&#x27;删除:&#x27;, row)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="5-Checkbox-复选框">5. Checkbox 复选框</h2>
-<h3 id="主要属性-5">主要属性</h3>
+<hr />
+<h2 id="checkbox-复选框">5. Checkbox 复选框</h2>
+<h3 id="主要属性-4">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -707,7 +674,7 @@
 <tr>
 <td><code>label</code></td>
 <td>String</td>
-<td>‘’</td>
+<td>’’</td>
 <td>标签文本</td>
 </tr>
 <tr>
@@ -730,7 +697,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-5">主要方法</h3>
+<h3 id="主要方法-4">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -747,17 +714,15 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-5">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>change</code>: 变化事件</p>
-</li>
+<h3 id="事件-4">事件</h3>
+<ul>
+<li><code>change</code>: 变化事件</li>
 </ul>
-<h3 id="使用示例-5">使用示例</h3>
+<h3 id="使用示例-4">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!-- 单个复选框 --&gt;</span><br><span class="line">    &lt;BaseCheckbox</span><br><span class="line">      v-model=&quot;agree&quot;</span><br><span class="line">      label=&quot;我同意用户协议&quot;</span><br><span class="line">      @change=&quot;handleAgreeChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 复选框组 --&gt;</span><br><span class="line">    &lt;div class=&quot;checkbox-group&quot;&gt;</span><br><span class="line">      &lt;BaseCheckbox</span><br><span class="line">        v-for=&quot;item in hobbies&quot;</span><br><span class="line">        :key=&quot;item.value&quot;</span><br><span class="line">        v-model=&quot;selectedHobbies&quot;</span><br><span class="line">        :label=&quot;item.label&quot;</span><br><span class="line">        :value=&quot;item.value&quot;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      agree: false,</span><br><span class="line">      selectedHobbies: [],</span><br><span class="line">      hobbies: [</span><br><span class="line">        &#123; value: &#x27;reading&#x27;, label: &#x27;阅读&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;sports&#x27;, label: &#x27;运动&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;music&#x27;, label: &#x27;音乐&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleAgreeChange(checked) &#123;</span><br><span class="line">      console.log(&#x27;同意状态:&#x27;, checked)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="6-Radio-单选框">6. Radio 单选框</h2>
-<h3 id="主要属性-6">主要属性</h3>
+<hr />
+<h2 id="radio-单选框">6. Radio 单选框</h2>
+<h3 id="主要属性-5">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -771,7 +736,7 @@
 <tr>
 <td><code>modelValue</code></td>
 <td>String/Number/Boolean</td>
-<td>‘’</td>
+<td>’’</td>
 <td>绑定值（v-model）</td>
 </tr>
 <tr>
@@ -794,7 +759,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-6">主要方法</h3>
+<h3 id="主要方法-5">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -811,17 +776,15 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-6">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>change</code>: 变化事件</p>
-</li>
+<h3 id="事件-5">事件</h3>
+<ul>
+<li><code>change</code>: 变化事件</li>
 </ul>
-<h3 id="使用示例-6">使用示例</h3>
+<h3 id="使用示例-5">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseRadio</span><br><span class="line">      v-model=&quot;gender&quot;</span><br><span class="line">      name=&quot;gender&quot;</span><br><span class="line">      :options=&quot;genderOptions&quot;</span><br><span class="line">      @change=&quot;handleGenderChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseRadio</span><br><span class="line">      v-model=&quot;city&quot;</span><br><span class="line">      name=&quot;city&quot;</span><br><span class="line">      :options=&quot;cityOptions&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      gender: &#x27;&#x27;,</span><br><span class="line">      city: &#x27;&#x27;,</span><br><span class="line">      genderOptions: [</span><br><span class="line">        &#123; value: &#x27;male&#x27;, label: &#x27;男&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;female&#x27;, label: &#x27;女&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      cityOptions: [</span><br><span class="line">        &#123; value: &#x27;beijing&#x27;, label: &#x27;北京&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shanghai&#x27;, label: &#x27;上海&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;guangzhou&#x27;, label: &#x27;广州&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleGenderChange(value) &#123;</span><br><span class="line">      console.log(&#x27;性别选择:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="7-Select-下拉选择器">7. Select 下拉选择器</h2>
-<h3 id="主要属性-7">主要属性</h3>
+<hr />
+<h2 id="select-下拉选择器">7. Select 下拉选择器</h2>
+<h3 id="主要属性-6">主要属性</h3>
 <table>
 <thead>
 <tr>
@@ -835,7 +798,7 @@
 <tr>
 <td><code>modelValue</code></td>
 <td>String/Number/Boolean</td>
-<td>‘’</td>
+<td>’’</td>
 <td>绑定值（v-model）</td>
 </tr>
 <tr>
@@ -882,7 +845,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="主要方法-7">主要方法</h3>
+<h3 id="主要方法-6">主要方法</h3>
 <table>
 <thead>
 <tr>
@@ -909,30 +872,22 @@
 </tr>
 </tbody>
 </table>
-<h3 id="事件-7">事件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>change</code>: 变化事件</p>
-</li>
-<li class="lvl-2">
-<p><code>open</code>: 下拉框打开事件</p>
-</li>
-<li class="lvl-2">
-<p><code>close</code>: 下拉框关闭事件</p>
-</li>
-<li class="lvl-2">
-<p><code>clear</code>: 清空事件</p>
-</li>
+<h3 id="事件-6">事件</h3>
+<ul>
+<li><code>change</code>: 变化事件</li>
+<li><code>open</code>: 下拉框打开事件</li>
+<li><code>close</code>: 下拉框关闭事件</li>
+<li><code>clear</code>: 清空事件</li>
 </ul>
-<h3 id="使用示例-7">使用示例</h3>
+<h3 id="使用示例-6">使用示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BaseSelect</span><br><span class="line">      v-model=&quot;selectedCity&quot;</span><br><span class="line">      :options=&quot;cityOptions&quot;</span><br><span class="line">      placeholder=&quot;请选择城市&quot;</span><br><span class="line">      filterable</span><br><span class="line">      @change=&quot;handleCityChange&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;BaseSelect</span><br><span class="line">      v-model=&quot;selectedTags&quot;</span><br><span class="line">      :options=&quot;tagOptions&quot;</span><br><span class="line">      placeholder=&quot;请选择标签&quot;</span><br><span class="line">      multiple</span><br><span class="line">      clearable</span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      selectedCity: &#x27;&#x27;,</span><br><span class="line">      selectedTags: [],</span><br><span class="line">      cityOptions: [</span><br><span class="line">        &#123; value: &#x27;beijing&#x27;, label: &#x27;北京&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shanghai&#x27;, label: &#x27;上海&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;guangzhou&#x27;, label: &#x27;广州&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;shenzhen&#x27;, label: &#x27;深圳&#x27; &#125;</span><br><span class="line">      ],</span><br><span class="line">      tagOptions: [</span><br><span class="line">        &#123; value: &#x27;vue&#x27;, label: &#x27;Vue.js&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;react&#x27;, label: &#x27;React&#x27; &#125;,</span><br><span class="line">        &#123; value: &#x27;angular&#x27;, label: &#x27;Angular&#x27; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleCityChange(value) &#123;</span><br><span class="line">      console.log(&#x27;城市选择:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="8-组件通信">8. 组件通信</h2>
-<h3 id="Props-父传子">Props 父传子</h3>
+<hr />
+<h2 id="组件通信">8. 组件通信</h2>
+<h3 id="props-父传子">Props 父传子</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ParentComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ChildComponent </span><br><span class="line">    :message=&quot;parentMessage&quot;</span><br><span class="line">    :user=&quot;currentUser&quot;</span><br><span class="line">    :is-visible=&quot;showChild&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      parentMessage: &#x27;来自父组件的消息&#x27;,</span><br><span class="line">      currentUser: &#123; name: &#x27;张三&#x27;, age: 25 &#125;,</span><br><span class="line">      showChild: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ChildComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div v-if=&quot;isVisible&quot;&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;用户名: &#123;&#123; user.name &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    message: String,</span><br><span class="line">    user: Object,</span><br><span class="line">    isVisible: Boolean</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Emit-子传父">Emit 子传父</h3>
+<h3 id="emit-子传父">Emit 子传父</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ChildComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;handleClick&quot;&gt;点击我&lt;/button&gt;</span><br><span class="line">  &lt;input v-model=&quot;inputValue&quot; @input=&quot;handleInput&quot; /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      inputValue: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">      this.$emit(&#x27;click&#x27;, &#x27;按钮被点击了&#x27;)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleInput() &#123;</span><br><span class="line">      this.$emit(&#x27;input&#x27;, this.inputValue)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ParentComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ChildComponent </span><br><span class="line">    @click=&quot;handleChildClick&quot;</span><br><span class="line">    @input=&quot;handleChildInput&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleChildClick(message) &#123;</span><br><span class="line">      console.log(&#x27;收到:&#x27;, message)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleChildInput(value) &#123;</span><br><span class="line">      console.log(&#x27;输入:&#x27;, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Provide-Inject">Provide/Inject</h3>
+<h3 id="provideinject">Provide/Inject</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- AncestorComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;DescendantComponent /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  provide() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      theme: this.theme,</span><br><span class="line">      updateTheme: this.updateTheme</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      theme: &#x27;dark&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    updateTheme(newTheme) &#123;</span><br><span class="line">      this.theme = newTheme</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- DescendantComponent.vue --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div :class=&quot;theme&quot;&gt;</span><br><span class="line">    &lt;button @click=&quot;updateTheme(&#x27;light&#x27;)&quot;&gt;</span><br><span class="line">      切换到亮色主题</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  inject: [&#x27;theme&#x27;, &#x27;updateTheme&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -1020,7 +975,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Vue.js 基本组件属性与方法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Button-%E6%8C%89%E9%92%AE"><span class="nav-number">1.2.</span> <span class="nav-text">1. Button 按钮</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Input-%E8%BE%93%E5%85%A5%E6%A1%86"><span class="nav-number">1.3.</span> <span class="nav-text">2. Input 输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Form-%E8%A1%A8%E5%8D%95"><span class="nav-number">1.4.</span> <span class="nav-text">3. Form 表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-3"><span class="nav-number">1.4.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.4.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Table-%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.5.</span> <span class="nav-text">4. Table 表格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-4"><span class="nav-number">1.5.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">1.5.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Checkbox-%E5%A4%8D%E9%80%89%E6%A1%86"><span class="nav-number">1.6.</span> <span class="nav-text">5. Checkbox 复选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-5"><span class="nav-number">1.6.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-5"><span class="nav-number">1.6.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Radio-%E5%8D%95%E9%80%89%E6%A1%86"><span class="nav-number">1.7.</span> <span class="nav-text">6. Radio 单选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-6"><span class="nav-number">1.7.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-6"><span class="nav-number">1.7.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-6"><span class="nav-number">1.7.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-6"><span class="nav-number">1.7.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Select-%E4%B8%8B%E6%8B%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">7. Select 下拉选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-7"><span class="nav-number">1.8.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-7"><span class="nav-number">1.8.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-7"><span class="nav-number">1.8.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-7"><span class="nav-number">1.8.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1"><span class="nav-number">1.9.</span> <span class="nav-text">8. 组件通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Props-%E7%88%B6%E4%BC%A0%E5%AD%90"><span class="nav-number">1.9.1.</span> <span class="nav-text">Props 父传子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Emit-%E5%AD%90%E4%BC%A0%E7%88%B6"><span class="nav-number">1.9.2.</span> <span class="nav-text">Emit 子传父</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Provide-Inject"><span class="nav-number">1.9.3.</span> <span class="nav-text">Provide&#x2F;Inject</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue.js-%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">Vue.js
+基本组件属性与方法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#button-%E6%8C%89%E9%92%AE"><span class="nav-number">1.2.</span> <span class="nav-text">1. Button 按钮</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input-%E8%BE%93%E5%85%A5%E6%A1%86"><span class="nav-number">1.3.</span> <span class="nav-text">2. Input 输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#form-%E8%A1%A8%E5%8D%95"><span class="nav-number">1.4.</span> <span class="nav-text">3. Form 表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.4.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.5.</span> <span class="nav-text">4. Table 表格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-3"><span class="nav-number">1.5.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-3"><span class="nav-number">1.5.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.5.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#checkbox-%E5%A4%8D%E9%80%89%E6%A1%86"><span class="nav-number">1.6.</span> <span class="nav-text">5. Checkbox 复选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-4"><span class="nav-number">1.6.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-4"><span class="nav-number">1.6.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-4"><span class="nav-number">1.6.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">1.6.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#radio-%E5%8D%95%E9%80%89%E6%A1%86"><span class="nav-number">1.7.</span> <span class="nav-text">6. Radio 单选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-5"><span class="nav-number">1.7.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-5"><span class="nav-number">1.7.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-5"><span class="nav-number">1.7.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-5"><span class="nav-number">1.7.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-%E4%B8%8B%E6%8B%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">7. Select 下拉选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7-6"><span class="nav-number">1.8.1.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-6"><span class="nav-number">1.8.2.</span> <span class="nav-text">主要方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6-6"><span class="nav-number">1.8.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-6"><span class="nav-number">1.8.4.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1"><span class="nav-number">1.9.</span> <span class="nav-text">8. 组件通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#props-%E7%88%B6%E4%BC%A0%E5%AD%90"><span class="nav-number">1.9.1.</span> <span class="nav-text">Props 父传子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emit-%E5%AD%90%E4%BC%A0%E7%88%B6"><span class="nav-number">1.9.2.</span> <span class="nav-text">Emit 子传父</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#provideinject"><span class="nav-number">1.9.3.</span> <span class="nav-text">Provide&#x2F;Inject</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1097,7 +1053,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">587k</span>
+    <span title="站点总字数">586k</span>
 </div>
 
         

@@ -239,117 +239,97 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>网络编程中常用的分散 / 聚集 IO 技术</p>
- <span id="more"></span>
-<h3 id="1-readv-与-writev：分散-聚集-I-O">1. <code>readv</code> 与 <code>writev</code>：分散 / 聚集 I/O</h3>
-<p><code>readv</code>（分散读）和 <code>writev</code>（聚集写）是用于处理<strong>分散缓冲区</strong>的 I/O 函数，核心作用是通过一次系统调用完成对多个不连续缓冲区的读写操作，减少系统调用次数（系统调用存在上下文切换开销）。</p>
+        <p>网络编程中常用的分散 / 聚集 IO 技术 <span id="more"></span> ### 1.
+<code>readv</code> 与 <code>writev</code>：分散 / 聚集 I/O</p>
+<p><code>readv</code>（分散读）和
+<code>writev</code>（聚集写）是用于处理<strong>分散缓冲区</strong>的 I/O
+函数，核心作用是通过一次系统调用完成对多个不连续缓冲区的读写操作，减少系统调用次数（系统调用存在上下文切换开销）。</p>
 <h4 id="函数原型">函数原型</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 从fd读取数据，分散存储到iov指向的多个缓冲区</span></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">readv</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="keyword">struct</span> iovec *iov, <span class="type">int</span> iovcnt)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将iov指向的多个缓冲区数据聚集后写入fd</span></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">writev</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="keyword">struct</span> iovec *iov, <span class="type">int</span> iovcnt)</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="关键参数">关键参数</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>struct iovec</code>描述一个缓冲区的结构，定义为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>  *iov_base;  <span class="comment">// 缓冲区起始地址</span></span><br><span class="line">    <span class="type">size_t</span> iov_len;   <span class="comment">// 缓冲区长度（字节数）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><code>iovcnt</code>：缓冲区数量，上限由系统限制（通常<code>IOV_MAX</code>，如 Linux 为 1024）。</p>
-</li>
+<ul>
+<li><p><code>struct iovec</code>描述一个缓冲区的结构，定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>  *iov_base;  <span class="comment">// 缓冲区起始地址</span></span><br><span class="line">    <span class="type">size_t</span> iov_len;   <span class="comment">// 缓冲区长度（字节数）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>iovcnt</code>：缓冲区数量，上限由系统限制（通常<code>IOV_MAX</code>，如
+Linux 为 1024）。</p></li>
 </ul>
 <h4 id="功能与适用场景">功能与适用场景</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong><code>readv</code></strong>：从文件描述符<code>fd</code>读取数据，按顺序填充<code>iov</code>数组中的缓冲区（前一个填满后再填下一个），返回实际读取的字节数。</p>
-</li>
-<li class="lvl-2">
-<p><strong><code>writev</code></strong>：将<code>iov</code>数组中所有缓冲区的数据按顺序拼接后写入<code>fd</code>，返回实际写入的字节数。</p>
-</li>
+<ul>
+<li><strong><code>readv</code></strong>：从文件描述符<code>fd</code>读取数据，按顺序填充<code>iov</code>数组中的缓冲区（前一个填满后再填下一个），返回实际读取的字节数。</li>
+<li><strong><code>writev</code></strong>：将<code>iov</code>数组中所有缓冲区的数据按顺序拼接后写入<code>fd</code>，返回实际写入的字节数。</li>
 </ul>
-<p><strong>网络编程场景</strong>：在构造协议报文时（如 HTTP 响应包含状态行、头部字段、正文等多个独立部分），可通过<code>writev</code>一次发送所有部分，避免多次<code>write</code>调用的开销；同理，接收报文时若需拆分到不同缓冲区（如头部和正文分离），可使用<code>readv</code>。</p>
+<p><strong>网络编程场景</strong>： 在构造协议报文时（如 HTTP
+响应包含状态行、头部字段、正文等多个独立部分），可通过<code>writev</code>一次发送所有部分，避免多次<code>write</code>调用的开销；同理，接收报文时若需拆分到不同缓冲区（如头部和正文分离），可使用<code>readv</code>。</p>
 <h4 id="注意事项">注意事项</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>若读取 / 写入中途发生错误，仍会返回已成功处理的字节数（部分成功）。</p>
-</li>
-<li class="lvl-2">
-<p>对于非阻塞<code>fd</code>，行为与<code>read</code>/<code>write</code>一致（可能返回<code>EAGAIN</code>或<code>EWOULDBLOCK</code>）。</p>
-</li>
+<ul>
+<li>若读取 /
+写入中途发生错误，仍会返回已成功处理的字节数（部分成功）。</li>
+<li>对于非阻塞<code>fd</code>，行为与<code>read</code>/<code>write</code>一致（可能返回<code>EAGAIN</code>或<code>EWOULDBLOCK</code>）。</li>
 </ul>
-<h3 id="2-dup-与-dup2：文件描述符复制">2. <code>dup</code> 与 <code>dup2</code>：文件描述符复制</h3>
-<p><code>dup</code> 和 <code>dup2</code> 用于复制文件描述符，使新的描述符与原描述符指向<strong>同一个文件表项</strong>（共享文件偏移量、文件状态标志等），核心作用是实现 I/O 重定向。</p>
-<h4 id="函数原型-2">函数原型</h4>
+<h3 id="dup-与-dup2文件描述符复制">2. <code>dup</code> 与
+<code>dup2</code>：文件描述符复制</h3>
+<p><code>dup</code> 和 <code>dup2</code>
+用于复制文件描述符，使新的描述符与原描述符指向<strong>同一个文件表项</strong>（共享文件偏移量、文件状态标志等），核心作用是实现
+I/O 重定向。</p>
+<h4 id="函数原型-1">函数原型</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 复制oldfd，返回最小的未使用描述符</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup</span><span class="params">(<span class="type">int</span> oldfd)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将newfd重定向为oldfd的副本（若newfd已打开则先关闭）</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup2</span><span class="params">(<span class="type">int</span> oldfd, <span class="type">int</span> newfd)</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="功能差异">功能差异</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong><code>dup</code></strong>：自动选择一个<strong>最小的未被使用的描述符</strong>作为新描述符，与<code>oldfd</code>指向同一文件。</p>
-</li>
-<li class="lvl-2">
-<p><strong><code>dup2</code></strong>：显式指定新描述符<code>newfd</code>，若<code>newfd</code>已打开，则先关闭它（若<code>newfd == oldfd</code>，则直接返回<code>newfd</code>，不关闭）。</p>
-</li>
+<ul>
+<li><strong><code>dup</code></strong>：自动选择一个<strong>最小的未被使用的描述符</strong>作为新描述符，与<code>oldfd</code>指向同一文件。</li>
+<li><strong><code>dup2</code></strong>：显式指定新描述符<code>newfd</code>，若<code>newfd</code>已打开，则先关闭它（若<code>newfd == oldfd</code>，则直接返回<code>newfd</code>，不关闭）。</li>
 </ul>
 <h4 id="网络编程场景">网络编程场景</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>重定向标准 I/O</strong>：例如在网络服务中，将客户端<code>socket</code>的描述符通过<code>dup2(client_fd, STDOUT_FILENO)</code>重定向为标准输出，此时<code>printf</code>的内容会直接发送给客户端。</p>
-</li>
-<li class="lvl-2">
-<p><strong>简化接口适配</strong>：某些库函数仅支持固定描述符（如标准输出），通过<code>dup2</code>可将其适配到 socket 描述符。</p>
-</li>
+<ul>
+<li><strong>重定向标准
+I/O</strong>：例如在网络服务中，将客户端<code>socket</code>的描述符通过<code>dup2(client_fd, STDOUT_FILENO)</code>重定向为标准输出，此时<code>printf</code>的内容会直接发送给客户端。</li>
+<li><strong>简化接口适配</strong>：某些库函数仅支持固定描述符（如标准输出），通过<code>dup2</code>可将其适配到
+socket 描述符。</li>
 </ul>
-<h4 id="注意事项-2">注意事项</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>若<code>oldfd</code>无效（未打开），两函数均返回<code>-1</code>并设置<code>errno</code>为<code>EBADF</code>。</p>
-</li>
-<li class="lvl-2">
-<p><code>dup2</code>关闭<code>newfd</code>时若失败（如权限问题），会返回<code>-1</code>，但此时<code>newfd</code>可能已处于关闭状态，需注意错误处理。</p>
-</li>
+<h4 id="注意事项-1">注意事项</h4>
+<ul>
+<li>若<code>oldfd</code>无效（未打开），两函数均返回<code>-1</code>并设置<code>errno</code>为<code>EBADF</code>。</li>
+<li><code>dup2</code>关闭<code>newfd</code>时若失败（如权限问题），会返回<code>-1</code>，但此时<code>newfd</code>可能已处于关闭状态，需注意错误处理。</li>
 </ul>
-<h3 id="3-sendfile：零拷贝文件传输">3. <code>sendfile</code>：零拷贝文件传输</h3>
-<p><code>sendfile</code> 用于在两个文件描述符之间直接传输数据，数据无需经过用户空间，全程在内核空间处理，属于<strong>零拷贝（zero-copy）</strong> 技术，可大幅提升大文件传输效率。</p>
-<h4 id="函数原型（Linux）">函数原型（Linux）</h4>
+<h3 id="sendfile零拷贝文件传输">3.
+<code>sendfile</code>：零拷贝文件传输</h3>
+<p><code>sendfile</code>
+用于在两个文件描述符之间直接传输数据，数据无需经过用户空间，全程在内核空间处理，属于<strong>零拷贝（zero-copy）</strong>
+技术，可大幅提升大文件传输效率。</p>
+<h4 id="函数原型linux">函数原型（Linux）</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/sendfile.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将in_fd的数据传输到out_fd，返回实际传输的字节数</span></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendfile</span><span class="params">(<span class="type">int</span> out_fd, <span class="type">int</span> in_fd, <span class="type">off_t</span> *offset, <span class="type">size_t</span> count)</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="关键参数与限制">关键参数与限制</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>in_fd</code>：源文件描述符，<strong>必须是支持<code>mmap</code>的常规文件</strong>（不能是 socket 或管道）。</p>
-</li>
-<li class="lvl-2">
-<p><code>out_fd</code>：目标文件描述符，在 Linux 中<strong>必须是 socket</strong>（其他系统可能支持更多类型）。</p>
-</li>
-<li class="lvl-2">
-<p><code>offset</code>：指定<code>in_fd</code>的起始读取位置，若不为<code>NULL</code>，传输后会更新为实际结束位置（原子操作，避免多线程竞争）。</p>
-</li>
-<li class="lvl-2">
-<p><code>count</code>：计划传输的字节数。</p>
-</li>
+<ul>
+<li><code>in_fd</code>：源文件描述符，<strong>必须是支持<code>mmap</code>的常规文件</strong>（不能是
+socket 或管道）。</li>
+<li><code>out_fd</code>：目标文件描述符，在 Linux 中<strong>必须是
+socket</strong>（其他系统可能支持更多类型）。</li>
+<li><code>offset</code>：指定<code>in_fd</code>的起始读取位置，若不为<code>NULL</code>，传输后会更新为实际结束位置（原子操作，避免多线程竞争）。</li>
+<li><code>count</code>：计划传输的字节数。</li>
 </ul>
 <h4 id="功能与优势">功能与优势</h4>
-<p>传统文件传输流程（<code>read + write</code>）需要 4 次数据拷贝（磁盘→内核缓冲区→用户缓冲区→socket 缓冲区→网卡）和 2 次系统调用；而<code>sendfile</code>通过内核直接将文件数据从页缓存传输到 socket 缓冲区，仅需 2 次拷贝（磁盘→内核缓冲区→socket 缓冲区）和 1 次系统调用，显著减少开销。</p>
-<p><strong>网络编程场景</strong>：在文件服务器中（如 HTTP 服务器传输静态资源），<code>sendfile</code>是高效传输文件的首选方式，比<code>read + write</code>组合性能提升明显。</p>
-<h4 id="注意事项-3">注意事项</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>跨平台差异大：Linux 的<code>sendfile</code>与 BSD 的<code>sendfile</code>参数和行为不同，移植时需注意。</p>
-</li>
-<li class="lvl-2">
-<p>不支持非阻塞 I/O：若<code>out_fd</code>为非阻塞 socket 且暂时无法写入，<code>sendfile</code>可能返回<code>-1</code>并设置<code>errno</code>为<code>EAGAIN</code>，但部分实现可能不支持。</p>
-</li>
-<li class="lvl-2">
-<p><code>in_fd</code>必须是常规文件：不能用于 socket 之间的数据转发（需用<code>splice</code>等其他函数）。</p>
-</li>
+<p>传统文件传输流程（<code>read + write</code>）需要 4
+次数据拷贝（磁盘→内核缓冲区→用户缓冲区→socket 缓冲区→网卡）和 2
+次系统调用；而<code>sendfile</code>通过内核直接将文件数据从页缓存传输到
+socket 缓冲区，仅需 2 次拷贝（磁盘→内核缓冲区→socket 缓冲区）和 1
+次系统调用，显著减少开销。</p>
+<p><strong>网络编程场景</strong>： 在文件服务器中（如 HTTP
+服务器传输静态资源），<code>sendfile</code>是高效传输文件的首选方式，比<code>read + write</code>组合性能提升明显。</p>
+<h4 id="注意事项-2">注意事项</h4>
+<ul>
+<li>跨平台差异大：Linux 的<code>sendfile</code>与 BSD
+的<code>sendfile</code>参数和行为不同，移植时需注意。</li>
+<li>不支持非阻塞 I/O：若<code>out_fd</code>为非阻塞 socket
+且暂时无法写入，<code>sendfile</code>可能返回<code>-1</code>并设置<code>errno</code>为<code>EAGAIN</code>，但部分实现可能不支持。</li>
+<li><code>in_fd</code>必须是常规文件：不能用于 socket
+之间的数据转发（需用<code>splice</code>等其他函数）。</li>
 </ul>
 <h3 id="总结">总结</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>readv</code>/<code>writev</code>：优化多缓冲区 I/O，减少系统调用次数，适合协议报文的拼接 / 拆分。</p>
-</li>
-<li class="lvl-2">
-<p><code>dup</code>/<code>dup2</code>：实现文件描述符重定向，简化 I/O 接口适配。</p>
-</li>
-<li class="lvl-2">
-<p><code>sendfile</code>：利用零拷贝技术高效传输文件，是大文件网络传输的核心优化手段。</p>
-</li>
+<ul>
+<li><code>readv</code>/<code>writev</code>：优化多缓冲区
+I/O，减少系统调用次数，适合协议报文的拼接 / 拆分。</li>
+<li><code>dup</code>/<code>dup2</code>：实现文件描述符重定向，简化 I/O
+接口适配。</li>
+<li><code>sendfile</code>：利用零拷贝技术高效传输文件，是大文件网络传输的核心优化手段。</li>
 </ul>
 
     </div>
@@ -372,8 +352,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/07/28/linux/SSH%E7%9A%84%E7%94%9F%E6%88%90%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="prev" title="SSH的生成与配置">
-      <i class="fa fa-chevron-left"></i> SSH的生成与配置
+    <a href="/2025/07/28/linux/TCP,UDP%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E5%9F%BA%E7%A1%80/" rel="prev" title="TCP、UDP数据读写基础">
+      <i class="fa fa-chevron-left"></i> TCP、UDP数据读写基础
     </a></div>
       <div class="post-nav-item">
     <a href="/2025/07/31/linux/get%20setsockopt/" rel="next" title="获取和设置socket选项">
@@ -438,7 +418,9 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-readv-%E4%B8%8E-writev%EF%BC%9A%E5%88%86%E6%95%A3-%E8%81%9A%E9%9B%86-I-O"><span class="nav-number">1.</span> <span class="nav-text">1. readv 与 writev：分散 &#x2F; 聚集 I&#x2F;O</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">关键参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%8E%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">功能与适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-dup-%E4%B8%8E-dup2%EF%BC%9A%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%A4%8D%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">2. dup 与 dup2：文件描述符复制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-2"><span class="nav-number">2.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%B7%AE%E5%BC%82"><span class="nav-number">2.2.</span> <span class="nav-text">功能差异</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9C%BA%E6%99%AF"><span class="nav-number">2.3.</span> <span class="nav-text">网络编程场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-2"><span class="nav-number">2.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-sendfile%EF%BC%9A%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-number">3.</span> <span class="nav-text">3. sendfile：零拷贝文件传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%EF%BC%88Linux%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">函数原型（Linux）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E4%B8%8E%E9%99%90%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">关键参数与限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8A%BF"><span class="nav-number">3.3.</span> <span class="nav-text">功能与优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-3"><span class="nav-number">3.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">关键参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%8E%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">功能与适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dup-%E4%B8%8E-dup2%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%A4%8D%E5%88%B6"><span class="nav-number"></span> <span class="nav-text">2. dup 与
+dup2：文件描述符复制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-1"><span class="nav-number">1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%B7%AE%E5%BC%82"><span class="nav-number">2.</span> <span class="nav-text">功能差异</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">网络编程场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-1"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sendfile%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-number"></span> <span class="nav-text">3.
+sendfile：零拷贝文件传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8Blinux"><span class="nav-number">1.</span> <span class="nav-text">函数原型（Linux）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E4%B8%8E%E9%99%90%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">关键参数与限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%8E%E4%BC%98%E5%8A%BF"><span class="nav-number">3.</span> <span class="nav-text">功能与优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-2"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -515,7 +497,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">587k</span>
+    <span title="站点总字数">586k</span>
 </div>
 
         

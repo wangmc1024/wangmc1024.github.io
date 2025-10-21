@@ -226,7 +226,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -242,312 +242,200 @@
 <p>如题，结合官方文档与网络帖子，利用AI整理</p>
 </blockquote>
 <span id="more"></span>
-<h1>Vue 路由</h1>
-<h2 id="1-安装与基础配置">1. 安装与基础配置</h2>
-<p>Vue Router 是 Vue 3 构建单页面应用（SPA）的核心工具，第一步需完成安装与基础配置，确保路由功能正常运行：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>安装</strong>：通过 npm 安装适配 Vue 3 的 Vue Router 4 版本，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router@4</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由配置</strong>：在项目根目录创建 <code>router/index.js</code> 文件，定义路由规则。核心是通过 <code>createRouter</code> 创建路由实例，<code>createWebHistory</code> 设置 History 模式，同时导入需路由管理的组件（如 Home、About），并配置路由路径（path）、路由名称（name）及对应组件（component）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/Home.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/About.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Home</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;About&#x27;</span>, <span class="attr">component</span>: <span class="title class_">About</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createWebHistory</span>(), <span class="comment">// 采用 HTML5 History 模式</span></span><br><span class="line">  routes <span class="comment">// 注入路由规则</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>注册路由</strong>：在项目入口文件 <code>main.js</code> 中，导入路由实例并通过 <code>use(router)</code> 注册到 Vue 应用，确保路由功能全局可用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>).<span class="title function_">use</span>(router).<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由出口与导航</strong>：在 <code>App.vue</code> 中，使用 <code>&lt;router-view&gt;</code> 作为路由组件的渲染容器（匹配的路由组件会在此处渲染），使用 <code>&lt;router-link&gt;</code> 实现页面导航（替代传统 <code>&lt;a&gt;</code> 标签，避免页面刷新）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;router-link to=&quot;/&quot;&gt;首页&lt;/router-link&gt; &lt;!-- 跳转到首页路由 --&gt;</span><br><span class="line">      &lt;router-link to=&quot;/about&quot;&gt;关于&lt;/router-link&gt; &lt;!-- 跳转到关于路由 --&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt; &lt;!-- 路由组件渲染出口 --&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="2-核心功能">2. 核心功能</h2>
-<p>Vue Router 提供 4 个核心功能，满足日常路由管理需求，包括动态路由、嵌套路由、编程式导航和路由懒加载：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>动态路由</strong>：用于匹配同一类路径（如不同用户的详情页），通过 <code>:</code> 在路由 <code>path</code> 中定义动态参数（如 <code>id</code>），组件内通过 <code>useRoute()</code> 获取路由实例，再通过 <code>route.params</code> 访问动态参数：</p>
-<ul class="lvl-2">
-<li class="lvl-4">路由配置：<code>{ path: '/user/:id', component: User }</code></li>
-<li class="lvl-4">组件内获取参数：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">params</span>.<span class="property">id</span>); <span class="comment">// 输出动态参数 id 的值</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>嵌套路由</strong>：实现路由的层级结构（如仪表盘下的个人资料、设置页面），通过 <code>children</code> 字段在父路由中配置子路由，且父组件必须包含 <code>&lt;router-view&gt;</code> 以渲染子路由组件：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>, <span class="comment">// 父路由路径</span></span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">Dashboard</span>, <span class="comment">// 父路由组件</span></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;profile&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Profile</span> &#125;, <span class="comment">// 子路由 1，访问路径 /dashboard/profile</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;settings&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Settings</span> &#125; <span class="comment">// 子路由 2，访问路径 /dashboard/settings</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>编程式导航</strong>：不依赖 <code>&lt;router-link&gt;</code>，通过代码实现页面跳转，核心方法是 <code>router.push()</code>，支持 4 种跳转形式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 字符串路径：直接传入目标路由路径</span></span><br><span class="line">router.<span class="title function_">push</span>(<span class="string">&#x27;/about&#x27;</span>);</span><br><span class="line"><span class="comment">// 2. 对象形式：传入含 path 的对象</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;/user/123&#x27;</span> &#125;);</span><br><span class="line"><span class="comment">// 3. 命名路由 + 参数：需配合路由 name 和 params（推荐，参数更清晰）</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;User&#x27;</span>, <span class="attr">params</span>: &#123; <span class="attr">id</span>: <span class="string">&#x27;123&#x27;</span> &#125; &#125;);</span><br><span class="line"><span class="comment">// 4. 查询参数：通过 query 传递参数，URL 会显示为 /search?keyword=vue</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;/search&#x27;</span>, <span class="attr">query</span>: &#123; <span class="attr">keyword</span>: <span class="string">&#x27;vue&#x27;</span> &#125; &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由懒加载</strong>：优化初始加载性能，减少首屏加载体积，通过动态导入（<code>() =&gt; import('组件路径')</code>）的方式定义路由组件，只有当路由被访问时才会加载对应组件：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/admin&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/Admin.vue&#x27;</span>) &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-高级特性">3. 高级特性</h2>
-<p>Vue Router 提供 4 个高级特性，满足复杂场景下的路由控制与个性化需求：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>导航守卫</strong>：控制路由跳转逻辑，分为 3 类，分别作用于全局、单个路由和组件内部：</p>
-<ul class="lvl-2">
-<li class="lvl-4">全局守卫：在 <code>router/index.js</code> 中定义，作用于所有路由，包括前置守卫（<code>beforeEach</code>，跳转前执行，需调用 <code>next()</code> 控制跳转）和后置守卫（<code>afterEach</code>，跳转后执行，无 <code>next()</code>）：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局前置守卫：判断是否需要登录</span></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">meta</span>.<span class="property">requiresAuth</span> &amp;&amp; !isAuthenticated) &#123; <span class="comment">// to.meta.requiresAuth 来自路由元信息</span></span><br><span class="line">    <span class="title function_">next</span>(<span class="string">&#x27;/login&#x27;</span>); <span class="comment">// 未登录则重定向到登录页</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(); <span class="comment">// 已登录则放行</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局后置守卫：修改页面标题</span></span><br><span class="line">router.<span class="title function_">afterEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">title</span> = to.<span class="property">meta</span>.<span class="property">title</span> || <span class="string">&#x27;默认标题&#x27;</span>; <span class="comment">// 从路由元信息获取标题</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">路由独享守卫：在单个路由配置中定义，仅作用于该路由，通过 <code>beforeEnter</code> 实现：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/admin&#x27;</span>,</span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">Admin</span>,</span><br><span class="line">  <span class="attr">beforeEnter</span>: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 仅对 /admin 路由生效的验证逻辑</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">组件内守卫：在组件内部定义，作用于当前组件对应的路由，常用 <code>onBeforeRouteLeave</code>（离开组件路由前执行）：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; onBeforeRouteLeave &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> unsavedChanges = <span class="literal">true</span>; <span class="comment">// 模拟未保存的修改</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">onBeforeRouteLeave</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (unsavedChanges) &#123;</span><br><span class="line">    <span class="comment">// 有未保存修改时，提示用户确认</span></span><br><span class="line">    <span class="title function_">confirm</span>(<span class="string">&#x27;确定离开？未保存的修改将丢失！&#x27;</span>) ? <span class="title function_">next</span>() : <span class="title function_">next</span>(<span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(); <span class="comment">// 无未保存修改则放行</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>路由元信息</strong>：为路由附加额外数据（如是否需要登录、页面标题），通过 <code>meta</code> 字段在路由配置中定义，在导航守卫、组件中可通过 <code>to.meta</code> 或 <code>route.meta</code> 访问：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">  <span class="attr">meta</span>: &#123; </span><br><span class="line">    <span class="attr">requiresAuth</span>: <span class="literal">true</span>, <span class="comment">// 标记该路由需要登录才能访问</span></span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;控制台&#x27;</span> <span class="comment">// 该路由对应的页面标题</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>滚动行为</strong>：自定义页面切换后的滚动位置，在创建路由实例时通过 <code>scrollBehavior</code> 配置，支持 3 种场景：滚动到锚点、恢复之前滚动位置、滚动到顶部：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="title function_">scrollBehavior</span>(<span class="params">to, <span class="keyword">from</span>, savedPosition</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (to.<span class="property">hash</span>) &#123;</span><br><span class="line">      <span class="comment">// 若目标路由有锚点（如 /page#section1），滚动到锚点位置，且平滑滚动</span></span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">el</span>: to.<span class="property">hash</span>, <span class="attr">behavior</span>: <span class="string">&#x27;smooth&#x27;</span> &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (savedPosition) &#123;</span><br><span class="line">      <span class="comment">// 若存在之前的滚动位置（如浏览器后退），恢复该位置</span></span><br><span class="line">      <span class="keyword">return</span> savedPosition;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 其他情况，默认滚动到页面顶部</span></span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">top</span>: <span class="number">0</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由模式</strong>：控制 URL 的表现形式，分为 2 种模式，各有特点：</p>
-<table>
-<thead>
-<tr>
-<th>模式类型</th>
-<th>核心方法</th>
-<th>特点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Hash 模式</td>
-<td><code>createWebHashHistory()</code></td>
-<td>URL 中带 <code>#</code>（如 <code>http://xxx/#/home</code>），兼容性好（支持所有浏览器），无需服务器配置</td>
-<td>对 URL 美观度要求不高、兼容性要求高的场景</td>
-</tr>
-<tr>
-<td>History 模式</td>
-<td><code>createWebHistory()</code></td>
-<td>URL 中无 <code>#</code>（如 <code>http://xxx/home</code>），美观度高，但需服务器配置（如 Nginx 配置 fallback 到 <code>index.html</code>），否则刷新会 404</td>
-<td>对 URL 美观度要求高、可配置服务器的场景</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<h2 id="4-常见场景处理">4. 常见场景处理</h2>
-<p>针对路由使用中的 3 种常见场景（404 页面、路由重定向、路由别名），提供具体解决方案：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>404 页面</strong>：捕获所有未匹配的路由，显示 404 页面，通过通配符 <code>/:pathMatch(.*)*</code> 配置路由路径，确保所有未定义的路由都指向 404 组件：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/:pathMatch(.*)*&#x27;</span>, <span class="attr">component</span>: <span class="title class_">NotFound</span> &#125; <span class="comment">// NotFound 为自定义 404 组件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由重定向</strong>：将一个路由路径重定向到另一个路由，通过 <code>redirect</code> 字段配置，支持 2 种形式（重定向到固定路径、重定向到命名路由）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 重定向到固定路径：访问 /old 时，自动跳转到 /new</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/old&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/new&#x27;</span> &#125;</span><br><span class="line"><span class="comment">// 2. 重定向到命名路由：访问 /home 时，自动跳转到 name 为 Home 的路由</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>, <span class="attr">redirect</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span> &#125; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>路由别名</strong>：为一个路由路径设置多个访问入口，通过 <code>alias</code> 字段配置（支持字符串单个别名、数组多个别名），访问别名路径时，会渲染原路由的组件，且浏览器地址栏保持别名路径（不跳转）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置 /dashboard 的别名为 /home、/main、/control-panel</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>, <span class="comment">// 原路由路径</span></span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Dashboard</span>, <span class="comment">// 原路由组件</span></span><br><span class="line">    <span class="attr">alias</span>: [<span class="string">&#x27;/home&#x27;</span>, <span class="string">&#x27;/main&#x27;</span>, <span class="string">&#x27;/control-panel&#x27;</span>] <span class="comment">// 多个别名，访问任意别名都渲染 Dashboard 组件</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>路由别名与重定向的核心区别：</p>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>路由别名（alias）</th>
-<th>路由重定向（redirect）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>URL 变化</td>
-<td>地址栏显示别名路径，不变化</td>
-<td>地址栏跳转到目标路径，发生变化</td>
-</tr>
-<tr>
-<td>本质</td>
-<td>多入口访问同一组件</td>
-<td>路径跳转</td>
-</tr>
-<tr>
-<td>场景</td>
-<td>多语言支持、简化 URL、推广链接追踪</td>
-<td>旧路径迁移、统一访问入口</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<h2 id="5-组合式-API-使用">5. 组合式 API 使用</h2>
-<p>Vue 3 中推荐使用组合式 API 操作路由，核心是 <code>useRouter</code> 和 <code>useRoute</code> 两个钩子，替代 Vue 2 中的 <code>$router</code> 和 <code>$route</code>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>核心 API 说明</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>useRouter</code>：获取路由实例，用于执行路由跳转操作（如 <code>push</code>、<code>replace</code>）；</li>
-<li class="lvl-4"><code>useRoute</code>：获取当前路由信息，用于访问路由参数（<code>query</code>、<code>params</code>）、路由元信息（<code>meta</code>）等。</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>使用示例</strong>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; useRouter, useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="comment">// 获取路由实例和当前路由信息</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 路由跳转：点击按钮跳转到 /about 路由</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">goToAbout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  router.<span class="title function_">push</span>(<span class="string">&#x27;/about&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 获取路由参数：获取 URL 中的 query 参数 id（如 /page?id=123）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">query</span>.<span class="property">id</span>); <span class="comment">// 输出 &#x27;123&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 获取动态路由参数：获取 /user/:id 中的 id（如 /user/456）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">params</span>.<span class="property">id</span>); <span class="comment">// 输出 &#x27;456&#x27;</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="6-路由传参">6. 路由传参</h2>
-<p>Vue Router 提供 3 种路由传参方式，分别是 Query 参数、Params 参数和 Props 解耦，适用于不同场景：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>Query 参数</strong>：通过 URL 的查询字符串（<code>?</code> 后的部分）传递参数，特点是参数可见、无需预先在路由配置中声明，适合传递非敏感、可选的参数（如筛选条件、分页信息）：</p>
-<ul class="lvl-2">
-<li class="lvl-4">传递参数：通过 <code>router.push()</code> 传入含 <code>query</code> 的对象：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传递 keyword 和 sort 两个 Query 参数</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/search&#x27;</span>, <span class="comment">// 目标路由路径</span></span><br><span class="line">  <span class="attr">query</span>: &#123; <span class="attr">keyword</span>: <span class="string">&#x27;vue&#x27;</span>, <span class="attr">sort</span>: <span class="string">&#x27;desc&#x27;</span> &#125; <span class="comment">// Query 参数对象</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 生成的 URL：/search?keyword=vue&amp;sort=desc</span></span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">接收参数：在目标组件中，通过 <code>useRoute()</code> 获取 <code>route.query</code>：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyword = route.<span class="property">query</span>.<span class="property">keyword</span>; <span class="comment">// 取值 &#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> sort = route.<span class="property">query</span>.<span class="property">sort</span>; <span class="comment">// 取值 &#x27;desc&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>Params 参数</strong>：通过 URL 路径的动态段传递参数，特点是参数需在路由配置中预先声明（用 <code>:</code> 定义）、参数可见，适合传递必要、结构化的参数（如资源 ID）：</p>
-<ul class="lvl-2">
-<li class="lvl-4">路由配置：先在 <code>path</code> 中用 <code>:</code> 声明动态参数（如 <code>userId</code>、<code>postId</code>）：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/user/:userId/post/:postId&#x27;</span>, <span class="comment">// 声明 2 个动态参数：userId 和 postId</span></span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">UserPost</span>, <span class="comment">// 目标组件</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;UserPost&#x27;</span> <span class="comment">// 路由名称，用于编程式导航</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">传递参数：支持 2 种方式（使用命名路由、使用路径拼接）：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"><span class="keyword">const</span> userId = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">const</span> postId = <span class="number">456</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 1：使用命名路由（推荐，参数与路径解耦）</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;UserPost&#x27;</span>, <span class="comment">// 匹配路由的 name</span></span><br><span class="line">  <span class="attr">params</span>: &#123; userId, postId &#125; <span class="comment">// Params 参数对象，与路由声明的参数对应</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2：使用路径拼接（需手动拼接参数）</span></span><br><span class="line">router.<span class="title function_">push</span>(<span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>/post/<span class="subst">$&#123;postId&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成的 URL：/user/123/post/456</span></span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">接收参数：在目标组件中，通过 <code>useRoute()</code> 获取 <code>route.params</code>：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> userId = route.<span class="property">params</span>.<span class="property">userId</span>; <span class="comment">// 取值 &#x27;123&#x27;（注意：Params 参数值为字符串类型）</span></span><br><span class="line"><span class="keyword">const</span> postId = route.<span class="property">params</span>.<span class="property">postId</span>; <span class="comment">// 取值 &#x27;456&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>Props 解耦</strong>：让组件不直接依赖 <code>$route</code> 或 <code>useRoute()</code>，通过 <code>props</code> 接收路由参数，提升组件复用性和可测试性，仅支持 Params 参数：</p>
-<ul class="lvl-2">
-<li class="lvl-4">路由配置：在路由中设置 <code>props: true</code>，Vue Router 会自动将 Params 参数转换为组件的 props：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>, <span class="comment">// 声明动态参数 id</span></span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">UserDetail</span>,</span><br><span class="line">  <span class="attr">props</span>: <span class="literal">true</span> <span class="comment">// 开启 Props 传参，Params 参数会作为 props 传入组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-4">组件接收：在组件中通过 <code>props</code> 接收参数，像使用普通 props 一样使用：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 选项式 API</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">props</span>: [<span class="string">&#x27;id&#x27;</span>], <span class="comment">// 声明接收 id props</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">id</span>); <span class="comment">// 直接使用参数，无需依赖 useRoute()</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组合式 API（&lt;script setup&gt;）</span></span><br><span class="line"><span class="keyword">const</span> props = <span class="title function_">defineProps</span>([<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">id</span>); <span class="comment">// 直接使用参数</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>三种传参方式对比</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>对比维度</th>
-<th>Query 参数</th>
-<th>Params 参数</th>
-<th>Props 解耦</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>URL 表现</td>
-<td><code>?key=value</code>（查询字符串）</td>
-<td><code>/path/value</code>（路径动态段）</td>
-<td>同 Params 参数</td>
-</tr>
-<tr>
-<td>路由配置依赖</td>
-<td>无需预先声明</td>
-<td>需在 path 中用 <code>:</code> 声明</td>
-<td>需在 path 中用 <code>:</code> 声明，且路由需设 <code>props: true</code></td>
-</tr>
-<tr>
-<td>参数类型</td>
-<td>字符串（自动转换基本类型）</td>
-<td>字符串（需手动转换类型）</td>
-<td>同 Params 参数，但通过 props 可定义类型</td>
-</tr>
-<tr>
-<td>组件依赖</td>
-<td>依赖 <code>useRoute()</code></td>
-<td>依赖 <code>useRoute()</code></td>
-<td>不依赖 <code>useRoute()</code>，依赖 props</td>
-</tr>
-<tr>
-<td>适用场景</td>
-<td>可选参数、筛选条件、分页</td>
-<td>资源 ID、必要标识符</td>
-<td>组件复用性要求高的场景（如独立组件库）</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<h2 id="7-注意事项">7. 注意事项</h2>
-<p>使用 Vue Router 时需注意 3 个关键问题，避免功能异常或性能问题：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>路由参数变化时组件复用</strong>：当路由参数变化（如从 <code>/user/123</code> 跳转到 <code>/user/456</code>），组件会复用（不会重新创建），若需监听参数变化，需使用 <code>beforeRouteUpdate</code> 守卫或监听 <code>route.params</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式 1：使用 beforeRouteUpdate 守卫</span></span><br><span class="line"><span class="title function_">onBeforeRouteUpdate</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;参数变化：&#x27;</span>, to.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2：监听 route.params</span></span><br><span class="line"><span class="title function_">watch</span>(<span class="function">() =&gt;</span> route.<span class="property">params</span>.<span class="property">id</span>, <span class="function">(<span class="params">newId</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;参数变化：&#x27;</span>, newId);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>History 模式部署</strong>：History 模式下，刷新页面会向服务器发送请求，若服务器未配置 fallback 到 <code>index.html</code>，会返回 404。需配置服务器（如 Nginx）：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">location</span> / &#123;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>导航守卫异步操作</strong>：若导航守卫中存在异步操作（如请求接口验证权限），需确保 <code>next()</code> 仅调用一次，避免多次跳转。可通过 <code>async/await</code> 处理：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">router.<span class="title function_">beforeEach</span>(<span class="title function_">async</span> (to, <span class="keyword">from</span>, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>(); <span class="comment">// 异步验证权限</span></span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">meta</span>.<span class="property">requiresAuth</span> &amp;&amp; !isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">next</span>(<span class="string">&#x27;/login&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h1>关键问题</h1>
-<h2 id="问题-1：Vue-Router-中-Query-参数和-Params-参数的核心区别是什么？在实际项目中如何选择？">问题 1：Vue Router 中 Query 参数和 Params 参数的核心区别是什么？在实际项目中如何选择？</h2>
-<h3 id="答案：">答案：</h3>
-<p>两者核心区别体现在 <strong>路由配置依赖</strong>、<strong>URL 表现</strong> 和 <strong>适用场景</strong> 上，具体如下：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>路由配置依赖</strong>：Query 参数无需在路由 <code>path</code> 中预先声明，直接通过 <code>router.push({path, query})</code> 传递；Params 参数必须在路由 <code>path</code> 中用 <code>:</code> 声明动态段（如 <code>/user/:id</code>），否则无法传递。</p>
-</li>
-<li class="lvl-3">
-<p><strong>URL 表现</strong>：Query 参数显示在 URL 的查询字符串中（如 <code>/search?keyword=vue</code>）；Params 参数作为 URL 路径的一部分（如 <code>/user/123</code>）。</p>
-</li>
-<li class="lvl-3">
-<p><strong>参数稳定性</strong>：两者刷新页面后参数均保留，但 Query 参数更适合传递可选、非结构化数据，Params 参数更适合传递必要、结构化数据（如资源 ID）。</p>
-</li>
-</ol>
-<p>实际选择时：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>若参数为 <strong>可选、非敏感</strong>（如筛选条件、分页页码、搜索关键词），选 Query 参数；</p>
-</li>
-<li class="lvl-2">
-<p>若参数为 <strong>必要、标识资源</strong>（如用户 ID、文章 ID），选 Params 参数，使 URL 更符合 RESTful 规范。</p>
-</li>
-</ul>
-<h2 id="问题-2：Vue-Router-的导航守卫有哪几类？分别适用于什么场景？">问题 2：Vue Router 的导航守卫有哪几类？分别适用于什么场景？</h2>
-<h3 id="答案：-2">答案：</h3>
-<p>Vue Router 导航守卫分为 <strong>全局守卫</strong>、<strong>路由独享守卫</strong> 和 <strong>组件内守卫</strong> 三类，适用场景各有不同：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>全局守卫</strong>：作用于所有路由，定义在 <code>router/index.js</code> 中，包括 <code>beforeEach</code>（跳转前）和 <code>afterEach</code>（跳转后）：</p>
-<ul class="lvl-2">
-<li class="lvl-5">适用场景：全局权限控制（如登录验证）、全局页面标题修改、全局埋点统计。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>路由独享守卫</strong>：仅作用于单个路由，通过路由配置的 <code>beforeEnter</code> 定义：</p>
-<ul class="lvl-2">
-<li class="lvl-5">适用场景：单个路由的特殊权限验证（如管理员页面额外验证角色）、特定路由的跳转限制。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>组件内守卫</strong>：作用于组件对应的路由，定义在组件内部，常用 <code>onBeforeRouteLeave</code>（离开路由前）：</p>
-<ul class="lvl-2">
-<li class="lvl-5">适用场景：组件内未保存修改的提示（如表单未提交时离开页面）、组件销毁前的资源清理（如取消请求）。</li>
-</ul>
-</li>
-</ol>
-<h2 id="问题-3：Vue-Router-中路由懒加载的实现原理是什么？如何结合路由分组进一步优化性能？">问题 3：Vue Router 中路由懒加载的实现原理是什么？如何结合路由分组进一步优化性能？</h2>
-<h3 id="答案：-3">答案：</h3>
-<ol>
-<li class="lvl-3">
-<p><strong>实现原理</strong>：路由懒加载基于 ES6 的 <strong>动态导入语法</strong>（<code>() =&gt; import('组件路径')</code>），在初始打包时，懒加载的路由组件会被分割成独立的代码块（chunk），而非打包进主文件；只有当用户访问该路由时，浏览器才会异步加载对应的代码块，从而减少首屏加载体积，提升初始加载速度。</p>
-</li>
-<li class="lvl-3">
-<p><strong>结合路由分组优化性能</strong>：当多个路由属于同一功能模块（如用户相关的 <code>/user/login</code>、<code>/user/register</code>、<code>/user/profile</code>），可通过 <strong>命名代码块</strong> 将它们分组打包，避免生成过多小代码块（减少 HTTP 请求数）。实现方式是在动态导入时添加 <code>/* webpackChunkName: &quot;group-user&quot; */</code> 注释（webpack 支持）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  <span class="comment">// 用户模块路由，打包为名为 &quot;group-user&quot; 的代码块</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/login&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Login.vue&#x27;</span>) &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/register&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Register.vue&#x27;</span>) &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/profile&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Profile.vue&#x27;</span>) &#125;,</span><br><span class="line">  <span class="comment">// 其他模块路由，打包为其他代码块</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/admin/dashboard&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-admin&quot; */</span> <span class="string">&#x27;@/views/admin/Dashboard.vue&#x27;</span>) &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>优化效果：访问用户模块任意路由时，会加载 “group-user” 代码块，后续访问该模块其他路由无需重复加载，减少 HTTP 请求，提升后续访问速度。</p>
-</li>
+<h1 id="vue-路由">Vue 路由</h1>
+<h2 id="安装与基础配置">1. 安装与基础配置</h2>
+<p>Vue Router 是 Vue 3
+构建单页面应用（SPA）的核心工具，第一步需完成安装与基础配置，确保路由功能正常运行：
+- <strong>安装</strong>：通过 npm 安装适配 Vue 3 的 Vue Router 4
+版本，命令如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router@4</span><br></pre></td></tr></table></figure> -
+<strong>路由配置</strong>：在项目根目录创建 <code>router/index.js</code>
+文件，定义路由规则。核心是通过 <code>createRouter</code>
+创建路由实例，<code>createWebHistory</code> 设置 History
+模式，同时导入需路由管理的组件（如
+Home、About），并配置路由路径（path）、路由名称（name）及对应组件（component）：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/Home.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/About.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Home</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;About&#x27;</span>, <span class="attr">component</span>: <span class="title class_">About</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createWebHistory</span>(), <span class="comment">// 采用 HTML5 History 模式</span></span><br><span class="line">  routes <span class="comment">// 注入路由规则</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router;</span><br></pre></td></tr></table></figure> - <strong>注册路由</strong>：在项目入口文件
+<code>main.js</code> 中，导入路由实例并通过 <code>use(router)</code>
+注册到 Vue 应用，确保路由功能全局可用： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>).<span class="title function_">use</span>(router).<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>);</span><br></pre></td></tr></table></figure> -
+<strong>路由出口与导航</strong>：在 <code>App.vue</code> 中，使用
+<code>&lt;router-view&gt;</code>
+作为路由组件的渲染容器（匹配的路由组件会在此处渲染），使用
+<code>&lt;router-link&gt;</code> 实现页面导航（替代传统
+<code>&lt;a&gt;</code> 标签，避免页面刷新）： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;router-link to=&quot;/&quot;&gt;首页&lt;/router-link&gt; &lt;!-- 跳转到首页路由 --&gt;</span><br><span class="line">      &lt;router-link to=&quot;/about&quot;&gt;关于&lt;/router-link&gt; &lt;!-- 跳转到关于路由 --&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt; &lt;!-- 路由组件渲染出口 --&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="核心功能">2. 核心功能</h2>
+<p>Vue Router 提供 4
+个核心功能，满足日常路由管理需求，包括动态路由、嵌套路由、编程式导航和路由懒加载：
+-
+<strong>动态路由</strong>：用于匹配同一类路径（如不同用户的详情页），通过
+<code>:</code> 在路由 <code>path</code> 中定义动态参数（如
+<code>id</code>），组件内通过 <code>useRoute()</code>
+获取路由实例，再通过 <code>route.params</code> 访问动态参数： -
+路由配置：<code>{ path: '/user/:id', component: User }</code> -
+组件内获取参数： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">params</span>.<span class="property">id</span>); <span class="comment">// 输出动态参数 id 的值</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure> -
+<strong>嵌套路由</strong>：实现路由的层级结构（如仪表盘下的个人资料、设置页面），通过
+<code>children</code> 字段在父路由中配置子路由，且父组件必须包含
+<code>&lt;router-view&gt;</code> 以渲染子路由组件： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>, <span class="comment">// 父路由路径</span></span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">Dashboard</span>, <span class="comment">// 父路由组件</span></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;profile&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Profile</span> &#125;, <span class="comment">// 子路由 1，访问路径 /dashboard/profile</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;settings&#x27;</span>, <span class="attr">component</span>: <span class="title class_">Settings</span> &#125; <span class="comment">// 子路由 2，访问路径 /dashboard/settings</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -
+<strong>编程式导航</strong>：不依赖
+<code>&lt;router-link&gt;</code>，通过代码实现页面跳转，核心方法是
+<code>router.push()</code>，支持 4 种跳转形式： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 字符串路径：直接传入目标路由路径</span></span><br><span class="line">router.<span class="title function_">push</span>(<span class="string">&#x27;/about&#x27;</span>);</span><br><span class="line"><span class="comment">// 2. 对象形式：传入含 path 的对象</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;/user/123&#x27;</span> &#125;);</span><br><span class="line"><span class="comment">// 3. 命名路由 + 参数：需配合路由 name 和 params（推荐，参数更清晰）</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;User&#x27;</span>, <span class="attr">params</span>: &#123; <span class="attr">id</span>: <span class="string">&#x27;123&#x27;</span> &#125; &#125;);</span><br><span class="line"><span class="comment">// 4. 查询参数：通过 query 传递参数，URL 会显示为 /search?keyword=vue</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;/search&#x27;</span>, <span class="attr">query</span>: &#123; <span class="attr">keyword</span>: <span class="string">&#x27;vue&#x27;</span> &#125; &#125;);</span><br></pre></td></tr></table></figure> -
+<strong>路由懒加载</strong>：优化初始加载性能，减少首屏加载体积，通过动态导入（<code>() =&gt; import('组件路径')</code>）的方式定义路由组件，只有当路由被访问时才会加载对应组件：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/admin&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/Admin.vue&#x27;</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="高级特性">3. 高级特性</h2>
+<p>Vue Router 提供 4 个高级特性，满足复杂场景下的路由控制与个性化需求：
+- <strong>导航守卫</strong>：控制路由跳转逻辑，分为 3
+类，分别作用于全局、单个路由和组件内部： - 全局守卫：在
+<code>router/index.js</code>
+中定义，作用于所有路由，包括前置守卫（<code>beforeEach</code>，跳转前执行，需调用
+<code>next()</code>
+控制跳转）和后置守卫（<code>afterEach</code>，跳转后执行，无
+<code>next()</code>）： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局前置守卫：判断是否需要登录</span></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">meta</span>.<span class="property">requiresAuth</span> &amp;&amp; !isAuthenticated) &#123; <span class="comment">// to.meta.requiresAuth 来自路由元信息</span></span><br><span class="line">    <span class="title function_">next</span>(<span class="string">&#x27;/login&#x27;</span>); <span class="comment">// 未登录则重定向到登录页</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(); <span class="comment">// 已登录则放行</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局后置守卫：修改页面标题</span></span><br><span class="line">router.<span class="title function_">afterEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">title</span> = to.<span class="property">meta</span>.<span class="property">title</span> || <span class="string">&#x27;默认标题&#x27;</span>; <span class="comment">// 从路由元信息获取标题</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> -
+路由独享守卫：在单个路由配置中定义，仅作用于该路由，通过
+<code>beforeEnter</code> 实现： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/admin&#x27;</span>,</span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">Admin</span>,</span><br><span class="line">  <span class="attr">beforeEnter</span>: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 仅对 /admin 路由生效的验证逻辑</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -
+组件内守卫：在组件内部定义，作用于当前组件对应的路由，常用
+<code>onBeforeRouteLeave</code>（离开组件路由前执行）： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; onBeforeRouteLeave &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> unsavedChanges = <span class="literal">true</span>; <span class="comment">// 模拟未保存的修改</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">onBeforeRouteLeave</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (unsavedChanges) &#123;</span><br><span class="line">    <span class="comment">// 有未保存修改时，提示用户确认</span></span><br><span class="line">    <span class="title function_">confirm</span>(<span class="string">&#x27;确定离开？未保存的修改将丢失！&#x27;</span>) ? <span class="title function_">next</span>() : <span class="title function_">next</span>(<span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(); <span class="comment">// 无未保存修改则放行</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure> -
+<strong>路由元信息</strong>：为路由附加额外数据（如是否需要登录、页面标题），通过
+<code>meta</code> 字段在路由配置中定义，在导航守卫、组件中可通过
+<code>to.meta</code> 或 <code>route.meta</code> 访问： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">  <span class="attr">meta</span>: &#123; </span><br><span class="line">    <span class="attr">requiresAuth</span>: <span class="literal">true</span>, <span class="comment">// 标记该路由需要登录才能访问</span></span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;控制台&#x27;</span> <span class="comment">// 该路由对应的页面标题</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -
+<strong>滚动行为</strong>：自定义页面切换后的滚动位置，在创建路由实例时通过
+<code>scrollBehavior</code> 配置，支持 3
+种场景：滚动到锚点、恢复之前滚动位置、滚动到顶部： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="title function_">scrollBehavior</span>(<span class="params">to, <span class="keyword">from</span>, savedPosition</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (to.<span class="property">hash</span>) &#123;</span><br><span class="line">      <span class="comment">// 若目标路由有锚点（如 /page#section1），滚动到锚点位置，且平滑滚动</span></span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">el</span>: to.<span class="property">hash</span>, <span class="attr">behavior</span>: <span class="string">&#x27;smooth&#x27;</span> &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (savedPosition) &#123;</span><br><span class="line">      <span class="comment">// 若存在之前的滚动位置（如浏览器后退），恢复该位置</span></span><br><span class="line">      <span class="keyword">return</span> savedPosition;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 其他情况，默认滚动到页面顶部</span></span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">top</span>: <span class="number">0</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> -
+<strong>路由模式</strong>：控制 URL 的表现形式，分为 2
+种模式，各有特点： | 模式类型 | 核心方法 | 特点 | 适用场景 |
+|———-|———-|——|———-| | Hash 模式 | <code>createWebHashHistory()</code> |
+URL 中带 <code>#</code>（如
+<code>http://xxx/#/home</code>），兼容性好（支持所有浏览器），无需服务器配置
+| 对 URL 美观度要求不高、兼容性要求高的场景 | | History 模式 |
+<code>createWebHistory()</code> | URL 中无 <code>#</code>（如
+<code>http://xxx/home</code>），美观度高，但需服务器配置（如 Nginx 配置
+fallback 到 <code>index.html</code>），否则刷新会 404 | 对 URL
+美观度要求高、可配置服务器的场景 |</p>
+<h2 id="常见场景处理">4. 常见场景处理</h2>
+<p>针对路由使用中的 3 种常见场景（404
+页面、路由重定向、路由别名），提供具体解决方案： - <strong>404
+页面</strong>：捕获所有未匹配的路由，显示 404 页面，通过通配符
+<code>/:pathMatch(.*)*</code> 配置路由路径，确保所有未定义的路由都指向
+404 组件： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/:pathMatch(.*)*&#x27;</span>, <span class="attr">component</span>: <span class="title class_">NotFound</span> &#125; <span class="comment">// NotFound 为自定义 404 组件</span></span><br></pre></td></tr></table></figure> -
+<strong>路由重定向</strong>：将一个路由路径重定向到另一个路由，通过
+<code>redirect</code> 字段配置，支持 2
+种形式（重定向到固定路径、重定向到命名路由）： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 重定向到固定路径：访问 /old 时，自动跳转到 /new</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/old&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/new&#x27;</span> &#125;</span><br><span class="line"><span class="comment">// 2. 重定向到命名路由：访问 /home 时，自动跳转到 name 为 Home 的路由</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>, <span class="attr">redirect</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span> &#125; &#125;</span><br></pre></td></tr></table></figure> -
+<strong>路由别名</strong>：为一个路由路径设置多个访问入口，通过
+<code>alias</code>
+字段配置（支持字符串单个别名、数组多个别名），访问别名路径时，会渲染原路由的组件，且浏览器地址栏保持别名路径（不跳转）：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置 /dashboard 的别名为 /home、/main、/control-panel</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/dashboard&#x27;</span>, <span class="comment">// 原路由路径</span></span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Dashboard</span>, <span class="comment">// 原路由组件</span></span><br><span class="line">    <span class="attr">alias</span>: [<span class="string">&#x27;/home&#x27;</span>, <span class="string">&#x27;/main&#x27;</span>, <span class="string">&#x27;/control-panel&#x27;</span>] <span class="comment">// 多个别名，访问任意别名都渲染 Dashboard 组件</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure> 路由别名与重定向的核心区别： | 特性 | 路由别名（alias） |
+路由重定向（redirect） | |——|——————-|————————| | URL 变化 |
+地址栏显示别名路径，不变化 | 地址栏跳转到目标路径，发生变化 | | 本质 |
+多入口访问同一组件 | 路径跳转 | | 场景 | 多语言支持、简化
+URL、推广链接追踪 | 旧路径迁移、统一访问入口 |</p>
+<h2 id="组合式-api-使用">5. 组合式 API 使用</h2>
+<p>Vue 3 中推荐使用组合式 API 操作路由，核心是 <code>useRouter</code> 和
+<code>useRoute</code> 两个钩子，替代 Vue 2 中的 <code>$router</code> 和
+<code>$route</code>： - <strong>核心 API 说明</strong>： -
+<code>useRouter</code>：获取路由实例，用于执行路由跳转操作（如
+<code>push</code>、<code>replace</code>）； -
+<code>useRoute</code>：获取当前路由信息，用于访问路由参数（<code>query</code>、<code>params</code>）、路由元信息（<code>meta</code>）等。
+- <strong>使用示例</strong>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; useRouter, useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="comment">// 获取路由实例和当前路由信息</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 路由跳转：点击按钮跳转到 /about 路由</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">goToAbout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  router.<span class="title function_">push</span>(<span class="string">&#x27;/about&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 获取路由参数：获取 URL 中的 query 参数 id（如 /page?id=123）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">query</span>.<span class="property">id</span>); <span class="comment">// 输出 &#x27;123&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 获取动态路由参数：获取 /user/:id 中的 id（如 /user/456）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">params</span>.<span class="property">id</span>); <span class="comment">// 输出 &#x27;456&#x27;</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="路由传参">6. 路由传参</h2>
+<p>Vue Router 提供 3 种路由传参方式，分别是 Query 参数、Params 参数和
+Props 解耦，适用于不同场景： - <strong>Query 参数</strong>：通过 URL
+的查询字符串（<code>?</code>
+后的部分）传递参数，特点是参数可见、无需预先在路由配置中声明，适合传递非敏感、可选的参数（如筛选条件、分页信息）：
+- 传递参数：通过 <code>router.push()</code> 传入含 <code>query</code>
+的对象： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传递 keyword 和 sort 两个 Query 参数</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/search&#x27;</span>, <span class="comment">// 目标路由路径</span></span><br><span class="line">  <span class="attr">query</span>: &#123; <span class="attr">keyword</span>: <span class="string">&#x27;vue&#x27;</span>, <span class="attr">sort</span>: <span class="string">&#x27;desc&#x27;</span> &#125; <span class="comment">// Query 参数对象</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 生成的 URL：/search?keyword=vue&amp;sort=desc</span></span><br></pre></td></tr></table></figure> - 接收参数：在目标组件中，通过
+<code>useRoute()</code> 获取 <code>route.query</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyword = route.<span class="property">query</span>.<span class="property">keyword</span>; <span class="comment">// 取值 &#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> sort = route.<span class="property">query</span>.<span class="property">sort</span>; <span class="comment">// 取值 &#x27;desc&#x27;</span></span><br></pre></td></tr></table></figure> -
+<strong>Params 参数</strong>：通过 URL
+路径的动态段传递参数，特点是参数需在路由配置中预先声明（用
+<code>:</code> 定义）、参数可见，适合传递必要、结构化的参数（如资源
+ID）： - 路由配置：先在 <code>path</code> 中用 <code>:</code>
+声明动态参数（如 <code>userId</code>、<code>postId</code>）：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/user/:userId/post/:postId&#x27;</span>, <span class="comment">// 声明 2 个动态参数：userId 和 postId</span></span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">UserPost</span>, <span class="comment">// 目标组件</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;UserPost&#x27;</span> <span class="comment">// 路由名称，用于编程式导航</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure> - 传递参数：支持 2 种方式（使用命名路由、使用路径拼接）：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">useRouter</span>();</span><br><span class="line"><span class="keyword">const</span> userId = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">const</span> postId = <span class="number">456</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 1：使用命名路由（推荐，参数与路径解耦）</span></span><br><span class="line">router.<span class="title function_">push</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;UserPost&#x27;</span>, <span class="comment">// 匹配路由的 name</span></span><br><span class="line">  <span class="attr">params</span>: &#123; userId, postId &#125; <span class="comment">// Params 参数对象，与路由声明的参数对应</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2：使用路径拼接（需手动拼接参数）</span></span><br><span class="line">router.<span class="title function_">push</span>(<span class="string">`/user/<span class="subst">$&#123;userId&#125;</span>/post/<span class="subst">$&#123;postId&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成的 URL：/user/123/post/456</span></span><br></pre></td></tr></table></figure> - 接收参数：在目标组件中，通过 <code>useRoute()</code>
+获取 <code>route.params</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> userId = route.<span class="property">params</span>.<span class="property">userId</span>; <span class="comment">// 取值 &#x27;123&#x27;（注意：Params 参数值为字符串类型）</span></span><br><span class="line"><span class="keyword">const</span> postId = route.<span class="property">params</span>.<span class="property">postId</span>; <span class="comment">// 取值 &#x27;456&#x27;</span></span><br></pre></td></tr></table></figure> - <strong>Props
+解耦</strong>：让组件不直接依赖 <code>$route</code> 或
+<code>useRoute()</code>，通过 <code>props</code>
+接收路由参数，提升组件复用性和可测试性，仅支持 Params 参数： -
+路由配置：在路由中设置 <code>props: true</code>，Vue Router 会自动将
+Params 参数转换为组件的 props： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>, <span class="comment">// 声明动态参数 id</span></span><br><span class="line">  <span class="attr">component</span>: <span class="title class_">UserDetail</span>,</span><br><span class="line">  <span class="attr">props</span>: <span class="literal">true</span> <span class="comment">// 开启 Props 传参，Params 参数会作为 props 传入组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> - 组件接收：在组件中通过
+<code>props</code> 接收参数，像使用普通 props 一样使用： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 选项式 API</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">props</span>: [<span class="string">&#x27;id&#x27;</span>], <span class="comment">// 声明接收 id props</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">id</span>); <span class="comment">// 直接使用参数，无需依赖 useRoute()</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组合式 API（&lt;script setup&gt;）</span></span><br><span class="line"><span class="keyword">const</span> props = <span class="title function_">defineProps</span>([<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">id</span>); <span class="comment">// 直接使用参数</span></span><br></pre></td></tr></table></figure>
+- <strong>三种传参方式对比</strong>： | 对比维度 | Query 参数 | Params
+参数 | Props 解耦 | |———-|————|————-|————| | URL 表现 |
+<code>?key=value</code>（查询字符串） |
+<code>/path/value</code>（路径动态段） | 同 Params 参数 | | 路由配置依赖
+| 无需预先声明 | 需在 path 中用 <code>:</code> 声明 | 需在 path 中用
+<code>:</code> 声明，且路由需设 <code>props: true</code> | | 参数类型 |
+字符串（自动转换基本类型） | 字符串（需手动转换类型） | 同 Params
+参数，但通过 props 可定义类型 | | 组件依赖 | 依赖
+<code>useRoute()</code> | 依赖 <code>useRoute()</code> | 不依赖
+<code>useRoute()</code>，依赖 props | | 适用场景 |
+可选参数、筛选条件、分页 | 资源 ID、必要标识符 |
+组件复用性要求高的场景（如独立组件库） |</p>
+<h2 id="注意事项">7. 注意事项</h2>
+<p>使用 Vue Router 时需注意 3 个关键问题，避免功能异常或性能问题： -
+<strong>路由参数变化时组件复用</strong>：当路由参数变化（如从
+<code>/user/123</code> 跳转到
+<code>/user/456</code>），组件会复用（不会重新创建），若需监听参数变化，需使用
+<code>beforeRouteUpdate</code> 守卫或监听 <code>route.params</code>：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式 1：使用 beforeRouteUpdate 守卫</span></span><br><span class="line"><span class="title function_">onBeforeRouteUpdate</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;参数变化：&#x27;</span>, to.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2：监听 route.params</span></span><br><span class="line"><span class="title function_">watch</span>(<span class="function">() =&gt;</span> route.<span class="property">params</span>.<span class="property">id</span>, <span class="function">(<span class="params">newId</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;参数变化：&#x27;</span>, newId);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> - <strong>History 模式部署</strong>：History
+模式下，刷新页面会向服务器发送请求，若服务器未配置 fallback 到
+<code>index.html</code>，会返回 404。需配置服务器（如 Nginx）：
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">location</span> / &#123;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -
+<strong>导航守卫异步操作</strong>：若导航守卫中存在异步操作（如请求接口验证权限），需确保
+<code>next()</code> 仅调用一次，避免多次跳转。可通过
+<code>async/await</code> 处理： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">router.<span class="title function_">beforeEach</span>(<span class="title function_">async</span> (to, <span class="keyword">from</span>, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>(); <span class="comment">// 异步验证权限</span></span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">meta</span>.<span class="property">requiresAuth</span> &amp;&amp; !isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">next</span>(<span class="string">&#x27;/login&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<hr />
+<h1 id="关键问题">关键问题</h1>
+<h2
+id="问题-1vue-router-中-query-参数和-params-参数的核心区别是什么在实际项目中如何选择">问题
+1：Vue Router 中 Query 参数和 Params
+参数的核心区别是什么？在实际项目中如何选择？</h2>
+<h3 id="答案">答案：</h3>
+<p>两者核心区别体现在 <strong>路由配置依赖</strong>、<strong>URL
+表现</strong> 和 <strong>适用场景</strong> 上，具体如下： 1.
+<strong>路由配置依赖</strong>：Query 参数无需在路由 <code>path</code>
+中预先声明，直接通过 <code>router.push({path, query})</code>
+传递；Params 参数必须在路由 <code>path</code> 中用 <code>:</code>
+声明动态段（如 <code>/user/:id</code>），否则无法传递。 2. <strong>URL
+表现</strong>：Query 参数显示在 URL 的查询字符串中（如
+<code>/search?keyword=vue</code>）；Params 参数作为 URL 路径的一部分（如
+<code>/user/123</code>）。 3.
+<strong>参数稳定性</strong>：两者刷新页面后参数均保留，但 Query
+参数更适合传递可选、非结构化数据，Params
+参数更适合传递必要、结构化数据（如资源 ID）。</p>
+<p>实际选择时： - 若参数为
+<strong>可选、非敏感</strong>（如筛选条件、分页页码、搜索关键词），选
+Query 参数； - 若参数为 <strong>必要、标识资源</strong>（如用户 ID、文章
+ID），选 Params 参数，使 URL 更符合 RESTful 规范。</p>
+<h2 id="问题-2vue-router-的导航守卫有哪几类分别适用于什么场景">问题
+2：Vue Router 的导航守卫有哪几类？分别适用于什么场景？</h2>
+<h3 id="答案-1">答案：</h3>
+<p>Vue Router 导航守卫分为
+<strong>全局守卫</strong>、<strong>路由独享守卫</strong> 和
+<strong>组件内守卫</strong> 三类，适用场景各有不同： 1.
+<strong>全局守卫</strong>：作用于所有路由，定义在
+<code>router/index.js</code> 中，包括
+<code>beforeEach</code>（跳转前）和 <code>afterEach</code>（跳转后）： -
+适用场景：全局权限控制（如登录验证）、全局页面标题修改、全局埋点统计。
+2. <strong>路由独享守卫</strong>：仅作用于单个路由，通过路由配置的
+<code>beforeEnter</code> 定义： -
+适用场景：单个路由的特殊权限验证（如管理员页面额外验证角色）、特定路由的跳转限制。
+3.
+<strong>组件内守卫</strong>：作用于组件对应的路由，定义在组件内部，常用
+<code>onBeforeRouteLeave</code>（离开路由前）： -
+适用场景：组件内未保存修改的提示（如表单未提交时离开页面）、组件销毁前的资源清理（如取消请求）。</p>
+<h2
+id="问题-3vue-router-中路由懒加载的实现原理是什么如何结合路由分组进一步优化性能">问题
+3：Vue Router
+中路由懒加载的实现原理是什么？如何结合路由分组进一步优化性能？</h2>
+<h3 id="答案-2">答案：</h3>
+<ol type="1">
+<li><p><strong>实现原理</strong>：路由懒加载基于 ES6 的
+<strong>动态导入语法</strong>（<code>() =&gt; import('组件路径')</code>），在初始打包时，懒加载的路由组件会被分割成独立的代码块（chunk），而非打包进主文件；只有当用户访问该路由时，浏览器才会异步加载对应的代码块，从而减少首屏加载体积，提升初始加载速度。</p></li>
+<li><p><strong>结合路由分组优化性能</strong>：当多个路由属于同一功能模块（如用户相关的
+<code>/user/login</code>、<code>/user/register</code>、<code>/user/profile</code>），可通过
+<strong>命名代码块</strong> 将它们分组打包，避免生成过多小代码块（减少
+HTTP 请求数）。实现方式是在动态导入时添加
+<code>/* webpackChunkName: "group-user" */</code> 注释（webpack 支持）：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  <span class="comment">// 用户模块路由，打包为名为 &quot;group-user&quot; 的代码块</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/login&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Login.vue&#x27;</span>) &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/register&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Register.vue&#x27;</span>) &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/profile&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-user&quot; */</span> <span class="string">&#x27;@/views/user/Profile.vue&#x27;</span>) &#125;,</span><br><span class="line">  <span class="comment">// 其他模块路由，打包为其他代码块</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/admin/dashboard&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &quot;group-admin&quot; */</span> <span class="string">&#x27;@/views/admin/Dashboard.vue&#x27;</span>) &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure> 优化效果：访问用户模块任意路由时，会加载 “group-user”
+代码块，后续访问该模块其他路由无需重复加载，减少 HTTP
+请求，提升后续访问速度。</p></li>
 </ol>
 
     </div>
@@ -569,12 +457,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/09/15/linux/%E9%9B%B6%E6%8B%B7%E8%B4%9D/" rel="prev" title="零拷贝">
-      <i class="fa fa-chevron-left"></i> 零拷贝
+    <a href="/2025/10/09/web/Vue%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20idb%20%E6%93%8D%E4%BD%9C%20IndexedDB%20%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/" rel="prev" title="Vue+IndexedDB+idb">
+      <i class="fa fa-chevron-left"></i> Vue+IndexedDB+idb
     </a></div>
       <div class="post-nav-item">
-    <a href="/2025/10/09/web/Vue%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20idb%20%E6%93%8D%E4%BD%9C%20IndexedDB%20%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/" rel="next" title="Vue+IndexedDB+idb">
-      Vue+IndexedDB+idb <i class="fa fa-chevron-right"></i>
+    <a href="/2025/10/10/web/Pinia%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" rel="next" title="Pinia学习笔记">
+      Pinia学习笔记 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -635,7 +523,12 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Vue 路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装与基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3. 高级特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4. 常见场景处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BB%84%E5%90%88%E5%BC%8F-API-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">5. 组合式 API 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="nav-number">1.6.</span> <span class="nav-text">6. 路由传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.7.</span> <span class="nav-text">7. 注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">关键问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1%EF%BC%9AVue-Router-%E4%B8%AD-Query-%E5%8F%82%E6%95%B0%E5%92%8C-Params-%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%9C%A8%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">问题 1：Vue Router 中 Query 参数和 Params 参数的核心区别是什么？在实际项目中如何选择？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88%EF%BC%9A"><span class="nav-number">2.1.1.</span> <span class="nav-text">答案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-2%EF%BC%9AVue-Router-%E7%9A%84%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB%E6%9C%89%E5%93%AA%E5%87%A0%E7%B1%BB%EF%BC%9F%E5%88%86%E5%88%AB%E9%80%82%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">问题 2：Vue Router 的导航守卫有哪几类？分别适用于什么场景？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88%EF%BC%9A-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">答案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-3%EF%BC%9AVue-Router-%E4%B8%AD%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">问题 3：Vue Router 中路由懒加载的实现原理是什么？如何结合路由分组进一步优化性能？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88%EF%BC%9A-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">答案：</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">Vue 路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装与基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3. 高级特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4. 常见场景处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E5%BC%8F-api-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">5. 组合式 API 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="nav-number">1.6.</span> <span class="nav-text">6. 路由传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.7.</span> <span class="nav-text">7. 注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">关键问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1vue-router-%E4%B8%AD-query-%E5%8F%82%E6%95%B0%E5%92%8C-params-%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%E5%9C%A8%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">问题
+1：Vue Router 中 Query 参数和 Params
+参数的核心区别是什么？在实际项目中如何选择？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88"><span class="nav-number">2.1.1.</span> <span class="nav-text">答案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-2vue-router-%E7%9A%84%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB%E6%9C%89%E5%93%AA%E5%87%A0%E7%B1%BB%E5%88%86%E5%88%AB%E9%80%82%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF"><span class="nav-number">2.2.</span> <span class="nav-text">问题
+2：Vue Router 的导航守卫有哪几类？分别适用于什么场景？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">答案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-3vue-router-%E4%B8%AD%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E5%A6%82%E4%BD%95%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD"><span class="nav-number">2.3.</span> <span class="nav-text">问题
+3：Vue Router
+中路由懒加载的实现原理是什么？如何结合路由分组进一步优化性能？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">答案：</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -712,7 +605,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">587k</span>
+    <span title="站点总字数">586k</span>
 </div>
 
         

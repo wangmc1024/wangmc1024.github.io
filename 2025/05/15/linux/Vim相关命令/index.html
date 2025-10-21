@@ -240,24 +240,27 @@
 
       
         <blockquote>
-<p>vim的用法</p>
+<p>vim的用法 <span id="more"></span></p>
 </blockquote>
- <span id="more"></span>
-<h2 id="一、Vim-基础认知与核心模式">一、Vim 基础认知与核心模式</h2>
-<h3 id="1-Vim-简介与学习资源">1. Vim 简介与学习资源</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>定位</strong>：Linux 系统上的高效文本编辑器，支持多模式操作，且多数主流 IDE 可安装 Vim 插件实现兼容。</p>
-</li>
-<li class="lvl-2">
-<p><strong>权威学习资料</strong>：Vim 内置帮助文档，启动 Vim 后输入<code>:help</code>即可查看（英文）；也可通过科学上网获取更多演变历史与学习资源。</p>
-</li>
-<li class="lvl-2">
-<p><strong>核心配置文件</strong>：Linux 系统中为<code>~/.vimrc</code>（家目录下的隐藏文件，不存在可手动创建），可配置显示行号、快捷键映射、插件等，例如将<code>ESC</code>键映射为连续两次<code>j</code>键：<code>inoremap jj &lt;Esc&gt;</code>。</p>
-</li>
+<h2 id="一vim-基础认知与核心模式">一、Vim 基础认知与核心模式</h2>
+<h3 id="vim-简介与学习资源">1. Vim 简介与学习资源</h3>
+<ul>
+<li><strong>定位</strong>：Linux
+系统上的高效文本编辑器，支持多模式操作，且多数主流 IDE 可安装 Vim
+插件实现兼容。</li>
+<li><strong>权威学习资料</strong>：Vim 内置帮助文档，启动 Vim
+后输入<code>:help</code>即可查看（英文）；也可通过科学上网获取更多演变历史与学习资源。</li>
+<li><strong>核心配置文件</strong>：Linux
+系统中为<code>~/.vimrc</code>（家目录下的隐藏文件，不存在可手动创建），可配置显示行号、快捷键映射、插件等，例如将<code>ESC</code>键映射为连续两次<code>j</code>键：<code>inoremap jj &lt;Esc&gt;</code>。</li>
 </ul>
-<h3 id="2-Vim-四大核心模式">2. Vim 四大核心模式</h3>
+<h3 id="vim-四大核心模式">2. Vim 四大核心模式</h3>
 <table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 36%" />
+<col style="width: 26%" />
+<col style="width: 32%" />
+</colgroup>
 <thead>
 <tr>
 <th>模式名称</th>
@@ -269,7 +272,8 @@
 <tbody>
 <tr>
 <td>正常模式</td>
-<td>Vim 启动默认进入；其他模式按<code>ESC</code>（或<code>jj</code>）</td>
+<td>Vim
+启动默认进入；其他模式按<code>ESC</code>（或<code>jj</code>）</td>
 <td>浏览文件、光标移动、复制 / 粘贴 / 删除等操作</td>
 <td>按<code>i/I/a/A/o/O</code>等进入插入模式；按<code>:</code>或<code>/</code>进入命令模式</td>
 </tr>
@@ -293,37 +297,33 @@
 </tr>
 </tbody>
 </table>
-<h2 id="二、Vim-文件操作：打开、切换与分屏">二、Vim 文件操作：打开、切换与分屏</h2>
-<h3 id="1-打开文件">1. 打开文件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>打开单个文件</strong>：终端输入<code>vim 文件名</code>，示例：<code>vim file1</code>（打开名为<code>file1</code>的文件）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>打开多个文件</strong>：终端输入<code>vim 文件名1 文件名2 ...</code>，示例：<code>vim file1 file2</code>（打开<code>file1</code>和<code>file2</code>，默认显示第一个文件）。</p>
-</li>
+<h2 id="二vim-文件操作打开切换与分屏">二、Vim
+文件操作：打开、切换与分屏</h2>
+<h3 id="打开文件">1. 打开文件</h3>
+<ul>
+<li><strong>打开单个文件</strong>：终端输入<code>vim 文件名</code>，示例：<code>vim file1</code>（打开名为<code>file1</code>的文件）。</li>
+<li><strong>打开多个文件</strong>：终端输入<code>vim 文件名1 文件名2 ...</code>，示例：<code>vim file1 file2</code>（打开<code>file1</code>和<code>file2</code>，默认显示第一个文件）。</li>
 </ul>
-<h3 id="2-多文件切换与管理">2. 多文件切换与管理</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>查看已打开文件列表</strong>：正常模式下按<code>:</code>进入命令模式，输入<code>:ls</code>，会显示所有打开文件的序号与文件名。</p>
-</li>
-<li class="lvl-2">
-<p><strong>切换文件</strong>：命令模式下输入<code>:b序号</code>（<code>b</code>即<code>buffer</code>），示例：<code>:b2</code>（切换到序号为 2 的文件）；也可输入<code>:bn</code>（切换到下一个文件）、<code>:bp</code>（切换到上一个文件）。</p>
-</li>
+<h3 id="多文件切换与管理">2. 多文件切换与管理</h3>
+<ul>
+<li><strong>查看已打开文件列表</strong>：正常模式下按<code>:</code>进入命令模式，输入<code>:ls</code>，会显示所有打开文件的序号与文件名。</li>
+<li><strong>切换文件</strong>：命令模式下输入<code>:b序号</code>（<code>b</code>即<code>buffer</code>），示例：<code>:b2</code>（切换到序号为
+2
+的文件）；也可输入<code>:bn</code>（切换到下一个文件）、<code>:bp</code>（切换到上一个文件）。</li>
 </ul>
-<h3 id="3-分屏操作">3. 分屏操作</h3>
-<h4 id="（1）终端启动时直接分屏">（1）终端启动时直接分屏</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>左右分屏</strong>：终端输入<code>vim -On 文件名1 文件名2 ...</code>（<code>O</code>为大写，<code>n</code>为文件数量），示例：<code>vim -O2 file1 file2</code>（左右分屏显示<code>file1</code>和<code>file2</code>）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>上下分屏</strong>：终端输入<code>vim -on 文件名1 文件名2 ...</code>（<code>o</code>为小写，<code>n</code>为文件数量），示例：<code>vim -o2 file1 file2</code>（上下分屏显示<code>file1</code>和<code>file2</code>）。</p>
-</li>
+<h3 id="分屏操作">3. 分屏操作</h3>
+<h4 id="终端启动时直接分屏">（1）终端启动时直接分屏</h4>
+<ul>
+<li><strong>左右分屏</strong>：终端输入<code>vim -On 文件名1 文件名2 ...</code>（<code>O</code>为大写，<code>n</code>为文件数量），示例：<code>vim -O2 file1 file2</code>（左右分屏显示<code>file1</code>和<code>file2</code>）。</li>
+<li><strong>上下分屏</strong>：终端输入<code>vim -on 文件名1 文件名2 ...</code>（<code>o</code>为小写，<code>n</code>为文件数量），示例：<code>vim -o2 file1 file2</code>（上下分屏显示<code>file1</code>和<code>file2</code>）。</li>
 </ul>
-<h4 id="（2）Vim-内部分屏">（2）Vim 内部分屏</h4>
+<h4 id="vim-内部分屏">（2）Vim 内部分屏</h4>
 <table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 27%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr>
 <th>分屏类型</th>
@@ -354,20 +354,19 @@
 </tr>
 </tbody>
 </table>
-<h4 id="（3）分屏切换与关闭">（3）分屏切换与关闭</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>光标切换</strong>：正常模式下按<code>Ctrl + w</code>后，按<code>h</code>（左屏）、<code>l</code>（右屏）、<code>j</code>（下屏）、<code>k</code>（上屏），示例：<code>Ctrl + w h</code>（光标移到左侧分屏）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>分屏移动</strong>：正常模式下按<code>Ctrl + w</code>后，按<code>H</code>（当前分屏移到最左）、<code>L</code>（当前分屏移到最右）、<code>J</code>（当前分屏移到最下）、<code>K</code>（当前分屏移到最上），示例：<code>Ctrl + w H</code>（当前分屏移到左侧）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>关闭分屏</strong>：正常模式下按<code>Ctrl + w c</code>（关闭当前分屏）；按<code>Ctrl + w q</code>（关闭当前分屏，若为最后一个分屏则退出 Vim）。</p>
-</li>
+<h4 id="分屏切换与关闭">（3）分屏切换与关闭</h4>
+<ul>
+<li><strong>光标切换</strong>：正常模式下按<code>Ctrl + w</code>后，按<code>h</code>（左屏）、<code>l</code>（右屏）、<code>j</code>（下屏）、<code>k</code>（上屏），示例：<code>Ctrl + w h</code>（光标移到左侧分屏）。</li>
+<li><strong>分屏移动</strong>：正常模式下按<code>Ctrl + w</code>后，按<code>H</code>（当前分屏移到最左）、<code>L</code>（当前分屏移到最右）、<code>J</code>（当前分屏移到最下）、<code>K</code>（当前分屏移到最上），示例：<code>Ctrl + w H</code>（当前分屏移到左侧）。</li>
+<li><strong>关闭分屏</strong>：正常模式下按<code>Ctrl + w c</code>（关闭当前分屏）；按<code>Ctrl + w q</code>（关闭当前分屏，若为最后一个分屏则退出
+Vim）。</li>
 </ul>
-<h2 id="三、Vim-退出与文件保存命令">三、Vim 退出与文件保存命令</h2>
+<h2 id="三vim-退出与文件保存命令">三、Vim 退出与文件保存命令</h2>
 <table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 78%" />
+</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -405,7 +404,8 @@
 </tr>
 <tr>
 <td><code>:x</code></td>
-<td>保存当前文件修改并退出 Vim（与<code>:wq</code>功能类似，仅文件有修改时才保存）</td>
+<td>保存当前文件修改并退出
+Vim（与<code>:wq</code>功能类似，仅文件有修改时才保存）</td>
 </tr>
 <tr>
 <td><code>:e 文件名</code></td>
@@ -425,8 +425,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="四、Vim-插入模式：文本编辑与快捷进入">四、Vim 插入模式：文本编辑与快捷进入</h2>
-<h3 id="1-从正常模式进入插入模式的命令">1. 从正常模式进入插入模式的命令</h3>
+<h2 id="四vim-插入模式文本编辑与快捷进入">四、Vim
+插入模式：文本编辑与快捷进入</h2>
+<h3 id="从正常模式进入插入模式的命令">1.
+从正常模式进入插入模式的命令</h3>
 <table>
 <thead>
 <tr>
@@ -473,8 +475,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="五、Vim-命令模式：环境设置、查找替换与-Linux-命令调用">五、Vim 命令模式：环境设置、查找替换与 Linux 命令调用</h2>
-<h3 id="1-文本显示与行号设置">1. 文本显示与行号设置</h3>
+<h2 id="五vim-命令模式环境设置查找替换与-linux-命令调用">五、Vim
+命令模式：环境设置、查找替换与 Linux 命令调用</h2>
+<h3 id="文本显示与行号设置">1. 文本显示与行号设置</h3>
 <table>
 <thead>
 <tr>
@@ -497,9 +500,17 @@
 </tr>
 </tbody>
 </table>
-<h3 id="2-文本查找与大小写设置">2. 文本查找与大小写设置</h3>
-<p>若需 <strong>精准匹配独立单词</strong>（仅匹配 <code>test</code> 本身，不包含前后字符），需用单词边界标记 <code>\&lt;</code> 和 <code>\&gt;</code>    输入 <code>/</code>（正向查找）或 <code>?</code>（反向查找）</p>
+<h3 id="文本查找与大小写设置">2. 文本查找与大小写设置</h3>
+<p>若需 <strong>精准匹配独立单词</strong>（仅匹配 <code>test</code>
+本身，不包含前后字符），需用单词边界标记 <code>\&lt;</code> 和
+<code>\&gt;</code> 输入 <code>/</code>（正向查找）或
+<code>?</code>（反向查找）</p>
 <table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 36%" />
+<col style="width: 52%" />
+</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -511,7 +522,8 @@
 <tr>
 <td><code>/目标字符串</code></td>
 <td>从光标位置向后查找目标字符串，匹配结果高亮</td>
-<td><code>/Vim</code>（查找所有 “Vim”，按<code>n</code>跳转到下一个，<code>N</code>跳转到上一个）</td>
+<td><code>/Vim</code>（查找所有
+“Vim”，按<code>n</code>跳转到下一个，<code>N</code>跳转到上一个）</td>
 </tr>
 <tr>
 <td><code>:set ic</code></td>
@@ -525,26 +537,24 @@
 </tr>
 </tbody>
 </table>
-<h3 id="3-文本删除与替换">3. 文本删除与替换</h3>
-<h4 id="（1）多行删除">（1）多行删除</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:n1,n2d</code>（<code>n1</code>为起始行号，<code>n2</code>为结束行号，<code>d</code>为删除关键字）</p>
-</li>
-<li class="lvl-2">
-<p>示例：<code>:3,5d</code>（删除第 3 行到第 5 行的文本）</p>
-</li>
+<h3 id="文本删除与替换">3. 文本删除与替换</h3>
+<h4 id="多行删除">（1）多行删除</h4>
+<ul>
+<li>命令格式：<code>:n1,n2d</code>（<code>n1</code>为起始行号，<code>n2</code>为结束行号，<code>d</code>为删除关键字）</li>
+<li>示例：<code>:3,5d</code>（删除第 3 行到第 5 行的文本）</li>
 </ul>
-<h4 id="（2）文本替换">（2）文本替换</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:{作用范围}s/{目标字符串}/{替换字符串}/{替换标志}</code></p>
-</li>
-<li class="lvl-2">
-<p>详细示例：</p>
-</li>
+<h4 id="文本替换">（2）文本替换</h4>
+<ul>
+<li>命令格式：<code>:{作用范围}s/{目标字符串}/{替换字符串}/{替换标志}</code></li>
+<li>详细示例：</li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 46%" />
+</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -576,7 +586,9 @@
 <td><code>:'&lt;,'&gt;s/zempty/handsome/g</code></td>
 <td>可视模式选区</td>
 <td><code>g</code>（全局替换）</td>
-<td>可视模式选中文本后，输入<code>:</code>, 自动补全<code>:'&lt;,'&gt;</code>, 再输入命令，替换选区内 “zempty” 为 “handsome”</td>
+<td>可视模式选中文本后，输入<code>:</code>,
+自动补全<code>:'&lt;,'&gt;</code>, 再输入命令，替换选区内 “zempty” 为
+“handsome”</td>
 </tr>
 <tr>
 <td><code>:s/zempty/handsome</code></td>
@@ -600,67 +612,68 @@
 <td><code>:%s/zempty/handsome/gc</code></td>
 <td>全文</td>
 <td><code>g</code>+<code>c</code>（全局 + 确认）</td>
-<td>全文替换 “zempty” 为 “handsome”，每处匹配需确认（按<code>y</code>确认，<code>n</code>跳过，<code>a</code>全替换，<code>q</code>退出）</td>
+<td>全文替换 “zempty” 为
+“handsome”，每处匹配需确认（按<code>y</code>确认，<code>n</code>跳过，<code>a</code>全替换，<code>q</code>退出）</td>
 </tr>
 </tbody>
 </table>
-<h3 id="4-Vim-中调用-Linux-命令">4. Vim 中调用 Linux 命令</h3>
-<h4 id="（1）执行-Linux-命令并查看结果（不插入文本）">（1）执行 Linux 命令并查看结果（不插入文本）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:!Linux命令</code>（<code>!</code>为调用外部命令的标志）</p>
-</li>
-<li class="lvl-2">
-<p>示例：</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>:!date</code>：执行<code>date</code>命令，显示当前系统时间，按<code>Enter</code>返回 Vim 编辑界面。</li>
-<li class="lvl-4"><code>:!ls</code>：执行<code>ls</code>命令，显示当前目录下的文件列表，按<code>Enter</code>返回 Vim。</li>
-<li class="lvl-4"><code>:!pwd</code>：执行<code>pwd</code>命令，显示当前工作目录路径，按<code>Enter</code>返回 Vim。</li>
+<h3 id="vim-中调用-linux-命令">4. Vim 中调用 Linux 命令</h3>
+<h4 id="执行-linux-命令并查看结果不插入文本">（1）执行 Linux
+命令并查看结果（不插入文本）</h4>
+<ul>
+<li>命令格式：<code>:!Linux命令</code>（<code>!</code>为调用外部命令的标志）</li>
+<li>示例：
+<ul>
+<li><code>:!date</code>：执行<code>date</code>命令，显示当前系统时间，按<code>Enter</code>返回
+Vim 编辑界面。</li>
+<li><code>:!ls</code>：执行<code>ls</code>命令，显示当前目录下的文件列表，按<code>Enter</code>返回
+Vim。</li>
+<li><code>:!pwd</code>：执行<code>pwd</code>命令，显示当前工作目录路径，按<code>Enter</code>返回
+Vim。</li>
+</ul></li>
 </ul>
-</li>
+<h4 id="执行-linux-命令并将结果插入文本">（2）执行 Linux
+命令并将结果插入文本</h4>
+<ul>
+<li>命令格式：<code>:r !Linux命令</code>（<code>r</code>为 “读取”
+标志，将命令结果读取到文本中）</li>
+<li>示例：
+<ul>
+<li><code>:r !date</code>：执行<code>date</code>命令，将当前时间插入到光标所在位置（如光标在第
+5 行，时间会插入到第 5 行之后）。</li>
+<li><code>:r !cat file2</code>：执行<code>cat file2</code>命令，将<code>file2</code>的内容插入到光标所在位置。</li>
+<li><code>:r !ls -l</code>：执行<code>ls -l</code>命令，将目录下文件的详细信息（权限、大小等）插入到文本中。</li>
+</ul></li>
 </ul>
-<h4 id="（2）执行-Linux-命令并将结果插入文本">（2）执行 Linux 命令并将结果插入文本</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:r !Linux命令</code>（<code>r</code>为 “读取” 标志，将命令结果读取到文本中）</p>
-</li>
-<li class="lvl-2">
-<p>示例：</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>:r !date</code>：执行<code>date</code>命令，将当前时间插入到光标所在位置（如光标在第 5 行，时间会插入到第 5 行之后）。</li>
-<li class="lvl-4"><code>:r !cat file2</code>：执行<code>cat file2</code>命令，将<code>file2</code>的内容插入到光标所在位置。</li>
-<li class="lvl-4"><code>:r !ls -l</code>：执行<code>ls -l</code>命令，将目录下文件的详细信息（权限、大小等）插入到文本中。</li>
+<h3 id="自定义快捷键与文本缩写">5. 自定义快捷键与文本缩写</h3>
+<h4
+id="自定义快捷键map命令">（1）自定义快捷键（<code>map</code>命令）</h4>
+<ul>
+<li>命令格式：<code>:map 快捷键 操作序列</code>（<code>快捷键</code>需用<code>Ctrl + v + 按键</code>生成，如<code>Ctrl + m</code>需按<code>Ctrl + v + m</code>显示为<code>^M</code>）</li>
+<li>示例：
+<ul>
+<li><code>:map ^M I#&lt;ESC&gt;</code>：<code>^M</code>代表<code>Ctrl + m</code>，按该快捷键可在光标所在行首插入<code>#</code>（注释符号），并返回正常模式。</li>
+<li><code>:map ^D Ahelloworld&lt;ESC&gt;</code>：<code>^D</code>代表<code>Ctrl + d</code>，按该快捷键可在光标所在行尾添加
+“helloworld”，并返回正常模式。</li>
+</ul></li>
 </ul>
-</li>
+<h4 id="文本缩写ab命令">（2）文本缩写（<code>ab</code>命令）</h4>
+<ul>
+<li>命令格式：<code>:ab 缩写 完整文本</code>（插入模式下输入缩写，会自动替换为完整文本）</li>
+<li>示例：
+<ul>
+<li><code>:ab email xxx@gmail.com</code>：设置后，在插入模式输入
+“email”，会自动替换为 “xxx@gmail.com”，适用于频繁输入的长文本。</li>
+</ul></li>
 </ul>
-<h3 id="5-自定义快捷键与文本缩写">5. 自定义快捷键与文本缩写</h3>
-<h4 id="（1）自定义快捷键（map命令）">（1）自定义快捷键（<code>map</code>命令）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:map 快捷键 操作序列</code>（<code>快捷键</code>需用<code>Ctrl + v + 按键</code>生成，如<code>Ctrl + m</code>需按<code>Ctrl + v + m</code>显示为<code>^M</code>）</p>
-</li>
-<li class="lvl-2">
-<p>示例：</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>:map ^M I#&lt;ESC&gt;</code>：<code>^M</code>代表<code>Ctrl + m</code>，按该快捷键可在光标所在行首插入<code>#</code>（注释符号），并返回正常模式。</li>
-<li class="lvl-4"><code>:map ^D Ahelloworld&lt;ESC&gt;</code>：<code>^D</code>代表<code>Ctrl + d</code>，按该快捷键可在光标所在行尾添加 “helloworld”，并返回正常模式。</li>
-</ul>
-</li>
-</ul>
-<h4 id="（2）文本缩写（ab命令）">（2）文本缩写（<code>ab</code>命令）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>命令格式：<code>:ab 缩写 完整文本</code>（插入模式下输入缩写，会自动替换为完整文本）</p>
-</li>
-<li class="lvl-2">
-<p>示例：</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>:ab email xxx@gmail.com</code>：设置后，在插入模式输入 “email”，会自动替换为 “xxx@gmail.com”，适用于频繁输入的长文本。</li>
-</ul>
-</li>
-</ul>
-<h2 id="六、Vim-正常模式：光标移动、复制粘贴与文本操作">六、Vim 正常模式：光标移动、复制粘贴与文本操作</h2>
+<h2 id="六vim-正常模式光标移动复制粘贴与文本操作">六、Vim
+正常模式：光标移动、复制粘贴与文本操作</h2>
 <table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 28%" />
+<col style="width: 55%" />
+</colgroup>
 <thead>
 <tr>
 <th>移动类型</th>
@@ -853,7 +866,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Vim-%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、Vim 基础认知与核心模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Vim-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">1. Vim 简介与学习资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Vim-%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">2. Vim 四大核心模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Vim-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%89%93%E5%BC%80%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E5%88%86%E5%B1%8F"><span class="nav-number">2.</span> <span class="nav-text">二、Vim 文件操作：打开、切换与分屏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1. 打开文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A4%9A%E6%96%87%E4%BB%B6%E5%88%87%E6%8D%A2%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">2. 多文件切换与管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%86%E5%B1%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">3. 分屏操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E7%BB%88%E7%AB%AF%E5%90%AF%E5%8A%A8%E6%97%B6%E7%9B%B4%E6%8E%A5%E5%88%86%E5%B1%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）终端启动时直接分屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89Vim-%E5%86%85%E9%83%A8%E5%88%86%E5%B1%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）Vim 内部分屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%88%86%E5%B1%8F%E5%88%87%E6%8D%A2%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）分屏切换与关闭</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Vim-%E9%80%80%E5%87%BA%E4%B8%8E%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">三、Vim 退出与文件保存命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Vim-%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E4%B8%8E%E5%BF%AB%E6%8D%B7%E8%BF%9B%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">四、Vim 插入模式：文本编辑与快捷进入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8E%E6%AD%A3%E5%B8%B8%E6%A8%A1%E5%BC%8F%E8%BF%9B%E5%85%A5%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">1. 从正常模式进入插入模式的命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Vim-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%E3%80%81%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2%E4%B8%8E-Linux-%E5%91%BD%E4%BB%A4%E8%B0%83%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">五、Vim 命令模式：环境设置、查找替换与 Linux 命令调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E4%B8%8E%E8%A1%8C%E5%8F%B7%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">1. 文本显示与行号设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E6%9C%AC%E6%9F%A5%E6%89%BE%E4%B8%8E%E5%A4%A7%E5%B0%8F%E5%86%99%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">2. 文本查找与大小写设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%87%E6%9C%AC%E5%88%A0%E9%99%A4%E4%B8%8E%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.3.</span> <span class="nav-text">3. 文本删除与替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%A4%9A%E8%A1%8C%E5%88%A0%E9%99%A4"><span class="nav-number">5.3.1.</span> <span class="nav-text">（1）多行删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%96%87%E6%9C%AC%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.3.2.</span> <span class="nav-text">（2）文本替换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Vim-%E4%B8%AD%E8%B0%83%E7%94%A8-Linux-%E5%91%BD%E4%BB%A4"><span class="nav-number">5.4.</span> <span class="nav-text">4. Vim 中调用 Linux 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%89%A7%E8%A1%8C-Linux-%E5%91%BD%E4%BB%A4%E5%B9%B6%E6%9F%A5%E7%9C%8B%E7%BB%93%E6%9E%9C%EF%BC%88%E4%B8%8D%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC%EF%BC%89"><span class="nav-number">5.4.1.</span> <span class="nav-text">（1）执行 Linux 命令并查看结果（不插入文本）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%89%A7%E8%A1%8C-Linux-%E5%91%BD%E4%BB%A4%E5%B9%B6%E5%B0%86%E7%BB%93%E6%9E%9C%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC"><span class="nav-number">5.4.2.</span> <span class="nav-text">（2）执行 Linux 命令并将结果插入文本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%B8%8E%E6%96%87%E6%9C%AC%E7%BC%A9%E5%86%99"><span class="nav-number">5.5.</span> <span class="nav-text">5. 自定义快捷键与文本缩写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%88map%E5%91%BD%E4%BB%A4%EF%BC%89"><span class="nav-number">5.5.1.</span> <span class="nav-text">（1）自定义快捷键（map命令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%96%87%E6%9C%AC%E7%BC%A9%E5%86%99%EF%BC%88ab%E5%91%BD%E4%BB%A4%EF%BC%89"><span class="nav-number">5.5.2.</span> <span class="nav-text">（2）文本缩写（ab命令）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81Vim-%E6%AD%A3%E5%B8%B8%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%85%89%E6%A0%87%E7%A7%BB%E5%8A%A8%E3%80%81%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E4%B8%8E%E6%96%87%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">六、Vim 正常模式：光标移动、复制粘贴与文本操作</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80vim-%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、Vim 基础认知与核心模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.</span> <span class="nav-text">1. Vim 简介与学习资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">2. Vim 四大核心模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cvim-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%89%93%E5%BC%80%E5%88%87%E6%8D%A2%E4%B8%8E%E5%88%86%E5%B1%8F"><span class="nav-number">2.</span> <span class="nav-text">二、Vim
+文件操作：打开、切换与分屏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1. 打开文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E5%88%87%E6%8D%A2%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">2. 多文件切换与管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">3. 分屏操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E5%90%AF%E5%8A%A8%E6%97%B6%E7%9B%B4%E6%8E%A5%E5%88%86%E5%B1%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）终端启动时直接分屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim-%E5%86%85%E9%83%A8%E5%88%86%E5%B1%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）Vim 内部分屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B1%8F%E5%88%87%E6%8D%A2%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）分屏切换与关闭</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89vim-%E9%80%80%E5%87%BA%E4%B8%8E%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">三、Vim 退出与文件保存命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9Bvim-%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E4%B8%8E%E5%BF%AB%E6%8D%B7%E8%BF%9B%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">四、Vim
+插入模式：文本编辑与快捷进入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%AD%A3%E5%B8%B8%E6%A8%A1%E5%BC%8F%E8%BF%9B%E5%85%A5%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">1.
+从正常模式进入插入模式的命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94vim-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE%E6%9F%A5%E6%89%BE%E6%9B%BF%E6%8D%A2%E4%B8%8E-linux-%E5%91%BD%E4%BB%A4%E8%B0%83%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">五、Vim
+命令模式：环境设置、查找替换与 Linux 命令调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E4%B8%8E%E8%A1%8C%E5%8F%B7%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">1. 文本显示与行号设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%9F%A5%E6%89%BE%E4%B8%8E%E5%A4%A7%E5%B0%8F%E5%86%99%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">2. 文本查找与大小写设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E5%88%A0%E9%99%A4%E4%B8%8E%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.3.</span> <span class="nav-text">3. 文本删除与替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E5%88%A0%E9%99%A4"><span class="nav-number">5.3.1.</span> <span class="nav-text">（1）多行删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%9B%BF%E6%8D%A2"><span class="nav-number">5.3.2.</span> <span class="nav-text">（2）文本替换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E4%B8%AD%E8%B0%83%E7%94%A8-linux-%E5%91%BD%E4%BB%A4"><span class="nav-number">5.4.</span> <span class="nav-text">4. Vim 中调用 Linux 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-linux-%E5%91%BD%E4%BB%A4%E5%B9%B6%E6%9F%A5%E7%9C%8B%E7%BB%93%E6%9E%9C%E4%B8%8D%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC"><span class="nav-number">5.4.1.</span> <span class="nav-text">（1）执行 Linux
+命令并查看结果（不插入文本）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-linux-%E5%91%BD%E4%BB%A4%E5%B9%B6%E5%B0%86%E7%BB%93%E6%9E%9C%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC"><span class="nav-number">5.4.2.</span> <span class="nav-text">（2）执行 Linux
+命令并将结果插入文本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%B8%8E%E6%96%87%E6%9C%AC%E7%BC%A9%E5%86%99"><span class="nav-number">5.5.</span> <span class="nav-text">5. 自定义快捷键与文本缩写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AEmap%E5%91%BD%E4%BB%A4"><span class="nav-number">5.5.1.</span> <span class="nav-text">（1）自定义快捷键（map命令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%BC%A9%E5%86%99ab%E5%91%BD%E4%BB%A4"><span class="nav-number">5.5.2.</span> <span class="nav-text">（2）文本缩写（ab命令）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%ADvim-%E6%AD%A3%E5%B8%B8%E6%A8%A1%E5%BC%8F%E5%85%89%E6%A0%87%E7%A7%BB%E5%8A%A8%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E4%B8%8E%E6%96%87%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">六、Vim
+正常模式：光标移动、复制粘贴与文本操作</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -930,7 +950,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">587k</span>
+    <span title="站点总字数">586k</span>
 </div>
 
         

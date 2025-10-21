@@ -239,206 +239,172 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如何使用ASan检测内存错误及其使用方法</p>
- <span id="more"></span>
-<h3 id="AddressSanitizer（ASan）详解：使用场景、注意事项及扩展知识">AddressSanitizer（ASan）详解：使用场景、注意事项及扩展知识</h3>
-<p>AddressSanitizer（简称 ASan）是由 Google 开发的<strong>基于编译器的内存错误检测工具</strong>，集成于 GCC 4.8+、Clang 3.1 + 及 MSVC 2019 + 中。它能精准检测多种内存安全问题（如缓冲区溢出、使用已释放内存等），是 C/C++ 开发中排查内存错误的核心工具</p>
-<h2 id="一、ASan-的核心功能">一、ASan 的核心功能</h2>
+        <p>如何使用ASan检测内存错误及其使用方法 <span id="more"></span> ###
+AddressSanitizer（ASan）详解：使用场景、注意事项及扩展知识</p>
+<p>AddressSanitizer（简称 ASan）是由 Google
+开发的<strong>基于编译器的内存错误检测工具</strong>，集成于 GCC
+4.8+、Clang 3.1 + 及 MSVC 2019 +
+中。它能精准检测多种内存安全问题（如缓冲区溢出、使用已释放内存等），是
+C/C++ 开发中排查内存错误的核心工具</p>
+<h2 id="一asan-的核心功能">一、ASan 的核心功能</h2>
 <p>ASan 主要检测以下内存错误类型：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>栈 / 堆 / 全局缓冲区溢出（越界读写）；</p>
-</li>
-<li class="lvl-2">
-<p>使用已释放内存（use-after-free）；</p>
-</li>
-<li class="lvl-2">
-<p>双重释放（double-free）或释放无效指针；</p>
-</li>
-<li class="lvl-2">
-<p>内存泄漏（需配合 LeakSanitizer，LSan）；</p>
-</li>
-<li class="lvl-2">
-<p>部分未初始化内存的使用（更全面的检测需 MemorySanitizer，MSan）；</p>
-</li>
-<li class="lvl-2">
-<p>栈 - use-after-return/scope（离开作用域后使用栈内存）。</p>
-</li>
+<ul>
+<li>栈 / 堆 / 全局缓冲区溢出（越界读写）；</li>
+<li>使用已释放内存（use-after-free）；</li>
+<li>双重释放（double-free）或释放无效指针；</li>
+<li>内存泄漏（需配合 LeakSanitizer，LSan）；</li>
+<li>部分未初始化内存的使用（更全面的检测需
+MemorySanitizer，MSan）；</li>
+<li>栈 - use-after-return/scope（离开作用域后使用栈内存）。</li>
 </ul>
-<h2 id="二、不同场景下的使用方法">二、不同场景下的使用方法</h2>
-<h3 id="1-基础编译场景（直接编译单个文件）">1. 基础编译场景（直接编译单个文件）</h3>
-<p>ASan 的使用依赖编译器插桩，需在<strong>编译和链接阶段同时添加选项</strong>。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>核心编译选项</strong>：<code>-fsanitize=address</code>：启用 ASan 检测；<code>-g</code>：生成调试信息（用于定位错误位置）；<br>
-<code>-O1</code>/<code>-O2</code>：优化级别（<code>-O0</code>可使用但性能差，<code>-O3</code>可能因优化掩盖部分错误，推荐<code>-O1</code>）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>示例（Clang/GCC）</strong>：假设有文件<code>test.c</code>（含堆缓冲区溢出）：</p>
+<h2 id="二不同场景下的使用方法">二、不同场景下的使用方法</h2>
+<h3 id="基础编译场景直接编译单个文件">1.
+基础编译场景（直接编译单个文件）</h3>
+<p>ASan
+的使用依赖编译器插桩，需在<strong>编译和链接阶段同时添加选项</strong>。</p>
+<ul>
+<li><p><strong>核心编译选项</strong>：
+<code>-fsanitize=address</code>：启用 ASan 检测；
+<code>-g</code>：生成调试信息（用于定位错误位置）；
+<code>-O1</code>/<code>-O2</code>：优化级别（<code>-O0</code>可使用但性能差，<code>-O3</code>可能因优化掩盖部分错误，推荐<code>-O1</code>）。</p></li>
+<li><p><strong>示例（Clang/GCC）</strong>：
+假设有文件<code>test.c</code>（含堆缓冲区溢出）：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> *arr = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="number">4</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>)); <span class="comment">// 分配4个int（16字节）</span></span><br><span class="line">  arr[<span class="number">4</span>] = <span class="number">0</span>; <span class="comment">// 越界写入（索引4超出范围）</span></span><br><span class="line">  <span class="built_in">free</span>(arr);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编译并运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=address -g -O1 test.c -o <span class="built_in">test</span>  <span class="comment"># 编译</span></span><br><span class="line">./test                                          <span class="comment"># 运行</span></span><br></pre></td></tr></table></figure>
-<p>输出将直接提示 “堆缓冲区溢出”，并显示错误位置（<code>test.c:4</code>）、调用栈及内存分配信息。</p>
-</li>
+<p>输出将直接提示
+“堆缓冲区溢出”，并显示错误位置（<code>test.c:4</code>）、调用栈及内存分配信息。</p></li>
 </ul>
-<h3 id="2-与构建工具集成（CMake-Makefile）">2. 与构建工具集成（CMake/Makefile）</h3>
+<h3 id="与构建工具集成cmakemakefile">2.
+与构建工具集成（CMake/Makefile）</h3>
 <p>在大型项目中，需通过构建工具统一配置 ASan 选项。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>CMake 集成</strong>：在<code>CMakeLists.txt</code>中添加：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对C/C++均启用ASan</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_FLAGS <span class="string">&quot;$&#123;CMAKE_C_FLAGS&#125; -fsanitize=address -g -O1&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; -fsanitize=address -g -O1&quot;</span>)</span><br><span class="line"><span class="comment"># 链接阶段同样需要ASan选项</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_EXE_LINKER_FLAGS <span class="string">&quot;$&#123;CMAKE_EXE_LINKER_FLAGS&#125; -fsanitize=address&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SHARED_LINKER_FLAGS <span class="string">&quot;$&#123;CMAKE_SHARED_LINKER_FLAGS&#125; -fsanitize=address&quot;</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><strong>Makefile 集成</strong>：在<code>Makefile</code>中添加：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS += -fsanitize=address -g -O1   <span class="comment"># C编译选项</span></span><br><span class="line">CXXFLAGS += -fsanitize=address -g -O1 <span class="comment"># C++编译选项</span></span><br><span class="line">LDFLAGS += -fsanitize=address         <span class="comment"># 链接选项</span></span><br></pre></td></tr></table></figure>
-</li>
+<ul>
+<li><p><strong>CMake 集成</strong>：
+在<code>CMakeLists.txt</code>中添加：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对C/C++均启用ASan</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_FLAGS <span class="string">&quot;$&#123;CMAKE_C_FLAGS&#125; -fsanitize=address -g -O1&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; -fsanitize=address -g -O1&quot;</span>)</span><br><span class="line"><span class="comment"># 链接阶段同样需要ASan选项</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_EXE_LINKER_FLAGS <span class="string">&quot;$&#123;CMAKE_EXE_LINKER_FLAGS&#125; -fsanitize=address&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SHARED_LINKER_FLAGS <span class="string">&quot;$&#123;CMAKE_SHARED_LINKER_FLAGS&#125; -fsanitize=address&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Makefile 集成</strong>：
+在<code>Makefile</code>中添加：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS += -fsanitize=address -g -O1   <span class="comment"># C编译选项</span></span><br><span class="line">CXXFLAGS += -fsanitize=address -g -O1 <span class="comment"># C++编译选项</span></span><br><span class="line">LDFLAGS += -fsanitize=address         <span class="comment"># 链接选项</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="3-多线程程序检测">3. 多线程程序检测</h3>
-<p>ASan 对多线程程序同样有效，可检测线程中的内存越界、use-after-free 等问题（但线程竞争需 ThreadSanitizer，TSan）。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>示例：多线程堆越界</p>
+<h3 id="多线程程序检测">3. 多线程程序检测</h3>
+<p>ASan 对多线程程序同样有效，可检测线程中的内存越界、use-after-free
+等问题（但线程竞争需 ThreadSanitizer，TSan）。</p>
+<ul>
+<li><p>示例：多线程堆越界</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> *arr;</span><br><span class="line"><span class="type">void</span> *<span class="title function_">thread_func</span><span class="params">(<span class="type">void</span> *arg)</span> &#123;</span><br><span class="line">  arr[<span class="number">10</span>] = <span class="number">0</span>; <span class="comment">// 越界写入（假设仅分配8个int）</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  arr = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="number">8</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">  <span class="type">pthread_t</span> t;</span><br><span class="line">  pthread_create(&amp;t, <span class="literal">NULL</span>, thread_func, <span class="literal">NULL</span>);</span><br><span class="line">  pthread_join(t, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="built_in">free</span>(arr);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -fsanitize=address -g -O1 -pthread test.c -o <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<p>运行后 ASan 会定位到线程函数中的越界位置。</p>
-</li>
+<p>运行后 ASan 会定位到线程函数中的越界位置。</p></li>
 </ul>
-<h3 id="4-与调试工具（GDB）结合">4. 与调试工具（GDB）结合</h3>
+<h3 id="与调试工具gdb结合">4. 与调试工具（GDB）结合</h3>
 <p>当 ASan 检测到错误时，程序会崩溃，此时可通过 GDB 进一步调试。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>步骤：</p>
-<ol>
-<li class="lvl-5">用 ASan 编译程序（保留<code>-g</code>选项）；</li>
-<li class="lvl-5">用 GDB 启动程序：<code>gdb ./test</code>；</li>
-<li class="lvl-5">在 GDB 中运行：<code>(gdb) run</code>；</li>
-<li class="lvl-5">触发错误后，使用<code>bt</code>（查看调用栈）、<code>frame N</code>（切换到第 N 帧）定位代码细节。</li>
-</ol>
-</li>
+<ul>
+<li>步骤：
+<ol type="1">
+<li>用 ASan 编译程序（保留<code>-g</code>选项）；</li>
+<li>用 GDB 启动程序：<code>gdb ./test</code>；</li>
+<li>在 GDB 中运行：<code>(gdb) run</code>；</li>
+<li>触发错误后，使用<code>bt</code>（查看调用栈）、<code>frame N</code>（切换到第
+N 帧）定位代码细节。</li>
+</ol></li>
 </ul>
-<h3 id="5-平台差异（Linux-macOS-Windows）">5. 平台差异（Linux/macOS/Windows）</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>Linux</strong>：支持最完善，GCC/Clang 均无显著限制；</p>
-</li>
-<li class="lvl-2">
-<p><strong>macOS</strong>：需使用 Clang（系统默认编译器），GCC 支持有限；</p>
-</li>
-<li class="lvl-2">
-<p>Windows：</p>
-<ul class="lvl-2">
-<li class="lvl-4">Clang：与 Linux 用法一致（需安装 LLVM）；</li>
-<li class="lvl-4">MSVC 2019+：通过<code>/fsanitize=address</code>启用（选项格式与 GCC/Clang 不同，且部分功能有差异）。</li>
+<h3 id="平台差异linuxmacoswindows">5.
+平台差异（Linux/macOS/Windows）</h3>
+<ul>
+<li><strong>Linux</strong>：支持最完善，GCC/Clang 均无显著限制；</li>
+<li><strong>macOS</strong>：需使用 Clang（系统默认编译器），GCC
+支持有限；</li>
+<li>Windows：
+<ul>
+<li>Clang：与 Linux 用法一致（需安装 LLVM）；</li>
+<li>MSVC 2019+：通过<code>/fsanitize=address</code>启用（选项格式与
+GCC/Clang 不同，且部分功能有差异）。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="6-内存泄漏检测（配合-LSan）">6. 内存泄漏检测（配合 LSan）</h3>
+<h3 id="内存泄漏检测配合-lsan">6. 内存泄漏检测（配合 LSan）</h3>
 <p>ASan 默认不检测内存泄漏，需手动启用 LeakSanitizer（LSan）。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>启用方法</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-4">Clang：直接添加<code>-fsanitize=address,leak</code>；</li>
-<li class="lvl-4">GCC：通过环境变量启用：<code>export ASAN_OPTIONS=detect_leaks=1</code>。</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>示例</strong>：检测内存泄漏</p>
+<ul>
+<li><p><strong>启用方法</strong>：</p>
+<ul>
+<li>Clang：直接添加<code>-fsanitize=address,leak</code>；</li>
+<li>GCC：通过环境变量启用：<code>export ASAN_OPTIONS=detect_leaks=1</code>。</li>
+</ul></li>
+<li><p><strong>示例</strong>：检测内存泄漏</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> *p = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="number">4</span>); <span class="comment">// 未释放</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=address,leak -g test.c -o <span class="built_in">test</span></span><br><span class="line">./test</span><br></pre></td></tr></table></figure>
-<p>输出会提示 “2 个字节的内存泄漏”，并显示分配位置。</p>
-</li>
+<p>输出会提示 “2 个字节的内存泄漏”，并显示分配位置。</p></li>
 </ul>
-<h2 id="三、注意事项">三、注意事项</h2>
-<h3 id="1-性能开销不可忽视">1. 性能开销不可忽视</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>运行速度</strong>：程序会慢 2-5 倍（因插入大量检测代码）；</p>
-</li>
-<li class="lvl-2">
-<p><strong>内存占用</strong>：增加 2-3 倍（需维护 “影子内存”）；</p>
-</li>
-<li class="lvl-2">
-<p><strong>适用场景</strong>：仅用于开发 / 测试环境，<strong>禁止在生产环境启用</strong>。</p>
-</li>
+<h2 id="三注意事项">三、注意事项</h2>
+<h3 id="性能开销不可忽视">1. 性能开销不可忽视</h3>
+<ul>
+<li><strong>运行速度</strong>：程序会慢 2-5
+倍（因插入大量检测代码）；</li>
+<li><strong>内存占用</strong>：增加 2-3 倍（需维护 “影子内存”）；</li>
+<li><strong>适用场景</strong>：仅用于开发 /
+测试环境，<strong>禁止在生产环境启用</strong>。</li>
 </ul>
-<h3 id="2-编译选项必须完整">2. 编译选项必须完整</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>编译（<code>-c</code>）和链接（<code>-o</code>）阶段均需添加<code>-fsanitize=address</code>，否则会出现链接错误（如 “undefined reference to `__asan_init’”）。</p>
-</li>
+<h3 id="编译选项必须完整">2. 编译选项必须完整</h3>
+<ul>
+<li>编译（<code>-c</code>）和链接（<code>-o</code>）阶段均需添加<code>-fsanitize=address</code>，否则会出现链接错误（如
+“undefined reference to `__asan_init’”）。</li>
 </ul>
-<h3 id="3-优化级别影响检测效果">3. 优化级别影响检测效果</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>避免使用<code>-O3</code>：高优化可能导致编译器重排代码，掩盖内存错误（如合并相邻内存访问）；</p>
-</li>
-<li class="lvl-2">
-<p>推荐<code>-O1</code>或<code>-O2</code>：平衡性能与检测精度。</p>
-</li>
+<h3 id="优化级别影响检测效果">3. 优化级别影响检测效果</h3>
+<ul>
+<li>避免使用<code>-O3</code>：高优化可能导致编译器重排代码，掩盖内存错误（如合并相邻内存访问）；</li>
+<li>推荐<code>-O1</code>或<code>-O2</code>：平衡性能与检测精度。</li>
 </ul>
-<h3 id="4-符号表是定位错误的关键">4. 符号表是定位错误的关键</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>必须添加<code>-g</code>选项：否则 ASan 报告仅显示内存地址，无法关联到文件名和行号；</p>
-</li>
-<li class="lvl-2">
-<p>若依赖第三方库，需确保其编译时也带<code>-g</code>（否则调用栈中库函数位置可能显示为 “unknown”）。</p>
-</li>
+<h3 id="符号表是定位错误的关键">4. 符号表是定位错误的关键</h3>
+<ul>
+<li>必须添加<code>-g</code>选项：否则 ASan
+报告仅显示内存地址，无法关联到文件名和行号；</li>
+<li>若依赖第三方库，需确保其编译时也带<code>-g</code>（否则调用栈中库函数位置可能显示为
+“unknown”）。</li>
 </ul>
-<h3 id="5-与其他工具的冲突与兼容">5. 与其他工具的冲突与兼容</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>冲突</strong>：不能与 TSan（<code>-fsanitize=thread</code>）同时使用（两者插桩逻辑冲突）；</p>
-</li>
-<li class="lvl-2">
-<p>兼容：可与 UBSan（<code>-fsanitize=undefined</code>）同时使用（检测未定义行为，如整数溢出），例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=address,undefined -g test.c -o <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-</li>
+<h3 id="与其他工具的冲突与兼容">5. 与其他工具的冲突与兼容</h3>
+<ul>
+<li><p><strong>冲突</strong>：不能与
+TSan（<code>-fsanitize=thread</code>）同时使用（两者插桩逻辑冲突）；</p></li>
+<li><p>兼容：可与
+UBSan（<code>-fsanitize=undefined</code>）同时使用（检测未定义行为，如整数溢出），例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=address,undefined -g test.c -o <span class="built_in">test</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="6-环境变量配置（ASAN-OPTIONS）">6. 环境变量配置（ASAN_OPTIONS）</h3>
+<h3 id="环境变量配置asan_options">6. 环境变量配置（ASAN_OPTIONS）</h3>
 <p>ASan 通过环境变量<code>ASAN_OPTIONS</code>调整行为，常用参数：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>detect_leaks=1</code>：启用内存泄漏检测（默认 0）；</p>
-</li>
-<li class="lvl-2">
-<p><code>malloc_context_size=30</code>：设置内存分配 / 释放的调用栈深度（默认 10，加深可更清晰定位来源）；</p>
-</li>
-<li class="lvl-2">
-<p><code>fast_unwind_on_malloc=0</code>：使用精确 unwind（而非快速），调用栈更准确但速度慢（默认 1）；</p>
-</li>
-<li class="lvl-2">
-<p><code>quarantine_size_mb=1024</code>：设置 “隔离区” 大小（已释放内存暂存区域，调大可检测更多 use-after-free）。</p>
-</li>
+<ul>
+<li><code>detect_leaks=1</code>：启用内存泄漏检测（默认 0）；</li>
+<li><code>malloc_context_size=30</code>：设置内存分配 /
+释放的调用栈深度（默认 10，加深可更清晰定位来源）；</li>
+<li><code>fast_unwind_on_malloc=0</code>：使用精确
+unwind（而非快速），调用栈更准确但速度慢（默认 1）；</li>
+<li><code>quarantine_size_mb=1024</code>：设置 “隔离区”
+大小（已释放内存暂存区域，调大可检测更多 use-after-free）。</li>
 </ul>
 <p>示例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ASAN_OPTIONS=<span class="string">&quot;detect_leaks=1:malloc_context_size=20:fast_unwind_on_malloc=0&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="7-部分错误可能漏检">7. 部分错误可能漏检</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>微小越界（如 1 字节）：若未触及影子内存的 “红色区域”（标记为无效的内存），可能不被检测；</p>
-</li>
-<li class="lvl-2">
-<p>复杂未初始化内存使用：需 MSan（<code>-fsanitize=memory</code>）补充检测（但需重新编译所有依赖库）。</p>
-</li>
+<h3 id="部分错误可能漏检">7. 部分错误可能漏检</h3>
+<ul>
+<li>微小越界（如 1 字节）：若未触及影子内存的
+“红色区域”（标记为无效的内存），可能不被检测；</li>
+<li>复杂未初始化内存使用：需
+MSan（<code>-fsanitize=memory</code>）补充检测（但需重新编译所有依赖库）。</li>
 </ul>
-<h2 id="四、扩展知识">四、扩展知识</h2>
-<h3 id="1-ASan-工作原理（影子内存机制）">1. ASan 工作原理（影子内存机制）</h3>
+<h2 id="四扩展知识">四、扩展知识</h2>
+<h3 id="asan-工作原理影子内存机制">1. ASan 工作原理（影子内存机制）</h3>
 <p>ASan 通过 “影子内存（shadow memory）” 跟踪用户内存状态：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>每 8 字节用户内存对应 1 字节影子内存（影子内存总大小为用户内存的 1/8）；</p>
-</li>
-<li class="lvl-2">
-<p>影子内存标记内存状态：0（可访问）、1-7（部分可访问）、0xF1（已释放）、0xF2（越界区域）等；</p>
-</li>
-<li class="lvl-2">
-<p>编译器在内存访问（读 / 写）处插入检测代码，检查对应影子内存状态，若非法则触发错误并输出报告。</p>
-</li>
+<ul>
+<li>每 8 字节用户内存对应 1 字节影子内存（影子内存总大小为用户内存的
+1/8）；</li>
+<li>影子内存标记内存状态：0（可访问）、1-7（部分可访问）、0xF1（已释放）、0xF2（越界区域）等；</li>
+<li>编译器在内存访问（读 /
+写）处插入检测代码，检查对应影子内存状态，若非法则触发错误并输出报告。</li>
 </ul>
-<h3 id="2-与其他-Sanitizer-的区别">2. 与其他 Sanitizer 的区别</h3>
+<h3 id="与其他-sanitizer-的区别">2. 与其他 Sanitizer 的区别</h3>
 <table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 32%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
+</colgroup>
 <thead>
 <tr>
 <th>工具</th>
@@ -474,32 +440,20 @@
 </tr>
 </tbody>
 </table>
-<h3 id="3-最佳实践">3. 最佳实践</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>开发阶段：对核心模块启用 ASan，定期运行单元测试；</p>
-</li>
-<li class="lvl-2">
-<p>CI/CD 流程：将 ASan 检测作为代码提交的 “门禁”，提前拦截内存错误；</p>
-</li>
-<li class="lvl-2">
-<p>结合调试：用 GDB 解析 ASan 崩溃现场，定位错误根源；</p>
-</li>
-<li class="lvl-2">
-<p>多工具协同：先用 ASan 检测基础内存错误，再用 TSan 检测线程问题，最后用 LSan 查漏内存泄漏。</p>
-</li>
+<h3 id="最佳实践">3. 最佳实践</h3>
+<ul>
+<li>开发阶段：对核心模块启用 ASan，定期运行单元测试；</li>
+<li>CI/CD 流程：将 ASan 检测作为代码提交的
+“门禁”，提前拦截内存错误；</li>
+<li>结合调试：用 GDB 解析 ASan 崩溃现场，定位错误根源；</li>
+<li>多工具协同：先用 ASan 检测基础内存错误，再用 TSan
+检测线程问题，最后用 LSan 查漏内存泄漏。</li>
 </ul>
-<h3 id="4-局限性">4. 局限性</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>无法检测逻辑错误（如内存访问正确但值错误）；</p>
-</li>
-<li class="lvl-2">
-<p>对自定义内存分配器（如<code>jemalloc</code>）支持有限，可能需要额外配置；</p>
-</li>
-<li class="lvl-2">
-<p>性能开销大，无法用于生产环境的性能测试。</p>
-</li>
+<h3 id="局限性">4. 局限性</h3>
+<ul>
+<li>无法检测逻辑错误（如内存访问正确但值错误）；</li>
+<li>对自定义内存分配器（如<code>jemalloc</code>）支持有限，可能需要额外配置；</li>
+<li>性能开销大，无法用于生产环境的性能测试。</li>
 </ul>
 
     </div>
@@ -588,7 +542,10 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AddressSanitizer%EF%BC%88ASan%EF%BC%89%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%8F%8A%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">AddressSanitizer（ASan）详解：使用场景、注意事项及扩展知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81ASan-%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number"></span> <span class="nav-text">一、ASan 的核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">二、不同场景下的使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E7%BC%96%E8%AF%91%E5%9C%BA%E6%99%AF%EF%BC%88%E7%9B%B4%E6%8E%A5%E7%BC%96%E8%AF%91%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. 基础编译场景（直接编译单个文件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8E%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90%EF%BC%88CMake-Makefile%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 与构建工具集成（CMake&#x2F;Makefile）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F%E6%A3%80%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 多线程程序检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%8E%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%EF%BC%88GDB%EF%BC%89%E7%BB%93%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">4. 与调试工具（GDB）结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%B9%B3%E5%8F%B0%E5%B7%AE%E5%BC%82%EF%BC%88Linux-macOS-Windows%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">5. 平台差异（Linux&#x2F;macOS&#x2F;Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B%EF%BC%88%E9%85%8D%E5%90%88-LSan%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">6. 内存泄漏检测（配合 LSan）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">三、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%80%A7%E8%83%BD%E5%BC%80%E9%94%80%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86"><span class="nav-number">1.</span> <span class="nav-text">1. 性能开销不可忽视</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%BF%85%E9%A1%BB%E5%AE%8C%E6%95%B4"><span class="nav-number">2.</span> <span class="nav-text">2. 编译选项必须完整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BC%98%E5%8C%96%E7%BA%A7%E5%88%AB%E5%BD%B1%E5%93%8D%E6%A3%80%E6%B5%8B%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">3. 优化级别影响检测效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%98%AF%E5%AE%9A%E4%BD%8D%E9%94%99%E8%AF%AF%E7%9A%84%E5%85%B3%E9%94%AE"><span class="nav-number">4.</span> <span class="nav-text">4. 符号表是定位错误的关键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%86%B2%E7%AA%81%E4%B8%8E%E5%85%BC%E5%AE%B9"><span class="nav-number">5.</span> <span class="nav-text">5. 与其他工具的冲突与兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%EF%BC%88ASAN-OPTIONS%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">6. 环境变量配置（ASAN_OPTIONS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E9%83%A8%E5%88%86%E9%94%99%E8%AF%AF%E5%8F%AF%E8%83%BD%E6%BC%8F%E6%A3%80"><span class="nav-number">7.</span> <span class="nav-text">7. 部分错误可能漏检</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="nav-number"></span> <span class="nav-text">四、扩展知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ASan-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%88%E5%BD%B1%E5%AD%90%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. ASan 工作原理（影子内存机制）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8E%E5%85%B6%E4%BB%96-Sanitizer-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">2. 与其他 Sanitizer 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">3. 最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">4. 局限性</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80asan-%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">一、ASan 的核心功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、不同场景下的使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%BC%96%E8%AF%91%E5%9C%BA%E6%99%AF%E7%9B%B4%E6%8E%A5%E7%BC%96%E8%AF%91%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1.
+基础编译场景（直接编译单个文件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90cmakemakefile"><span class="nav-number">2.2.</span> <span class="nav-text">2.
+与构建工具集成（CMake&#x2F;Makefile）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F%E6%A3%80%E6%B5%8B"><span class="nav-number">2.3.</span> <span class="nav-text">3. 多线程程序检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7gdb%E7%BB%93%E5%90%88"><span class="nav-number">2.4.</span> <span class="nav-text">4. 与调试工具（GDB）结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E5%8F%B0%E5%B7%AE%E5%BC%82linuxmacoswindows"><span class="nav-number">2.5.</span> <span class="nav-text">5.
+平台差异（Linux&#x2F;macOS&#x2F;Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%A3%80%E6%B5%8B%E9%85%8D%E5%90%88-lsan"><span class="nav-number">2.6.</span> <span class="nav-text">6. 内存泄漏检测（配合 LSan）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">三、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%BC%80%E9%94%80%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86"><span class="nav-number">3.1.</span> <span class="nav-text">1. 性能开销不可忽视</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%BF%85%E9%A1%BB%E5%AE%8C%E6%95%B4"><span class="nav-number">3.2.</span> <span class="nav-text">2. 编译选项必须完整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%BA%A7%E5%88%AB%E5%BD%B1%E5%93%8D%E6%A3%80%E6%B5%8B%E6%95%88%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">3. 优化级别影响检测效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%98%AF%E5%AE%9A%E4%BD%8D%E9%94%99%E8%AF%AF%E7%9A%84%E5%85%B3%E9%94%AE"><span class="nav-number">3.4.</span> <span class="nav-text">4. 符号表是定位错误的关键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%86%B2%E7%AA%81%E4%B8%8E%E5%85%BC%E5%AE%B9"><span class="nav-number">3.5.</span> <span class="nav-text">5. 与其他工具的冲突与兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AEasan_options"><span class="nav-number">3.6.</span> <span class="nav-text">6. 环境变量配置（ASAN_OPTIONS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E9%94%99%E8%AF%AF%E5%8F%AF%E8%83%BD%E6%BC%8F%E6%A3%80"><span class="nav-number">3.7.</span> <span class="nav-text">7. 部分错误可能漏检</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="nav-number">4.</span> <span class="nav-text">四、扩展知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#asan-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%BD%B1%E5%AD%90%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1. ASan 工作原理（影子内存机制）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96-sanitizer-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">2. 与其他 Sanitizer 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.3.</span> <span class="nav-text">3. 最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">4.4.</span> <span class="nav-text">4. 局限性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -665,7 +622,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">587k</span>
+    <span title="站点总字数">586k</span>
 </div>
 
         
