@@ -1030,10 +1030,16 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-20 15:09:57 / 修改时间：15:15:14" itemprop="dateCreated datePublished" datetime="2025-10-20T15:09:57+08:00">2025-10-20</time>
+              <time title="创建时间：2025-10-20 15:09:57" itemprop="dateCreated datePublished" datetime="2025-10-20T15:09:57+08:00">2025-10-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:17:53" itemprop="dateModified" datetime="2025-10-30T20:17:53+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1069,17 +1075,342 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>四元式操作符的种类与对应表示方法</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/20/compiler_principle/%E5%9B%9B%E5%85%83%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <span id="more"></span>
+<h1 id="四元式操作符与表示方法">四元式：操作符与表示方法</h1>
+<h2 id="四元式基本概念">四元式基本概念</h2>
+<p>四元式是编译过程中使用的一种中间代码形式，它将代码分解为一系列基本操作，每个操作由四个部分组成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(操作符, 操作数1, 操作数2, 结果)</span><br></pre></td></tr></table></figure>
+<p>这种结构类似于汇编语言，便于后续的代码优化和目标代码生成。</p>
+<h2 id="四元式操作符分类">四元式操作符分类</h2>
+<h3 id="算术运算操作符">1. 算术运算操作符</h3>
+<p>用于执行基本的数学运算：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>加法</td>
+<td><code>(+, a, b, t1)</code></td>
+<td><code>t1 = a + b</code></td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+<td><code>(-, a, b, t1)</code></td>
+<td><code>t1 = a - b</code></td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+<td><code>(*, a, b, t1)</code></td>
+<td><code>t1 = a * b</code></td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法</td>
+<td><code>(/, a, b, t1)</code></td>
+<td><code>t1 = a / b</code></td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模</td>
+<td><code>(%, a, b, t1)</code></td>
+<td><code>t1 = a % b</code></td>
+</tr>
+<tr>
+<td>U-</td>
+<td>一元负号</td>
+<td><code>(U-, a, null, t1)</code></td>
+<td><code>t1 = -a</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="关系运算操作符">2. 关系运算操作符</h3>
+<p>用于比较两个值，结果通常是布尔值（0或1）：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+<td><code>(&gt;, a, b, t1)</code></td>
+<td><code>t1 = (a &gt; b) ? 1 : 0</code></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+<td><code>(&lt;, a, b, t1)</code></td>
+<td><code>t1 = (a &lt; b) ? 1 : 0</code></td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+<td><code>(&gt;=, a, b, t1)</code></td>
+<td><code>t1 = (a &gt;= b) ? 1 : 0</code></td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+<td><code>(&lt;=, a, b, t1)</code></td>
+<td><code>t1 = (a &lt;= b) ? 1 : 0</code></td>
+</tr>
+<tr>
+<td>==</td>
+<td>等于</td>
+<td><code>(==, a, b, t1)</code></td>
+<td><code>t1 = (a == b) ? 1 : 0</code></td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+<td><code>(!=, a, b, t1)</code></td>
+<td><code>t1 = (a != b) ? 1 : 0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="逻辑运算操作符">3. 逻辑运算操作符</h3>
+<p>用于执行布尔逻辑运算：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+<td><code>(&amp;&amp;, a, b, t1)</code></td>
+<td><code>t1 = a &amp;&amp; b</code></td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑或</td>
+<td><code>(||, a, b, t1)</code></td>
+<td><code>t1 = a || b</code></td>
+</tr>
+<tr>
+<td>!</td>
+<td>逻辑非</td>
+<td><code>(!, a, null, t1)</code></td>
+<td><code>t1 = !a</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="赋值操作符">4. 赋值操作符</h3>
+<p>用于将值赋给变量：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>赋值</td>
+<td><code>(=, a, null, b)</code></td>
+<td><code>b = a</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="控制流操作符">5. 控制流操作符</h3>
+<p>用于控制程序的执行顺序：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jmp</td>
+<td>无条件跳转</td>
+<td><code>(jmp, null, null, L1)</code></td>
+<td>跳转到标签L1</td>
+</tr>
+<tr>
+<td>jnz</td>
+<td>非零跳转</td>
+<td><code>(jnz, a, null, L1)</code></td>
+<td>如果a≠0，跳转到L1</td>
+</tr>
+<tr>
+<td>jz</td>
+<td>零跳转</td>
+<td><code>(jz, a, null, L1)</code></td>
+<td>如果a=0，跳转到L1</td>
+</tr>
+<tr>
+<td>je</td>
+<td>等于跳转</td>
+<td><code>(je, a, b, L1)</code></td>
+<td>如果a==b，跳转到L1</td>
+</tr>
+<tr>
+<td>jne</td>
+<td>不等于跳转</td>
+<td><code>(jne, a, b, L1)</code></td>
+<td>如果a!=b，跳转到L1</td>
+</tr>
+<tr>
+<td>jg</td>
+<td>大于跳转</td>
+<td><code>(jg, a, b, L1)</code></td>
+<td>如果a&gt;b，跳转到L1</td>
+</tr>
+<tr>
+<td>jl</td>
+<td>小于跳转</td>
+<td><code>(jl, a, b, L1)</code></td>
+<td>如果a&lt;b，跳转到L1</td>
+</tr>
+<tr>
+<td>jge</td>
+<td>大于等于跳转</td>
+<td><code>(jge, a, b, L1)</code></td>
+<td>如果a&gt;=b，跳转到L1</td>
+</tr>
+<tr>
+<td>jle</td>
+<td>小于等于跳转</td>
+<td><code>(jle, a, b, L1)</code></td>
+<td>如果a&lt;=b，跳转到L1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="函数调用操作符">6. 函数调用操作符</h3>
+<p>用于函数的调用和返回：</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 40%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>param</td>
+<td>参数传递</td>
+<td><code>(param, a, null, null)</code></td>
+<td>将a作为参数传递</td>
+</tr>
+<tr>
+<td>call</td>
+<td>函数调用</td>
+<td><code>(call, func, null, t1)</code></td>
+<td>调用函数func，结果存t1</td>
+</tr>
+<tr>
+<td>ret</td>
+<td>返回</td>
+<td><code>(ret, a, null, null)</code></td>
+<td>从函数返回a的值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数组操作符">7. 数组操作符</h3>
+<p>用于数组元素的访问：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[]</td>
+<td>数组访问</td>
+<td><code>([], arr, i, t1)</code></td>
+<td><code>t1 = arr[i]</code></td>
+</tr>
+<tr>
+<td>[]=</td>
+<td>数组赋值</td>
+<td><code>([]=, arr, i, val)</code></td>
+<td><code>arr[i] = val</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="其他操作符">8. 其他操作符</h3>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>label</td>
+<td>标签定义</td>
+<td><code>(label, null, null, L1)</code></td>
+<td>定义标签L1</td>
+</tr>
+<tr>
+<td>read</td>
+<td>读操作</td>
+<td><code>(read, null, null, a)</code></td>
+<td>从输入读取值到a</td>
+</tr>
+<tr>
+<td>write</td>
+<td>写操作</td>
+<td><code>(write, a, null, null)</code></td>
+<td>将a的值输出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="不同情况的表示方法示例">不同情况的表示方法示例</h2>
+<h3 id="表达式计算">1. 表达式计算</h3>
+<p>对于表达式 <code>x = (a + b) * c - d</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(+, a, b, t1)      ; t1 = a + b</span><br><span class="line">(*, t1, c, t2)     ; t2 = t1 * c</span><br><span class="line">(-, t2, d, t3)     ; t3 = t2 - d</span><br><span class="line">(=, t3, null, x)   ; x = t3</span><br></pre></td></tr></table></figure>
+<h3 id="条件语句">2. 条件语句</h3>
+<p>对于 <code>if (a &gt; b) then x = 1 else x = 0</code>：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(&gt;, a, b, t1)      ; t1 = (a &gt; b) ? <span class="number">1</span> : <span class="number">0</span></span><br><span class="line">(jz, t1, null, L1) ; 如果t1=<span class="number">0</span>，跳转到L1</span><br><span class="line">(=, <span class="number">1</span>, null, x)    ; x = <span class="number">1</span></span><br><span class="line">(jmp, null, null, L2) ; 跳转到L2</span><br><span class="line">(<span class="built_in">label</span>, null, null, L1) ; 标签L1</span><br><span class="line">(=, <span class="number">0</span>, null, x)    ; x = <span class="number">0</span></span><br><span class="line">(<span class="built_in">label</span>, null, null, L2) ; 标签L2</span><br></pre></td></tr></table></figure>
+<h3 id="循环语句">3. 循环语句</h3>
+<p>对于 <code>while (i &lt; 10) { i = i + 1; }</code>：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">label</span>, null, null, L1) ; 循环开始标签</span><br><span class="line">(&lt;, i, <span class="number">10</span>, t1)     ; t1 = (i &lt; <span class="number">10</span>) ? <span class="number">1</span> : <span class="number">0</span></span><br><span class="line">(jz, t1, null, L2) ; 如果i&gt;=<span class="number">10</span>，退出循环</span><br><span class="line">(+, i, <span class="number">1</span>, t2)      ; t2 = i + <span class="number">1</span></span><br><span class="line">(=, t2, null, i)   ; i = t2</span><br><span class="line">(jmp, null, null, L1) ; 跳回循环开始</span><br><span class="line">(<span class="built_in">label</span>, null, null, L2) ; 循环结束标签</span><br></pre></td></tr></table></figure>
+<h3 id="函数调用">4. 函数调用</h3>
+<p>对于 <code>y = func(a, b)</code>：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(param, a, null, null) ; 传递第一个参数a</span><br><span class="line">(param, b, null, null) ; 传递第二个参数b</span><br><span class="line">(<span class="keyword">call</span>, func, null, y)  ; 调用函数func，结果存到y</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1263,7 +1594,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1317,7 +1648,7 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">725k</span>
+    <span title="站点总字数">655k</span>
 </div>
 
         

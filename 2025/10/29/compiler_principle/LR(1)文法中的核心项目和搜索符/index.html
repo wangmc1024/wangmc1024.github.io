@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="如题">
+  <meta name="description" content="一、Kernel（核心项目）：项目集的“骨架” 1. 什么是核心项目？ 核心项目是指在 LR(1) 项目集中，不是通过“闭包运算”生成的项目。它们是项目集的初始成员，其他项目（非核心项目）都是由核心项目通过闭包规则扩展而来的。 具体来说，核心项目包括： - 拓广文法的初始项目 [S&#39; → ·S, #]（这是整个分析的起点）； - 所有通过“状态转换”生成的项目（即 GOTO 运算后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LR(1)文法中的核心项目和搜索符">
 <meta property="og:url" content="https://wangmc1024.github.io/2025/10/29/compiler_principle/LR(1)%E6%96%87%E6%B3%95%E4%B8%AD%E7%9A%84%E6%A0%B8%E5%BF%83%E9%A1%B9%E7%9B%AE%E5%92%8C%E6%90%9C%E7%B4%A2%E7%AC%A6/index.html">
 <meta property="og:site_name" content="Computer Science">
-<meta property="og:description" content="如题">
+<meta property="og:description" content="一、Kernel（核心项目）：项目集的“骨架” 1. 什么是核心项目？ 核心项目是指在 LR(1) 项目集中，不是通过“闭包运算”生成的项目。它们是项目集的初始成员，其他项目（非核心项目）都是由核心项目通过闭包规则扩展而来的。 具体来说，核心项目包括： - 拓广文法的初始项目 [S&#39; → ·S, #]（这是整个分析的起点）； - 所有通过“状态转换”生成的项目（即 GOTO 运算后">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-29T09:46:55.000Z">
-<meta property="article:modified_time" content="2025-10-29T09:55:13.894Z">
+<meta property="article:modified_time" content="2025-10-30T12:18:18.073Z">
 <meta property="article:author" content="三子曰">
 <meta name="twitter:card" content="summary">
 
@@ -185,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-29 17:46:55 / 修改时间：17:55:13" itemprop="dateCreated datePublished" datetime="2025-10-29T17:46:55+08:00">2025-10-29</time>
+              <time title="创建时间：2025-10-29 17:46:55" itemprop="dateCreated datePublished" datetime="2025-10-29T17:46:55+08:00">2025-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:18:18" itemprop="dateModified" datetime="2025-10-30T20:18:18+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -231,10 +237,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>如题</p>
-</blockquote>
-<span id="more"></span>
+        <span id="more"></span>
 <h3
 id="一kernel核心项目项目集的骨架">一、Kernel（核心项目）：项目集的“骨架”</h3>
 <h4 id="什么是核心项目">1. 什么是核心项目？</h4>
@@ -320,8 +323,8 @@ id="二搜索符lookahead解决冲突的指南针">二、搜索符（Lookahead�
       <i class="fa fa-chevron-left"></i> 判断是否为LR(0)或SLR(1)文法
     </a></div>
       <div class="post-nav-item">
-    <a href="/2025/10/30/C++/%E5%9C%A8C++%E4%B8%AD%E4%BD%BF%E7%94%A8python/" rel="next" title="在C++中使用python">
-      在C++中使用python <i class="fa fa-chevron-right"></i>
+    <a href="/2025/10/30/C++/pybind11%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="next" title="pybind11使用指南">
+      pybind11使用指南 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -405,7 +408,7 @@ id="二搜索符lookahead解决冲突的指南针">二、搜索符（Lookahead�
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -459,7 +462,7 @@ id="二搜索符lookahead解决冲突的指南针">二、搜索符（Lookahead�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">725k</span>
+    <span title="站点总字数">655k</span>
 </div>
 
         

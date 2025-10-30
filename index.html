@@ -239,7 +239,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/30/C++/%E5%9C%A8python%E4%B8%AD%E4%BD%BF%E7%94%A8C++/">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/30/C++/vscode%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
@@ -253,7 +253,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2025/10/30/C++/%E5%9C%A8python%E4%B8%AD%E4%BD%BF%E7%94%A8C++/" class="post-title-link" itemprop="url">在python中使用C++</a>
+            <a href="/2025/10/30/C++/vscode%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89/" class="post-title-link" itemprop="url">vscode中常用变量的含义</a>
         </h2>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2025-10-30 00:06:10 / 修改时间：00:17:43" itemprop="dateCreated datePublished" datetime="2025-10-30T00:06:10+08:00">2025-10-30</time>
+              <time title="创建时间：2025-10-30 20:09:27 / 修改时间：20:14:46" itemprop="dateCreated datePublished" datetime="2025-10-30T20:09:27+08:00">2025-10-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,7 +272,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
                 </span>
             </span>
 
@@ -282,14 +282,195 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>55k</span>
+              <span>886</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>50 分钟</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 45%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>变量参数</th>
+<th>核心含义</th>
+<th>高频使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>${workspaceFolder}</code></td>
+<td>当前工作区根目录的绝对路径（首个打开文件夹的完整路径）</td>
+<td>配置构建/运行的根目录、指定输入输出路径</td>
+</tr>
+<tr>
+<td><code>${file}</code></td>
+<td>当前打开文件的绝对路径（含完整路径、文件名+扩展名）</td>
+<td>调试单个文件、指定待执行文件路径</td>
+</tr>
+<tr>
+<td><code>${fileBasenameNoExtension}</code></td>
+<td>当前文件的名称（不含扩展名）</td>
+<td>生成对应输出文件（如 <code>.exe</code> 或日志文件）</td>
+</tr>
+<tr>
+<td><code>${fileDirname}</code></td>
+<td>当前文件所在文件夹的绝对路径</td>
+<td>引用同目录下的依赖文件、输出到文件所在目录</td>
+</tr>
+<tr>
+<td><code>${relativeFile}</code></td>
+<td>当前文件相对于工作区根目录的相对路径</td>
+<td>多文件项目中指定相对路径引用</td>
+</tr>
+<tr>
+<td><code>${workspaceFolderBasename}</code></td>
+<td>工作区根目录的文件夹名称（不含路径）</td>
+<td>命名构建产物、区分多工作区项目</td>
+</tr>
+<tr>
+<td><code>${fileBasename}</code></td>
+<td>当前文件的完整名称（含扩展名）</td>
+<td>直接引用当前文件全名（如读取配置文件）</td>
+</tr>
+<tr>
+<td><code>${fileExtname}</code></td>
+<td>当前文件的扩展名（带开头的点，如 <code>.cpp</code>）</td>
+<td>根据文件类型动态配置执行逻辑</td>
+</tr>
+<tr>
+<td><code>${fileWorkspaceFolder}</code></td>
+<td>当前文件所在的工作区根目录（适配多根工作区）</td>
+<td>多项目并存时精准定位文件所属工作区</td>
+</tr>
+<tr>
+<td><code>${cwd}</code></td>
+<td>命令执行时的工作目录（默认与 <code>${workspaceFolder}</code>
+一致）</td>
+<td>配置终端执行目录、指定程序运行目录</td>
+</tr>
+<tr>
+<td><code>${env:XXX}</code></td>
+<td>访问系统环境变量（<code>XXX</code> 为具体环境变量名，如
+<code>${env:PATH}</code>）</td>
+<td>引用系统路径、环境变量配置（如 Python 路径）</td>
+</tr>
+<tr>
+<td><code>${config:XXX}</code></td>
+<td>访问用户/工作区配置项（<code>XXX</code> 为具体配置名，如
+<code>${config:python.pythonPath}</code>）</td>
+<td>读取 VS Code 自定义配置参数</td>
+</tr>
+<tr>
+<td><code>${execPath}</code></td>
+<td>VS Code 可执行程序的完整路径</td>
+<td>调用 VS Code 相关工具、插件依赖路径配置</td>
+</tr>
+<tr>
+<td><code>${defaultBuildTask}</code></td>
+<td>默认的构建任务名称</td>
+<td>关联调试与构建任务、自动执行默认构建</td>
+</tr>
+<tr>
+<td><code>${lineNumber}</code></td>
+<td>当前光标所在的行号</td>
+<td>调试时定位断点行、日志输出行号标记</td>
+</tr>
+<tr>
+<td><code>${selectedText}</code></td>
+<td>当前编辑器中选中的文本内容</td>
+<td>动态替换配置参数、传递选中内容到命令</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/30/C++/vscode%E4%B8%AD%E9%85%8D%E7%BD%AEpybind11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/10/30/C++/vscode%E4%B8%AD%E9%85%8D%E7%BD%AEpybind11/" class="post-title-link" itemprop="url">vscode中配置pybind11</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-10-30 18:33:02 / 修改时间：20:07:42" itemprop="dateCreated datePublished" datetime="2025-10-30T18:33:02+08:00">2025-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -302,11 +483,11 @@
 
       
           <blockquote>
-<p>如题，结合pybind11官方文档，利用ai整理</p>
+<p>windows环境下使用MSVC,在vscode中配置pybind11环境</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2025/10/30/C++/%E5%9C%A8python%E4%B8%AD%E4%BD%BF%E7%94%A8C++/#more" rel="contents">
+              <a class="btn" href="/2025/10/30/C++/vscode%E4%B8%AD%E9%85%8D%E7%BD%AEpybind11/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -330,7 +511,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/30/C++/%E5%9C%A8C++%E4%B8%AD%E4%BD%BF%E7%94%A8python/">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/30/C++/pybind11%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
@@ -344,7 +525,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2025/10/30/C++/%E5%9C%A8C++%E4%B8%AD%E4%BD%BF%E7%94%A8python/" class="post-title-link" itemprop="url">在C++中使用python</a>
+            <a href="/2025/10/30/C++/pybind11%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">pybind11使用指南</a>
         </h2>
 
         <div class="post-meta">
@@ -355,7 +536,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2025-10-30 00:05:43 / 修改时间：00:07:19" itemprop="dateCreated datePublished" datetime="2025-10-30T00:05:43+08:00">2025-10-30</time>
+              <time title="创建时间：2025-10-30 00:05:43 / 修改时间：20:15:32" itemprop="dateCreated datePublished" datetime="2025-10-30T00:05:43+08:00">2025-10-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -363,7 +544,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
                 </span>
             </span>
 
@@ -373,14 +554,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>46k</span>
+              <span>27k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>42 分钟</span>
+              <span>24 分钟</span>
             </span>
 
         </div>
@@ -393,11 +574,11 @@
 
       
           <blockquote>
-<p>如题，结合pybind11官方文档，利用ai整理</p>
+<p>结合pybind11官方文档，利用ai整理</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2025/10/30/C++/%E5%9C%A8C++%E4%B8%AD%E4%BD%BF%E7%94%A8python/#more" rel="contents">
+              <a class="btn" href="/2025/10/30/C++/pybind11%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -444,10 +625,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-29 17:46:55 / 修改时间：17:55:13" itemprop="dateCreated datePublished" datetime="2025-10-29T17:46:55+08:00">2025-10-29</time>
+              <time title="创建时间：2025-10-29 17:46:55" itemprop="dateCreated datePublished" datetime="2025-10-29T17:46:55+08:00">2025-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:18:18" itemprop="dateModified" datetime="2025-10-30T20:18:18+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -483,17 +670,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>如题</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/29/compiler_principle/LR(1)%E6%96%87%E6%B3%95%E4%B8%AD%E7%9A%84%E6%A0%B8%E5%BF%83%E9%A1%B9%E7%9B%AE%E5%92%8C%E6%90%9C%E7%B4%A2%E7%AC%A6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <span id="more"></span>
+<h3
+id="一kernel核心项目项目集的骨架">一、Kernel（核心项目）：项目集的“骨架”</h3>
+<h4 id="什么是核心项目">1. 什么是核心项目？</h4>
+<p>核心项目是指在 LR(1)
+项目集中，<strong>不是通过“闭包运算”生成的项目</strong>。它们是项目集的初始成员，其他项目（非核心项目）都是由核心项目通过闭包规则扩展而来的。</p>
+<p>具体来说，核心项目包括： - 拓广文法的初始项目
+<code>[S' → ·S, #]</code>（这是整个分析的起点）； -
+所有通过“状态转换”生成的项目（即 <code>GOTO</code> 运算后，·
+移动到下一个位置的项目）。</p>
+<p>例如：<br />
+如果有项目 <code>[A → α·Xβ, a]</code>，通过 <code>GOTO</code>
+运算（遇到符号 X 时移动 ·）得到
+<code>[A → αX·β, a]</code>，这个新项目就是核心项目。</p>
+<h4 id="核心项目的作用">2. 核心项目的作用</h4>
+<ul>
+<li><strong>作为项目集的“种子”</strong>：每个项目集都是围绕核心项目展开的，非核心项目只是核心项目的“附属品”（通过闭包规则添加）。</li>
+<li><strong>简化项目集的表示</strong>：在实际构建 LR(1)
+项目集时，只需记录核心项目即可，非核心项目可以通过闭包运算动态生成，减少冗余。</li>
+</ul>
+<h3
+id="二搜索符lookahead解决冲突的指南针">二、搜索符（Lookahead）：解决冲突的“指南针”</h3>
+<h4 id="什么是搜索符">1. 什么是搜索符？</h4>
+<p>搜索符是 LR(1) 项目中逗号后面的符号（终结符或
+<code>#</code>，<code>#</code> 表示输入结束），格式为
+<code>[A → α·β, a]</code> 中的
+<code>a</code>。它的作用是<strong>指示“当前项目完成后，下一个可能出现的符号”</strong>，用于精确判断分析动作（移进或归约）。</p>
+<h4 id="搜索符的来源">2. 搜索符的来源</h4>
+<p>搜索符的产生遵循严格的规则，主要来自两个场景：</p>
+<h5 id="初始项目的搜索符">（1）初始项目的搜索符</h5>
+<p>拓广文法的初始项目 <code>[S' → ·S, #]</code> 中，搜索符固定为
+<code>#</code>（表示输入结束），因为整个分析的最终目标是推导出
+<code>S</code> 并遇到结束符。</p>
+<h5 id="闭包运算中生成的搜索符">（2）闭包运算中生成的搜索符</h5>
+<p>当通过闭包规则扩展项目集时，新项目的搜索符由“父项目”的信息推导而来：<br />
+- 若父项目是 <code>[A → α·Bβ, a]</code>（其中 B 是非终结符），则对于 B
+的产生式 <code>B → γ</code>，新生成的项目 <code>[B → ·γ, b]</code>
+中，<code>b</code> 是 <code>First(βa)</code>
+中的所有终结符（<code>First</code> 集表示 βa
+能推导出的第一个终结符集合）。</p>
+<p>简单说：<strong>子项目的搜索符，是父项目中“· 后面的符号串 +
+父项目的搜索符”所能推导出的首个终结符</strong>。</p>
+<p>示例：<br />
+父项目 <code>[A → α·Bβ, a]</code>，B 有产生式 <code>B → γ</code>。<br />
+- 计算 <code>First(βa)</code>（β 后面跟 a
+能产生的第一个终结符），假设结果为 <code>{b, c}</code>；<br />
+- 则闭包运算会生成项目 <code>[B → ·γ, b]</code> 和
+<code>[B → ·γ, c]</code>，搜索符 <code>b</code> 和 <code>c</code> 来自
+<code>First(βa)</code>。</p>
+<h5 id="状态转换中继承的搜索符">（3）状态转换中继承的搜索符</h5>
+<p>当通过 <code>GOTO</code> 运算（移动
+·）生成新的核心项目时，搜索符<strong>与原项目保持一致</strong>。<br />
+例如：<br />
+原项目 <code>[A → α·Xβ, a]</code>，通过 <code>GOTO(X)</code> 生成
+<code>[A → αX·β, a]</code>，新项目的搜索符仍是 <code>a</code>。</p>
+<h4 id="搜索符的作用">3. 搜索符的作用</h4>
+<ul>
+<li><strong>精确区分归约条件</strong>：避免 LR(0)
+中“盲目归约”的问题。例如，两个归约项目 <code>[A → α·, a]</code> 和
+<code>[B → β·, b]</code>，只有当搜索符匹配当前输入符号时才执行归约，若
+<code>a ≠ b</code> 则不会冲突。</li>
+<li><strong>解决移进-归约冲突</strong>：例如，项目
+<code>[A → α·aβ, b]</code>（移进 a）和
+<code>[B → γ·, b]</code>（归约），若当前输入符号是 <code>a</code>
+则移进，是 <code>b</code> 则归约，通过搜索符明确区分。</li>
+</ul>
+
       
     </div>
 
@@ -535,10 +778,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-29 15:25:02 / 修改时间：16:37:15" itemprop="dateCreated datePublished" datetime="2025-10-29T15:25:02+08:00">2025-10-29</time>
+              <time title="创建时间：2025-10-29 15:25:02" itemprop="dateCreated datePublished" datetime="2025-10-29T15:25:02+08:00">2025-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:17:40" itemprop="dateModified" datetime="2025-10-30T20:17:40+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -574,98 +823,248 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>如题</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/29/compiler_principle/%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BALR(0)%E6%88%96SLR(1)%E6%96%87%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
+          <span id="more"></span>
+<p>要判断一个文法是否为 <strong>LR(0) 文法</strong> 或 <strong>SLR(1)
+文法</strong>，需遵循严格的形式化步骤，核心是通过构造<strong>LR(0)
+项目集规范族</strong>和分析<strong>冲突（移进/归约、归约/归约）</strong>
+的解决能力来区分。以下是详细判断流程，包含基础概念、LR(0)
+判断步骤、SLR(1) 判断步骤及示例。</p>
+<h2 id="一前置基础概念">一、前置基础概念</h2>
+<p>在开始判断前，需明确以下核心术语，避免理解偏差：</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr>
+<th>术语</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LR(0) 项目</strong></td>
+<td>文法产生式的“中间状态”，形式为 <code>A→α·β</code>（<code>·</code>
+表示当前分析位置）。例如 <code>S→·aAb</code> 表示待匹配
+<code>a</code>，<code>S→a·Ab</code> 表示已匹配 <code>a</code>。</td>
+</tr>
+<tr>
+<td><strong>项目集规范族</strong></td>
+<td>所有 LR(0)
+项目通过“闭包（Closure）”和“转移（Goto）”操作生成的集合，是 LR
+分析的核心数据结构。</td>
+</tr>
+<tr>
+<td><strong>移进/归约冲突</strong></td>
+<td>同一项目集中存在两个项目：一个是“移进项目”（<code>A→α·aβ</code>，<code>a</code>
+为终结符），另一个是“归约项目”（<code>B→γ·</code>，无后续符号），此时分析器无法确定是移进
+<code>a</code> 还是归约 <code>γ</code>。</td>
+</tr>
+<tr>
+<td><strong>归约/归约冲突</strong></td>
+<td>同一项目集中存在两个及以上“归约项目”（<code>A→γ·</code> 和
+<code>B→δ·</code>），此时分析器无法确定用哪个产生式归约。</td>
+</tr>
+<tr>
+<td><strong>FOLLOW 集</strong></td>
+<td>对非终结符 <code>A</code>，<code>FOLLOW(A)</code> 是所有可能紧跟在
+<code>A</code> 后的终结符集合（含 <code>#</code>，表示输入结束符），是
+SLR(1) 解决冲突的关键。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二判断文法是否为-lr0-文法">二、判断文法是否为 LR(0) 文法</h2>
+<p>LR(0)
+文法是<strong>无任何冲突的文法</strong>——其项目集规范族中，所有项目集均无“移进/归约冲突”和“归约/归约冲突”。判断步骤分为
+4 步：</p>
+<h3 id="步骤-1构造增广文法">步骤 1：构造“增广文法”</h3>
+<p>为确保文法有唯一的开始符号（避免多个开始符号导致的项目集混乱），需构造<strong>增广文法</strong>
+<code>G'</code>： - 设原文法 <code>G</code> 的开始符号为
+<code>S</code>，新增一个开始符号 <code>S'</code>，并添加产生式
+<code>S'→S</code>（唯一新增产生式）。 - 示例：原文法
+<code>G: S→aAb | b</code>，增广文法
+<code>G': S'→S; S→aAb; S→b</code>。</p>
+<h3 id="步骤-2构造-lr0-项目集规范族">步骤 2：构造 LR(0)
+项目集规范族</h3>
+<p>通过 <strong>Closure（闭包）</strong> 和
+<strong>Goto（转移）</strong> 两个操作，生成所有项目集：</p>
+<h4 id="操作-1计算闭包closurei">操作 1：计算闭包（Closure(I)）</h4>
+<p>对项目集
+<code>I</code>，闭包是==“所有可直接或间接推导出的项目”==的==集合==，规则如下：
+1. 初始时，<code>Closure(I) = I</code>（包含 <code>I</code>
+中所有项目）。 2. 若 <code>Closure(I)</code> 中存在项目
+<code>A→α·Bβ</code>（<code>B</code> 为非终结符，<code>·</code> 后紧跟
+<code>B</code>），且 <code>B</code> 的产生式 <code>B→γ</code> 未生成项目
+<code>B→·γ</code>，则将 <code>B→·γ</code> 加入 <code>Closure(I)</code>。
+3. 重复步骤 2，直到无新项目可加入。</p>
+<h4 id="操作-2计算转移gotoi-x">操作 2：计算转移（Goto(I, X)）</h4>
+<p>对项目集 <code>I</code> 和符号
+<code>X</code>（终结符或非终结符），<code>Goto(I, X)</code>
+是“<code>I</code> 中所有 <code>·</code> 后紧跟 <code>X</code> 的项目，将
+<code>·</code> 移到 <code>X</code> 右侧后形成的项目集的闭包”，规则如下：
+1. 先收集 <code>I</code> 中满足 <code>A→α·Xβ</code> 的项目，将
+<code>·</code> 右移一位，得到临时项目集
+<code>J = { A→αX·β | A→α·Xβ ∈ I }</code>。 2. 计算
+<code>Closure(J)</code>，即为 <code>Goto(I, X)</code>。</p>
+<h4 id="构造流程">构造流程</h4>
+<ol type="1">
+<li>初始项目集
+<code>I0 = Closure({ S'→·S })</code>（从增广文法的开始项目出发）。</li>
+<li>对每个已生成的项目集 <code>I</code>，遍历所有可能的符号
+<code>X</code>（终结符 + 非终结符），若 <code>Goto(I, X)</code>
+非空且未加入规范族，则将其加入，并标记为新的项目集（如
+<code>I1, I2, ...</code>）。</li>
+<li>重复步骤 2，直到无新项目集可生成。</li>
+</ol>
+<h3 id="步骤-3检查项目集规范族的冲突">步骤
+3：检查项目集规范族的冲突</h3>
+<p>遍历所有项目集，判断是否存在冲突： -
+<strong>无冲突</strong>：所有项目集均无“移进/归约冲突”和“归约/归约冲突”→
+该文法是 <strong>LR(0) 文法</strong>。 -
+<strong>有冲突</strong>：存在任一冲突→ 不是 LR(0)
+文法，需进一步判断是否为 SLR(1) 文法。</p>
+<h3 id="示例判断-lr0-文法">示例：判断 LR(0) 文法</h3>
+<p>以文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>（增广文法
+<code>G': S'→S</code>）为例： 1. 构造
+<code>I0 = Closure({ S'→·S }) = { S'→·S, S→·aA, S→·bB }</code>（无冲突，均为移进项目）。
+2. 计算
+<code>Goto(I0, S) = Closure({ S'→S· }) = { S'→S· }</code>（归约项目，无冲突，记为
+<code>I1</code>）。 3. 计算
+<code>Goto(I0, a) = Closure({ S→a·A }) = { S→a·A, A→·aA, A→·ε }</code>（存在冲突：<code>A→·aA</code>
+是移进项目，<code>A→·ε</code> 是归约项目）。</p>
+<p>结论：因 <code>I</code> 存在“移进/归约冲突”，故该文法<strong>不是
+LR(0) 文法</strong>。</p>
+<h2 id="三判断文法是否为-slr1-文法">三、判断文法是否为 SLR(1) 文法</h2>
+<p>SLR(1) 文法是 <strong>LR(0) 冲突可通过 FOLLOW
+集解决的文法</strong>——其核心思想是：对冲突项目，通过“归约项目的非终结符
+FOLLOW 集”与“移进符号/其他归约项目的 FOLLOW
+集”是否不相交，来判断冲突是否可解决。</p>
+<p>SLR(1) 的判断需在 <strong>LR(0) 项目集规范族</strong>
+基础上，增加“计算 FOLLOW 集”和“冲突解决检查”两步：</p>
+<h3 id="步骤-1计算所有非终结符的-follow-集">步骤 1：计算所有非终结符的
+FOLLOW 集</h3>
+<p>FOLLOW 集的计算规则（设 <code>A</code> 为非终结符，<code>#</code>
+为输入结束符）： 1.
+<strong>初始规则</strong>：<code>FOLLOW(S') = { # }</code>（增广文法开始符号的
+FOLLOW 集只有结束符）。 2. <strong>推导规则</strong>： - 若有产生式
+<code>A→αBβ</code>（<code>B</code> 后有符号 <code>β</code>），则
+<code>FIRST(β)</code> 中所有终结符加入
+<code>FOLLOW(B)</code>（<code>FIRST(β)</code> 是 <code>β</code>
+能推导出的首个终结符集合）。 - 若有产生式 <code>A→αB</code> 或
+<code>A→αBβ</code> 且 <code>β→ε</code>（<code>B</code>
+在产生式末尾，或后续符号可空），则 <code>FOLLOW(A)</code> 中所有符号加入
+<code>FOLLOW(B)</code>。 3. 重复步骤 2，直到所有 FOLLOW 集不再变化。</p>
+<h3 id="步骤-2用-follow-集解决-lr0-冲突">步骤 2：用 FOLLOW 集解决 LR(0)
+冲突</h3>
+<p>针对 LR(0) 项目集规范族中的冲突，分两种情况检查：</p>
+<h4 id="情况-1解决移进归约冲突">情况 1：解决“移进/归约冲突”</h4>
+<p>若项目集 <code>I</code> 中存在： -
+移进项目：<code>A→α·aβ</code>（移进符号为 <code>a</code>，终结符）。 -
+归约项目：<code>B→γ·</code>（归约非终结符为 <code>B</code>）。</p>
+<p><strong>冲突可解决的条件</strong>：<code>a ∉ FOLLOW(B)</code>（移进符号
+<code>a</code> 不在 <code>B</code> 的 FOLLOW 集中）。<br />
+→ 分析时，若当前输入符号是 <code>a</code>，则移进；若当前输入符号在
+<code>FOLLOW(B)</code> 中，则归约；无重叠，冲突消除。</p>
+<h4 id="情况-2解决归约归约冲突">情况 2：解决“归约/归约冲突”</h4>
+<p>若项目集 <code>I</code> 中存在两个归约项目： - 归约项目
+1：<code>A→γ·</code>（归约非终结符 <code>A</code>）。 - 归约项目
+2：<code>B→δ·</code>（归约非终结符 <code>B</code>）。</p>
+<p><strong>冲突可解决的条件</strong>：<code>FOLLOW(A) ∩ FOLLOW(B) = ∅</code>（两个非终结符的
+FOLLOW 集无交集）。<br />
+→ 分析时，若当前输入符号在 <code>FOLLOW(A)</code> 中，用
+<code>A→γ</code> 归约；若在 <code>FOLLOW(B)</code> 中，用
+<code>B→δ</code> 归约；无重叠，冲突消除。</p>
+<h3 id="步骤-3判断是否为-slr1-文法">步骤 3：判断是否为 SLR(1) 文法</h3>
+<ul>
+<li>若 LR(0) 项目集规范族中的 <strong>所有冲突均可通过上述 FOLLOW
+集规则解决</strong> → 该文法是 <strong>SLR(1) 文法</strong>。</li>
+<li>若存在任一冲突无法解决（如移进符号在 FOLLOW 集中，或 FOLLOW
+集交集非空）→ 不是 SLR(1) 文法（需进一步判断 LALR(1) 或 LR(1)）。</li>
+</ul>
+<h3 id="示例判断-slr1-文法">示例：判断 SLR(1) 文法</h3>
+<p>延续上文示例（文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>）：
+1. <strong>计算 FOLLOW 集</strong>： - <code>FOLLOW(S') = { # }</code>。
+- <code>FOLLOW(S)</code>：由 <code>S'→S</code>，得
+<code>FOLLOW(S) = FOLLOW(S') = { # }</code>。 -
+<code>FOLLOW(A)</code>：由 <code>S→aA</code>（<code>A</code>
+在末尾），得 <code>FOLLOW(A) = FOLLOW(S) = { # }</code>；由
+<code>A→aA</code>（<code>A</code> 在末尾），无新增，最终
+<code>FOLLOW(A) = { # }</code>。 -
+<code>FOLLOW(B)</code>：同理，<code>FOLLOW(B) = { # }</code>。</p>
+<ol start="2" type="1">
+<li><strong>检查冲突项目集 <code>I</code></strong>：
+<ul>
+<li>项目集 <code>I = { S→a·A, A→·aA, A→·ε }</code> 中，冲突为“移进项目
+<code>A→·aA</code>（移进符号 <code>a</code>）”和“归约项目
+<code>A→·ε</code>（归约非终结符
+<code>A</code>，<code>FOLLOW(A)={#}</code>）”。</li>
+<li>检查条件：<code>a ∉ FOLLOW(A)</code>（<code>a</code> 不是
+<code>#</code>）→ 冲突可解决。</li>
+</ul></li>
+<li>其他项目集（如 <code>Goto(I, b)</code>
+生成的项目集）冲突同理可解决。</li>
+</ol>
+<p>结论：该文法<strong>是 SLR(1) 文法</strong>。</p>
+<h2 id="四lr0-与-slr1-文法的核心区别">四、LR(0) 与 SLR(1)
+文法的核心区别</h2>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 41%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>LR(0) 文法</th>
+<th>SLR(1) 文法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冲突允许度</td>
+<td>不允许任何冲突（移进/归约、归约/归约）</td>
+<td>允许 LR(0) 冲突，但需通过 FOLLOW 集解决</td>
+</tr>
+<tr>
+<td>分析能力</td>
+<td>弱（仅覆盖部分无冲突文法）</td>
+<td>强（覆盖更多含冲突但可解决的文法）</td>
+</tr>
+<tr>
+<td>关键依赖</td>
+<td>仅依赖 LR(0) 项目集规范族</td>
+<td>依赖 LR(0) 项目集规范族 + 非终结符 FOLLOW 集</td>
+</tr>
+<tr>
+<td>包含关系</td>
+<td>LR(0) 文法 ⊂ SLR(1) 文法（所有 LR(0) 都是 SLR(1)）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="五判断流程">五、判断流程</h2>
+<ol type="1">
+<li><strong>输入文法</strong>：确定文法的非终结符、终结符、产生式和开始符号。</li>
+<li><strong>构造增广文法</strong>：新增
+<code>S'→S</code>，确保唯一开始符号。</li>
+<li><strong>生成 LR(0) 项目集规范族</strong>：通过 Closure 和 Goto
+操作生成所有项目集。</li>
+<li><strong>判断 LR(0) 文法</strong>：
+<ul>
+<li>若所有项目集无冲突 → 是 LR(0) 文法（同时也是 SLR(1) 文法）。</li>
+<li>若存在冲突 → 不是 LR(0) 文法，进入下一步。</li>
+</ul></li>
+<li><strong>计算所有非终结符的 FOLLOW 集</strong>：按 FOLLOW
+规则推导。</li>
+<li><strong>判断 SLR(1) 文法</strong>：
+<ul>
+<li>若所有冲突均可通过 FOLLOW 集解决 → 是 SLR(1) 文法。</li>
+<li>若存在无法解决的冲突 → 不是 SLR(1) 文法。</li>
+</ul></li>
+</ol>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/10/29/compiler_principle/%E6%96%87%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
-      <meta itemprop="name" content="三子曰">
-      <meta itemprop="description" content="欢迎来到我的博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Computer Science">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/10/29/compiler_principle/%E6%96%87%E6%B3%95/" class="post-title-link" itemprop="url">文法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-10-29 15:24:45" itemprop="dateCreated datePublished" datetime="2025-10-29T15:24:45+08:00">2025-10-29</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/29/compiler_principle/%E6%96%87%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -707,10 +1106,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-29 11:22:16 / 修改时间：11:35:13" itemprop="dateCreated datePublished" datetime="2025-10-29T11:22:16+08:00">2025-10-29</time>
+              <time title="创建时间：2025-10-29 11:22:16" itemprop="dateCreated datePublished" datetime="2025-10-29T11:22:16+08:00">2025-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:18:05" itemprop="dateModified" datetime="2025-10-30T20:18:05+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -727,7 +1132,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>975</span>
+              <span>973</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -746,17 +1151,57 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>如题</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/29/compiler_principle/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <span id="more"></span>
+<p>在编译原理中，<strong>闭包（Closure）</strong>
+是一个与语法分析、有限自动机（尤其是NFA）相关的重要概念，主要用于描述集合在特定操作下的“封闭性”或“完备性”。它与编程语言中的函数闭包概念不同，更侧重于集合论和状态转换的数学性质。</p>
+<h3 id="编译原理中闭包的核心场景">编译原理中闭包的核心场景</h3>
+<h4 id="ε-闭包epsilon-closure">1. <strong>ε-闭包（Epsilon
+Closure）</strong></h4>
+<p>这是在<strong>非确定有限自动机（NFA）</strong>
+中最常见的闭包概念。<br />
+- <strong>定义</strong>：对于NFA中的一个状态集合 ( S )，其ε-闭包是指从 (
+S )
+中的任意状态出发，通过<strong>零个或多个ε转换（空转换，不消耗输入字符的转换）</strong>
+所能到达的所有状态的集合。<br />
+-
+<strong>作用</strong>：在NFA转换为确定有限自动机（DFA）的过程中（子集构造法），ε-闭包用于确定“初始状态集”和“某个状态集在输入字符后的后继状态集”，是NFA到DFA转换的核心步骤。</p>
+<p><strong>示例</strong>：<br />
+若状态 ( q0 ) 可通过ε转换到$ q1 <span class="math inline">，</span> q1
+<span
+class="math inline"><em>可</em><em>通</em><em>过</em><em>ε</em><em>转</em><em>换</em><em>到</em></span>
+q2 <span class="math inline">，<em>则</em></span> q0 $ 的ε-闭包为 <span
+class="math inline">{<em>q</em>0, <em>q</em>1, <em>q</em>2}</span>。</p>
+<h4 id="项目集闭包item-set-closure">2. <strong>项目集闭包（Item Set
+Closure）</strong></h4>
+<p>在<strong>LR语法分析</strong>（自底向上的语法分析方法）中，闭包用于构建“项目集规范族”。<br />
+-
+<strong>定义</strong>：对于一个初始的LR项目集（项目是指带“·”的产生式，如
+<span
+class="math inline"><em>A</em> → <em>α</em> · <em>β</em></span>），其闭包是通过以下规则扩展得到的所有项目的集合：</p>
+<ol type="1">
+<li>初始项目集中的==所有项目==都属于闭包。<br />
+</li>
+<li>若项目 <span
+class="math inline"><em>A</em> → <em>α</em> · <em>B</em><em>β</em></span>属于闭包，且
+<span class="math inline"><em>B</em> → <em>γ</em></span>
+是一条产生式，则项目 <span
+class="math inline"><em>B</em> → ·<em>γ</em></span>
+也属于闭包(递归应用此规则)</li>
+</ol>
+<p>​ 那么$A · B $ 和 <span
+class="math inline"><em>B</em> → <em>γ</em></span>
+在进行LR分析时==同属于==一个项目集 -
+<strong>作用</strong>：项目集闭包用于描述语法分析过程中“当前可能的分析状态”，是构建LR分析表的基础。</p>
+<h4 id="集合的闭包一般概念">3.
+<strong>集合的闭包（一般概念）</strong></h4>
+<p>从更广泛的数学意义上，编译原理中的闭包指<strong>对集合反复应用某个操作，直到不再产生新元素为止所得到的最终集合</strong>。例如：<br />
+-
+对文法符号集应用“可推导”关系的闭包，得到所有可由该集合推导的符号。<br />
+- 对状态集应用“转换函数”的闭包，得到所有可达状态。</p>
+<h3 id="闭包的核心意义">闭包的核心意义</h3>
+<p>在编译原理中，闭包的本质是<strong>通过递归或迭代方式，将集合扩展到“在特定规则下不再变化”的完整状态</strong>。无论是NFA的ε-闭包还是LR分析的项目集闭包，其目的都是为了<strong>精确描述有限状态机的状态转换能力或语法分析的可能状态</strong>，是实现自动机转换和语法分析器的关键工具。</p>
+<p>简单来说，编译原理中的闭包是一种“完备化”操作——确保我们没有遗漏任何可能的状态或转换，从而保证分析过程的正确性。</p>
+
       
     </div>
 
@@ -798,10 +1243,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-28 15:20:05 / 修改时间：15:40:48" itemprop="dateCreated datePublished" datetime="2025-10-28T15:20:05+08:00">2025-10-28</time>
+              <time title="创建时间：2025-10-28 15:20:05" itemprop="dateCreated datePublished" datetime="2025-10-28T15:20:05+08:00">2025-10-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-30 20:15:39" itemprop="dateModified" datetime="2025-10-30T20:15:39+08:00">2025-10-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -818,7 +1269,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>920</span>
+              <span>918</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -837,17 +1288,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>如题</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/28/C++/new%E5%A4%B1%E8%B4%A5%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%83%85%E5%86%B5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <span id="more"></span>
+<p>在 C++ 中，<code>new</code>
+分配内存失败时的行为分两种情况，但<strong>不会返回
+<code>std::bad_alloc</code></strong></p>
+<ol type="1">
+<li><p><strong>默认 <code>new</code>（抛出异常版本）</strong><br />
+当内存分配失败时，会<strong>抛出 <code>std::bad_alloc</code>
+异常</strong>（而非返回该异常对象）。此时不需要检查指针是否为空，而是通过
+<code>try-catch</code> 捕获异常。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span>  <span class="comment">// 包含 std::bad_alloc 的定义</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 尝试分配超大内存，可能失败</span></span><br><span class="line">        <span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">1000000000000</span>];  <span class="comment">// 分配失败时抛出 std::bad_alloc</span></span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125; <span class="built_in">catch</span> (<span class="type">const</span> std::bad_alloc&amp; e) &#123;</span><br><span class="line">        <span class="comment">// 捕获异常并处理</span></span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败：&quot;</span> &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong><code>nothrow</code> 版本的
+<code>new</code></strong><br />
+使用 <code>new (std::nothrow)</code>
+时，分配失败不会抛出异常，而是<strong>返回
+<code>nullptr</code></strong>（空指针），需要手动检查指针有效性。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 不抛出异常的版本，失败返回 nullptr</span></span><br><span class="line">    <span class="type">int</span>* arr = <span class="built_in">new</span> (std::nothrow) <span class="type">int</span>[<span class="number">1000000000000</span>];</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>普通 <code>new</code> 失败时<strong>抛出 <code>std::bad_alloc</code>
+异常</strong>，需用 <code>try-catch</code> 处理。<br />
+</li>
+<li><code>new (std::nothrow)</code> 失败时<strong>返回
+<code>nullptr</code></strong>，需手动判断指针是否为空。<br />
+</li>
+<li>两种情况都不会“返回 <code>bad_alloc</code>”，<code>bad_alloc</code>
+是异常类型，而非返回值。</li>
+</ul>
+
       
     </div>
 
@@ -1122,7 +1590,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1176,7 +1644,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">725k</span>
+    <span title="站点总字数">655k</span>
 </div>
 
         
