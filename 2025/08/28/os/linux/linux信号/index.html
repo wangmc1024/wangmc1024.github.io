@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="记录linux系统中信号的相关概念和用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 信号">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/08/28/os/linux/linux%E4%BF%A1%E5%8F%B7/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="记录linux系统中信号的相关概念和用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-28T09:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-19T11:11:21.107Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/08/28/os/linux/linux%E4%BF%A1%E5%8F%B7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux 信号 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/08/28/os/linux/linux%E4%BF%A1%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 信号
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-28 17:00:00" itemprop="dateCreated datePublished" datetime="2025-08-28T17:00:00+08:00">2025-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-19 19:11:21" itemprop="dateModified" datetime="2025-10-19T19:11:21+08:00">2025-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录linux系统中信号的相关概念和用法</p>
+ <span id="more"></span>
+<h3 id="一、信号的基本概念">一、信号的基本概念</h3>
+<p>信号（Signal）是Linux系统中进程间异步通信的核心机制，用于通知进程发生特定事件（如用户输入、错误、进程状态变化等）。进程收到信号后会中断当前执行流程，转而去执行预设的处理逻辑。</p>
+<h4 id="1-信号本质与特性">1. 信号本质与特性</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>异步性</strong>：信号可在任意时刻触发，不受进程执行流程控制。</p>
+</li>
+<li class="lvl-2">
+<p><strong>不可靠性</strong>：标准信号（1-31）不支持排队，多次发送同一信号可能被合并；实时信号（34-64，<code>SIGRTMIN</code>~<code>SIGRTMAX</code>）支持排队和携带数据，更可靠。</p>
+</li>
+<li class="lvl-2">
+<p><strong>不可屏蔽性</strong>：<code>SIGKILL</code>（9）和<code>SIGSTOP</code>（19）无法被捕获、忽略或修改处理方式，用于强制终止/暂停进程。</p>
+</li>
+</ul>
+<h4 id="2-信号来源">2. 信号来源</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>硬件触发</strong>：如键盘输入（<code>Ctrl+C</code>产生<code>SIGINT</code>）、段错误（<code>SIGSEGV</code>）、算术错误（<code>SIGFPE</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>软件触发</strong>：如<code>kill</code>命令、<code>kill()</code>函数发送信号，子进程终止（<code>SIGCHLD</code>），定时器到期（<code>SIGALRM</code>），向关闭的套接字写数据（<code>SIGPIPE</code>）等。</p>
+</li>
+</ul>
+<h3 id="二、信号处理核心函数与结构体">二、信号处理核心函数与结构体</h3>
+<p>Linux提供了一系列信号处理函数，其中<code>sigaction</code>是POSIX标准推荐的接口（功能最全面），配合其他函数可实现灵活的信号控制。</p>
+<h4 id="1-sigaction函数（推荐使用）">1. <code>sigaction</code>函数（推荐使用）</h4>
+<p><strong>功能</strong>：设置或获取信号的处理方式（替代旧的<code>signal()</code>函数，支持更多控制选项）。<br>
+<strong>原型</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">sigaction</span><span class="params">(<span class="type">int</span> signum, <span class="type">const</span> <span class="keyword">struct</span> sigaction* act, <span class="keyword">struct</span> sigaction* oldact)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><strong>参数</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>signum</code>：目标信号编号（如<code>SIGINT</code>、<code>SIGPIPE</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>act</code>：非空时，指定新的信号处理配置（<code>struct sigaction</code>类型）。</p>
+</li>
+<li class="lvl-2">
+<p><code>oldact</code>：非空时，保存之前的处理配置（用于恢复）。<br>
+<strong>返回值</strong>：成功返回0，失败返回-1（设置<code>errno</code>）。</p>
+</li>
+</ul>
+<h4 id="2-struct-sigaction结构体">2. <code>struct sigaction</code>结构体</h4>
+<p>用于描述信号的处理逻辑，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sigaction</span> &#123;</span><br><span class="line">    <span class="comment">// 信号处理函数（二选一）</span></span><br><span class="line">    <span class="built_in">void</span> (*sa_handler)(<span class="type">int</span>);          <span class="comment">// 简化版：仅接收信号编号</span></span><br><span class="line">    <span class="built_in">void</span> (*sa_sigaction)(<span class="type">int</span>, <span class="type">siginfo_t</span>*, <span class="type">void</span>*);  <span class="comment">// 扩展版：需配合SA_SIGINFO标志</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">sigset_t</span> sa_mask;                 <span class="comment">// 处理信号时阻塞的其他信号</span></span><br><span class="line">    <span class="type">int</span> sa_flags;                     <span class="comment">// 控制信号处理行为的标志位</span></span><br><span class="line">    <span class="built_in">void</span> (*sa_restorer)(<span class="type">void</span>);        <span class="comment">// 已废弃（无需使用）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>成员详解</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sa_handler</code>：简化处理函数，参数为信号编号。可设为<code>SIG_IGN</code>（忽略信号）、<code>SIG_DFL</code>（默认行为）或自定义函数。</p>
+</li>
+<li class="lvl-2">
+<p><code>sa_sigaction</code>：扩展处理函数（需<code>sa_flags</code>设置<code>SA_SIGINFO</code>），可获取信号详细信息（<code>siginfo_t</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>sa_mask</code>：信号集（<code>sigset_t</code>），表示处理当前信号时需阻塞的其他信号（避免嵌套处理）。</p>
+</li>
+<li class="lvl-2">
+<p><code>sa_flags</code>：标志位（可组合）：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>SA_RESTART</code>：被信号中断的系统调用（如<code>read</code>、<code>accept</code>）自动重启（避免<code>EINTR</code>错误）。</li>
+<li class="lvl-4"><code>SA_SIGINFO</code>：使用<code>sa_sigaction</code>作为处理函数。</li>
+<li class="lvl-4"><code>SA_NOCLDSTOP</code>：<code>SIGCHLD</code>仅在子进程终止时通知（忽略暂停事件）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-siginfo-t结构体（扩展信息载体）">3. <code>siginfo_t</code>结构体（扩展信息载体）</h4>
+<p>当使用<code>sa_sigaction</code>时，用于传递信号详细信息：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">int</span>      si_signo;   <span class="comment">// 信号编号</span></span><br><span class="line">    <span class="type">int</span>      si_code;    <span class="comment">// 信号产生原因（如SI_USER表示用户发送）</span></span><br><span class="line">    <span class="type">pid_t</span>    si_pid;     <span class="comment">// 发送信号的进程ID</span></span><br><span class="line">    <span class="type">uid_t</span>    si_uid;     <span class="comment">// 发送进程的用户ID</span></span><br><span class="line">    <span class="type">void</span>*    si_addr;    <span class="comment">// 引发信号的地址（如SIGSEGV的错误地址）</span></span><br><span class="line">    <span class="type">int</span>      si_status;  <span class="comment">// 子进程退出状态（SIGCHLD专用）</span></span><br><span class="line">    <span class="keyword">union</span> <span class="title class_">sigval</span> si_value; <span class="comment">// 附加数据（实时信号专用）</span></span><br><span class="line">&#125; <span class="type">siginfo_t</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="4-信号集操作函数（sigset-t）">4. 信号集操作函数（<code>sigset_t</code>）</h4>
+<p><code>sigset_t</code>是表示“信号集”的位掩码类型，需通过以下函数操作：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sigemptyset(sigset_t *set)</code>：初始化信号集为空。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigfillset(sigset_t *set)</code>：初始化信号集包含所有信号。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigaddset(sigset_t *set, int signum)</code>：添加信号到集合。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigdelset(sigset_t *set, int signum)</code>：从集合移除信号。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigismember(const sigset_t *set, int signum)</code>：判断信号是否在集合中（返回1/0/-1）。</p>
+</li>
+</ul>
+<h4 id="5-其他核心函数">5. 其他核心函数</h4>
+<table>
+<thead>
+<tr>
+<th>函数原型</th>
+<th>功能</th>
+<th>关键参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int sigprocmask(int how, const sigset_t *set, sigset_t *oldset)</code></td>
+<td>修改进程的信号掩码（全局阻塞信号）</td>
+<td><code>how</code>：<code>SIG_BLOCK</code>（添加阻塞）、<code>SIG_UNBLOCK</code>（解除阻塞）、<code>SIG_SETMASK</code>（替换掩码）</td>
+</tr>
+<tr>
+<td><code>int sigpending(sigset_t *set)</code></td>
+<td>获取当前进程中“已产生但未处理”的信号（pending集）</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>int kill(pid_t pid, int sig)</code></td>
+<td>向指定进程发送信号</td>
+<td><code>pid</code>：目标进程ID（<code>pid&gt;0</code>指定进程，<code>pid=0</code>同组进程）</td>
+</tr>
+<tr>
+<td><code>int raise(int sig)</code></td>
+<td>向当前进程发送信号（等价于<code>kill(getpid(), sig)</code>）</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>int sigwait(const sigset_t *set, int *sig)</code></td>
+<td>同步等待信号（将异步信号转为同步处理）</td>
+<td>需先通过<code>sigprocmask</code>阻塞目标信号</td>
+</tr>
+<tr>
+<td><code>int sigqueue(pid_t pid, int sig, const union sigval value)</code></td>
+<td>向进程发送带数据的实时信号</td>
+<td><code>value</code>：附加数据（<code>sival_int</code>或<code>sival_ptr</code>）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6-兼容性函数signal">6. 兼容性函数<code>signal()</code></h4>
+<p>早期接口，功能简化但跨系统行为可能不一致：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">void</span> (*<span class="built_in">signal</span>(<span class="type">int</span> signum, <span class="built_in">void</span> (*handler)(<span class="type">int</span>)))(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>局限性</strong>：不支持<code>sa_mask</code>和<code>sa_flags</code>，信号处理期间仅阻塞当前信号，部分系统会自动重置为默认行为。仅推荐用于简单演示，实际开发优先用<code>sigaction</code>。</p>
+<h3 id="三、常用信号详解（网络编程高频场景）">三、常用信号详解（网络编程高频场景）</h3>
+<p>系统定义了64种信号，以下为网络编程中需重点关注的信号：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>信号名</th>
+<th>触发场景</th>
+<th>默认行为</th>
+<th>网络编程中的意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><code>SIGINT</code></td>
+<td><code>Ctrl+C</code>终端中断</td>
+<td>终止进程</td>
+<td>需捕获以优雅关闭连接（如释放socket）</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>SIGQUIT</code></td>
+<td><code>Ctrl+\</code>终端退出</td>
+<td>终止+核心转储</td>
+<td>同上，可用于强制退出并生成调试信息</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>SIGABRT</code></td>
+<td>调用<code>abort()</code></td>
+<td>终止+核心转储</td>
+<td>检测到严重错误（如内存破坏）时触发</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>SIGFPE</code></td>
+<td>算术错误（除零、溢出）</td>
+<td>终止+核心转储</td>
+<td>协议解析中的数值计算错误</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>SIGUSR1</code></td>
+<td>用户自定义</td>
+<td>终止</td>
+<td>自定义事件（如重新加载配置）</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>SIGUSR2</code></td>
+<td>用户自定义</td>
+<td>终止</td>
+<td>与<code>SIGUSR1</code>配合区分不同事件</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>SIGPIPE</code></td>
+<td>向已关闭的套接字写数据</td>
+<td>终止</td>
+<td>必须处理（忽略或捕获），避免程序意外退出</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>SIGALRM</code></td>
+<td>定时器到期</td>
+<td>终止</td>
+<td>实现网络超时（如<code>connect</code>超时控制）</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>SIGCHLD</code></td>
+<td>子进程终止/暂停</td>
+<td>忽略</td>
+<td>需捕获以回收子进程（避免僵尸进程）</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>SIGURG</code></td>
+<td>套接字收到紧急数据（OOB）</td>
+<td>忽略</td>
+<td>处理TCP带外数据（如紧急指针）</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>SIGTSTP</code></td>
+<td><code>Ctrl+Z</code>终端暂停</td>
+<td>暂停进程</td>
+<td>后台服务需忽略（避免意外暂停）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="关键信号深度解析：">关键信号深度解析：</h4>
+<ol>
+<li class="lvl-3">
+<p><strong><code>SIGPIPE</code>（13）</strong><br>
+当TCP连接被对方关闭后，本地仍调用<code>write()</code>/<code>send()</code>时触发。默认终止进程，网络编程中必须处理：</p>
+<ul class="lvl-2">
+<li class="lvl-5">忽略信号：<code>signal(SIGPIPE, SIG_IGN);</code>，此时写操作返回<code>-1</code>并设置<code>errno=EPIPE</code>，便于程序捕获错误。</li>
+<li class="lvl-5">捕获信号：在处理函数中记录连接异常日志。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong><code>SIGCHLD</code>（17）</strong><br>
+子进程终止时，父进程需回收资源（否则子进程变为僵尸进程）。处理方式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">handle_sigchld</span><span class="params">(<span class="type">int</span> sig)</span> </span>&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid;</span><br><span class="line">    <span class="comment">// 非阻塞回收所有终止的子进程</span></span><br><span class="line">    <span class="keyword">while</span> ((pid = <span class="built_in">waitpid</span>(<span class="number">-1</span>, <span class="literal">nullptr</span>, WNOHANG)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 处理子进程回收逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>SIGURG</code>（16）</strong><br>
+套接字收到带外数据时触发，需结合<code>socket</code>选项<code>SO_OOBINLINE</code>使用，在处理函数中调用<code>recv()</code>读取紧急数据。</p>
+</li>
+</ol>
+<h3 id="四、实践注意事项">四、实践注意事项</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>信号处理函数的可重入性</strong><br>
+信号处理函数可能中断任意代码，需使用可重入函数（如<code>write</code>、<code>_exit</code>、<code>sigprocmask</code>），避免调用不可重入函数（<code>printf</code>、<code>malloc</code>、<code>fopen</code>等，可能导致资源竞争）。若需输出，可用<code>write(STDOUT_FILENO, ...)</code>替代<code>printf</code>。</p>
+</li>
+<li class="lvl-3">
+<p><strong>多线程信号处理</strong><br>
+信号默认随机投递到任意未阻塞该信号的线程，推荐做法：</p>
+<ul class="lvl-2">
+<li class="lvl-5">主线程通过<code>pthread_sigmask</code>阻塞所有信号。</li>
+<li class="lvl-5">创建专门的信号处理线程，用<code>sigwait()</code>同步处理信号（避免中断业务逻辑）：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">sigset_t</span> set;</span><br><span class="line"><span class="built_in">sigemptyset</span>(&amp;set);</span><br><span class="line"><span class="built_in">sigaddset</span>(&amp;set, SIGINT);</span><br><span class="line"><span class="built_in">pthread_sigmask</span>(SIG_BLOCK, &amp;set, <span class="literal">nullptr</span>); <span class="comment">// 阻塞SIGINT</span></span><br><span class="line"></span><br><span class="line"><span class="type">pthread_t</span> tid;</span><br><span class="line"><span class="built_in">pthread_create</span>(&amp;tid, <span class="literal">nullptr</span>, [](<span class="type">void</span>* arg) &#123;</span><br><span class="line">    <span class="type">int</span> sig;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">sigwait</span>((<span class="type">sigset_t</span>*)arg, &amp;sig) == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 处理信号（如SIGINT）</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;, &amp;set);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>系统调用中断与重启</strong><br>
+网络编程中的<code>accept</code>、<code>recv</code>、<code>select</code>等系统调用可能被信号中断，返回<code>-1</code>并设置<code>errno=EINTR</code>。解决方式：</p>
+<ul class="lvl-2">
+<li class="lvl-5">设置<code>sa_flags = SA_RESTART</code>，使系统调用自动重启（部分调用如<code>select</code>不支持，需手动重试）。</li>
+<li class="lvl-5">手动判断并重试：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> n;</span><br><span class="line"><span class="keyword">while</span> ((n = <span class="built_in">recv</span>(fd, buf, <span class="built_in">sizeof</span>(buf), <span class="number">0</span>)) == <span class="number">-1</span> &amp;&amp; errno == EINTR);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>实时信号vs标准信号</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">标准信号（1~31）：适合处理无需排队的事件（如中断、终止），多次发送可能合并。</li>
+<li class="lvl-5">实时信号（34~64）：支持排队和带数据，适合需要可靠传递的场景（如多任务状态通知）。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/21/os/linux/Linux%E4%B8%AD%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E7%9A%84ppid/" rel="prev" title="Linux中孤儿进程的ppid">
+      <i class="fa fa-chevron-left"></i> Linux中孤儿进程的ppid
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/09/09/web/Vue.js%20%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E6%95%B4%E7%90%86/" rel="next" title="Vue基本组件">
+      Vue基本组件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、信号的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BF%A1%E5%8F%B7%E6%9C%AC%E8%B4%A8%E4%B8%8E%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1. 信号本质与特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BF%A1%E5%8F%B7%E6%9D%A5%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">2. 信号来源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">2.</span> <span class="nav-text">二、信号处理核心函数与结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-sigaction%E5%87%BD%E6%95%B0%EF%BC%88%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. sigaction函数（推荐使用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-struct-sigaction%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">2.2.</span> <span class="nav-text">2. struct sigaction结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-siginfo-t%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88%E6%89%A9%E5%B1%95%E4%BF%A1%E6%81%AF%E8%BD%BD%E4%BD%93%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">3. siginfo_t结构体（扩展信息载体）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%BF%A1%E5%8F%B7%E9%9B%86%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%EF%BC%88sigset-t%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">4. 信号集操作函数（sigset_t）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%85%B6%E4%BB%96%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">5. 其他核心函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%85%BC%E5%AE%B9%E6%80%A7%E5%87%BD%E6%95%B0signal"><span class="nav-number">2.6.</span> <span class="nav-text">6. 兼容性函数signal()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%B8%B8%E7%94%A8%E4%BF%A1%E5%8F%B7%E8%AF%A6%E8%A7%A3%EF%BC%88%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E9%AB%98%E9%A2%91%E5%9C%BA%E6%99%AF%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、常用信号详解（网络编程高频场景）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E4%BF%A1%E5%8F%B7%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">关键信号深度解析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E8%B7%B5%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">四、实践注意事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">729k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'c1a21b59553f954a602068e4133cabcf',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

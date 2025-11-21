@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="正向和反向获取主机和服务信息的函数，以及套接字选项设置和获取的函数原型及说明。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用套接字函数原型及说明">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/08/15/os/linux/%E5%B8%B8%E7%94%A8%E5%A5%97%E6%8E%A5%E5%AD%97%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:description" content="正向和反向获取主机和服务信息的函数，以及套接字选项设置和获取的函数原型及说明。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-15T08:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-19T11:12:53.200Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/08/15/os/linux/%E5%B8%B8%E7%94%A8%E5%A5%97%E6%8E%A5%E5%AD%97%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>常用套接字函数原型及说明 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/08/15/os/linux/%E5%B8%B8%E7%94%A8%E5%A5%97%E6%8E%A5%E5%AD%97%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用套接字函数原型及说明
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-15 16:00:00" itemprop="dateCreated datePublished" datetime="2025-08-15T16:00:00+08:00">2025-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-19 19:12:53" itemprop="dateModified" datetime="2025-10-19T19:12:53+08:00">2025-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>正向和反向获取主机和服务信息的函数，以及套接字选项设置和获取的函数原型及说明。</p>
+ <span id="more"></span>
+<h3 id="一、早期套接字函数原型及说明">一、早期套接字函数原型及说明</h3>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下仅支持解析IPv4 且 不是线程安全的</p>
+</blockquote>
+<ol>
+<li class="lvl-3">
+<p><strong>getsockname</strong><br>
+功能：获取套接字本地端的地址信息原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getsockname</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>sockfd</code>为套接字描述符，<code>addr</code>用于存储本地地址，<code>addrlen</code>传入地址结构体长度，传出实际长度。成功返回 0，失败返回 - 1（设置<code>errno</code>）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>getpeername</strong><br>
+功能：获取套接字对端的地址信息原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getpeername</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：仅适用于已连接的 TCP 套接字（<code>connect</code>或<code>accept</code>后），参数含义同<code>getsockname</code>。</p>
+</li>
+<li class="lvl-3">
+<p><strong>getsockopt</strong><br>
+功能：获取套接字的选项值原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">void</span> *optval, <span class="type">socklen_t</span> *optlen)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>level</code>为选项级别（如<code>SOL_SOCKET</code>、<code>IPPROTO_TCP</code>），<code>optname</code>为选项名，<code>optval</code>存储结果，<code>optlen</code>传入缓冲区长度并传出实际使用长度。</p>
+</li>
+<li class="lvl-3">
+<p><strong>setsockopt</strong><br>
+功能：设置套接字的选项值原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>optval</code>为待设置的值，<code>optlen</code>为值的长度，其他参数同<code>getsockopt</code>。部分选项需在<code>bind</code>/<code>connect</code>前设置。</p>
+</li>
+<li class="lvl-3">
+<p><strong>gethostbyname</strong><br>
+功能：通过主机名获取主机信息（IPv4）原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> hostent *<span class="title function_">gethostbyname</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：已过时（仅支持 IPv4），推荐使用<code>getaddrinfo</code>。返回<code>struct hostent</code>指针，失败返回<code>NULL</code>（设置<code>h_errno</code>）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>gethostbyaddr</strong><br>
+功能：通过 IP 地址获取主机名（IPv4）原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> hostent *<span class="title function_">gethostbyaddr</span><span class="params">(<span class="type">const</span> <span class="type">void</span> *addr, <span class="type">socklen_t</span> len, <span class="type">int</span> type)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>addr</code>为网络字节序的 IP 地址，<code>len</code>为地址长度（如<code>sizeof(struct in_addr)</code>），<code>type</code>为地址族（如<code>AF_INET</code>）。已过时。</p>
+</li>
+<li class="lvl-3">
+<p><strong>getservbyname</strong><br>
+功能：通过服务名和协议获取服务信息原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> servent *<span class="title function_">getservbyname</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> *proto)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>name</code>为服务名（如<code>&quot;http&quot;</code>），<code>proto</code>为协议（如<code>&quot;tcp&quot;</code>，可为<code>NULL</code>）。返回<code>struct servent</code>指针，包含端口号（网络字节序）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>getservbyport</strong><br>
+功能：通过端口号和协议获取服务信息原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> servent *<span class="title function_">getservbyport</span><span class="params">(<span class="type">int</span> port, <span class="type">const</span> <span class="type">char</span> *proto)</span>;</span><br></pre></td></tr></table></figure>
+<p>说明：<code>port</code>为网络字节序的端口号（需用<code>htons</code>转换），其他参数同<code>getservbyname</code>。</p>
+<h5 id="struct-hostent（主机信息结构体）"><strong><code>struct hostent</code>（主机信息结构体）</strong></h5>
+<p>用于存储主机的相关信息（如主机名、IP 地址列表等），定义在<code>&lt;netdb.h&gt;</code>中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> &#123;</span></span><br><span class="line">    <span class="type">char</span>  *h_name;        <span class="comment">// 主机的官方名称（规范名）</span></span><br><span class="line">    <span class="type">char</span> **h_aliases;     <span class="comment">// 主机的别名列表（以NULL结尾的字符串数组）</span></span><br><span class="line">    <span class="type">int</span>    h_addrtype;    <span class="comment">// 地址类型（如AF_INET表示IPv4，AF_INET6表示IPv6）</span></span><br><span class="line">    <span class="type">int</span>    h_length;      <span class="comment">// 每个地址的长度（字节），如IPv4为4，IPv6为16</span></span><br><span class="line">    <span class="type">char</span> **h_addr_list;   <span class="comment">// 主机的IP地址列表（网络字节序，以NULL结尾的指针数组）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>字段说明</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">
+<p><code>h_name</code>：主机的正式名称（如<code>www.example.com</code>）。</p>
+</li>
+<li class="lvl-5">
+<p><code>h_aliases</code>：主机的其他别名（如<code>example.com</code>可能是<code>www.example.com</code>的别名），最后一个元素为<code>NULL</code>。</p>
+</li>
+<li class="lvl-5">
+<p><code>h_addrtype</code>：地址族类型，通常为<code>AF_INET</code>（IPv4），但现代系统也可能支持<code>AF_INET6</code>（IPv6）。</p>
+</li>
+<li class="lvl-5">
+<p><code>h_length</code>：每个 IP 地址的长度（IPv4 为 4 字节，IPv6 为 16 字节）。</p>
+</li>
+<li class="lvl-5">
+<p><code>h_addr_list</code>：存储主机的 IP 地址数组（网络字节序），每个元素是<code>in_addr</code>（IPv4）或<code>in6_addr</code>（IPv6）结构体的指针。为方便使用，通常用宏<code>h_addr</code>指代<code>h_addr_list[0]</code>（第一个 IP 地址）。</p>
+</li>
+</ul>
+<h5 id="struct-servent（服务信息结构体）"><strong><code>struct servent</code>（服务信息结构体）</strong></h5>
+<p>用于存储网络服务的相关信息（如服务名、端口号、协议等），同样定义在<code>&lt;netdb.h&gt;</code>中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">servent</span> &#123;</span></span><br><span class="line">    <span class="type">char</span>  *s_name;        <span class="comment">// 服务的官方名称（规范名）</span></span><br><span class="line">    <span class="type">char</span> **s_aliases;     <span class="comment">// 服务的别名列表（以NULL结尾的字符串数组）</span></span><br><span class="line">    <span class="type">int</span>    s_port;        <span class="comment">// 服务对应的端口号（网络字节序）</span></span><br><span class="line">    <span class="type">char</span>  *s_proto;       <span class="comment">// 服务使用的协议（如&quot;tcp&quot;或&quot;udp&quot;）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>字段说明</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">
+<p><code>s_name</code>：服务的正式名称（如<code>&quot;http&quot;</code>、<code>&quot;ftp&quot;</code>）。</p>
+</li>
+<li class="lvl-5">
+<p><code>s_aliases</code>：服务的其他别名（如<code>&quot;www&quot;</code>可能是<code>&quot;http&quot;</code>的别名），最后一个元素为<code>NULL</code>。</p>
+</li>
+<li class="lvl-5">
+<p><code>s_port</code>：服务对应的端口号，以网络字节序（大端序）存储，使用时需通过<code>ntohs</code>转换为主机字节序。</p>
+</li>
+<li class="lvl-5">
+<p><code>s_proto</code>：服务使用的协议类型（如<code>&quot;tcp&quot;</code>用于面向连接的服务，<code>&quot;udp&quot;</code>用于无连接服务）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、现代套接字函数原型及说明">二、现代套接字函数原型及说明</h3>
+<h4 id="getaddrinfo-函数：正向解析（主机名→IP-地址，服务名→端口号）">getaddrinfo 函数：正向解析（主机名→IP 地址，服务名→端口号）</h4>
+<p><code>getaddrinfo</code>的核心功能是将<strong>主机名（或 IP 字符串）</strong> 和<strong>服务名（或端口号字符串）</strong> 转换为一组用于创建套接字的<code>struct sockaddr</code>结构（套接字地址结构），方便后续的<code>bind</code>、<code>connect</code>等操作。</p>
+<h5 id="1-函数原型">1. 函数原型</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getaddrinfo</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *node, <span class="type">const</span> <span class="type">char</span> *service,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">const</span> <span class="keyword">struct</span> addrinfo *hints,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">struct</span> addrinfo **res)</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="2-参数详解">2. 参数详解</h5>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node</code></td>
+<td><code>const char*</code></td>
+<td>输入参数：主机名（如<code>&quot;www.example.com&quot;</code>）或 IP 地址字符串（如<code>&quot;192.168.1.1&quot;</code>）。若为<code>NULL</code>，结合<code>hints.ai_flags</code>的<code>AI_PASSIVE</code>可用于服务器绑定通配地址（<code>INADDR_ANY</code>）。</td>
+</tr>
+<tr>
+<td><code>service</code></td>
+<td><code>const char*</code></td>
+<td>输入参数：服务名（如<code>&quot;http&quot;</code>、<code>&quot;ssh&quot;</code>）或端口号字符串（如<code>&quot;80&quot;</code>、<code>&quot;22&quot;</code>）。若为<code>NULL</code>，则不指定端口号（需手动在返回的<code>struct sockaddr</code>中设置）。</td>
+</tr>
+<tr>
+<td><code>hints</code></td>
+<td><code>const struct addrinfo*</code></td>
+<td>输入参数：用于过滤和指定返回结果的 “提示” 结构体。若为<code>NULL</code>，则默认返回所有可能的地址类型（IPv4/IPv6，TCP/UDP 等）。</td>
+</tr>
+<tr>
+<td><code>res</code></td>
+<td><code>struct addrinfo**</code></td>
+<td>输出参数：指向<code>struct addrinfo</code>链表的指针，存储解析结果。需通过<code>freeaddrinfo</code>释放内存。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="3-关键结构体：struct-addrinfo">3. 关键结构体：struct addrinfo</h5>
+<p><code>hints</code>和<code>res</code>均为<code>struct addrinfo</code>类型，其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">addrinfo</span> &#123;</span><br><span class="line">    <span class="type">int</span> ai_flags;           <span class="comment">// 标志位（见下文）</span></span><br><span class="line">    <span class="type">int</span> ai_family;          <span class="comment">// 地址族（如AF_INET、AF_INET6、AF_UNSPEC）</span></span><br><span class="line">    <span class="type">int</span> ai_socktype;        <span class="comment">// 套接字类型（如SOCK_STREAM、SOCK_DGRAM）</span></span><br><span class="line">    <span class="type">int</span> ai_protocol;        <span class="comment">// 协议（如IPPROTO_TCP、IPPROTO_UDP，0表示任意）</span></span><br><span class="line">    <span class="type">socklen_t</span> ai_addrlen;   <span class="comment">// ai_addr指向的地址结构的长度</span></span><br><span class="line">    <span class="type">char</span> *ai_canonname;     <span class="comment">// 主机的规范名称（若指定AI_CANONNAME标志）</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr</span> *ai_addr; <span class="comment">// 指向套接字地址结构（sockaddr_in或sockaddr_in6）</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">addrinfo</span> *ai_next; <span class="comment">// 链表下一个节点（可能有多个解析结果）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中核心字段说明：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>ai_family</code>：指定地址族，<code>AF_INET</code>（仅 IPv4）、<code>AF_INET6</code>（仅 IPv6）、<code>AF_UNSPEC</code>（不限制，返回所有可能）。</p>
+</li>
+<li class="lvl-2">
+<p><code>ai_socktype</code>：指定套接字类型，<code>SOCK_STREAM</code>（TCP）、<code>SOCK_DGRAM</code>（UDP）、0（任意类型）。</p>
+</li>
+<li class="lvl-2">
+<p><code>ai_protocol</code>：指定协议，<code>IPPROTO_TCP</code>（TCP）、<code>IPPROTO_UDP</code>（UDP）、0（任意协议）。</p>
+</li>
+<li class="lvl-2">
+<p><code>ai_flags</code>：常用标志（可组合使用，按位或）：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>AI_PASSIVE</code>：用于服务器，<code>node</code>为<code>NULL</code>时，返回的地址将是通配地址（<code>INADDR_ANY</code> for IPv4，<code>in6addr_any</code> for IPv6），适合<code>bind</code>。</li>
+<li class="lvl-4"><code>AI_CANONNAME</code>：要求返回主机的规范名称（存储在<code>ai_canonname</code>）。</li>
+<li class="lvl-4"><code>AI_NUMERICHOST</code>：<code>node</code>必须是 IP 地址字符串（不进行域名解析），否则返回错误。</li>
+<li class="lvl-4"><code>AI_NUMERICSERV</code>：<code>service</code>必须是端口号字符串（不解析服务名），否则返回错误。</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-返回值">4. 返回值</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>成功：返回<code>0</code>，<code>res</code>指向解析结果链表（可能有多个地址，需遍历处理）。</p>
+</li>
+<li class="lvl-2">
+<p>失败：返回非 0 错误码（如<code>EAI_NONAME</code>表示主机名无效），可通过<code>gai_strerror(err)</code>获取错误信息字符串。</p>
+</li>
+</ul>
+<h5 id="5-内存释放">5. 内存释放</h5>
+<p>解析完成后，必须通过<code>freeaddrinfo</code>释放<code>res</code>指向的链表内存，避免泄漏：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">freeaddrinfo</span><span class="params">(<span class="keyword">struct</span> addrinfo *res)</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="6-使用场景">6. 使用场景</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>客户端：将服务器主机名（如<code>&quot;www.baidu.com&quot;</code>）和服务名（如<code>&quot;http&quot;</code>）解析为<code>struct sockaddr</code>，用于<code>connect</code>。</p>
+</li>
+<li class="lvl-2">
+<p>服务器：将<code>NULL</code>（主机名）和服务名（如<code>&quot;8080&quot;</code>）解析为通配地址（结合<code>AI_PASSIVE</code>），用于<code>bind</code>。</p>
+</li>
+</ul>
+<h4 id="getnameinfo-函数：反向解析（IP-地址→主机名，端口号→服务名）">getnameinfo 函数：反向解析（IP 地址→主机名，端口号→服务名）</h4>
+<p><code>getnameinfo</code>是<code>getaddrinfo</code>的反向操作：将<code>struct sockaddr</code>（套接字地址结构，包含 IP 和端口）转换为<strong>主机名</strong>和<strong>服务名</strong>。</p>
+<h5 id="1-函数原型-2">1. 函数原型</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getnameinfo</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> addrlen,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">char</span> *host, <span class="type">socklen_t</span> hostlen,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">char</span> *serv, <span class="type">socklen_t</span> servlen,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="type">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="2-参数详解-2">2. 参数详解</h5>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addr</code></td>
+<td><code>const struct sockaddr*</code></td>
+<td>输入参数：指向<code>struct sockaddr</code>（或<code>sockaddr_in</code>/<code>sockaddr_in6</code>）的指针，包含待解析的 IP 和端口。</td>
+</tr>
+<tr>
+<td><code>addrlen</code></td>
+<td><code>socklen_t</code></td>
+<td>输入参数：<code>addr</code>指向的地址结构的长度（如<code>sizeof(struct sockaddr_in)</code>）。</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td><code>char*</code></td>
+<td>输出参数：存储主机名的缓冲区（若为<code>NULL</code>，则不获取主机名）。</td>
+</tr>
+<tr>
+<td><code>hostlen</code></td>
+<td><code>socklen_t</code></td>
+<td>输入参数：<code>host</code>缓冲区的大小（字节）。</td>
+</tr>
+<tr>
+<td><code>serv</code></td>
+<td><code>char*</code></td>
+<td>输出参数：存储服务名的缓冲区（若为<code>NULL</code>，则不获取服务名）。</td>
+</tr>
+<tr>
+<td><code>servlen</code></td>
+<td><code>socklen_t</code></td>
+<td>输入参数：<code>serv</code>缓冲区的大小（字节）。</td>
+</tr>
+<tr>
+<td><code>flags</code></td>
+<td><code>int</code></td>
+<td>输入参数：控制解析行为的标志（见下文）。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="3-关键标志（flags）">3. 关键标志（flags）</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>NI_NAMEREQD</code>：若无法解析主机名（如无 DNS 记录），则返回错误（<code>EAI_NONAME</code>），不返回 IP 字符串。</p>
+</li>
+<li class="lvl-2">
+<p><code>NI_NUMERICHOST</code>：强制返回 IP 地址字符串（不解析为主机名）。</p>
+</li>
+<li class="lvl-2">
+<p><code>NI_NUMERICSERV</code>：强制返回端口号字符串（不解析为服务名）。</p>
+</li>
+<li class="lvl-2">
+<p><code>NI_DGRAM</code>：表示是 UDP 服务（默认假设是 TCP，某些服务名在 TCP 和 UDP 中可能不同）。</p>
+</li>
+</ul>
+<h5 id="4-返回值-2">4. 返回值</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>成功：返回<code>0</code>，<code>host</code>和<code>serv</code>缓冲区分别存储主机名和服务名（若对应参数非<code>NULL</code>）。</p>
+</li>
+<li class="lvl-2">
+<p>失败：返回非 0 错误码，可通过<code>gai_strerror(err)</code>获取错误信息。</p>
+</li>
+</ul>
+<h5 id="5-使用场景">5. 使用场景</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>服务器：获取客户端连接的 IP 对应的主机名（如日志记录）。</p>
+</li>
+<li class="lvl-2">
+<p>网络工具：将套接字地址转换为人类可读的主机名和服务名（如<code>netstat</code>显示<code>www.baidu.com:http</code>而非<code>180.101.50.242:80</code>）。</p>
+</li>
+</ul>
+<h4 id="示例代码片段">示例代码片段</h4>
+<h5 id="1-getaddrinfo-示例（解析主机名和服务名）">1. getaddrinfo 示例（解析主机名和服务名）</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* host = <span class="string">&quot;www.baidu.com&quot;</span>; <span class="comment">// 主机名</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* service = <span class="string">&quot;http&quot;</span>;       <span class="comment">// 服务名（对应80端口）</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">addrinfo</span> hints, *res, *p;</span><br><span class="line">    <span class="built_in">memset</span>(&amp;hints, <span class="number">0</span>, <span class="built_in">sizeof</span>(hints));</span><br><span class="line">    hints.ai_family = AF_UNSPEC;    <span class="comment">// 不限制IPv4/IPv6</span></span><br><span class="line">    hints.ai_socktype = SOCK_STREAM; <span class="comment">// TCP</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> status = <span class="built_in">getaddrinfo</span>(host, service, &amp;hints, &amp;res);</span><br><span class="line">    <span class="keyword">if</span> (status != <span class="number">0</span>) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;getaddrinfo error: &quot;</span> &lt;&lt; <span class="built_in">gai_strerror</span>(status) &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历解析结果</span></span><br><span class="line">    <span class="keyword">for</span> (p = res; p != <span class="literal">nullptr</span>; p = p-&gt;ai_next) &#123;</span><br><span class="line">        <span class="type">char</span> ipstr[INET6_ADDRSTRLEN]; <span class="comment">// 足够存储IPv6地址的缓冲区</span></span><br><span class="line">        <span class="type">void</span>* addr;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 判断是IPv4还是IPv6</span></span><br><span class="line">        <span class="keyword">if</span> (p-&gt;ai_family == AF_INET) &#123;</span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span>* ipv4 = (<span class="keyword">struct</span> sockaddr_in*)p-&gt;ai_addr;</span><br><span class="line">            addr = &amp;(ipv4-&gt;sin_addr);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">struct</span> sockaddr_in6* ipv6 = (<span class="keyword">struct</span> sockaddr_in6*)p-&gt;ai_addr;</span><br><span class="line">            addr = &amp;(ipv6-&gt;sin6_addr);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 转换为字符串</span></span><br><span class="line">        <span class="built_in">inet_ntop</span>(p-&gt;ai_family, addr, ipstr, <span class="built_in">sizeof</span>(ipstr));</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;IP地址: &quot;</span> &lt;&lt; ipstr &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">freeaddrinfo</span>(res); <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-getnameinfo-示例（解析-IP-地址和端口）">2. getnameinfo 示例（解析 IP 地址和端口）</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> addr; <span class="comment">// IPv4地址结构</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(addr));</span><br><span class="line">    addr.sin_family = AF_INET;</span><br><span class="line">    addr.sin_port = <span class="built_in">htons</span>(<span class="number">80</span>); <span class="comment">// 端口80</span></span><br><span class="line">    <span class="built_in">inet_pton</span>(AF_INET, <span class="string">&quot;180.101.50.242&quot;</span>, &amp;addr.sin_addr); <span class="comment">// 百度的一个IP</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> host[NI_MAXHOST];   <span class="comment">// 主机名缓冲区</span></span><br><span class="line">    <span class="type">char</span> serv[NI_MAXSERV];   <span class="comment">// 服务名缓冲区</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 解析：获取主机名和服务名</span></span><br><span class="line">    <span class="type">int</span> status = <span class="built_in">getnameinfo</span>((<span class="keyword">struct</span> sockaddr*)&amp;addr, <span class="built_in">sizeof</span>(addr),</span><br><span class="line">                             host, <span class="built_in">sizeof</span>(host),</span><br><span class="line">                             serv, <span class="built_in">sizeof</span>(serv),</span><br><span class="line">                             <span class="number">0</span>); <span class="comment">// 不使用特殊标志</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (status != <span class="number">0</span>) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;getnameinfo error: &quot;</span> &lt;&lt; <span class="built_in">gai_strerror</span>(status) &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;主机名: &quot;</span> &lt;&lt; host &lt;&lt; std::endl; <span class="comment">// 可能输出&quot;www.baidu.com&quot;</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;服务名: &quot;</span> &lt;&lt; serv &lt;&lt; std::endl; <span class="comment">// 输出&quot;http&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/12/os/linux/IO%E5%A4%8D%E7%94%A8%20+%20%E5%AE%9A%E6%97%B6/" rel="prev" title="IO复用+定时">
+      <i class="fa fa-chevron-left"></i> IO复用+定时
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/08/15/os/linux/Socket%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" rel="next" title="Socket基础概念">
+      Socket基础概念 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%97%A9%E6%9C%9F%E5%A5%97%E6%8E%A5%E5%AD%97%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">一、早期套接字函数原型及说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#struct-hostent%EF%BC%88%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">struct hostent（主机信息结构体）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#struct-servent%EF%BC%88%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">struct servent（服务信息结构体）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%8E%B0%E4%BB%A3%E5%A5%97%E6%8E%A5%E5%AD%97%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">二、现代套接字函数原型及说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getaddrinfo-%E5%87%BD%E6%95%B0%EF%BC%9A%E6%AD%A3%E5%90%91%E8%A7%A3%E6%9E%90%EF%BC%88%E4%B8%BB%E6%9C%BA%E5%90%8D%E2%86%92IP-%E5%9C%B0%E5%9D%80%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%90%8D%E2%86%92%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">getaddrinfo 函数：正向解析（主机名→IP 地址，服务名→端口号）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 函数原型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 参数详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%9Astruct-addrinfo"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. 关键结构体：struct addrinfo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">2.1.4.</span> <span class="nav-text">4. 返回值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE"><span class="nav-number">2.1.5.</span> <span class="nav-text">5. 内存释放</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.1.6.</span> <span class="nav-text">6. 使用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getnameinfo-%E5%87%BD%E6%95%B0%EF%BC%9A%E5%8F%8D%E5%90%91%E8%A7%A3%E6%9E%90%EF%BC%88IP-%E5%9C%B0%E5%9D%80%E2%86%92%E4%B8%BB%E6%9C%BA%E5%90%8D%EF%BC%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7%E2%86%92%E6%9C%8D%E5%8A%A1%E5%90%8D%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">getnameinfo 函数：反向解析（IP 地址→主机名，端口号→服务名）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 函数原型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3-2"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 参数详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E6%A0%87%E5%BF%97%EF%BC%88flags%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 关键标志（flags）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 返回值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. 使用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><span class="nav-number">2.3.</span> <span class="nav-text">示例代码片段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-getaddrinfo-%E7%A4%BA%E4%BE%8B%EF%BC%88%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA%E5%90%8D%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%90%8D%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. getaddrinfo 示例（解析主机名和服务名）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-getnameinfo-%E7%A4%BA%E4%BE%8B%EF%BC%88%E8%A7%A3%E6%9E%90-IP-%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3%EF%BC%89"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. getnameinfo 示例（解析 IP 地址和端口）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">729k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'fc1cf7345ac75e384c6cc205ea994d01',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

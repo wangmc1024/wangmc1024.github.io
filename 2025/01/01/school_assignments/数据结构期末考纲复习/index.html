@@ -222,7 +222,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.6k</span>
+              <span>8.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -245,61 +245,56 @@
 <p>数据结构的期末复习考纲</p>
 </blockquote>
 <span id="more"></span>
-<h1 id="数据结构期末考纲">数据结构期末考纲</h1>
+<h1>数据结构期末考纲</h1>
 <h2 id="顺序表和链表的类型定义">顺序表和链表的类型定义</h2>
-<ul>
-<li><strong>顺序表:</strong>用一组==地址连续==的存储单元==依次==存放线性表中的所有元素,
-元素的存储位置与逻辑位置是一一对应关系</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>**顺序表:**用一组<mark>地址连续</mark>的存储单元<mark>依次</mark>存放线性表中的所有元素, 元素的存储位置与逻辑位置是一一对应关系</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="type">size_t</span> N&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SeqList</span>&#123;</span><br><span class="line">    T data[N];</span><br><span class="line">    <span class="type">int</span> length;</span><br><span class="line">    <span class="built_in">SeqList</span>():<span class="built_in">length</span>(<span class="number">0</span>) &#123;&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">getCapacity</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> N;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> IntSeqList = SeqList&lt;<span class="type">int</span>,<span class="number">100</span>&gt;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>链表:</strong>
-用一组地址非连续的存储单元依次存放线性表中的所有元素,
-元素间的先后关系利用指针来表示</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>链表:</strong> 用一组地址非连续的存储单元依次存放线性表中的所有元素, 元素间的先后关系利用指针来表示</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    T data;</span><br><span class="line">    Node* next;</span><br><span class="line">    <span class="built_in">Node</span>&lt;T&gt;() : <span class="built_in">next</span>(<span class="literal">nullptr</span>) &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">using</span> LinkList = Node&lt;<span class="type">int</span>&gt;*;</span><br></pre></td></tr></table></figure>
-<h2
-id="将两个有序的顺序表链表合并为一个有序的顺序表链表-分析合并操作的复杂度">将两个有序的顺序表(链表)合并为一个有序的顺序表(链表)
-分析合并操作的复杂度</h2>
-<ul>
-<li><strong>顺序表</strong></li>
+<h2 id="将两个有序的顺序表-链表-合并为一个有序的顺序表-链表-分析合并操作的复杂度">将两个有序的顺序表(链表)合并为一个有序的顺序表(链表) 分析合并操作的复杂度</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>顺序表</strong></p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IntSeqList <span class="title">mergeSeqList</span><span class="params">(IntSeqList&amp; s1, IntSeqList&amp; s2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s1 == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        s1 = s2;</span><br><span class="line">        <span class="keyword">return</span> s1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(s2 == <span class="literal">NULL</span>) <span class="keyword">return</span> s1;</span><br><span class="line">    </span><br><span class="line">	<span class="type">int</span> size1 = s<span class="number">1.l</span>ength;</span><br><span class="line">    <span class="type">int</span> size2 = s<span class="number">2.l</span>ength;</span><br><span class="line">    <span class="type">int</span> total_size = size1 + size2;</span><br><span class="line"></span><br><span class="line">    IntSeqList new_seqlist;</span><br><span class="line">    new_seqlist.length = total_size;</span><br><span class="line">    </span><br><span class="line">	<span class="type">int</span> index1 = <span class="number">0</span>;<span class="type">int</span> index2 = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(index1 &lt; size1 &amp;&amp; index2 &lt; size2)&#123;</span><br><span class="line">		<span class="keyword">if</span>(s<span class="number">1.</span>data[index1]&lt;s<span class="number">2.</span>data[index2])  &#123; new_seqlist.data[k] = s<span class="number">1.</span>data[index1]; index1++;&#125;</span><br><span class="line">        <span class="keyword">else</span>  &#123; new_seqlist.data[k] = s<span class="number">2.</span>data[index2]; index2++; &#125;</span><br><span class="line">        k++;         </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(index1 &lt; size1 &amp;&amp; index2 == size2)&#123;</span><br><span class="line">       	<span class="keyword">while</span>(index1 &lt; size1)&#123;</span><br><span class="line">            new_seqlist.data[k] = s<span class="number">1.</span>data[index1];</span><br><span class="line">            k++;</span><br><span class="line">            index1++;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(index1 == size1 &amp;&amp; index2 &lt; size2)&#123;</span><br><span class="line">        <span class="keyword">while</span>(index2 &lt; size2)&#123;</span><br><span class="line">            new_seqlist.data[k] = s<span class="number">2.</span>data[index2];</span><br><span class="line">            k++;</span><br><span class="line">            index2++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">   <span class="keyword">return</span> new_seqlist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>时间复杂度：</strong>O(n + m)</p>
-<p><strong>空间复杂度：</strong>O(n + m)</p>
-<ul>
-<li><strong>链表</strong></li>
+<p>**时间复杂度：**O(n + m)</p>
+<p>**空间复杂度：**O(n + m)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>链表</strong></p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node&lt;<span class="type">int</span>&gt;* <span class="title">mergeLinkedList</span><span class="params">(LinkList&amp; l1, LinkList&amp; l2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        l1 = l2;</span><br><span class="line">        <span class="keyword">return</span> l1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line"></span><br><span class="line">    LinkList cur = l1;</span><br><span class="line"></span><br><span class="line">    LinkList temp1 = l1-&gt;next; LinkList temp2 = l2-&gt;next;</span><br><span class="line">    <span class="keyword">while</span> (temp1 &amp;&amp; temp2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp1-&gt;data &lt; temp2-&gt;data) &#123;</span><br><span class="line">            cur-&gt;next = temp1;</span><br><span class="line">            temp1 = temp1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            cur-&gt;next = temp2;</span><br><span class="line">            temp2 = temp2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cur-&gt;next = temp1 ? temp1 : temp2;</span><br><span class="line">    <span class="keyword">delete</span> l2;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>时间复杂度：</strong>O(n + m)</p>
-<p><strong>空间复杂度：</strong>O(1)</p>
-<h2
-id="在链表顺序表的某个节点后插入一个节点">在链表(顺序表)的某个节点后插入一个节点</h2>
+<p>**时间复杂度：**O(n + m)</p>
+<p>**空间复杂度：**O(1)</p>
+<h2 id="在链表-顺序表-的某个节点后插入一个节点">在链表(顺序表)的某个节点后插入一个节点</h2>
 <p><strong>链表</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insertNode</span><span class="params">(LinkList l, <span class="type">int</span> index, T data)</span> </span>&#123;</span><br><span class="line">    LinkList cur = l;</span><br><span class="line">    <span class="keyword">while</span> (index--) &#123;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    Node&lt;T&gt;* new_node = <span class="keyword">new</span> Node&lt;T&gt;;</span><br><span class="line">    new_node-&gt;data = data;</span><br><span class="line">    new_node-&gt;next = cur-&gt;next;</span><br><span class="line">    cur-&gt;next = new_node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>顺序表</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insertNode</span><span class="params">(IntSeqList&amp; s, <span class="type">int</span> index, T data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &gt; s.length &amp;&amp; s.length + <span class="number">1</span> &gt; s.<span class="built_in">getCapacity</span>()) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (index &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = s.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            s.data[i + <span class="number">1</span>] = s.data[i];</span><br><span class="line">        &#125;</span><br><span class="line">        s.data[<span class="number">0</span>] = data;</span><br><span class="line">        s.length++;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = s.length - <span class="number">1</span>; i &gt;= index; i--) &#123;</span><br><span class="line">        s.data[i + <span class="number">1</span>] = s.data[i];</span><br><span class="line">    &#125;</span><br><span class="line">    s.data[index] = data;</span><br><span class="line">    s.length++;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2
-id="将一个链表顺序表进行倒置-并分析倒置操作的复杂度">将一个链表(顺序表)进行倒置
-并分析倒置操作的复杂度</h2>
+<h2 id="将一个链表-顺序表-进行倒置-并分析倒置操作的复杂度">将一个链表(顺序表)进行倒置 并分析倒置操作的复杂度</h2>
 <p><strong>链表</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverseLL</span><span class="params">(LinkList l)</span></span>&#123;</span><br><span class="line">    LinkList pre = <span class="literal">nullptr</span>;</span><br><span class="line">    LinkList cur = l;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        LinkList temp = cur-&gt;next;</span><br><span class="line">        cur-&gt;next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    l = pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>时间复杂度：</strong>O(n)</p>
-<p><strong>空间复杂度：</strong>O(1)</p>
+<p>**时间复杂度：**O(n)</p>
+<p>**空间复杂度：**O(1)</p>
 <p><strong>顺序表</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverseSeq</span><span class="params">(IntSeqList&amp; s)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>; <span class="type">int</span> j = s.length<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">        <span class="type">int</span> temp  = s.data[j];</span><br><span class="line">        s.data[j] = s.data[i];</span><br><span class="line">        s.data[i] = temp;</span><br><span class="line">        i++;</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>时间复杂度：</strong>O(n)</p>
-<p><strong>空间复杂度：</strong>O(1)</p>
-<h2
-id="无向图的链接表表示法和邻接矩阵表示法">无向图的链接表表示法和邻接矩阵表示法</h2>
-<p><strong>邻接矩阵表示法:</strong>
-利用二维数组来表示一个图,二维数组中的每一个元素表示相应的两个顶点之间的关系</p>
-<p>​ 无向图的邻接矩阵为对称矩阵</p>
-<p><strong>链接表表示法:</strong>
-将图的每一个顶点的邻接点存放在一个链表中
-每个顶点对应一条链表,所有的头节点存放在一个数组中</p>
-<h2
-id="利用dfs或bfs求一个图的连通分量数">利用DFS或BFS求一个图的连通分量数</h2>
+<p>**时间复杂度：**O(n)</p>
+<p>**空间复杂度：**O(1)</p>
+<h2 id="无向图的链接表表示法和邻接矩阵表示法">无向图的链接表表示法和邻接矩阵表示法</h2>
+<p><strong>邻接矩阵表示法:</strong> 利用二维数组来表示一个图,二维数组中的每一个元素表示相应的两个顶点之间的关系</p>
+<p>​			     无向图的邻接矩阵为对称矩阵</p>
+<p><strong>链接表表示法:</strong> 将图的每一个顶点的邻接点存放在一个链表中 每个顶点对应一条链表,所有的头节点存放在一个数组中</p>
+<h2 id="利用DFS或BFS求一个图的连通分量数">利用DFS或BFS求一个图的连通分量数</h2>
 <p><strong>DFS</strong></p>
 <p>递归版(图利用<em>邻接矩阵</em>来表示)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; isConnected,vector&lt;<span class="type">int</span>&gt;&amp; visited,<span class="type">int</span> row)</span></span>&#123;</span><br><span class="line">     <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;isConnected.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">         <span class="keyword">if</span>(isConnected[row][i]&amp;&amp;!visited[i])&#123;</span><br><span class="line">            visited[i] = <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">DFS</span>(isConnected,visited,i);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">findCircleNum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; isConnected)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">visited</span><span class="params">(isConnected.size(),<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;isConnected.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">     	<span class="keyword">if</span>(!visited[i])&#123;</span><br><span class="line">            <span class="built_in">DFS</span>(isConnected,visited,i);</span><br><span class="line">            num++;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -307,186 +302,316 @@ id="利用dfs或bfs求一个图的连通分量数">利用DFS或BFS求一个图�
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">findCircleNum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; isConnected)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">visited</span><span class="params">(isConnected.size(), <span class="number">0</span>)</span></span>;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; isConnected.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!visited[i]) &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(i);</span><br><span class="line">            <span class="keyword">while</span>(!s.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                <span class="type">int</span> temp = s.<span class="built_in">top</span>();</span><br><span class="line">                s.<span class="built_in">pop</span>();</span><br><span class="line">                visited[temp] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; isConnected.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(isConnected[temp][j] &amp;&amp; !visited[j]) &#123;</span><br><span class="line">                        s.<span class="built_in">push</span>(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>BFS</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">findCircleNum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; isConnected)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">visited</span><span class="params">(isConnected.size(), <span class="number">0</span>)</span></span>;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; isConnected.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">            q.<span class="built_in">push</span>(i);</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                <span class="type">int</span> temp = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                visited[temp] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; isConnected.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (isConnected[temp][j] &amp;&amp; !visited[j]) &#123;</span><br><span class="line">                       q.<span class="built_in">push</span>(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2
-id="利用floyd算法求图的任意两点的最短距离图的传递闭包floyd-warshall">利用Floyd算法求图的任意两点的最短距离，图的传递闭包(Floyd-Warshall)</h2>
+<h2 id="利用Floyd算法求图的任意两点的最短距离，图的传递闭包-Floyd-Warshall">利用Floyd算法求图的任意两点的最短距离，图的传递闭包(Floyd-Warshall)</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最短距离</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">floyd</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix,vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    grid = matrix;</span><br><span class="line">    <span class="type">int</span> n = grid.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>; k &lt; n;K++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n;j++)&#123;</span><br><span class="line">                grid[i][j]=<span class="built_in">min</span>(grid[i][j],grid[i][k]+grid[k][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//传递闭包(使用前需将矩阵转换为使用0和1表达的矩阵)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">floydWarshall</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = matrix.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; n; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                matrix[i][j] |= matrix[i][k] &amp; matrix[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2
-id="判断两个左右链表表示的二叉树是否等价-并分析时间复杂度">判断两个左右链表表示的二叉树是否等价
-并分析时间复杂度</h2>
+<h2 id="判断两个左右链表表示的二叉树是否等价-并分析时间复杂度">判断两个左右链表表示的二叉树是否等价 并分析时间复杂度</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>() : <span class="built_in">val</span>(<span class="number">0</span>), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="type">int</span> x, TreeNode *left, TreeNode *right) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(left), <span class="built_in">right</span>(right) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isSameTree</span><span class="params">(TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">nullptr</span> &amp;&amp; q == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">nullptr</span> || q == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;val != q-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">isSameTree</span>(p-&gt;left, q-&gt;left) &amp;&amp; <span class="built_in">isSameTree</span>(p-&gt;right, q-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>时间复杂度：</strong>O(n)</p>
-<h2
-id="将一个整数序列转化为大顶堆小顶堆的过程描述">将一个整数序列转化为大顶堆(小顶堆)的过程描述</h2>
+<p>**时间复杂度：**O(n)</p>
+<h2 id="将一个整数序列转化为大顶堆-小顶堆-的过程描述">将一个整数序列转化为大顶堆(小顶堆)的过程描述</h2>
 <p><strong>大顶堆</strong></p>
-<ul>
-<li>将此整数序列看作一棵完全二叉树的数组形式</li>
-<li>从最后一个非叶节点开始进行下沉操作,保证父节点大于子节点,使其堆化</li>
-<li>倒序遍历每个节点,重复上述操作 直至根节点</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将此整数序列看作一棵完全二叉树的数组形式</p>
+</li>
+<li class="lvl-2">
+<p>从最后一个非叶节点开始进行下沉操作,保证父节点大于子节点,使其堆化</p>
+</li>
+<li class="lvl-2">
+<p>倒序遍历每个节点,重复上述操作 直至根节点</p>
+</li>
 </ul>
-<h2
-id="删除堆顶大顶堆或小顶堆的过程描述">删除堆顶(大顶堆或小顶堆)的过程描述</h2>
-<ul>
-<li>将堆顶元素与堆中最后一个元素互换</li>
-<li>删除最后一个元素</li>
-<li>从堆顶元素开始,从顶至底进行下沉操作使其堆化</li>
+<h2 id="删除堆顶-大顶堆或小顶堆-的过程描述">删除堆顶(大顶堆或小顶堆)的过程描述</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将堆顶元素与堆中最后一个元素互换</p>
+</li>
+<li class="lvl-2">
+<p>删除最后一个元素</p>
+</li>
+<li class="lvl-2">
+<p>从堆顶元素开始,从顶至底进行下沉操作使其堆化</p>
+</li>
 </ul>
-<h2 id="构建哈夫曼树的过程-并计算带权路径长度">构建哈夫曼树的过程,
-并计算带权路径长度</h2>
+<h2 id="构建哈夫曼树的过程-并计算带权路径长度">构建哈夫曼树的过程, 并计算带权路径长度</h2>
 <p>假设给了n个元素</p>
-<ul>
-<li>将这n个元素看作n棵只有一个节点的二叉树,他们构成了森林F</li>
-<li>从森林F中选择两个权值最小的节点(树)构成一个新树,
-新树的根节点的权值为这两个节点权值的和</li>
-<li>将这颗新树加入到森林F中 并删除F中的那两个被合并的节点</li>
-<li>重复上述过程 直至森林中只剩下一个树 该树即为哈夫曼树</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将这n个元素看作n棵只有一个节点的二叉树,他们构成了森林F</p>
+</li>
+<li class="lvl-2">
+<p>从森林F中选择两个权值最小的节点(树)构成一个新树, 新树的根节点的权值为这两个节点权值的和</p>
+</li>
+<li class="lvl-2">
+<p>将这颗新树加入到森林F中 并删除F中的那两个被合并的节点</p>
+</li>
+<li class="lvl-2">
+<p>重复上述过程 直至森林中只剩下一个树 该树即为哈夫曼树</p>
+</li>
 </ul>
-<p><strong>带权路径长度:</strong>每个叶节点的权值与其到根节点的路径长度的乘积之和</p>
+<p>**带权路径长度:**每个叶节点的权值与其到根节点的路径长度的乘积之和</p>
 <h2 id="利用栈求逆波兰表达式的值">利用栈求逆波兰表达式的值</h2>
 <p>假设该逆波兰表达式符合规范</p>
-<ul>
-<li>将该表达式中的元素依次遍历</li>
-<li>如果该元素是操作数 那么压入栈中 继续遍历下一个元素</li>
-<li>如果该元素是操作符 那么从栈中弹出所需数量的元素进行计算
-并将计算结果压入栈中</li>
-<li>重复上述操作 直至遍历玩表达式中所有元素
-栈顶元素即为该表达式的结果</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将该表达式中的元素依次遍历</p>
+</li>
+<li class="lvl-2">
+<p>如果该元素是操作数 那么压入栈中 继续遍历下一个元素</p>
+</li>
+<li class="lvl-2">
+<p>如果该元素是操作符 那么从栈中弹出所需数量的元素进行计算 并将计算结果压入栈中</p>
+</li>
+<li class="lvl-2">
+<p>重复上述操作 直至遍历玩表达式中所有元素 栈顶元素即为该表达式的结果</p>
+</li>
 </ul>
 <h2 id="最小生成树的构建方法">最小生成树的构建方法</h2>
 <p><strong>Prim</strong></p>
-<ul>
-<li>构造一个名为minDist的数组,用来记录每个节点距离生成树的最短距离,长度为n,n为顶点的数量</li>
-<li>构造一个名为visited的数组,用来记录哪些节点已经被添加到最小生成树中,长度为n</li>
-<li>随机选择一个节点作为第一个节点加入到最小生成树中并将其在visited数组中标记为true</li>
-<li>更新minDist数组 即更新未被visited数组标记的节点到生成树的距离</li>
-<li>选择minDist数组中值最小且未被visited数组标记的节点加入生成树
-并将该节点标记为true</li>
-<li>重复上述过程n-1次即可完成构建</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>构造一个名为minDist的数组,用来记录每个节点距离生成树的最短距离,长度为n,n为顶点的数量</p>
+</li>
+<li class="lvl-2">
+<p>构造一个名为visited的数组,用来记录哪些节点已经被添加到最小生成树中,长度为n</p>
+</li>
+<li class="lvl-2">
+<p>随机选择一个节点作为第一个节点加入到最小生成树中并将其在visited数组中标记为true</p>
+</li>
+<li class="lvl-2">
+<p>更新minDist数组 即更新未被visited数组标记的节点到生成树的距离</p>
+</li>
+<li class="lvl-2">
+<p>选择minDist数组中值最小且未被visited数组标记的节点加入生成树 并将该节点标记为true</p>
+</li>
+<li class="lvl-2">
+<p>重复上述过程n-1次即可完成构建</p>
+</li>
 </ul>
 <p><strong>Kruskal</strong></p>
-<ul>
-<li>将图中的边按照权值由小到大进行排序</li>
-<li>初始化并查集,使每个顶点自成一个集合</li>
-<li>对排序后的边进行遍历</li>
-<li>利用并查集判断该边的两个顶点是否在同一个集合中</li>
-<li>如果在 则不能将此边加入生成树 否则会形成环</li>
-<li>如果不在 则将此边加入生成树 并将这两个顶点所在的集合合并</li>
-<li>重复上述过程 直至生成树中有n-1条边(n为顶点数目) 或遍历结束</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将图中的边按照权值由小到大进行排序</p>
+</li>
+<li class="lvl-2">
+<p>初始化并查集,使每个顶点自成一个集合</p>
+</li>
+<li class="lvl-2">
+<p>对排序后的边进行遍历</p>
+</li>
+<li class="lvl-2">
+<p>利用并查集判断该边的两个顶点是否在同一个集合中</p>
+</li>
+<li class="lvl-2">
+<p>如果在 则不能将此边加入生成树 否则会形成环</p>
+</li>
+<li class="lvl-2">
+<p>如果不在 则将此边加入生成树 并将这两个顶点所在的集合合并</p>
+</li>
+<li class="lvl-2">
+<p>重复上述过程 直至生成树中有n-1条边(n为顶点数目) 或遍历结束</p>
+</li>
 </ul>
-<h2
-id="利用dijkstra求单源最短距离和最短路径了解u-d和p的含义如何根据p求到每一个顶点到源点的最短路径">利用Dijkstra求单源最短距离和最短路径,了解U
-d和p的含义;如何根据p求到每一个顶点到源点的最短路径</h2>
-<p><strong>U:</strong>已经求出与源点的最短距离的顶点的集合</p>
-<p><strong>d:</strong>用来存放顶点到源点最短距离的数组,d[i]代表顶点i到源点的最短距离</p>
-<p><strong>p:</strong>用来存放最短路径树中每个节点的父节点的数组,p[i]代表最短路径树中节点i的父节点</p>
+<h2 id="利用Dijkstra求单源最短距离和最短路径-了解U-d和p的含义-如何根据p求到每一个顶点到源点的最短路径">利用Dijkstra求单源最短距离和最短路径,了解U d和p的含义;如何根据p求到每一个顶点到源点的最短路径</h2>
+<p>**U:**已经求出与源点的最短距离的顶点的集合</p>
+<p>**d:**用来存放顶点到源点最短距离的数组,d[i]代表顶点i到源点的最短距离</p>
+<p>**p:**用来存放最短路径树中每个节点的父节点的数组,p[i]代表最短路径树中节点i的父节点</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">getPath</span><span class="params">(<span class="type">int</span> p[N],<span class="type">int</span> v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(v==p[v])&#123;</span><br><span class="line">        cout&lt;&lt;v&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">getPath</span>(p,p[v]);</span><br><span class="line">    cout&lt;&lt;v&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="拓扑排序和关键路径的求法">拓扑排序和关键路径的求法</h2>
 <p><strong>拓扑排序</strong></p>
-<ul>
-<li>定义一个队列q,统计图中每一个顶点的入度,将入度为零的顶点加入队列q中</li>
-<li>从队列q中取出一个顶点u,将其加入到拓扑序列中</li>
-<li>遍历顶点u的所有出边,将这些相邻点的入度减一,若其入度变为零,则将其加入到队列q中</li>
-<li>重复上述步骤,直至队列q为空</li>
-<li>如果队列q为空时 仍有顶点未加入到拓扑序列中 说明该图存在环
-不存在拓扑序列</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义一个队列q,统计图中每一个顶点的入度,将入度为零的顶点加入队列q中</p>
+</li>
+<li class="lvl-2">
+<p>从队列q中取出一个顶点u,将其加入到拓扑序列中</p>
+</li>
+<li class="lvl-2">
+<p>遍历顶点u的所有出边,将这些相邻点的入度减一,若其入度变为零,则将其加入到队列q中</p>
+</li>
+<li class="lvl-2">
+<p>重复上述步骤,直至队列q为空</p>
+</li>
+<li class="lvl-2">
+<p>如果队列q为空时 仍有顶点未加入到拓扑序列中 说明该图存在环 不存在拓扑序列</p>
+</li>
 </ul>
 <p><strong>关键路径</strong></p>
-<ul>
-<li>对图中各顶点进行拓扑排序，得到拓扑序列</li>
-<li>按照拓扑序列的顺序 依次计算每个事件的最早发生时间</li>
-<li>再根据每个事件的最早发生时间 求出每个活动的最早发生时间</li>
-<li>按照逆拓扑序 依次计算每个事件的最晚发生时间</li>
-<li>遍历每一个活动，计算其最早发生时间与最晚发生时间之差 若为零
-则将该活动加入关键路径</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对图中各顶点进行拓扑排序，得到拓扑序列</p>
+</li>
+<li class="lvl-2">
+<p>按照拓扑序列的顺序 依次计算每个事件的最早发生时间</p>
+</li>
+<li class="lvl-2">
+<p>再根据每个事件的最早发生时间 求出每个活动的最早发生时间</p>
+</li>
+<li class="lvl-2">
+<p>按照逆拓扑序 依次计算每个事件的最晚发生时间</p>
+</li>
+<li class="lvl-2">
+<p>遍历每一个活动，计算其最早发生时间与最晚发生时间之差 若为零 则将该活动加入关键路径</p>
+</li>
 </ul>
 <h2 id="二分查找及其复杂度分析">二分查找及其复杂度分析</h2>
 <p>主要部分与插值查找相同 不同点为 mid = left+0.5*(right-left)</p>
 <p>时间复杂度为 <strong>O(log n)</strong></p>
 <p>空间复杂度为 <strong>O(1)</strong></p>
 <h2 id="插值查找">插值查找</h2>
-<ul>
-<li>确定被查找目标所在的范围边界,左边界记为left,右边界记为right</li>
-<li>设置查找点下标为 <span
-class="math inline"><em>m</em><em>i</em><em>d</em> = <em>l</em><em>e</em><em>f</em><em>t</em> + (<em>k</em><em>e</em><em>y</em> − <em>a</em><em>r</em><em>r</em><em>a</em><em>y</em>[<em>l</em><em>e</em><em>f</em><em>t</em>]/<em>a</em><em>r</em><em>r</em><em>a</em><em>y</em>[<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>] − <em>a</em><em>r</em><em>r</em><em>a</em><em>y</em>[<em>l</em><em>e</em><em>f</em><em>t</em>]) * (<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em> − <em>l</em><em>e</em><em>f</em><em>t</em>)</span></li>
-<li>开始循环 保证left不大于right</li>
-<li>判断以mid为下标的数组元素是否等于目标值</li>
-<li>如果等于 则找到目标 退出循环</li>
-<li>如果大于目标元素 则令right = mid - 1</li>
-<li>如果小于目标元素 则另left = mid + 1</li>
-<li>按照以上描述进行循环直至找到目标值 或不满足循环条件时退出循环</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>确定被查找目标所在的范围边界,左边界记为left,右边界记为right</p>
+</li>
+<li class="lvl-2">
+<p>设置查找点下标为 $mid=left+ (key-array[left]/array[right]-array[left])*(right-left)$</p>
+</li>
+<li class="lvl-2">
+<p>开始循环 保证left不大于right</p>
+</li>
+<li class="lvl-2">
+<p>判断以mid为下标的数组元素是否等于目标值</p>
+</li>
+<li class="lvl-2">
+<p>如果等于 则找到目标 退出循环</p>
+</li>
+<li class="lvl-2">
+<p>如果大于目标元素 则令right = mid - 1</p>
+</li>
+<li class="lvl-2">
+<p>如果小于目标元素 则另left = mid + 1</p>
+</li>
+<li class="lvl-2">
+<p>按照以上描述进行循环直至找到目标值 或不满足循环条件时退出循环</p>
+</li>
 </ul>
 <p>时间复杂度是<strong>O(loglogN)</strong></p>
-<p>当==有序序列中的元素呈均匀分布时==插值查找优于二分查找</p>
-<h2 id="kmp算法">KMP算法</h2>
+<p>当<mark>有序序列中的元素呈均匀分布时</mark>插值查找优于二分查找</p>
+<h2 id="KMP算法">KMP算法</h2>
 <p>令模式串为t 主串为s</p>
-<ul>
-<li>定义两个整数i，j 分别表示主串和模式串的下标，初始值设置为0</li>
-<li>当j == -1 或 t[j] == s[i]时 i和j同时加一 即同时向后移动一位</li>
-<li>如果t[j] != s[i]时 令j=next[j]</li>
-<li>重复上述过程直至遍历完i主串或j遍历完模式串</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义两个整数i，j 分别表示主串和模式串的下标，初始值设置为0</p>
+</li>
+<li class="lvl-2">
+<p>当j == -1 或 t[j] == s[i]时 i和j同时加一 即同时向后移动一位</p>
+</li>
+<li class="lvl-2">
+<p>如果t[j] != s[i]时 令j=next[j]</p>
+</li>
+<li class="lvl-2">
+<p>重复上述过程直至遍历完i主串或j遍历完模式串</p>
+</li>
 </ul>
 <p><strong>next数组</strong></p>
-<ul>
-<li><p>使用整数j作为下标来遍历模式串</p></li>
-<li><p>令next[j] = 第j位的公共最长真前后缀的长度
-特别规定next[0]=-1</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>使用整数j作为下标来遍历模式串</p>
+</li>
+<li class="lvl-2">
+<p>令next[j] = 第j位的公共最长真前后缀的长度 特别规定next[0]=-1</p>
+</li>
 </ul>
 <p><strong>优化next数组</strong></p>
-<ul>
-<li><p>在上一个方法求next数组的基础之上
-在j遍历模式串s的过程中添加如下判断</p></li>
-<li><p>判断 t[j]是否等于t[next[j]]</p></li>
-<li><p>如果等于 则令next[j] = next[next[j]]</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在上一个方法求next数组的基础之上 在j遍历模式串s的过程中添加如下判断</p>
+</li>
+<li class="lvl-2">
+<p>判断 t[j]是否等于t[next[j]]</p>
+</li>
+<li class="lvl-2">
+<p>如果等于 则令next[j] = next[next[j]]</p>
+</li>
 </ul>
 <h2 id="二叉查找树">二叉查找树</h2>
 <p><strong>特点</strong></p>
-<ul>
-<li>对于根节点，若它的左右子树不为空, 则左子树中所有节点的值 &lt;
-根节点的值 &lt; 右子树中所有节点的值</li>
-<li>若它的左右子树都不为空, 则它的左右子树也分别为二叉查找树</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对于根节点，若它的左右子树不为空, 则左子树中所有节点的值 &lt; 根节点的值 &lt; 右子树中所有节点的值</p>
+</li>
+<li class="lvl-2">
+<p>若它的左右子树都不为空,  则它的左右子树也分别为二叉查找树</p>
+</li>
 </ul>
 <p><strong>构建二叉查找树</strong></p>
-<ul>
-<li>将序列的第一个元素作为二叉查找树的根节点</li>
-<li>接着依次遍历序列中的剩余元素,并将该元素作为新节点</li>
-<li>如果新节点的值小于当前节点的值，则新节点应插入到左子树中</li>
-<li>如果新节点的值大于当前节点的值，则新节点应插入到右子树中</li>
-<li>重复上两个步骤，直到找到合适的叶子位置, 将其插入树中</li>
-<li>对序列中的每个元素进行如上操作直至遍历结束
-至此二叉查找树构建完成</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将序列的第一个元素作为二叉查找树的根节点</p>
+</li>
+<li class="lvl-2">
+<p>接着依次遍历序列中的剩余元素,并将该元素作为新节点</p>
+</li>
+<li class="lvl-2">
+<p>如果新节点的值小于当前节点的值，则新节点应插入到左子树中</p>
+</li>
+<li class="lvl-2">
+<p>如果新节点的值大于当前节点的值，则新节点应插入到右子树中</p>
+</li>
+<li class="lvl-2">
+<p>重复上两个步骤，直到找到合适的叶子位置, 将其插入树中</p>
+</li>
+<li class="lvl-2">
+<p>对序列中的每个元素进行如上操作直至遍历结束 至此二叉查找树构建完成</p>
+</li>
 </ul>
-<h2 id="avl树">AVL树</h2>
+<h2 id="AVL树">AVL树</h2>
 <p><strong>四种基本形式及对应变形操作</strong></p>
-<ul>
-<li><p><strong>LL旋转</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>LL旋转</strong></p>
 <p>假设节点A是失衡的节点，节点B是A的左子节点，节点C是B的右子节点</p>
-<ul>
-<li><p>B变为新的根节点。</p></li>
-<li><p>A成为B的右子节点。</p></li>
-<li><p>C（如果存在）成为A的左子节点</p></li>
+<ul class="lvl-2">
+<li class="lvl-4">
+<p>B变为新的根节点。</p>
+</li>
+<li class="lvl-5">
+<p>A成为B的右子节点。</p>
+</li>
+<li class="lvl-4">
+<p>C（如果存在）成为A的左子节点</p>
+</li>
 </ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20250108161439866.png" alt="image-20250108161439866" style="zoom: 50%; float:left" ></p></li>
-<li><p><strong>RR旋转</strong></p></li>
+<img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20250108161439866.png" alt="image-20250108161439866" style="zoom: 50%; float:left" >
+</li>
+<li class="lvl-2">
+<p><strong>RR旋转</strong></p>
+</li>
 </ul>
-<p>​ 与LL操作反之</p>
-<ul>
-<li><strong>LR旋转</strong></li>
+<p>​	与LL操作反之</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>LR旋转</strong></p>
+</li>
 </ul>
-<p>​ 假设节点A是失衡的节点，节点B是A的左子节点</p>
-<p>​ 首先对A的左子节点B进行RR旋转，然后对A进行LL旋转</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20250108161749530.png" alt="image-20250108161749530" style="zoom:50%;float:left" /></p>
-<ul>
-<li><strong>RL旋转</strong></li>
+<p>​	假设节点A是失衡的节点，节点B是A的左子节点</p>
+<p>​	首先对A的左子节点B进行RR旋转，然后对A进行LL旋转</p>
+<img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20250108161749530.png" alt="image-20250108161749530" style="zoom:50%;float:left" />
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>RL旋转</strong></p>
+</li>
 </ul>
-<p>​ 与LR反之</p>
+<p>​	与LR反之</p>
 <p><strong>构建AVL树</strong></p>
-<ul>
-<li>将给定数据集的第一个元素作为AVL树的根节点</li>
-<li>按照二叉查找树的方式插入新的节点</li>
-<li>每次插入新节点后，更新该节点及其祖先节点的高度</li>
-<li>在每次插入操作后，计算当前节点及其祖先节点的平衡因子（左子树高度减去右子树高度）。</li>
-<li>如果平衡因子的绝对值大于1，则该节点失衡,
-根据失衡节点的具体情况进行对应的旋转操作</li>
-<li>重复上述过程 直至所有元素被添加到AVL树中</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将给定数据集的第一个元素作为AVL树的根节点</p>
+</li>
+<li class="lvl-2">
+<p>按照二叉查找树的方式插入新的节点</p>
+</li>
+<li class="lvl-2">
+<p>每次插入新节点后，更新该节点及其祖先节点的高度</p>
+</li>
+<li class="lvl-2">
+<p>在每次插入操作后，计算当前节点及其祖先节点的平衡因子（左子树高度减去右子树高度）。</p>
+</li>
+<li class="lvl-2">
+<p>如果平衡因子的绝对值大于1，则该节点失衡, 根据失衡节点的具体情况进行对应的旋转操作</p>
+</li>
+<li class="lvl-2">
+<p>重复上述过程 直至所有元素被添加到AVL树中</p>
+</li>
 </ul>
 
     </div>
@@ -574,12 +699,7 @@ class="math inline"><em>m</em><em>i</em><em>d</em> = <em>l</em><em>e</em><em
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%9C%9F%E6%9C%AB%E8%80%83%E7%BA%B2"><span class="nav-number">1.</span> <span class="nav-text">数据结构期末考纲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">顺序表和链表的类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%A1%A8%E9%93%BE%E8%A1%A8%E5%90%88%E5%B9%B6%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%9C%89%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%A1%A8%E9%93%BE%E8%A1%A8-%E5%88%86%E6%9E%90%E5%90%88%E5%B9%B6%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">将两个有序的顺序表(链表)合并为一个有序的顺序表(链表)
-分析合并操作的复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%93%BE%E8%A1%A8%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%9F%90%E4%B8%AA%E8%8A%82%E7%82%B9%E5%90%8E%E6%8F%92%E5%85%A5%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">在链表(顺序表)的某个节点后插入一个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E9%A1%BA%E5%BA%8F%E8%A1%A8%E8%BF%9B%E8%A1%8C%E5%80%92%E7%BD%AE-%E5%B9%B6%E5%88%86%E6%9E%90%E5%80%92%E7%BD%AE%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">将一个链表(顺序表)进行倒置
-并分析倒置操作的复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E9%93%BE%E6%8E%A5%E8%A1%A8%E8%A1%A8%E7%A4%BA%E6%B3%95%E5%92%8C%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">无向图的链接表表示法和邻接矩阵表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8dfs%E6%88%96bfs%E6%B1%82%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">利用DFS或BFS求一个图的连通分量数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8floyd%E7%AE%97%E6%B3%95%E6%B1%82%E5%9B%BE%E7%9A%84%E4%BB%BB%E6%84%8F%E4%B8%A4%E7%82%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB%E5%9B%BE%E7%9A%84%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85floyd-warshall"><span class="nav-number">1.7.</span> <span class="nav-text">利用Floyd算法求图的任意两点的最短距离，图的传递闭包(Floyd-Warshall)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%B7%A6%E5%8F%B3%E9%93%BE%E8%A1%A8%E8%A1%A8%E7%A4%BA%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E6%98%AF%E5%90%A6%E7%AD%89%E4%BB%B7-%E5%B9%B6%E5%88%86%E6%9E%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.8.</span> <span class="nav-text">判断两个左右链表表示的二叉树是否等价
-并分析时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E5%BA%8F%E5%88%97%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%A4%A7%E9%A1%B6%E5%A0%86%E5%B0%8F%E9%A1%B6%E5%A0%86%E7%9A%84%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.9.</span> <span class="nav-text">将一个整数序列转化为大顶堆(小顶堆)的过程描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6%E5%A4%A7%E9%A1%B6%E5%A0%86%E6%88%96%E5%B0%8F%E9%A1%B6%E5%A0%86%E7%9A%84%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.10.</span> <span class="nav-text">删除堆顶(大顶堆或小顶堆)的过程描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E8%BF%87%E7%A8%8B-%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%B8%A6%E6%9D%83%E8%B7%AF%E5%BE%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.11.</span> <span class="nav-text">构建哈夫曼树的过程,
-并计算带权路径长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%A0%88%E6%B1%82%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%80%BC"><span class="nav-number">1.12.</span> <span class="nav-text">利用栈求逆波兰表达式的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95"><span class="nav-number">1.13.</span> <span class="nav-text">最小生成树的构建方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8dijkstra%E6%B1%82%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB%E5%92%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BA%86%E8%A7%A3u-d%E5%92%8Cp%E7%9A%84%E5%90%AB%E4%B9%89%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AEp%E6%B1%82%E5%88%B0%E6%AF%8F%E4%B8%80%E4%B8%AA%E9%A1%B6%E7%82%B9%E5%88%B0%E6%BA%90%E7%82%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="nav-number">1.14.</span> <span class="nav-text">利用Dijkstra求单源最短距离和最短路径,了解U
-d和p的含义;如何根据p求到每一个顶点到源点的最短路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%92%8C%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E7%9A%84%E6%B1%82%E6%B3%95"><span class="nav-number">1.15.</span> <span class="nav-text">拓扑排序和关键路径的求法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%8F%8A%E5%85%B6%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">1.16.</span> <span class="nav-text">二分查找及其复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE"><span class="nav-number">1.17.</span> <span class="nav-text">插值查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kmp%E7%AE%97%E6%B3%95"><span class="nav-number">1.18.</span> <span class="nav-text">KMP算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">1.19.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#avl%E6%A0%91"><span class="nav-number">1.20.</span> <span class="nav-text">AVL树</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">数据结构期末考纲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">顺序表和链表的类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%A1%A8-%E9%93%BE%E8%A1%A8-%E5%90%88%E5%B9%B6%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%9C%89%E5%BA%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%A1%A8-%E9%93%BE%E8%A1%A8-%E5%88%86%E6%9E%90%E5%90%88%E5%B9%B6%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">将两个有序的顺序表(链表)合并为一个有序的顺序表(链表) 分析合并操作的复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%93%BE%E8%A1%A8-%E9%A1%BA%E5%BA%8F%E8%A1%A8-%E7%9A%84%E6%9F%90%E4%B8%AA%E8%8A%82%E7%82%B9%E5%90%8E%E6%8F%92%E5%85%A5%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">在链表(顺序表)的某个节点后插入一个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8-%E9%A1%BA%E5%BA%8F%E8%A1%A8-%E8%BF%9B%E8%A1%8C%E5%80%92%E7%BD%AE-%E5%B9%B6%E5%88%86%E6%9E%90%E5%80%92%E7%BD%AE%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">将一个链表(顺序表)进行倒置 并分析倒置操作的复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E9%93%BE%E6%8E%A5%E8%A1%A8%E8%A1%A8%E7%A4%BA%E6%B3%95%E5%92%8C%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">无向图的链接表表示法和邻接矩阵表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8DFS%E6%88%96BFS%E6%B1%82%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">利用DFS或BFS求一个图的连通分量数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Floyd%E7%AE%97%E6%B3%95%E6%B1%82%E5%9B%BE%E7%9A%84%E4%BB%BB%E6%84%8F%E4%B8%A4%E7%82%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB%EF%BC%8C%E5%9B%BE%E7%9A%84%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85-Floyd-Warshall"><span class="nav-number">1.7.</span> <span class="nav-text">利用Floyd算法求图的任意两点的最短距离，图的传递闭包(Floyd-Warshall)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%B7%A6%E5%8F%B3%E9%93%BE%E8%A1%A8%E8%A1%A8%E7%A4%BA%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E6%98%AF%E5%90%A6%E7%AD%89%E4%BB%B7-%E5%B9%B6%E5%88%86%E6%9E%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.8.</span> <span class="nav-text">判断两个左右链表表示的二叉树是否等价 并分析时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E5%BA%8F%E5%88%97%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%A4%A7%E9%A1%B6%E5%A0%86-%E5%B0%8F%E9%A1%B6%E5%A0%86-%E7%9A%84%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.9.</span> <span class="nav-text">将一个整数序列转化为大顶堆(小顶堆)的过程描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6-%E5%A4%A7%E9%A1%B6%E5%A0%86%E6%88%96%E5%B0%8F%E9%A1%B6%E5%A0%86-%E7%9A%84%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.10.</span> <span class="nav-text">删除堆顶(大顶堆或小顶堆)的过程描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E8%BF%87%E7%A8%8B-%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%B8%A6%E6%9D%83%E8%B7%AF%E5%BE%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.11.</span> <span class="nav-text">构建哈夫曼树的过程, 并计算带权路径长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%A0%88%E6%B1%82%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%80%BC"><span class="nav-number">1.12.</span> <span class="nav-text">利用栈求逆波兰表达式的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95"><span class="nav-number">1.13.</span> <span class="nav-text">最小生成树的构建方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8Dijkstra%E6%B1%82%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB%E5%92%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-%E4%BA%86%E8%A7%A3U-d%E5%92%8Cp%E7%9A%84%E5%90%AB%E4%B9%89-%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AEp%E6%B1%82%E5%88%B0%E6%AF%8F%E4%B8%80%E4%B8%AA%E9%A1%B6%E7%82%B9%E5%88%B0%E6%BA%90%E7%82%B9%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="nav-number">1.14.</span> <span class="nav-text">利用Dijkstra求单源最短距离和最短路径,了解U d和p的含义;如何根据p求到每一个顶点到源点的最短路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%92%8C%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E7%9A%84%E6%B1%82%E6%B3%95"><span class="nav-number">1.15.</span> <span class="nav-text">拓扑排序和关键路径的求法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E5%8F%8A%E5%85%B6%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">1.16.</span> <span class="nav-text">二分查找及其复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE"><span class="nav-number">1.17.</span> <span class="nav-text">插值查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="nav-number">1.18.</span> <span class="nav-text">KMP算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">1.19.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVL%E6%A0%91"><span class="nav-number">1.20.</span> <span class="nav-text">AVL树</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -595,7 +715,7 @@ d和p的含义;如何根据p求到每一个顶点到源点的最短路径</span>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -608,7 +728,7 @@ d和p的含义;如何根据p求到每一个顶点到源点的最短路径</span>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -656,7 +776,7 @@ d和p的含义;如何根据p求到每一个顶点到源点的最短路径</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">714k</span>
+    <span title="站点总字数">729k</span>
 </div>
 
         
