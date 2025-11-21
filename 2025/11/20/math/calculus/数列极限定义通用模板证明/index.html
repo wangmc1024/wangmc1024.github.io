@@ -211,7 +211,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -230,11 +230,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<h1>数列极限定义证明通用模板（ε-N三步法）</h1>
-<p>核心目标：对任意$\varepsilon &gt; 0$，找到正整数$N$，当$n &gt; N$时，$|x_n - A| &lt; \varepsilon$（$A$为极限值）。</p>
+<h1
+id="数列极限定义证明通用模板ε-n三步法">数列极限定义证明通用模板（ε-N三步法）</h1>
+<p>核心目标：对任意<span
+class="math inline"><em>ε</em> &gt; 0</span>，找到正整数<span
+class="math inline"><em>N</em></span>，当<span
+class="math inline"><em>n</em> &gt; <em>N</em></span>时，<span
+class="math inline">|<em>x</em><sub><em>n</em></sub> − <em>A</em>| &lt; <em>ε</em></span>（<span
+class="math inline"><em>A</em></span>为极限值）。</p>
 <table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 45%" />
+<col style="width: 47%" />
+</colgroup>
 <thead>
 <tr>
 <th>步骤</th>
@@ -245,42 +258,80 @@
 <tbody>
 <tr>
 <td>第一步：化简</td>
-<td>对$</td>
-<td>x_n - A</td>
+<td>对<span
+class="math inline">|<em>x</em><sub><em>n</em></sub> − <em>A</em>|</span>做代数变形（有理化、通分、拆分等），消去复杂结构（根号、分式、指数等）</td>
+<td>1. 根号类：分子/分母有理化（如<span
+class="math inline">$\sqrt{n^2+4}-n$</span>乘<span
+class="math inline">$\sqrt{n^2+4}+n$</span>）；<br>2.
+小数类：转化为分数/指数（如<span
+class="math inline">0.999⋯9 = 1 − 1/10<sup><em>n</em></sup></span>）；<br>3.
+分式类：通分/拆分（如<span
+class="math inline">$\frac{n}{n+1}-1=-\frac{1}{n+1}$</span>）。</td>
 </tr>
 <tr>
 <td>第二步：放缩</td>
-<td>对化简后的$</td>
-<td>x_n - A</td>
+<td>对化简后的<span
+class="math inline">|<em>x</em><sub><em>n</em></sub> − <em>A</em>|</span>进行“放大”，得到==仅含<span
+class="math inline"><em>n</em></span>==的简单表达式（如<span
+class="math inline">$\frac{C}{n}$</span>、<span
+class="math inline">$\frac{C}{10^n}$</span>，<span
+class="math inline"><em>C</em></span>为常数），且放大后的式子仍能任意小</td>
+<td>1. 分母放大：<span class="math inline">$\sqrt{n^2+4}+n &gt;
+2n$</span>，故<span class="math inline">$\frac{4}{n(\sqrt{n^2+4}+n)}
+&lt; \frac{2}{n^2}$</span>；<br>2. 指数放缩：<span
+class="math inline">10<sup><em>n</em></sup> &gt; <em>n</em></span>（<span
+class="math inline"><em>n</em> ≥ 1</span>），故<span
+class="math inline">$\frac{1}{10^n} &lt;
+\frac{1}{n}$</span>；<br>核心：放缩后式子需易解出<span
+class="math inline"><em>n</em> &gt; …</span>。</td>
 </tr>
 <tr>
 <td>第三步：取N</td>
-<td>解“放大后的式子$&lt; \varepsilon$”，得到$n &gt; f(\varepsilon)$，取$N = \lfloor f(\varepsilon) \rfloor + 1$（向下取整+1保证$N$为正整数）</td>
-<td>1. 若$\frac{2}{n^2} &lt; \varepsilon$，则$n &gt; \sqrt{\frac{2}{\varepsilon}}$，取$N = \lfloor \sqrt{\frac{2}{\varepsilon}} \rfloor + 1$；<br>2. 若$\frac{1}{10^n} &lt; \varepsilon$，则$n &gt; -\lg\varepsilon$，取$N = \lfloor -\lg\varepsilon \rfloor + 1$；<br>注：$f(\varepsilon)$只需存在，不唯一（如也可取$N = \lfloor \frac{1}{\varepsilon} \rfloor + 1$）。</td>
+<td>解“放大后的式子<span
+class="math inline"> &lt; <em>ε</em></span>”，得到<span
+class="math inline"><em>n</em> &gt; <em>f</em>(<em>ε</em>)</span>，取<span
+class="math inline"><em>N</em> = ⌊<em>f</em>(<em>ε</em>)⌋ + 1</span>（向下取整+1保证<span
+class="math inline"><em>N</em></span>为正整数）</td>
+<td>1. 若<span class="math inline">$\frac{2}{n^2} &lt;
+\varepsilon$</span>，则<span class="math inline">$n &gt;
+\sqrt{\frac{2}{\varepsilon}}$</span>，取<span class="math inline">$N =
+\lfloor \sqrt{\frac{2}{\varepsilon}} \rfloor + 1$</span>；<br>2. 若<span
+class="math inline">$\frac{1}{10^n} &lt; \varepsilon$</span>，则<span
+class="math inline"><em>n</em> &gt; −lg <em>ε</em></span>，取<span
+class="math inline"><em>N</em> = ⌊−lg <em>ε</em>⌋ + 1</span>；<br>注：<span
+class="math inline"><em>f</em>(<em>ε</em>)</span>只需存在，不唯一（如也可取<span
+class="math inline">$N = \lfloor \frac{1}{\varepsilon} \rfloor +
+1$</span>）。</td>
 </tr>
 </tbody>
 </table>
-<h3 id="模板套用验证（以-lim-limits-n-to-infty-frac-n-n-1-1-为例）">模板套用验证（以$\lim\limits_{n\to\infty}\frac{n}{n+1}=1$为例）</h3>
-<ol>
-<li class="lvl-3">
-<p>化简：$|\frac{n}{n+1}-1|=|\frac{-1}{n+1}|=\frac{1}{n+1}$；</p>
-</li>
-<li class="lvl-3">
-<p>放缩：$\frac{1}{n+1} &lt; \frac{1}{n}$；</p>
-</li>
-<li class="lvl-3">
-<p>取N：要使 $\frac{1}{n} &lt; \varepsilon$ 解得 $n &gt; \frac{1}{\varepsilon}$，取$N = \lfloor \frac{1}{\varepsilon} \rfloor + 1$，当$n &gt; N$时，$|\frac{n}{n+1}-1| &lt; \frac{1}{n} &lt; \varepsilon$，得证。</p>
-</li>
+<h3
+id="模板套用验证以limlimits_ntoinftyfracnn11为例">模板套用验证（以<span
+class="math inline">$\lim\limits_{n\to\infty}\frac{n}{n+1}=1$</span>为例）</h3>
+<ol type="1">
+<li>化简：<span
+class="math inline">$|\frac{n}{n+1}-1|=|\frac{-1}{n+1}|=\frac{1}{n+1}$</span>；</li>
+<li>放缩：<span class="math inline">$\frac{1}{n+1} &lt;
+\frac{1}{n}$</span>；</li>
+<li>取N：要使 <span class="math inline">$\frac{1}{n} &lt;
+\varepsilon$</span> 解得 <span class="math inline">$n &gt;
+\frac{1}{\varepsilon}$</span>，取<span class="math inline">$N = \lfloor
+\frac{1}{\varepsilon} \rfloor + 1$</span>，当<span
+class="math inline"><em>n</em> &gt; <em>N</em></span>时，<span
+class="math inline">$|\frac{n}{n+1}-1| &lt; \frac{1}{n} &lt;
+\varepsilon$</span>，得证。</li>
 </ol>
 <h3 id="考研易错点提醒">考研易错点提醒</h3>
-<ol>
-<li class="lvl-3">
-<p>放缩不能“过度”：需保证放大后的式子仍能趋于0（<mark>不能把$\frac{1}{n}$放大为1</mark>，失去“任意小”的性质）；<br>
-2.$N$必须是正整数：需用向下取整$+!1$，避免$N$为0/负数；</p>
-</li>
-<li class="lvl-3">
-<p>逻辑闭环：最后需明确“当$n &gt; N$时，$|x_n - A| &lt; \varepsilon$”，完成定义验证。</p>
-</li>
+<ol type="1">
+<li>放缩不能“过度”：需保证放大后的式子仍能趋于0（==不能把<span
+class="math inline">$\frac{1}{n}$</span>放大为1==，失去“任意小”的性质）；
+2.<span
+class="math inline"><em>N</em></span>必须是正整数：需用向下取整<span
+class="math inline">+ 1</span>，避免<span
+class="math inline"><em>N</em></span>为0/负数；</li>
+<li>逻辑闭环：最后需明确“当<span
+class="math inline"><em>n</em> &gt; <em>N</em></span>时，<span
+class="math inline">|<em>x</em><sub><em>n</em></sub> − <em>A</em>| &lt; <em>ε</em></span>”，完成定义验证。</li>
 </ol>
 
     </div>
@@ -368,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">数列极限定义证明通用模板（ε-N三步法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%A5%97%E7%94%A8%E9%AA%8C%E8%AF%81%EF%BC%88%E4%BB%A5-lim-limits-n-to-infty-frac-n-n-1-1-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">模板套用验证（以$\lim\limits_{n\to\infty}\frac{n}{n+1}&#x3D;1$为例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%83%E7%A0%94%E6%98%93%E9%94%99%E7%82%B9%E6%8F%90%E9%86%92"><span class="nav-number">1.0.2.</span> <span class="nav-text">考研易错点提醒</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90%E5%AE%9A%E4%B9%89%E8%AF%81%E6%98%8E%E9%80%9A%E7%94%A8%E6%A8%A1%E6%9D%BF%CE%B5-n%E4%B8%89%E6%AD%A5%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">数列极限定义证明通用模板（ε-N三步法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%A5%97%E7%94%A8%E9%AA%8C%E8%AF%81%E4%BB%A5limlimits_ntoinftyfracnn11%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">模板套用验证（以$\lim\limits_{n\to\infty}\frac{n}{n+1}&#x3D;1$为例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%83%E7%A0%94%E6%98%93%E9%94%99%E7%82%B9%E6%8F%90%E9%86%92"><span class="nav-number">1.0.2.</span> <span class="nav-text">考研易错点提醒</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -384,7 +435,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,7 +496,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

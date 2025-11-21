@@ -237,55 +237,35 @@
 <p>如题，AI收集整理，作为了解</p>
 </blockquote>
 <span id="more"></span>
-<h1>Playwright MCP 使用指南</h1>
+<h1 id="playwright-mcp-使用指南">Playwright MCP 使用指南</h1>
 <h2 id="概述">概述</h2>
-<h3 id="什么是-Playwright-MCP">什么是 Playwright MCP</h3>
-<p><strong>Playwright MCP</strong>（Model Context Protocol）是微软开源的一个基于模型上下文协议的服务器，它在大语言模型（LLM）和 Playwright 浏览器自动化框架之间架起了一座桥梁。</p>
+<h3 id="什么是-playwright-mcp">什么是 Playwright MCP</h3>
+<p><strong>Playwright MCP</strong>（Model Context
+Protocol）是微软开源的一个基于模型上下文协议的服务器，它在大语言模型（LLM）和
+Playwright 浏览器自动化框架之间架起了一座桥梁。</p>
 <h3 id="核心特性">核心特性</h3>
-<h4 id="✅-轻量高效">✅ 轻量高效</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>基于 Playwright 的可访问性树（Accessibility Tree）</p>
-</li>
-<li class="lvl-2">
-<p>非像素级输入，性能更优</p>
-</li>
-<li class="lvl-2">
-<p>结构化数据交互，避免视觉依赖</p>
-</li>
+<h4 id="轻量高效">✅ 轻量高效</h4>
+<ul>
+<li><p>基于 Playwright 的可访问性树（Accessibility Tree）</p></li>
+<li><p>非像素级输入，性能更优</p></li>
+<li><p>结构化数据交互，避免视觉依赖</p></li>
 </ul>
-<h4 id="✅-LLM-友好">✅ LLM 友好</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>纯结构化数据交互，无需视觉模型</p>
-</li>
-<li class="lvl-2">
-<p>降低集成复杂度</p>
-</li>
-<li class="lvl-2">
-<p>确定性操作，结果可预测</p>
-</li>
+<h4 id="llm-友好">✅ LLM 友好</h4>
+<ul>
+<li><p>纯结构化数据交互，无需视觉模型</p></li>
+<li><p>降低集成复杂度</p></li>
+<li><p>确定性操作，结果可预测</p></li>
 </ul>
-<h4 id="✅-多模式支持">✅ 多模式支持</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>持久化配置文件</strong>：存储登录状态等数据</p>
-</li>
-<li class="lvl-2">
-<p><strong>隔离模式</strong>：每次会话独立，关闭后状态清空</p>
-</li>
+<h4 id="多模式支持">✅ 多模式支持</h4>
+<ul>
+<li><p><strong>持久化配置文件</strong>：存储登录状态等数据</p></li>
+<li><p><strong>隔离模式</strong>：每次会话独立，关闭后状态清空</p></li>
 </ul>
-<h4 id="✅-强大的自动化能力">✅ 强大的自动化能力</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>支持 Chromium、Firefox、WebKit 三大浏览器引擎</p>
-</li>
-<li class="lvl-2">
-<p>自然语言驱动，无需编写复杂代码</p>
-</li>
-<li class="lvl-2">
-<p>智能元素定位，无需手动编写选择器</p>
-</li>
+<h4 id="强大的自动化能力">✅ 强大的自动化能力</h4>
+<ul>
+<li><p>支持 Chromium、Firefox、WebKit 三大浏览器引擎</p></li>
+<li><p>自然语言驱动，无需编写复杂代码</p></li>
+<li><p>智能元素定位，无需手动编写选择器</p></li>
 </ul>
 <h3 id="应用场景">应用场景</h3>
 <table>
@@ -322,81 +302,50 @@
 <h2 id="环境准备">环境准备</h2>
 <h3 id="系统要求">系统要求</h3>
 <h4 id="基础环境">基础环境</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>Node.js</strong>: v16+ 或 Python 3.8+</p>
-</li>
-<li class="lvl-2">
-<p><strong>操作系统</strong>: Windows 10+, macOS 10.15+, Ubuntu 18.04+</p>
-</li>
-<li class="lvl-2">
-<p><strong>内存</strong>: 建议 4GB 以上</p>
-</li>
-<li class="lvl-2">
-<p><strong>磁盘空间</strong>: 至少 2GB（包含浏览器安装）</p>
-</li>
+<ul>
+<li><p><strong>Node.js</strong>: v16+ 或 Python 3.8+</p></li>
+<li><p><strong>操作系统</strong>: Windows 10+, macOS 10.15+, Ubuntu
+18.04+</p></li>
+<li><p><strong>内存</strong>: 建议 4GB 以上</p></li>
+<li><p><strong>磁盘空间</strong>: 至少 2GB（包含浏览器安装）</p></li>
 </ul>
 <h4 id="客户端支持">客户端支持</h4>
 <p>以下 AI 客户端支持 Playwright MCP：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>Cursor IDE</strong>: 推荐，原生支持 MCP 协议</p>
-</li>
-<li class="lvl-2">
-<p><strong>VS Code</strong>: 需要安装相关扩展</p>
-</li>
-<li class="lvl-2">
-<p><strong>Claude Desktop</strong>: 支持 MCP 功能</p>
-</li>
-<li class="lvl-2">
-<p><strong>自定义 AI Agent</strong>: 通过 SDK 集成</p>
-</li>
+<ul>
+<li><p><strong>Cursor IDE</strong>: 推荐，原生支持 MCP 协议</p></li>
+<li><p><strong>VS Code</strong>: 需要安装相关扩展</p></li>
+<li><p><strong>Claude Desktop</strong>: 支持 MCP 功能</p></li>
+<li><p><strong>自定义 AI Agent</strong>: 通过 SDK 集成</p></li>
 </ul>
 <h3 id="网络要求">网络要求</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>稳定的网络连接</p>
-</li>
-<li class="lvl-2">
-<p>部分场景可能需要代理（如访问海外网站）</p>
-</li>
+<ul>
+<li><p>稳定的网络连接</p></li>
+<li><p>部分场景可能需要代理（如访问海外网站）</p></li>
 </ul>
 <h2 id="安装配置">安装配置</h2>
-<h3 id="1-安装-Playwright-MCP-服务器">1. 安装 Playwright MCP 服务器</h3>
-<h4 id="使用-npm-安装（推荐）">使用 npm 安装（推荐）</h4>
+<h3 id="安装-playwright-mcp-服务器">1. 安装 Playwright MCP 服务器</h3>
+<h4 id="使用-npm-安装推荐">使用 npm 安装（推荐）</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装Playwright MCP</span><br><span class="line">npm install -g @playwright/mcp@latest</span><br><span class="line"></span><br><span class="line"># 验证安装</span><br><span class="line">npx @playwright/mcp --version</span><br></pre></td></tr></table></figure>
 <h4 id="使用-yarn-安装">使用 yarn 安装</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用yarn安装</span><br><span class="line">yarn global add @playwright/mcp@latest</span><br></pre></td></tr></table></figure>
-<h3 id="2-安装浏览器驱动">2. 安装浏览器驱动</h3>
+<h3 id="安装浏览器驱动">2. 安装浏览器驱动</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 安装Playwright所需的浏览器</span><br><span class="line">npx playwright install</span><br><span class="line"></span><br><span class="line"># 或者指定安装特定浏览器</span><br><span class="line">npx playwright install chromium firefox webkit</span><br></pre></td></tr></table></figure>
-<h3 id="3-客户端配置">3. 客户端配置</h3>
-<h4 id="Cursor-IDE-配置（推荐）">Cursor IDE 配置（推荐）</h4>
-<ol>
-<li class="lvl-3">
-<p>打开 Cursor IDE</p>
-</li>
-<li class="lvl-3">
-<p>进入设置（Settings）</p>
-</li>
-<li class="lvl-3">
-<p>找到 MCP 配置（MCP Settings）</p>
-</li>
-<li class="lvl-3">
-<p>添加以下配置：</p>
-</li>
+<h3 id="客户端配置">3. 客户端配置</h3>
+<h4 id="cursor-ide-配置推荐">Cursor IDE 配置（推荐）</h4>
+<ol type="1">
+<li><p>打开 Cursor IDE</p></li>
+<li><p>进入设置（Settings）</p></li>
+<li><p>找到 MCP 配置（MCP Settings）</p></li>
+<li><p>添加以下配置：</p></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;mcpServers&quot;: &#123;</span><br><span class="line">    &quot;playwright&quot;: &#123;</span><br><span class="line">      &quot;command&quot;: &quot;npx&quot;,</span><br><span class="line">      &quot;args&quot;: [&quot;@playwright/mcp@latest&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="VS-Code-配置">VS Code 配置</h4>
-<ol>
-<li class="lvl-3">
-<p>安装 Playwright 扩展</p>
-</li>
-<li class="lvl-3">
-<p>创建.vscode/launch.json文件：</p>
-</li>
+<h4 id="vs-code-配置">VS Code 配置</h4>
+<ol type="1">
+<li><p>安装 Playwright 扩展</p></li>
+<li><p>创建.vscode/launch.json文件：</p></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">  &quot;configurations&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;node&quot;,</span><br><span class="line">      &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;Playwright MCP&quot;,</span><br><span class="line">      &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/node_modules/@playwright/mcp/dist/cli.js&quot;,</span><br><span class="line">      &quot;args&quot;: [&quot;--port&quot;, &quot;8931&quot;],</span><br><span class="line">      &quot;console&quot;: &quot;integratedTerminal&quot;,</span><br><span class="line">      &quot;sourceMaps&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-启动服务器">4. 启动服务器</h3>
+<h3 id="启动服务器">4. 启动服务器</h3>
 <h4 id="基础启动">基础启动</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 启动MCP服务器（默认配置）</span><br><span class="line">npx @playwright/mcp</span><br><span class="line"></span><br><span class="line"># 指定端口启动</span><br><span class="line">npx @playwright/mcp --port 8931</span><br><span class="line"></span><br><span class="line"># 启用SSE传输（推荐）</span><br><span class="line">npx @playwright/mcp --port 8931 --sse</span><br></pre></td></tr></table></figure>
 <h4 id="配置文件启动">配置文件启动</h4>
@@ -404,7 +353,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;browser&quot;: &#123;</span><br><span class="line">    &quot;browserName&quot;: &quot;chromium&quot;,</span><br><span class="line">    &quot;launchOptions&quot;: &#123;</span><br><span class="line">      &quot;headless&quot;: true,</span><br><span class="line">      &quot;args&quot;: [&quot;--no-sandbox&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;server&quot;: &#123;</span><br><span class="line">    &quot;port&quot;: 8931,</span><br><span class="line">    &quot;host&quot;: &quot;localhost&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;capabilities&quot;: [&quot;core&quot;, &quot;tabs&quot;, &quot;pdf&quot;, &quot;history&quot;],</span><br><span class="line">  &quot;outputDir&quot;: &quot;./output&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动时指定配置文件：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @playwright/mcp --config mcp.config.json</span><br></pre></td></tr></table></figure>
-<h3 id="5-验证安装">5. 验证安装</h3>
+<h3 id="验证安装">5. 验证安装</h3>
 <p>启动成功后，您应该看到类似以下输出：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Playwright MCP Server v1.2.3</span><br><span class="line">Listening on http://localhost:8931</span><br><span class="line">Capabilities: core, tabs, pdf, history</span><br><span class="line">Browser: chromium (headless)</span><br></pre></td></tr></table></figure>
 <h2 id="基础使用">基础使用</h2>
@@ -413,56 +362,32 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 启动交互式会话</span><br><span class="line">npx @playwright/mcp --interactive</span><br><span class="line"></span><br><span class="line"># 启动无头模式</span><br><span class="line">npx @playwright/mcp --headless</span><br></pre></td></tr></table></figure>
 <h4 id="通过客户端启动">通过客户端启动</h4>
 <p>在支持 MCP 的 AI 客户端中：</p>
-<ol>
-<li class="lvl-3">
-<p>确保 MCP 服务器已启动</p>
-</li>
-<li class="lvl-3">
-<p>在客户端中启用 MCP 功能</p>
-</li>
-<li class="lvl-3">
-<p>开始使用自然语言指令</p>
-</li>
+<ol type="1">
+<li><p>确保 MCP 服务器已启动</p></li>
+<li><p>在客户端中启用 MCP 功能</p></li>
+<li><p>开始使用自然语言指令</p></li>
 </ol>
 <h3 id="基本操作示例">基本操作示例</h3>
-<h4 id="示例-1：简单网页导航">示例 1：简单网页导航</h4>
+<h4 id="示例-1简单网页导航">示例 1：简单网页导航</h4>
 <p><strong>指令</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请访问百度首页，搜索&quot;Playwright教程&quot;，然后返回搜索结果的前5条标题</span><br></pre></td></tr></table></figure>
 <p><strong>执行过程</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p>AI 调用browser_navigate导航到百度</p>
-</li>
-<li class="lvl-3">
-<p>调用browser_type在搜索框输入关键词</p>
-</li>
-<li class="lvl-3">
-<p>调用browser_click点击搜索按钮</p>
-</li>
-<li class="lvl-3">
-<p>调用browser_snapshot获取页面快照</p>
-</li>
-<li class="lvl-3">
-<p>AI 解析快照，提取结果并整理</p>
-</li>
+<ol type="1">
+<li><p>AI 调用browser_navigate导航到百度</p></li>
+<li><p>调用browser_type在搜索框输入关键词</p></li>
+<li><p>调用browser_click点击搜索按钮</p></li>
+<li><p>调用browser_snapshot获取页面快照</p></li>
+<li><p>AI 解析快照，提取结果并整理</p></li>
 </ol>
-<h4 id="示例-2：数据提取">示例 2：数据提取</h4>
+<h4 id="示例-2数据提取">示例 2：数据提取</h4>
 <p><strong>指令</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请访问GitHub Trending页面，获取今天最热门的5个Python项目的名称和星数</span><br></pre></td></tr></table></figure>
 <p><strong>执行过程</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p>导航到 GitHub Trending</p>
-</li>
-<li class="lvl-3">
-<p>选择 Python 语言筛选</p>
-</li>
-<li class="lvl-3">
-<p>提取项目信息</p>
-</li>
-<li class="lvl-3">
-<p>格式化输出为表格</p>
-</li>
+<ol type="1">
+<li><p>导航到 GitHub Trending</p></li>
+<li><p>选择 Python 语言筛选</p></li>
+<li><p>提取项目信息</p></li>
+<li><p>格式化输出为表格</p></li>
 </ol>
 <h3 id="会话管理">会话管理</h3>
 <h4 id="持久化会话">持久化会话</h4>
@@ -509,8 +434,8 @@
 </tbody>
 </table>
 <h3 id="核心工具详细说明">核心工具详细说明</h3>
-<h4 id="1-页面快照工具">1. 页面快照工具</h4>
-<h5 id="browser-snapshot">browser_snapshot</h5>
+<h4 id="页面快照工具">1. 页面快照工具</h4>
+<h5 id="browser_snapshot">browser_snapshot</h5>
 <p><strong>功能</strong>：捕获当前页面的可访问性快照</p>
 <p><strong>参数</strong>：无</p>
 <p><strong>返回值</strong>：YAML 格式的可访问性树结构</p>
@@ -518,113 +443,77 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_snapshot&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>返回示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- Page URL: https://example.com</span><br><span class="line">- Page Title: 示例页面</span><br><span class="line">- Page Snapshot:</span><br><span class="line">  - generic (active) (ref=e1): 页面内容区域</span><br><span class="line">    - heading &quot;登录表单&quot; (ref=e2)</span><br><span class="line">    - textbox &quot;用户名&quot; (ref=e3)</span><br><span class="line">    - textbox &quot;密码&quot; (ref=e4)</span><br><span class="line">    - button &quot;登录&quot; (ref=e5)</span><br></pre></td></tr></table></figure>
-<h4 id="2-导航工具">2. 导航工具</h4>
-<h5 id="browser-navigate">browser_navigate</h5>
+<h4 id="导航工具">2. 导航工具</h4>
+<h5 id="browser_navigate">browser_navigate</h5>
 <p><strong>功能</strong>：导航到指定 URL</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>url: 目标 URL（必需）</p>
-</li>
+<ul>
+<li>url: 目标 URL（必需）</li>
 </ul>
 <p><strong>使用示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_navigate&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;</span><br><span class="line">    &quot;url&quot;: &quot;https://www.baidu.com&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="browser-navigate-back">browser_navigate_back</h5>
+<h5 id="browser_navigate_back">browser_navigate_back</h5>
 <p><strong>功能</strong>：返回上一页</p>
 <p><strong>参数</strong>：无</p>
-<h4 id="3-元素交互工具">3. 元素交互工具</h4>
-<h5 id="browser-click">browser_click</h5>
+<h4 id="元素交互工具">3. 元素交互工具</h4>
+<h5 id="browser_click">browser_click</h5>
 <p><strong>功能</strong>：点击页面元素</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>element: 元素描述（必需）</p>
-</li>
-<li class="lvl-2">
-<p>ref: 元素引用 ID（必需，从快照获取）</p>
-</li>
-<li class="lvl-2">
-<p>doubleClick: 是否双击（可选，默认 false）</p>
-</li>
+<ul>
+<li><p>element: 元素描述（必需）</p></li>
+<li><p>ref: 元素引用 ID（必需，从快照获取）</p></li>
+<li><p>doubleClick: 是否双击（可选，默认 false）</p></li>
 </ul>
 <p><strong>使用示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_click&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;</span><br><span class="line">    &quot;element&quot;: &quot;搜索按钮&quot;,</span><br><span class="line">    &quot;ref&quot;: &quot;e5&quot;,</span><br><span class="line">    &quot;doubleClick&quot;: false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="browser-type">browser_type</h5>
+<h5 id="browser_type">browser_type</h5>
 <p><strong>功能</strong>：向可编辑元素输入文本</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>element: 元素描述</p>
-</li>
-<li class="lvl-2">
-<p>ref: 元素引用 ID</p>
-</li>
-<li class="lvl-2">
-<p>text: 输入文本</p>
-</li>
+<ul>
+<li><p>element: 元素描述</p></li>
+<li><p>ref: 元素引用 ID</p></li>
+<li><p>text: 输入文本</p></li>
 </ul>
-<h5 id="browser-select-option">browser_select_option</h5>
+<h5 id="browser_select_option">browser_select_option</h5>
 <p><strong>功能</strong>：选择下拉选项</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>element: 下拉框描述</p>
-</li>
-<li class="lvl-2">
-<p>ref: 下拉框引用 ID</p>
-</li>
-<li class="lvl-2">
-<p>values: 要选择的值数组</p>
-</li>
+<ul>
+<li><p>element: 下拉框描述</p></li>
+<li><p>ref: 下拉框引用 ID</p></li>
+<li><p>values: 要选择的值数组</p></li>
 </ul>
-<h4 id="4-资源操作工具">4. 资源操作工具</h4>
-<h5 id="browser-take-screenshot">browser_take_screenshot</h5>
+<h4 id="资源操作工具">4. 资源操作工具</h4>
+<h5 id="browser_take_screenshot">browser_take_screenshot</h5>
 <p><strong>功能</strong>：捕获页面截图</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>raw: 是否返回无损 PNG（可选）</p>
-</li>
-<li class="lvl-2">
-<p>filename: 保存文件名（可选）</p>
-</li>
-<li class="lvl-2">
-<p>element: 元素描述（可选，局部截图）</p>
-</li>
+<ul>
+<li><p>raw: 是否返回无损 PNG（可选）</p></li>
+<li><p>filename: 保存文件名（可选）</p></li>
+<li><p>element: 元素描述（可选，局部截图）</p></li>
 </ul>
-<h5 id="browser-pdf-save">browser_pdf_save</h5>
+<h5 id="browser_pdf_save">browser_pdf_save</h5>
 <p><strong>功能</strong>：将页面保存为 PDF</p>
 <p><strong>参数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>filename: 保存文件名（可选）</p>
-</li>
+<ul>
+<li>filename: 保存文件名（可选）</li>
 </ul>
-<h4 id="5-网络监控工具">5. 网络监控工具</h4>
-<h5 id="browser-network-requests">browser_network_requests</h5>
+<h4 id="网络监控工具">5. 网络监控工具</h4>
+<h5 id="browser_network_requests">browser_network_requests</h5>
 <p><strong>功能</strong>：获取网络请求记录</p>
 <p><strong>参数</strong>：无</p>
-<h5 id="browser-console-messages">browser_console_messages</h5>
+<h5 id="browser_console_messages">browser_console_messages</h5>
 <p><strong>功能</strong>：获取控制台消息</p>
 <p><strong>参数</strong>：无</p>
 <h3 id="工具调用流程">工具调用流程</h3>
 <p>一个完整的自动化流程通常包括：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>获取快照</strong> → browser_snapshot</p>
-</li>
-<li class="lvl-3">
-<p><strong>分析页面</strong> → AI 解析快照内容</p>
-</li>
-<li class="lvl-3">
-<p><strong>执行操作</strong> → 调用相应的交互工具</p>
-</li>
-<li class="lvl-3">
-<p><strong>验证结果</strong> → 获取新快照验证操作效果</p>
-</li>
+<ol type="1">
+<li><p><strong>获取快照</strong> → browser_snapshot</p></li>
+<li><p><strong>分析页面</strong> → AI 解析快照内容</p></li>
+<li><p><strong>执行操作</strong> → 调用相应的交互工具</p></li>
+<li><p><strong>验证结果</strong> → 获取新快照验证操作效果</p></li>
 </ol>
 <h2 id="实战案例">实战案例</h2>
-<h3 id="案例-1：自动化测试生成">案例 1：自动化测试生成</h3>
+<h3 id="案例-1自动化测试生成">案例 1：自动化测试生成</h3>
 <h4 id="需求">需求</h4>
 <p>为一个电影搜索应用生成自动化测试用例</p>
 <h4 id="实施步骤">实施步骤</h4>
@@ -635,49 +524,29 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">你是一个Playwright测试生成器。</span><br><span class="line">请访问 https://debs-obrien.github.io/playwright-movies-app</span><br><span class="line">探索网站功能，然后生成完整的测试用例。</span><br><span class="line">要求：</span><br><span class="line">1. 使用基于角色的定位器</span><br><span class="line">2. 包含适当的等待和断言</span><br><span class="line">3. 覆盖主要功能点</span><br></pre></td></tr></table></figure>
 <p><strong>Step 3: AI 探索与测试生成</strong></p>
 <p>AI 会自动：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>访问网站</p>
-</li>
-<li class="lvl-2">
-<p>探索搜索功能、主题切换、分页等</p>
-</li>
-<li class="lvl-2">
-<p>发现潜在 bug（如搜索结果显示异常）</p>
-</li>
-<li class="lvl-2">
-<p>生成完整的测试代码</p>
-</li>
+<ul>
+<li><p>访问网站</p></li>
+<li><p>探索搜索功能、主题切换、分页等</p></li>
+<li><p>发现潜在 bug（如搜索结果显示异常）</p></li>
+<li><p>生成完整的测试代码</p></li>
 </ul>
 <p><strong>Step 4: 生成的测试代码</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import &#123; test, expect &#125; from &#x27;@playwright/test&#x27;;</span><br><span class="line"></span><br><span class="line">test.describe(&#x27;Movie Search Application&#x27;, () =&gt; &#123;</span><br><span class="line">  test(&#x27;Search for a movie by title&#x27;, async (&#123; page &#125;) =&gt; &#123;</span><br><span class="line">    // 访问应用</span><br><span class="line">    await page.goto(&#x27;https://debs-obrien.github.io/playwright-movies-app&#x27;);</span><br><span class="line">    </span><br><span class="line">    // 验证首页加载</span><br><span class="line">    await expect(page.getByRole(&#x27;heading&#x27;, &#123; level: 1 &#125;)).toHaveText(&#x27;Movie Search&#x27;);</span><br><span class="line">    </span><br><span class="line">    // 点击搜索按钮</span><br><span class="line">    await page.getByRole(&#x27;search&#x27;).click();</span><br><span class="line">    </span><br><span class="line">    // 输入搜索关键词</span><br><span class="line">    const searchTerm = &#x27;Star Wars&#x27;;</span><br><span class="line">    const searchInput = page.getByRole(&#x27;textbox&#x27;, &#123; name: &#x27;Search Input&#x27; &#125;);</span><br><span class="line">    await searchInput.fill(searchTerm);</span><br><span class="line">    await searchInput.press(&#x27;Enter&#x27;);</span><br><span class="line">    </span><br><span class="line">    // 验证搜索结果</span><br><span class="line">    await expect(page).toHaveTitle(`$&#123;searchTerm&#125; - Search Results`);</span><br><span class="line">    await expect(page.getByRole(&#x27;heading&#x27;, &#123; level: 1 &#125;)).toHaveText(searchTerm);</span><br><span class="line">    await expect(page.getByRole(&#x27;list&#x27;, &#123; name: &#x27;movies&#x27; &#125;)).toBeVisible();</span><br><span class="line">    </span><br><span class="line">    // 点击第一个电影查看详情</span><br><span class="line">    const firstMovie = page.getByRole(&#x27;list&#x27;, &#123; name: &#x27;movies&#x27; &#125;).getByRole(&#x27;link&#x27;).first();</span><br><span class="line">    const movieTitle = await firstMovie.getByRole(&#x27;heading&#x27;, &#123; level: 2 &#125;).textContent();</span><br><span class="line">    await firstMovie.click();</span><br><span class="line">    </span><br><span class="line">    // 验证详情页</span><br><span class="line">    await expect(page.getByRole(&#x27;heading&#x27;, &#123; level: 1 &#125;)).toHaveText(movieTitle || &#x27;&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="案例-2：智能数据抓取">案例 2：智能数据抓取</h3>
-<h4 id="需求-2">需求</h4>
+<h3 id="案例-2智能数据抓取">案例 2：智能数据抓取</h3>
+<h4 id="需求-1">需求</h4>
 <p>从电商网站抓取商品信息并生成报告</p>
-<h4 id="实施步骤-2">实施步骤</h4>
+<h4 id="实施步骤-1">实施步骤</h4>
 <p><strong>Step 1: 编写抓取指令</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请访问京东首页，搜索&quot;笔记本电脑&quot;，筛选价格在5000-8000元之间的产品，</span><br><span class="line">获取前10个商品的名称、价格、评分和销量信息，</span><br><span class="line">最后生成一个Markdown格式的产品对比表格。</span><br></pre></td></tr></table></figure>
 <p><strong>Step 2: AI 执行抓取</strong></p>
 <p>AI 会：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>导航到京东首页</p>
-</li>
-<li class="lvl-2">
-<p>在搜索框输入关键词</p>
-</li>
-<li class="lvl-2">
-<p>设置价格筛选条件</p>
-</li>
-<li class="lvl-2">
-<p>提取商品信息</p>
-</li>
-<li class="lvl-2">
-<p>处理分页和动态加载</p>
-</li>
-<li class="lvl-2">
-<p>格式化输出结果</p>
-</li>
+<ul>
+<li><p>导航到京东首页</p></li>
+<li><p>在搜索框输入关键词</p></li>
+<li><p>设置价格筛选条件</p></li>
+<li><p>提取商品信息</p></li>
+<li><p>处理分页和动态加载</p></li>
+<li><p>格式化输出结果</p></li>
 </ul>
 <p><strong>Step 3: 生成的报告示例</strong></p>
 <table>
@@ -714,56 +583,44 @@
 </tr>
 </tbody>
 </table>
-<h3 id="案例-3：办公自动化">案例 3：办公自动化</h3>
-<h4 id="需求-3">需求</h4>
+<h3 id="案例-3办公自动化">案例 3：办公自动化</h3>
+<h4 id="需求-2">需求</h4>
 <p>自动登录企业 OA 系统，填写日报表单</p>
-<h4 id="实施步骤-3">实施步骤</h4>
+<h4 id="实施步骤-2">实施步骤</h4>
 <p><strong>Step 1: 配置持久化会话</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启动持久化会话</span><br><span class="line">npx @playwright/mcp --persist --user-data-dir ./oa-session</span><br></pre></td></tr></table></figure>
 <p><strong>Step 2: 编写自动化指令</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">请访问企业OA系统登录页面 https://oa.company.com/login</span><br><span class="line">使用以下信息登录：</span><br><span class="line">用户名：john.doe</span><br><span class="line">密码：**********</span><br><span class="line">登录后导航到日报填写页面，</span><br><span class="line">填写今天的工作内容：</span><br><span class="line">- 完成项目A的需求分析</span><br><span class="line">- 参加团队周会</span><br><span class="line">- 修复生产环境bug</span><br><span class="line">提交表单后确认提交成功。</span><br></pre></td></tr></table></figure>
 <p><strong>Step 3: 执行自动化</strong></p>
 <p>AI 会：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>保存登录状态（后续无需重复登录）</p>
-</li>
-<li class="lvl-2">
-<p>自动填写表单</p>
-</li>
-<li class="lvl-2">
-<p>处理验证码（如需要人工协助）</p>
-</li>
-<li class="lvl-2">
-<p>提交并验证结果</p>
-</li>
+<ul>
+<li><p>保存登录状态（后续无需重复登录）</p></li>
+<li><p>自动填写表单</p></li>
+<li><p>处理验证码（如需要人工协助）</p></li>
+<li><p>提交并验证结果</p></li>
 </ul>
 <h2 id="最佳实践">最佳实践</h2>
-<h3 id="1-指令编写最佳实践">1. 指令编写最佳实践</h3>
-<h4 id="✅-清晰明确的指令">✅ 清晰明确的指令</h4>
+<h3 id="指令编写最佳实践">1. 指令编写最佳实践</h3>
+<h4 id="清晰明确的指令">✅ 清晰明确的指令</h4>
 <p><strong>不佳示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">操作网站</span><br></pre></td></tr></table></figure>
 <p><strong>优秀示例</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请在京东首页搜索框输入&quot;智能手机&quot;，点击搜索按钮，</span><br><span class="line">然后获取前5个商品名称和价格，整理成表格。</span><br></pre></td></tr></table></figure>
-<h4 id="✅-提供必要的上下文">✅ 提供必要的上下文</h4>
+<h4 id="提供必要的上下文">✅ 提供必要的上下文</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请访问GitHub Trending页面，选择&quot;本月的&quot;Python项目，</span><br><span class="line">获取前3个项目的信息。注意：需要处理分页加载。</span><br></pre></td></tr></table></figure>
-<h4 id="✅-分步执行复杂任务">✅ 分步执行复杂任务</h4>
+<h4 id="分步执行复杂任务">✅ 分步执行复杂任务</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我们分两步执行：</span><br><span class="line">1. 首先访问https://example.com/login登录系统</span><br><span class="line">2. 登录成功后导航到/dashboard页面，获取今日数据</span><br></pre></td></tr></table></figure>
-<h3 id="2-元素定位策略">2. 元素定位策略</h3>
-<h4 id="✅-优先使用可访问性快照">✅ 优先使用可访问性快照</h4>
+<h3 id="元素定位策略">2. 元素定位策略</h3>
+<h4 id="优先使用可访问性快照">✅ 优先使用可访问性快照</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_snapshot&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="✅-使用稳定的元素描述">✅ 使用稳定的元素描述</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>优先使用角色定位：“登录按钮”、“搜索框”</p>
-</li>
-<li class="lvl-2">
-<p>避免使用位置描述：“页面底部的按钮”</p>
-</li>
+<h4 id="使用稳定的元素描述">✅ 使用稳定的元素描述</h4>
+<ul>
+<li><p>优先使用角色定位：“登录按钮”、“搜索框”</p></li>
+<li><p>避免使用位置描述：“页面底部的按钮”</p></li>
 </ul>
-<h4 id="✅-处理动态内容">✅ 处理动态内容</h4>
+<h4 id="处理动态内容">✅ 处理动态内容</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_wait_for&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;</span><br><span class="line">    &quot;text&quot;: &quot;加载完成&quot;,</span><br><span class="line">    &quot;time&quot;: 10</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-会话管理策略">3. 会话管理策略</h3>
+<h3 id="会话管理策略">3. 会话管理策略</h3>
 <h4 id="持久化模式-vs-隔离模式">持久化模式 vs 隔离模式</h4>
 <table>
 <thead>
@@ -791,265 +648,222 @@
 </table>
 <h4 id="会话管理代码示例">会话管理代码示例</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 持久化会话配置</span><br><span class="line">const persistConfig = &#123;</span><br><span class="line">  browser: &#123;</span><br><span class="line">    browserName: &#x27;chromium&#x27;,</span><br><span class="line">    isolated: false,</span><br><span class="line">    userDataDir: &#x27;./persistent-session&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 隔离会话配置</span><br><span class="line">const isolatedConfig = &#123;</span><br><span class="line">  browser: &#123;</span><br><span class="line">    browserName: &#x27;chromium&#x27;,</span><br><span class="line">    isolated: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="4-错误处理最佳实践">4. 错误处理最佳实践</h3>
-<h4 id="✅-重试机制">✅ 重试机制</h4>
+<h3 id="错误处理最佳实践">4. 错误处理最佳实践</h3>
+<h4 id="重试机制">✅ 重试机制</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">async function clickWithRetry(element, retries = 3) &#123;</span><br><span class="line">  for (let i = 0; i &lt; retries; i++) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      await element.click();</span><br><span class="line">      return true;</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">      if (i === retries - 1) throw error;</span><br><span class="line">      await page.waitForTimeout(1000 * (i + 1));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="✅-超时设置">✅ 超时设置</h4>
+<h4 id="超时设置">✅ 超时设置</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_wait_for&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;</span><br><span class="line">    &quot;text&quot;: &quot;提交成功&quot;,</span><br><span class="line">    &quot;time&quot;: 15</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5-安全最佳实践">5. 安全最佳实践</h3>
-<h4 id="✅-敏感信息处理">✅ 敏感信息处理</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>避免在指令中明文包含密码</p>
-</li>
-<li class="lvl-2">
-<p>使用环境变量存储敏感信息</p>
-</li>
-<li class="lvl-2">
-<p>及时清理会话数据</p>
-</li>
+<h3 id="安全最佳实践">5. 安全最佳实践</h3>
+<h4 id="敏感信息处理">✅ 敏感信息处理</h4>
+<ul>
+<li><p>避免在指令中明文包含密码</p></li>
+<li><p>使用环境变量存储敏感信息</p></li>
+<li><p>及时清理会话数据</p></li>
 </ul>
-<h4 id="✅-权限控制">✅ 权限控制</h4>
+<h4 id="权限控制">✅ 权限控制</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;network&quot;: &#123;</span><br><span class="line">    &quot;allowedOrigins&quot;: [&quot;https://trusted-domain.com&quot;],</span><br><span class="line">    &quot;blockedOrigins&quot;: [&quot;https://malicious-domain.com&quot;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="性能优化">性能优化</h2>
-<h3 id="1-浏览器实例池化">1. 浏览器实例池化</h3>
+<h3 id="浏览器实例池化">1. 浏览器实例池化</h3>
 <h4 id="实现原理">实现原理</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class BrowserPool &#123;</span><br><span class="line">  constructor(size = 3) &#123;</span><br><span class="line">    this.pool = [];</span><br><span class="line">    this.size = size;</span><br><span class="line">    this.init();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async init() &#123;</span><br><span class="line">    // 预热浏览器实例</span><br><span class="line">    for (let i = 0; i &lt; this.size; i++) &#123;</span><br><span class="line">      const browser = await playwright.chromium.launch();</span><br><span class="line">      this.pool.push(browser);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async acquire() &#123;</span><br><span class="line">    // 从池中获取实例</span><br><span class="line">    if (this.pool.length === 0) &#123;</span><br><span class="line">      await this.waitForAvailable();</span><br><span class="line">    &#125;</span><br><span class="line">    return this.pool.pop();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  release(browser) &#123;</span><br><span class="line">    // 归还实例到池</span><br><span class="line">    this.pool.push(browser);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="配置建议">配置建议</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>池大小：3-5 个实例</p>
-</li>
-<li class="lvl-2">
-<p>定期重启：每 24 小时</p>
-</li>
-<li class="lvl-2">
-<p>内存监控：设置阈值自动重启</p>
-</li>
+<ul>
+<li><p>池大小：3-5 个实例</p></li>
+<li><p>定期重启：每 24 小时</p></li>
+<li><p>内存监控：设置阈值自动重启</p></li>
 </ul>
-<h3 id="2-并行执行优化">2. 并行执行优化</h3>
+<h3 id="并行执行优化">2. 并行执行优化</h3>
 <h4 id="多会话并行">多会话并行</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 同时处理多个任务</span><br><span class="line">const tasks = [</span><br><span class="line">  &#123; url: &#x27;https://site1.com&#x27;, action: &#x27;extract&#x27; &#125;,</span><br><span class="line">  &#123; url: &#x27;https://site2.com&#x27;, action: &#x27;screenshot&#x27; &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// 并行执行</span><br><span class="line">const results = await Promise.all(</span><br><span class="line">  tasks.map(task =&gt; processTask(task))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <h4 id="浏览器上下文隔离">浏览器上下文隔离</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 为每个任务创建独立上下文</span><br><span class="line">async function processTask(task) &#123;</span><br><span class="line">  const context = await browser.newContext();</span><br><span class="line">  const page = await context.newPage();</span><br><span class="line">  </span><br><span class="line">  try &#123;</span><br><span class="line">    // 执行任务</span><br><span class="line">    return await executeTask(page, task);</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    // 清理资源</span><br><span class="line">    await context.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-网络优化">3. 网络优化</h3>
+<h3 id="网络优化">3. 网络优化</h3>
 <h4 id="资源加载控制">资源加载控制</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;browser&quot;: &#123;</span><br><span class="line">    &quot;contextOptions&quot;: &#123;</span><br><span class="line">      &quot;javaScriptEnabled&quot;: true,</span><br><span class="line">      &quot;images&quot;: false,  // 禁用图片加载</span><br><span class="line">      &quot;videos&quot;: false   // 禁用视频加载</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="缓存策略">缓存策略</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 启用HTTP缓存</span><br><span class="line">const context = await browser.newContext(&#123;</span><br><span class="line">  cache: &#123;</span><br><span class="line">    cacheStoragePath: &#x27;./cache&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="4-内存管理">4. 内存管理</h3>
+<h3 id="内存管理">4. 内存管理</h3>
 <h4 id="启动参数优化">启动参数优化</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 优化内存使用的启动参数</span><br><span class="line">npx @playwright/mcp --browser-args=&quot;--disable-dev-shm-usage --single-process --disable-gpu&quot;</span><br></pre></td></tr></table></figure>
 <h4 id="资源清理">资源清理</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 定期清理不活跃会话</span><br><span class="line">setInterval(async () =&gt; &#123;</span><br><span class="line">  const inactiveSessions = getInactiveSessions();</span><br><span class="line">  for (const session of inactiveSessions) &#123;</span><br><span class="line">    await session.cleanup();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, 3600000); // 每小时执行一次</span><br></pre></td></tr></table></figure>
-<h3 id="5-性能监控">5. 性能监控</h3>
+<h3 id="性能监控">5. 性能监控</h3>
 <h4 id="关键指标监控">关键指标监控</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class PerformanceMonitor &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.metrics = &#123;</span><br><span class="line">      responseTime: [],</span><br><span class="line">      memoryUsage: [],</span><br><span class="line">      successRate: []</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  recordResponseTime(time) &#123;</span><br><span class="line">    this.metrics.responseTime.push(time);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  recordMemoryUsage(usage) &#123;</span><br><span class="line">    this.metrics.memoryUsage.push(usage);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  generateReport() &#123;</span><br><span class="line">    // 生成性能报告</span><br><span class="line">    return &#123;</span><br><span class="line">      avgResponseTime: this.calculateAverage(this.metrics.responseTime),</span><br><span class="line">      maxMemoryUsage: Math.max(...this.metrics.memoryUsage),</span><br><span class="line">      successRate: this.calculateSuccessRate()</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="常见问题">常见问题</h2>
-<h3 id="1-安装问题">1. 安装问题</h3>
-<h4 id="Q-安装时出现权限错误">Q: 安装时出现权限错误</h4>
+<h3 id="安装问题">1. 安装问题</h3>
+<h4 id="q-安装时出现权限错误">Q: 安装时出现权限错误</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: EACCES: permission denied, access &#x27;/usr/local/lib/node_modules&#x27;</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 方案1：使用sudo（不推荐）</span><br><span class="line">sudo npm install -g @playwright/mcp</span><br><span class="line"></span><br><span class="line"># 方案2：修复npm权限</span><br><span class="line">sudo chown -R $USER:$GROUP ~/.npm</span><br><span class="line">sudo chown -R $USER:$GROUP /usr/local/lib/node_modules</span><br><span class="line"></span><br><span class="line"># 方案3：使用nvm管理Node.js版本</span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash</span><br><span class="line">nvm install 18</span><br><span class="line">nvm use 18</span><br><span class="line">npm install -g @playwright/mcp</span><br></pre></td></tr></table></figure>
-<h4 id="Q-浏览器安装失败">Q: 浏览器安装失败</h4>
+<h4 id="q-浏览器安装失败">Q: 浏览器安装失败</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to install browsers</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 手动安装浏览器</span><br><span class="line">npx playwright install --force</span><br><span class="line"></span><br><span class="line"># 设置代理（如果需要）</span><br><span class="line">HTTPS_PROXY=http://proxy:port npx playwright install</span><br></pre></td></tr></table></figure>
-<h3 id="2-连接问题">2. 连接问题</h3>
-<h4 id="Q-客户端无法连接到-MCP-服务器">Q: 客户端无法连接到 MCP 服务器</h4>
+<h3 id="连接问题">2. 连接问题</h3>
+<h4 id="q-客户端无法连接到-mcp-服务器">Q: 客户端无法连接到 MCP
+服务器</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection refused: connect</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 1. 检查服务器是否正在运行</span><br><span class="line">ps aux | grep playwright-mcp</span><br><span class="line"></span><br><span class="line"># 2. 检查端口是否被占用</span><br><span class="line">netstat -tlnp | grep 8931</span><br><span class="line"></span><br><span class="line"># 3. 重启服务器</span><br><span class="line">npx @playwright/mcp --port 8931</span><br></pre></td></tr></table></figure>
-<h4 id="Q-跨域访问被拒绝">Q: 跨域访问被拒绝</h4>
+<h4 id="q-跨域访问被拒绝">Q: 跨域访问被拒绝</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;server&quot;: &#123;</span><br><span class="line">    &quot;cors&quot;: &#123;</span><br><span class="line">      &quot;allowedOrigins&quot;: [&quot;*&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-执行问题">3. 执行问题</h3>
-<h4 id="Q-元素定位失败">Q: 元素定位失败</h4>
+<h3 id="执行问题">3. 执行问题</h3>
+<h4 id="q-元素定位失败">Q: 元素定位失败</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Element not found or not visible</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;: &quot;browser_wait_for&quot;,</span><br><span class="line">    &quot;parameters&quot;: &#123;</span><br><span class="line">      &quot;text&quot;: &quot;登录&quot;,</span><br><span class="line">      &quot;time&quot;: 10</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;: &quot;browser_snapshot&quot;,</span><br><span class="line">    &quot;parameters&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;: &quot;browser_click&quot;,</span><br><span class="line">    &quot;parameters&quot;: &#123;</span><br><span class="line">      &quot;element&quot;: &quot;登录按钮&quot;,</span><br><span class="line">      &quot;ref&quot;: &quot;e5&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h4 id="Q-页面加载超时">Q: 页面加载超时</h4>
+<h4 id="q-页面加载超时">Q: 页面加载超时</h4>
 <p><strong>问题</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timeout waiting for page to load</span><br></pre></td></tr></table></figure>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;browser&quot;: &#123;</span><br><span class="line">    &quot;contextOptions&quot;: &#123;</span><br><span class="line">      &quot;navigationTimeout&quot;: 30000</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-性能问题">4. 性能问题</h3>
-<h4 id="Q-内存使用过高">Q: 内存使用过高</h4>
+<h3 id="性能问题">4. 性能问题</h3>
+<h4 id="q-内存使用过高">Q: 内存使用过高</h4>
 <p><strong>问题</strong>：</p>
 <p>浏览器进程占用大量内存</p>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 1. 使用无头模式</span><br><span class="line">npx @playwright/mcp --headless</span><br><span class="line"></span><br><span class="line"># 2. 限制浏览器启动参数</span><br><span class="line">npx @playwright/mcp --browser-args=&quot;--disable-dev-shm-usage --single-process&quot;</span><br><span class="line"></span><br><span class="line"># 3. 定期重启服务器</span><br></pre></td></tr></table></figure>
-<h4 id="Q-响应速度慢">Q: 响应速度慢</h4>
+<h4 id="q-响应速度慢">Q: 响应速度慢</h4>
 <p><strong>问题</strong>：</p>
 <p>AI 指令执行响应时间长</p>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;browser&quot;: &#123;</span><br><span class="line">    &quot;contextOptions&quot;: &#123;</span><br><span class="line">      &quot;images&quot;: false,</span><br><span class="line">      &quot;javaScriptEnabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5-安全问题">5. 安全问题</h3>
-<h4 id="Q-验证码处理">Q: 验证码处理</h4>
+<h3 id="安全问题">5. 安全问题</h3>
+<h4 id="q-验证码处理">Q: 验证码处理</h4>
 <p><strong>问题</strong>：</p>
 <p>网站弹出验证码，AI 无法处理</p>
 <p><strong>解决方案</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>人工干预</strong>：暂停自动化，人工输入验证码</p>
-</li>
-<li class="lvl-3">
-<p><strong>第三方服务</strong>：集成验证码识别服务</p>
-</li>
-<li class="lvl-3">
-<p><strong>会话复用</strong>：使用已登录的浏览器会话</p>
-</li>
+<ol type="1">
+<li><p><strong>人工干预</strong>：暂停自动化，人工输入验证码</p></li>
+<li><p><strong>第三方服务</strong>：集成验证码识别服务</p></li>
+<li><p><strong>会话复用</strong>：使用已登录的浏览器会话</p></li>
 </ol>
-<h4 id="Q-反爬虫检测">Q: 反爬虫检测</h4>
+<h4 id="q-反爬虫检测">Q: 反爬虫检测</h4>
 <p><strong>问题</strong>：</p>
 <p>IP 被网站封禁</p>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;network&quot;: &#123;</span><br><span class="line">    &quot;userAgent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot;,</span><br><span class="line">    &quot;proxy&quot;: &#123;</span><br><span class="line">      &quot;server&quot;: &quot;http://proxy-server:port&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6-兼容性问题">6. 兼容性问题</h3>
-<h4 id="Q-浏览器兼容性">Q: 浏览器兼容性</h4>
+<h3 id="兼容性问题">6. 兼容性问题</h3>
+<h4 id="q-浏览器兼容性">Q: 浏览器兼容性</h4>
 <p><strong>问题</strong>：</p>
 <p>某些功能在特定浏览器中不工作</p>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;browser&quot;: &#123;</span><br><span class="line">    &quot;browserName&quot;: &quot;chromium&quot;,</span><br><span class="line">    &quot;launchOptions&quot;: &#123;</span><br><span class="line">      &quot;channel&quot;: &quot;chrome&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Q-页面渲染问题">Q: 页面渲染问题</h4>
+<h4 id="q-页面渲染问题">Q: 页面渲染问题</h4>
 <p><strong>问题</strong>：</p>
 <p>动态内容无法正确加载</p>
 <p><strong>解决方案</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;browser_wait_for&quot;,</span><br><span class="line">  &quot;parameters&quot;: &#123;</span><br><span class="line">    &quot;text&quot;: &quot;加载完成&quot;,</span><br><span class="line">    &quot;time&quot;: 15</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="资源与参考">资源与参考</h2>
 <h3 id="官方文档">官方文档</h3>
-<h4 id="Playwright-MCP">Playwright MCP</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/mcp-intro">官方文档</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp">GitHub 仓库</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/api/class-mcp">API 参考</a></p>
-</li>
+<h4 id="playwright-mcp">Playwright MCP</h4>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://playwright.dev/docs/mcp-intro">官方文档</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp">GitHub
+仓库</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/api/class-mcp">API
+参考</a></p></li>
 </ul>
-<h4 id="MCP-协议">MCP 协议</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.org/">MCP 规范</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.org/specification">协议文档</a></p>
-</li>
+<h4 id="mcp-协议">MCP 协议</h4>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.org/">MCP 规范</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://modelcontextprotocol.org/specification">协议文档</a></p></li>
 </ul>
 <h3 id="社区资源">社区资源</h3>
 <h4 id="学习资源">学习资源</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/intro">Playwright 官方教程</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.org/tutorials">MCP 协议教程</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/ai-automation">AI 自动化实践指南</a></p>
-</li>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/intro">Playwright
+官方教程</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.org/tutorials">MCP
+协议教程</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://playwright.dev/docs/ai-automation">AI
+自动化实践指南</a></p></li>
 </ul>
 <h4 id="示例项目">示例项目</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp-examples">Playwright MCP 示例</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/playwright-community/ai-test-generator">AI 测试生成器</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/playwright-community/web-scraper">网页数据抓取工具</a></p>
-</li>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp-examples">Playwright
+MCP 示例</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/playwright-community/ai-test-generator">AI
+测试生成器</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/playwright-community/web-scraper">网页数据抓取工具</a></p></li>
 </ul>
 <h3 id="工具与扩展">工具与扩展</h3>
 <h4 id="开发工具">开发工具</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://www.cursor.sh/">Cursor IDE</a> - 推荐的 MCP 客户端</p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright">Playwright VS Code 扩展</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/mcp-debugger">MCP 调试工具</a></p>
-</li>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cursor.sh/">Cursor IDE</a> - 推荐的 MCP
+客户端</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright">Playwright
+VS Code 扩展</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/mcp-debugger">MCP
+调试工具</a></p></li>
 </ul>
 <h4 id="第三方库">第三方库</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@playwright/test">@playwright/test</a> - 测试框架</p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@modelcontextprotocol/sdk">@modelcontextprotocol/sdk</a> - MCP SDK</p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/playwright-ai">playwright-ai</a> - AI 辅助工具</p>
-</li>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@playwright/test"><span
+class="citation"
+data-cites="playwright/test">@playwright/test</span></a> -
+测试框架</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.npmjs.com/package/@modelcontextprotocol/sdk"><span
+class="citation"
+data-cites="modelcontextprotocol/sdk">@modelcontextprotocol/sdk</span></a>
+- MCP SDK</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.npmjs.com/package/playwright-ai">playwright-ai</a> -
+AI 辅助工具</p></li>
 </ul>
 <h3 id="支持与反馈">支持与反馈</h3>
 <h4 id="获取帮助">获取帮助</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://join.slack.com/t/playwright/shared_invite/">Playwright Slack 社区</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues">GitHub Issues</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/playwright-mcp">Stack Overflow</a></p>
-</li>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://join.slack.com/t/playwright/shared_invite/">Playwright
+Slack 社区</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues">GitHub
+Issues</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/playwright-mcp">Stack
+Overflow</a></p></li>
 </ul>
 <h4 id="报告问题">报告问题</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=bug_report.md">Bug 报告</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=feature_request.md">功能请求</a></p>
-</li>
-<li class="lvl-2">
-<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=performance_issue.md">性能问题</a></p>
-</li>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=bug_report.md">Bug
+报告</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=feature_request.md">功能请求</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp/issues/new?template=performance_issue.md">性能问题</a></p></li>
 </ul>
 <h3 id="更新日志">更新日志</h3>
 <h4 id="最新版本">最新版本</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>v1.2.3</strong> (2025-10-15)</p>
-</li>
-<li class="lvl-2">
-<p>新增 PDF 生成功能</p>
-</li>
-<li class="lvl-2">
-<p>优化内存使用</p>
-</li>
-<li class="lvl-2">
-<p>修复 Chrome 120 兼容性问题</p>
-</li>
+<ul>
+<li><p><strong>v1.2.3</strong> (2025-10-15)</p></li>
+<li><p>新增 PDF 生成功能</p></li>
+<li><p>优化内存使用</p></li>
+<li><p>修复 Chrome 120 兼容性问题</p></li>
 </ul>
 <h4 id="版本计划">版本计划</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>v1.3.0</strong> (预计 2025-11-30)</p>
-</li>
-<li class="lvl-2">
-<p>支持移动设备模拟</p>
-</li>
-<li class="lvl-2">
-<p>增强的网络监控</p>
-</li>
-<li class="lvl-2">
-<p>多语言支持</p>
-</li>
+<ul>
+<li><p><strong>v1.3.0</strong> (预计 2025-11-30)</p></li>
+<li><p>支持移动设备模拟</p></li>
+<li><p>增强的网络监控</p></li>
+<li><p>多语言支持</p></li>
 </ul>
 
     </div>
@@ -1061,8 +875,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
               <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
           </div>
 
         
@@ -1138,7 +952,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Playwright MCP 使用指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Playwright-MCP"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是 Playwright MCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">核心特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E8%BD%BB%E9%87%8F%E9%AB%98%E6%95%88"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">✅ 轻量高效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-LLM-%E5%8F%8B%E5%A5%BD"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">✅ LLM 友好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E5%A4%9A%E6%A8%A1%E5%BC%8F%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">✅ 多模式支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E5%BC%BA%E5%A4%A7%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E8%83%BD%E5%8A%9B"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">✅ 强大的自动化能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.2.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">系统要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%94%AF%E6%8C%81"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">客户端支持</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%A6%81%E6%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">网络要求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-Playwright-MCP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 安装 Playwright MCP 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-npm-%E5%AE%89%E8%A3%85%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">使用 npm 安装（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-yarn-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">使用 yarn 安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 安装浏览器驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cursor-IDE-%E9%85%8D%E7%BD%AE%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Cursor IDE 配置（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VS-Code-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">VS Code 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 启动服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%90%AF%E5%8A%A8"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">基础启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%AF%E5%8A%A8"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">配置文件启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.5.</span> <span class="nav-text">5. 验证安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">基础使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.1.</span> <span class="nav-text">启动会话</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%90%AF%E5%8A%A8"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">通过命令行启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">通过客户端启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">基本操作示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1%EF%BC%9A%E7%AE%80%E5%8D%95%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%88%AA"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">示例 1：简单网页导航</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">示例 2：数据提取</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">会话管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">持久化会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">隔离会话</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.5.</span> <span class="nav-text">核心工具详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%88%86%E7%B1%BB"><span class="nav-number">1.5.1.</span> <span class="nav-text">工具分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.2.</span> <span class="nav-text">核心工具详细说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%A1%B5%E9%9D%A2%E5%BF%AB%E7%85%A7%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">1. 页面快照工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-snapshot"><span class="nav-number">1.5.2.1.1.</span> <span class="nav-text">browser_snapshot</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AF%BC%E8%88%AA%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">2. 导航工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-navigate"><span class="nav-number">1.5.2.2.1.</span> <span class="nav-text">browser_navigate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-navigate-back"><span class="nav-number">1.5.2.2.2.</span> <span class="nav-text">browser_navigate_back</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%83%E7%B4%A0%E4%BA%A4%E4%BA%92%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">3. 元素交互工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-click"><span class="nav-number">1.5.2.3.1.</span> <span class="nav-text">browser_click</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-type"><span class="nav-number">1.5.2.3.2.</span> <span class="nav-text">browser_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-select-option"><span class="nav-number">1.5.2.3.3.</span> <span class="nav-text">browser_select_option</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">4. 资源操作工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-take-screenshot"><span class="nav-number">1.5.2.4.1.</span> <span class="nav-text">browser_take_screenshot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-pdf-save"><span class="nav-number">1.5.2.4.2.</span> <span class="nav-text">browser_pdf_save</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.5.</span> <span class="nav-text">5. 网络监控工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-network-requests"><span class="nav-number">1.5.2.5.1.</span> <span class="nav-text">browser_network_requests</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser-console-messages"><span class="nav-number">1.5.2.5.2.</span> <span class="nav-text">browser_console_messages</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">工具调用流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B"><span class="nav-number">1.6.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1%EF%BC%9A%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90"><span class="nav-number">1.6.1.</span> <span class="nav-text">案例 1：自动化测试生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2%EF%BC%9A%E6%99%BA%E8%83%BD%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96"><span class="nav-number">1.6.2.</span> <span class="nav-text">案例 2：智能数据抓取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-2"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3%EF%BC%9A%E5%8A%9E%E5%85%AC%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">1.6.3.</span> <span class="nav-text">案例 3：办公自动化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-3"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4-3"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8C%87%E4%BB%A4%E7%BC%96%E5%86%99%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.1.</span> <span class="nav-text">1. 指令编写最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E6%B8%85%E6%99%B0%E6%98%8E%E7%A1%AE%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">✅ 清晰明确的指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E6%8F%90%E4%BE%9B%E5%BF%85%E8%A6%81%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">✅ 提供必要的上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E5%88%86%E6%AD%A5%E6%89%A7%E8%A1%8C%E5%A4%8D%E6%9D%82%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">✅ 分步执行复杂任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.2.</span> <span class="nav-text">2. 元素定位策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E5%BF%AB%E7%85%A7"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">✅ 优先使用可访问性快照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E4%BD%BF%E7%94%A8%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%85%83%E7%B4%A0%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">✅ 使用稳定的元素描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E5%A4%84%E7%90%86%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">✅ 处理动态内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.3.</span> <span class="nav-text">3. 会话管理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%A1%E5%BC%8F-vs-%E9%9A%94%E7%A6%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">持久化模式 vs 隔离模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">会话管理代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.4.</span> <span class="nav-text">4. 错误处理最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">1.7.4.1.</span> <span class="nav-text">✅ 重试机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.7.4.2.</span> <span class="nav-text">✅ 超时设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.5.</span> <span class="nav-text">5. 安全最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.7.5.1.</span> <span class="nav-text">✅ 敏感信息处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85-%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="nav-number">1.7.5.2.</span> <span class="nav-text">✅ 权限控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E4%BE%8B%E6%B1%A0%E5%8C%96"><span class="nav-number">1.8.1.</span> <span class="nav-text">1. 浏览器实例池化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">配置建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.2.</span> <span class="nav-text">2. 并行执行优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%BC%9A%E8%AF%9D%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">多会话并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E4%B8%8B%E6%96%87%E9%9A%94%E7%A6%BB"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">浏览器上下文隔离</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.3.</span> <span class="nav-text">3. 网络优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E6%8E%A7%E5%88%B6"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">资源加载控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">缓存策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.4.</span> <span class="nav-text">4. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">启动参数优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%B8%85%E7%90%86"><span class="nav-number">1.8.4.2.</span> <span class="nav-text">资源清理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7"><span class="nav-number">1.8.5.</span> <span class="nav-text">5. 性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7"><span class="nav-number">1.8.5.1.</span> <span class="nav-text">关键指标监控</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 安装问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%AE%89%E8%A3%85%E6%97%B6%E5%87%BA%E7%8E%B0%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">Q: 安装时出现权限错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.9.1.2.</span> <span class="nav-text">Q: 浏览器安装失败</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 连接问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0-MCP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">Q: 客户端无法连接到 MCP 服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E8%A2%AB%E6%8B%92%E7%BB%9D"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">Q: 跨域访问被拒绝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.3.</span> <span class="nav-text">3. 执行问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.9.3.1.</span> <span class="nav-text">Q: 元素定位失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E8%B6%85%E6%97%B6"><span class="nav-number">1.9.3.2.</span> <span class="nav-text">Q: 页面加载超时</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.4.</span> <span class="nav-text">4. 性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-number">1.9.4.1.</span> <span class="nav-text">Q: 内存使用过高</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E6%85%A2"><span class="nav-number">1.9.4.2.</span> <span class="nav-text">Q: 响应速度慢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.5.</span> <span class="nav-text">5. 安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%A4%84%E7%90%86"><span class="nav-number">1.9.5.1.</span> <span class="nav-text">Q: 验证码处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E5%8F%8D%E7%88%AC%E8%99%AB%E6%A3%80%E6%B5%8B"><span class="nav-number">1.9.5.2.</span> <span class="nav-text">Q: 反爬虫检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.6.</span> <span class="nav-text">6. 兼容性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">1.9.6.1.</span> <span class="nav-text">Q: 浏览器兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.6.2.</span> <span class="nav-text">Q: 页面渲染问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E4%B8%8E%E5%8F%82%E8%80%83"><span class="nav-number">1.10.</span> <span class="nav-text">资源与参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.10.1.</span> <span class="nav-text">官方文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Playwright-MCP"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">Playwright MCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MCP-%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">MCP 协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-number">1.10.2.</span> <span class="nav-text">社区资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">示例项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="nav-number">1.10.3.</span> <span class="nav-text">工具与扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="nav-number">1.10.3.1.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="nav-number">1.10.3.2.</span> <span class="nav-text">第三方库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E4%B8%8E%E5%8F%8D%E9%A6%88"><span class="nav-number">1.10.4.</span> <span class="nav-text">支持与反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9"><span class="nav-number">1.10.4.1.</span> <span class="nav-text">获取帮助</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E5%91%8A%E9%97%AE%E9%A2%98"><span class="nav-number">1.10.4.2.</span> <span class="nav-text">报告问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="nav-number">1.10.5.</span> <span class="nav-text">更新日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC"><span class="nav-number">1.10.5.1.</span> <span class="nav-text">最新版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E8%AE%A1%E5%88%92"><span class="nav-number">1.10.5.2.</span> <span class="nav-text">版本计划</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#playwright-mcp-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">Playwright MCP 使用指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-playwright-mcp"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是 Playwright MCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">核心特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E9%AB%98%E6%95%88"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">✅ 轻量高效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llm-%E5%8F%8B%E5%A5%BD"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">✅ LLM 友好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%BC%8F%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">✅ 多模式支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%A4%A7%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E8%83%BD%E5%8A%9B"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">✅ 强大的自动化能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.2.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">系统要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%94%AF%E6%8C%81"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">客户端支持</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%A6%81%E6%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">网络要求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-playwright-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 安装 Playwright MCP 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-npm-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">使用 npm 安装（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-yarn-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">使用 yarn 安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 安装浏览器驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cursor-ide-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Cursor IDE 配置（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vs-code-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">VS Code 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 启动服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%90%AF%E5%8A%A8"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">基础启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%AF%E5%8A%A8"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">配置文件启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.5.</span> <span class="nav-text">5. 验证安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">基础使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.1.</span> <span class="nav-text">启动会话</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%90%AF%E5%8A%A8"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">通过命令行启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">通过客户端启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">基本操作示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1%E7%AE%80%E5%8D%95%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%88%AA"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">示例 1：简单网页导航</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">示例 2：数据提取</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">会话管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">持久化会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E4%BC%9A%E8%AF%9D"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">隔离会话</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.5.</span> <span class="nav-text">核心工具详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%88%86%E7%B1%BB"><span class="nav-number">1.5.1.</span> <span class="nav-text">工具分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.2.</span> <span class="nav-text">核心工具详细说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%BF%AB%E7%85%A7%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">1. 页面快照工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_snapshot"><span class="nav-number">1.5.2.1.1.</span> <span class="nav-text">browser_snapshot</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">2. 导航工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_navigate"><span class="nav-number">1.5.2.2.1.</span> <span class="nav-text">browser_navigate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_navigate_back"><span class="nav-number">1.5.2.2.2.</span> <span class="nav-text">browser_navigate_back</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E4%BA%A4%E4%BA%92%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">3. 元素交互工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_click"><span class="nav-number">1.5.2.3.1.</span> <span class="nav-text">browser_click</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_type"><span class="nav-number">1.5.2.3.2.</span> <span class="nav-text">browser_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_select_option"><span class="nav-number">1.5.2.3.3.</span> <span class="nav-text">browser_select_option</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">4. 资源操作工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_take_screenshot"><span class="nav-number">1.5.2.4.1.</span> <span class="nav-text">browser_take_screenshot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_pdf_save"><span class="nav-number">1.5.2.4.2.</span> <span class="nav-text">browser_pdf_save</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7"><span class="nav-number">1.5.2.5.</span> <span class="nav-text">5. 网络监控工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_network_requests"><span class="nav-number">1.5.2.5.1.</span> <span class="nav-text">browser_network_requests</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#browser_console_messages"><span class="nav-number">1.5.2.5.2.</span> <span class="nav-text">browser_console_messages</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">工具调用流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B"><span class="nav-number">1.6.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90"><span class="nav-number">1.6.1.</span> <span class="nav-text">案例 1：自动化测试生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2%E6%99%BA%E8%83%BD%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96"><span class="nav-number">1.6.2.</span> <span class="nav-text">案例 2：智能数据抓取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-1"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3%E5%8A%9E%E5%85%AC%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">1.6.3.</span> <span class="nav-text">案例 3：办公自动化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-2"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">实施步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%BC%96%E5%86%99%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.1.</span> <span class="nav-text">1. 指令编写最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E6%99%B0%E6%98%8E%E7%A1%AE%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">✅ 清晰明确的指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E5%BF%85%E8%A6%81%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">✅ 提供必要的上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%AD%A5%E6%89%A7%E8%A1%8C%E5%A4%8D%E6%9D%82%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">✅ 分步执行复杂任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.2.</span> <span class="nav-text">2. 元素定位策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E5%BF%AB%E7%85%A7"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">✅ 优先使用可访问性快照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%85%83%E7%B4%A0%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">✅ 使用稳定的元素描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">✅ 处理动态内容</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.3.</span> <span class="nav-text">3. 会话管理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%A1%E5%BC%8F-vs-%E9%9A%94%E7%A6%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">持久化模式 vs 隔离模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">会话管理代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.4.</span> <span class="nav-text">4. 错误处理最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6"><span class="nav-number">1.7.4.1.</span> <span class="nav-text">✅ 重试机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.7.4.2.</span> <span class="nav-text">✅ 超时设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.7.5.</span> <span class="nav-text">5. 安全最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.7.5.1.</span> <span class="nav-text">✅ 敏感信息处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="nav-number">1.7.5.2.</span> <span class="nav-text">✅ 权限控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E4%BE%8B%E6%B1%A0%E5%8C%96"><span class="nav-number">1.8.1.</span> <span class="nav-text">1. 浏览器实例池化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">配置建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.2.</span> <span class="nav-text">2. 并行执行优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%BC%9A%E8%AF%9D%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">多会话并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E4%B8%8B%E6%96%87%E9%9A%94%E7%A6%BB"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">浏览器上下文隔离</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.3.</span> <span class="nav-text">3. 网络优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E6%8E%A7%E5%88%B6"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">资源加载控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">缓存策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.4.</span> <span class="nav-text">4. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">启动参数优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%B8%85%E7%90%86"><span class="nav-number">1.8.4.2.</span> <span class="nav-text">资源清理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7"><span class="nav-number">1.8.5.</span> <span class="nav-text">5. 性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7"><span class="nav-number">1.8.5.1.</span> <span class="nav-text">关键指标监控</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 安装问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%AE%89%E8%A3%85%E6%97%B6%E5%87%BA%E7%8E%B0%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">Q: 安装时出现权限错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.9.1.2.</span> <span class="nav-text">Q: 浏览器安装失败</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 连接问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">Q: 客户端无法连接到 MCP
+服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E8%A2%AB%E6%8B%92%E7%BB%9D"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">Q: 跨域访问被拒绝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.3.</span> <span class="nav-text">3. 执行问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.9.3.1.</span> <span class="nav-text">Q: 元素定位失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E8%B6%85%E6%97%B6"><span class="nav-number">1.9.3.2.</span> <span class="nav-text">Q: 页面加载超时</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.4.</span> <span class="nav-text">4. 性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-number">1.9.4.1.</span> <span class="nav-text">Q: 内存使用过高</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%E6%85%A2"><span class="nav-number">1.9.4.2.</span> <span class="nav-text">Q: 响应速度慢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.5.</span> <span class="nav-text">5. 安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%A4%84%E7%90%86"><span class="nav-number">1.9.5.1.</span> <span class="nav-text">Q: 验证码处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E5%8F%8D%E7%88%AC%E8%99%AB%E6%A3%80%E6%B5%8B"><span class="nav-number">1.9.5.2.</span> <span class="nav-text">Q: 反爬虫检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.6.</span> <span class="nav-text">6. 兼容性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">1.9.6.1.</span> <span class="nav-text">Q: 浏览器兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q-%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.6.2.</span> <span class="nav-text">Q: 页面渲染问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E4%B8%8E%E5%8F%82%E8%80%83"><span class="nav-number">1.10.</span> <span class="nav-text">资源与参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.10.1.</span> <span class="nav-text">官方文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#playwright-mcp"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">Playwright MCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mcp-%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">MCP 协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-number">1.10.2.</span> <span class="nav-text">社区资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">学习资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">示例项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="nav-number">1.10.3.</span> <span class="nav-text">工具与扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="nav-number">1.10.3.1.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="nav-number">1.10.3.2.</span> <span class="nav-text">第三方库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E4%B8%8E%E5%8F%8D%E9%A6%88"><span class="nav-number">1.10.4.</span> <span class="nav-text">支持与反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9"><span class="nav-number">1.10.4.1.</span> <span class="nav-text">获取帮助</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E5%91%8A%E9%97%AE%E9%A2%98"><span class="nav-number">1.10.4.2.</span> <span class="nav-text">报告问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="nav-number">1.10.5.</span> <span class="nav-text">更新日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC"><span class="nav-number">1.10.5.1.</span> <span class="nav-text">最新版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E8%AE%A1%E5%88%92"><span class="nav-number">1.10.5.2.</span> <span class="nav-text">版本计划</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1154,7 +969,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1215,7 +1030,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

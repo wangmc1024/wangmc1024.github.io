@@ -242,51 +242,46 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="built_in">Parent</span>() : <span class="built_in">child</span>(std::<span class="built_in">make_shared</span>&lt;Child&gt;()) &#123; &#125;</span><br><span class="line">   <span class="function">Child *<span class="title">get_child</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> child.<span class="built_in">get</span>(); &#125;  <span class="comment">/* DANGER */</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::shared_ptr&lt;Child&gt; child;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(example, m, py::<span class="built_in">mod_gil_not_used</span>()) &#123;</span><br><span class="line">    py::class_&lt;Child, std::shared_ptr&lt;Child&gt;&gt;(m, <span class="string">&quot;Child&quot;</span>);</span><br><span class="line"></span><br><span class="line">    py::class_&lt;Parent, std::shared_ptr&lt;Parent&gt;&gt;(m, <span class="string">&quot;Parent&quot;</span>)</span><br><span class="line">       .<span class="built_in">def</span>(py::init&lt;&gt;())</span><br><span class="line">       .<span class="built_in">def</span>(<span class="string">&quot;get_child&quot;</span>, &amp;Parent::get_child);  <span class="comment">/* PROBLEM */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以下的python代码会导致未定义行为，引发段错误</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> example <span class="keyword">import</span> Parent</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Parent().get_child())</span><br></pre></td></tr></table></figure>
-<p>文档主要讨论了在使用pybind11将C++代码绑定到Python时，<strong>原始指针（raw pointers）和共享所有权（shared ownership）结合使用时的陷阱</strong>，以及对应的解决方案, 但没有具体的解决代码, 以下是详细解释和正确用法：</p>
+<p>文档主要讨论了在使用pybind11将C++代码绑定到Python时，<strong>原始指针（raw
+pointers）和共享所有权（shared
+ownership）结合使用时的陷阱</strong>，以及对应的解决方案,
+但没有具体的解决代码, 以下是详细解释和正确用法：</p>
 <h3 id="核心问题解析">核心问题解析</h3>
 <p>问题的根源在于<strong>所有权管理的冲突</strong>：当C++对象已被<code>std::shared_ptr</code>管理时，如果通过原始指针暴露该对象，pybind11可能会错误地“接管”所有权，导致双重释放（double-free）或使用后释放（use-after-free）等未定义行为。</p>
 <h4 id="示例中的问题拆解">示例中的问题拆解</h4>
-<ol>
-<li class="lvl-3">
-<p><strong>C++代码设计</strong>：<br>
-<code>Parent</code>类内部用<code>std::shared_ptr&lt;Child&gt;</code>管理<code>Child</code>对象（即<code>Child</code>的所有权属于<code>Parent</code>的<code>shared_ptr</code>）。但<code>Parent::get_child()</code>返回的是原始指针（<code>child.get()</code>），丢失了“该对象已被<code>shared_ptr</code>管理”的信息。</p>
-</li>
-<li class="lvl-3">
-<p><strong>pybind11的默认行为</strong>：<br>
-当绑定返回原始指针的函数时，pybind11默认使用<code>return_value_policy::take_ownership</code>策略。这意味着pybind11会认为该原始指针指向的对象“无主”，会自动创建一个新的<code>std::shared_ptr&lt;Child&gt;</code>来接管它。</p>
-</li>
-<li class="lvl-3">
-<p><strong>冲突导致的后果</strong>：<br>
+<ol type="1">
+<li><p><strong>C++代码设计</strong>：<br />
+<code>Parent</code>类内部用<code>std::shared_ptr&lt;Child&gt;</code>管理<code>Child</code>对象（即<code>Child</code>的所有权属于<code>Parent</code>的<code>shared_ptr</code>）。但<code>Parent::get_child()</code>返回的是原始指针（<code>child.get()</code>），丢失了“该对象已被<code>shared_ptr</code>管理”的信息。</p></li>
+<li><p><strong>pybind11的默认行为</strong>：<br />
+当绑定返回原始指针的函数时，pybind11默认使用<code>return_value_policy::take_ownership</code>策略。这意味着pybind11会认为该原始指针指向的对象“无主”，会自动创建一个新的<code>std::shared_ptr&lt;Child&gt;</code>来接管它。</p></li>
+<li><p><strong>冲突导致的后果</strong>：<br />
 此时<code>Child</code>对象同时被两个独立的<code>shared_ptr</code>管理（一个是<code>Parent</code>内部的，另一个是pybind11创建的）。当这两个<code>shared_ptr</code>销毁时，都会尝试释放<code>Child</code>对象，导致<strong>双重释放</strong>（未定义行为，通常表现为程序崩溃或段错误）。</p>
-<p>例如Python代码中<code>Parent().get_child()</code>：<code>Parent</code>对象在语句结束后销毁（其内部的<code>shared_ptr&lt;Child&gt;</code>释放），而pybind11创建的<code>shared_ptr&lt;Child&gt;</code>可能仍持有指针，后续访问或释放时就会出错。</p>
-</li>
+<p>例如Python代码中<code>Parent().get_child()</code>：<code>Parent</code>对象在语句结束后销毁（其内部的<code>shared_ptr&lt;Child&gt;</code>释放），而pybind11创建的<code>shared_ptr&lt;Child&gt;</code>可能仍持有指针，后续访问或释放时就会出错。</p></li>
 </ol>
 <h3 id="正确的解决方案">正确的解决方案</h3>
 <p>解决思路是<strong>确保pybind11正确识别对象的所有权状态</strong>，避免创建冲突的所有者。文档提供了多种方法，选择取决于具体场景：</p>
-<h4 id="方法1：修改C-代码，返回std-shared-ptr-Child-（推荐）">方法1：修改C++代码，返回<code>std::shared_ptr&lt;Child&gt;</code>（推荐）</h4>
+<h4
+id="方法1修改c代码返回stdshared_ptrchild推荐">方法1：修改C++代码，返回<code>std::shared_ptr&lt;Child&gt;</code>（推荐）</h4>
 <p>最直接的方式是让<code>get_child()</code>返回<code>shared_ptr</code>而非原始指针，明确告知pybind11“对象已被共享管理”。此时pybind11会自动沿用原有的<code>shared_ptr</code>，不会创建新的所有者。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Parent</span>() : <span class="built_in">child</span>(std::<span class="built_in">make_shared</span>&lt;Child&gt;()) &#123; &#125;</span><br><span class="line">    <span class="comment">// 改为返回shared_ptr，暴露所有权信息</span></span><br><span class="line">    <span class="function">std::shared_ptr&lt;Child&gt; <span class="title">get_child</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> child; &#125;  <span class="comment">// 正确</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::shared_ptr&lt;Child&gt; child;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(example, m) &#123;</span><br><span class="line">    py::class_&lt;Child, std::shared_ptr&lt;Child&gt;&gt;(m, <span class="string">&quot;Child&quot;</span>);</span><br><span class="line"></span><br><span class="line">    py::class_&lt;Parent, std::shared_ptr&lt;Parent&gt;&gt;(m, <span class="string">&quot;Parent&quot;</span>)</span><br><span class="line">        .<span class="built_in">def</span>(py::init&lt;&gt;())</span><br><span class="line">        .<span class="built_in">def</span>(<span class="string">&quot;get_child&quot;</span>, &amp;Parent::get_child);  <span class="comment">// 此时无问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>原理</strong>：<code>get_child()</code>返回<code>shared_ptr</code>后，pybind11会识别到对象已被<code>shared_ptr</code>管理，直接复用该指针，避免双重所有权。</p>
-<h4 id="方法2：使用return-value-policy-reference-internal（无法修改C-代码时）">方法2：使用<code>return_value_policy::reference_internal</code>（无法修改C++代码时）</h4>
+<h4
+id="方法2使用return_value_policyreference_internal无法修改c代码时">方法2：使用<code>return_value_policy::reference_internal</code>（无法修改C++代码时）</h4>
 <p>如果无法修改C++的<code>get_child()</code>（必须返回原始指针），可以在pybind11绑定中显式指定返回值策略为<code>reference_internal</code>，告知pybind11：“该指针是内部引用，不获取所有权，由原对象（Parent）管理”。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++代码不变（仍返回原始指针）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Parent</span>() : <span class="built_in">child</span>(std::<span class="built_in">make_shared</span>&lt;Child&gt;()) &#123; &#125;</span><br><span class="line">    <span class="function">Child* <span class="title">get_child</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> child.<span class="built_in">get</span>(); &#125;  <span class="comment">// 仍返回原始指针</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::shared_ptr&lt;Child&gt; child;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(example, m) &#123;</span><br><span class="line">    py::class_&lt;Child, std::shared_ptr&lt;Child&gt;&gt;(m, <span class="string">&quot;Child&quot;</span>);</span><br><span class="line"></span><br><span class="line">    py::class_&lt;Parent, std::shared_ptr&lt;Parent&gt;&gt;(m, <span class="string">&quot;Parent&quot;</span>)</span><br><span class="line">        .<span class="built_in">def</span>(py::init&lt;&gt;())</span><br><span class="line">        <span class="comment">// 显式指定策略：不接管所有权，仅作为内部引用</span></span><br><span class="line">        .<span class="built_in">def</span>(<span class="string">&quot;get_child&quot;</span>, &amp;Parent::get_child, py::return_value_policy::reference_internal);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>原理</strong>：<code>reference_internal</code>告诉pybind11，返回的<code>Child*</code>是<code>Parent</code>内部管理的对象，其生命周期由<code>Parent</code>的<code>shared_ptr</code>负责，pybind11仅作为“观察者”，不创建新的<code>shared_ptr</code>，避免冲突。</p>
-<h4 id="方法3：让Child继承std-enable-shared-from-this（特殊场景）">方法3：让<code>Child</code>继承<code>std::enable_shared_from_this</code>（特殊场景）</h4>
+<h4
+id="方法3让child继承stdenable_shared_from_this特殊场景">方法3：让<code>Child</code>继承<code>std::enable_shared_from_this</code>（特殊场景）</h4>
 <p>如果<code>Child</code>需要通过原始指针“反向”获取自身的<code>shared_ptr</code>（例如在<code>Child</code>内部需要返回自身的<code>shared_ptr</code>），可以让<code>Child</code>继承<code>std::enable_shared_from_this&lt;Child&gt;</code>，然后在<code>get_child()</code>中通过<code>shared_from_this()</code>返回<code>shared_ptr</code>。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Child继承enable_shared_from_this，支持从原始指针获取shared_ptr</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Child&gt; &#123; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Parent</span>() : <span class="built_in">child</span>(std::<span class="built_in">make_shared</span>&lt;Child&gt;()) &#123; &#125;</span><br><span class="line">    <span class="comment">// 通过shared_from_this()返回共享指针</span></span><br><span class="line">    <span class="function">std::shared_ptr&lt;Child&gt; <span class="title">get_child</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> child-&gt;<span class="built_in">shared_from_this</span>(); &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::shared_ptr&lt;Child&gt; child;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pybind11绑定同方法1</span></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(example, m) &#123;</span><br><span class="line">    py::class_&lt;Child, std::shared_ptr&lt;Child&gt;&gt;(m, <span class="string">&quot;Child&quot;</span>);</span><br><span class="line">    py::class_&lt;Parent, std::shared_ptr&lt;Parent&gt;&gt;(m, <span class="string">&quot;Parent&quot;</span>)</span><br><span class="line">        .<span class="built_in">def</span>(py::init&lt;&gt;())</span><br><span class="line">        .<span class="built_in">def</span>(<span class="string">&quot;get_child&quot;</span>, &amp;Parent::get_child);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>原理</strong>：<code>enable_shared_from_this</code>允许<code>Child</code>对象在被<code>shared_ptr</code>管理时，通过<code>shared_from_this()</code>返回一个与原<code>shared_ptr</code>共享所有权的新<code>shared_ptr</code>，确保所有权统一。</p>
-<p>核心原则是<strong>避免通过原始指针暴露被智能指针管理的对象</strong>，确保pybind11能正确识别所有权状态：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>优先修改C<ins>代码，使用<code>shared_ptr</code>传递对象（方法1），最安全且符合现代C</ins>实践；</p>
-</li>
-<li class="lvl-2">
-<p>若无法修改C++，通过<code>reference_internal</code>策略明确所有权归属（方法2）；</p>
-</li>
-<li class="lvl-2">
-<p>特殊场景下用<code>enable_shared_from_this</code>辅助共享所有权（方法3）。</p>
-</li>
-</ul>
+<p>核心原则是<strong>避免通过原始指针暴露被智能指针管理的对象</strong>，确保pybind11能正确识别所有权状态：<br />
+-
+优先修改C++代码，使用<code>shared_ptr</code>传递对象（方法1），最安全且符合现代C++实践；<br />
+-
+若无法修改C++，通过<code>reference_internal</code>策略明确所有权归属（方法2）；<br />
+-
+特殊场景下用<code>enable_shared_from_this</code>辅助共享所有权（方法3）。</p>
 <p>这些方法的本质是<strong>消除所有权的模糊性</strong>，避免pybind11和C++智能指针对同一对象的双重管理</p>
 
     </div>
@@ -298,8 +293,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> C++</a>
               <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/cpp/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           </div>
 
         
@@ -375,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">核心问题解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%E6%8B%86%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">示例中的问题拆解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">正确的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A%E4%BF%AE%E6%94%B9C-%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%BF%94%E5%9B%9Estd-shared-ptr-Child-%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">方法1：修改C++代码，返回std::shared_ptr&lt;Child&gt;（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A%E4%BD%BF%E7%94%A8return-value-policy-reference-internal%EF%BC%88%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9C-%E4%BB%A3%E7%A0%81%E6%97%B6%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">方法2：使用return_value_policy::reference_internal（无法修改C++代码时）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%953%EF%BC%9A%E8%AE%A9Child%E7%BB%A7%E6%89%BFstd-enable-shared-from-this%EF%BC%88%E7%89%B9%E6%AE%8A%E5%9C%BA%E6%99%AF%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">方法3：让Child继承std::enable_shared_from_this（特殊场景）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">核心问题解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%E6%8B%86%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">示例中的问题拆解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">正确的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%E4%BF%AE%E6%94%B9c%E4%BB%A3%E7%A0%81%E8%BF%94%E5%9B%9Estdshared_ptrchild%E6%8E%A8%E8%8D%90"><span class="nav-number">3.1.</span> <span class="nav-text">方法1：修改C++代码，返回std::shared_ptr&lt;Child&gt;（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E4%BD%BF%E7%94%A8return_value_policyreference_internal%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9c%E4%BB%A3%E7%A0%81%E6%97%B6"><span class="nav-number">3.2.</span> <span class="nav-text">方法2：使用return_value_policy::reference_internal（无法修改C++代码时）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%953%E8%AE%A9child%E7%BB%A7%E6%89%BFstdenable_shared_from_this%E7%89%B9%E6%AE%8A%E5%9C%BA%E6%99%AF"><span class="nav-number">3.3.</span> <span class="nav-text">方法3：让Child继承std::enable_shared_from_this（特殊场景）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -391,7 +386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -452,7 +447,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

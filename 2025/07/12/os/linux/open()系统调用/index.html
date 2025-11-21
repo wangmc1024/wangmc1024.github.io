@@ -239,31 +239,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如何使用 C++ 在 Linux 环境下进行文件操作</p>
-<span id="more"></span>
-<h3 id="一、open-系统调用（Unix-Linux）"><strong>一、<code>open()</code> 系统调用（Unix/Linux）</strong></h3>
-<h4 id="1-核心知识点回顾"><strong>1. 核心知识点回顾</strong></h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>函数原型</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span>    <span class="comment">// 定义 O_RDONLY、O_WRONLY 等标志</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span>  <span class="comment">// 定义 mode_t 类型</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span>   <span class="comment">// 定义文件权限宏</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p>参数</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>pathname</code>：要打开或创建的文件路径（绝对或相对路径）</li>
-<li class="lvl-4"><code>flags</code>：必选标志，只能选其一（<code>O_RDONLY</code>/<code>O_WRONLY</code>/<code>O_RDWR</code>）和可选标志（<code>O_CREAT</code>、<code>O_EXCL</code>、<code>O_APPEND</code>、<code>O_TRUNC</code> 等）。</li>
-<li class="lvl-4"><code>mode</code>：当使用 <code>O_CREAT</code> 标志时需指定权限。创建文件时的权限（如 <code>0644</code>）。</li>
+        <p>如何使用 C++ 在 Linux 环境下进行文件操作 <span id="more"></span></p>
+<h3 id="一open-系统调用unixlinux"><strong>一、<code>open()</code>
+系统调用（Unix/Linux）</strong></h3>
+<h4 id="核心知识点回顾"><strong>1. 核心知识点回顾</strong></h4>
+<ul>
+<li><p>函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span>    <span class="comment">// 定义 O_RDONLY、O_WRONLY 等标志</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span>  <span class="comment">// 定义 mode_t 类型</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span>   <span class="comment">// 定义文件权限宏</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><code>pathname</code>：要打开或创建的文件路径（绝对或相对路径）</li>
+<li><code>flags</code>：必选标志，只能选其一（<code>O_RDONLY</code>/<code>O_WRONLY</code>/<code>O_RDWR</code>）和可选标志（<code>O_CREAT</code>、<code>O_EXCL</code>、<code>O_APPEND</code>、<code>O_TRUNC</code>
+等）。</li>
+<li><code>mode</code>：当使用 <code>O_CREAT</code>
+标志时需指定权限。创建文件时的权限（如 <code>0644</code>）。</li>
+</ul></li>
+<li><p><strong>返回值</strong>：文件描述符（整数）或
+<code>-1</code>（失败）。</p></li>
+<li><p><strong>特点</strong>：无缓冲的底层操作，适合设备驱动、非阻塞 I/O
+等场景。</p></li>
 </ul>
-</li>
-<li class="lvl-2">
-<p><strong>返回值</strong>：文件描述符（整数）或 <code>-1</code>（失败）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>特点</strong>：无缓冲的底层操作，适合设备驱动、非阻塞 I/O 等场景。</p>
-</li>
-</ul>
-<h4 id="2-关键标志位"><strong>2. 关键标志位</strong></h4>
+<h4 id="关键标志位"><strong>2. 关键标志位</strong></h4>
 <table>
 <thead>
 <tr>
@@ -294,57 +290,44 @@
 </tr>
 </tbody>
 </table>
-<h4 id="3-错误处理"><strong>3. 错误处理</strong></h4>
+<h4 id="错误处理"><strong>3. 错误处理</strong></h4>
 <p><code>open()</code> 失败时会设置 <code>errno</code>，常见错误码：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>ENOENT</code>：路径不存在（无 <code>O_CREAT</code> 标志时）。</p>
-</li>
-<li class="lvl-2">
-<p><code>EACCES</code>：权限不足（如尝试写入只读文件）。</p>
-</li>
-<li class="lvl-2">
-<p><code>EEXIST</code>：文件已存在（使用 <code>O_CREAT | O_EXCL</code> 时）。</p>
-</li>
-<li class="lvl-2">
-<p><code>EISDIR</code>：路径是目录而非文件。</p>
-</li>
+<ul>
+<li><code>ENOENT</code>：路径不存在（无 <code>O_CREAT</code>
+标志时）。</li>
+<li><code>EACCES</code>：权限不足（如尝试写入只读文件）。</li>
+<li><code>EEXIST</code>：文件已存在（使用 <code>O_CREAT | O_EXCL</code>
+时）。</li>
+<li><code>EISDIR</code>：路径是目录而非文件。</li>
 </ul>
-<h4 id="4-相关系统调用"><strong>4. 相关系统调用</strong></h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>close(int fd)</code>：关闭文件描述符。</p>
-</li>
-<li class="lvl-2">
-<p><code>read(int fd, void *buf, size_t count)</code>：从文件读取数据。</p>
-</li>
-<li class="lvl-2">
-<p><code>write(int fd, const void *buf, size_t count)</code>：向文件写入数据。</p>
-</li>
-<li class="lvl-2">
-<p><code>lseek(int fd, off_t offset, int whence)</code>：移动文件读写位置。</p>
-</li>
-<li class="lvl-2">
-<p><code>creat(const char *pathname, mode_t mode)</code>：等价于 <code>open(pathname, O_CREAT | O_WRONLY | O_TRUNC, mode)</code>。</p>
-</li>
+<h4 id="相关系统调用"><strong>4. 相关系统调用</strong></h4>
+<ul>
+<li><code>close(int fd)</code>：关闭文件描述符。</li>
+<li><code>read(int fd, void *buf, size_t count)</code>：从文件读取数据。</li>
+<li><code>write(int fd, const void *buf, size_t count)</code>：向文件写入数据。</li>
+<li><code>lseek(int fd, off_t offset, int whence)</code>：移动文件读写位置。</li>
+<li><code>creat(const char *pathname, mode_t mode)</code>：等价于
+<code>open(pathname, O_CREAT | O_WRONLY | O_TRUNC, mode)</code>。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 打开文件（不存在则创建，存在则截断）</span></span><br><span class="line">    <span class="type">int</span> fd = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>, O_RDWR | O_CREAT | O_TRUNC, <span class="number">0644</span>);</span><br><span class="line">    <span class="keyword">if</span> (fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;open failed&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写入数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *data = <span class="string">&quot;Hello, open()!\n&quot;</span>;</span><br><span class="line">    <span class="type">ssize_t</span> bytes_written = <span class="built_in">write</span>(fd, data, <span class="built_in">strlen</span>(data));</span><br><span class="line">    <span class="keyword">if</span> (bytes_written == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;write failed&quot;</span>);</span><br><span class="line">        <span class="built_in">close</span>(fd);</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移动文件指针到开头</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">lseek</span>(fd, <span class="number">0</span>, SEEK_SET) == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;lseek failed&quot;</span>);</span><br><span class="line">        <span class="built_in">close</span>(fd);</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取数据</span></span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">100</span>];</span><br><span class="line">    <span class="type">ssize_t</span> bytes_read = <span class="built_in">read</span>(fd, buffer, <span class="built_in">sizeof</span>(buffer) - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (bytes_read == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;read failed&quot;</span>);</span><br><span class="line">        <span class="built_in">close</span>(fd);</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line">    buffer[bytes_read] = <span class="string">&#x27;\0&#x27;</span>;  <span class="comment">// 确保字符串以 &#x27;\0&#x27; 结尾</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read: %s&quot;</span>, buffer);</span><br><span class="line">    <span class="built_in">close</span>(fd);  <span class="comment">// 关闭文件描述符</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="二、C-标准库中的文件操作"><strong>二、C++ 标准库中的文件操作</strong></h3>
-<p>C++ 提供了更高级的文件流类，基于对象和异常处理，避免了直接使用系统调用的复杂性。</p>
-<h4 id="1-fstream-库（推荐方案）"><strong>1. <code>&lt;fstream&gt;</code> 库（推荐方案）</strong></h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>主要类</p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>std::ifstream</code>：输入文件流（只读）。</li>
-<li class="lvl-4"><code>std::ofstream</code>：输出文件流（只写）。</li>
-<li class="lvl-4"><code>std::fstream</code>：输入 / 输出文件流（读写）。</li>
-</ul>
-</li>
+<h3 id="二c-标准库中的文件操作"><strong>二、C++
+标准库中的文件操作</strong></h3>
+<p>C++
+提供了更高级的文件流类，基于对象和异常处理，避免了直接使用系统调用的复杂性。</p>
+<h4 id="fstream-库推荐方案"><strong>1. <code>&lt;fstream&gt;</code>
+库（推荐方案）</strong></h4>
+<ul>
+<li>主要类
+<ul>
+<li><code>std::ifstream</code>：输入文件流（只读）。</li>
+<li><code>std::ofstream</code>：输出文件流（只写）。</li>
+<li><code>std::fstream</code>：输入 / 输出文件流（读写）。</li>
+</ul></li>
 </ul>
 <p><strong>示例：打开文件并读写</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 打开文件（不存在则创建，存在则截断）</span></span><br><span class="line">    <span class="function">std::ofstream <span class="title">outfile</span><span class="params">(<span class="string">&quot;test.txt&quot;</span>, std::ios::out | std::ios::trunc)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (!outfile.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;Failed to open file!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写入数据</span></span><br><span class="line">    outfile &lt;&lt; <span class="string">&quot;Hello, C++ file stream!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    outfile.<span class="built_in">close</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取文件</span></span><br><span class="line">    <span class="function">std::ifstream <span class="title">infile</span><span class="params">(<span class="string">&quot;test.txt&quot;</span>)</span></span>;</span><br><span class="line">    std::string line;</span><br><span class="line">    <span class="keyword">if</span> (infile.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (std::<span class="built_in">getline</span>(infile, line)) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;Read: &quot;</span> &lt;&lt; line &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">        infile.<span class="built_in">close</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-文件打开模式（std-ios-base-openmode）"><strong>2. 文件打开模式（<code>std::ios_base::openmode</code>）</strong></h4>
+<h4 id="文件打开模式stdios_baseopenmode"><strong>2.
+文件打开模式（<code>std::ios_base::openmode</code>）</strong></h4>
 <table>
 <thead>
 <tr>
@@ -379,21 +362,19 @@
 </tr>
 </tbody>
 </table>
-<h3 id="三、C-17-及以后的文件系统库（-filesystem-）"><strong>三、C++17 及以后的文件系统库（<code>&lt;filesystem&gt;</code>）</strong></h3>
-<p>C++17 引入了更现代化的文件系统操作 API，提供路径处理、文件状态检查等功能。</p>
-<h4 id="1-文件操作示例"><strong>1. 文件操作示例</strong></h4>
+<h3 id="三c17-及以后的文件系统库filesystem"><strong>三、C++17
+及以后的文件系统库（<code>&lt;filesystem&gt;</code>）</strong></h3>
+<p>C++17 引入了更现代化的文件系统操作
+API，提供路径处理、文件状态检查等功能。</p>
+<h4 id="文件操作示例"><strong>1. 文件操作示例</strong></h4>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fs::path filePath = <span class="string">&quot;test.txt&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建文件并写入</span></span><br><span class="line">    <span class="keyword">if</span> (std::ofstream <span class="built_in">file</span>(filePath); file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        file &lt;&lt; <span class="string">&quot;Hello, C++17 filesystem!&quot;</span>;</span><br><span class="line">        file.<span class="built_in">close</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查文件状态</span></span><br><span class="line">    <span class="keyword">if</span> (fs::<span class="built_in">exists</span>(filePath)) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;File size: &quot;</span> &lt;&lt; fs::<span class="built_in">file_size</span>(filePath) &lt;&lt; <span class="string">&quot; bytes&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        fs::<span class="built_in">remove</span>(filePath);  <span class="comment">// 删除文件</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-优势"><strong>2. 优势</strong></h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>跨平台</strong>：自动处理不同操作系统的路径分隔符（如 <code>/</code> 和 <code>\</code>）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>异常安全</strong>：使用 RAII 管理资源，避免手动关闭文件。</p>
-</li>
-<li class="lvl-2">
-<p><strong>功能丰富</strong>：支持文件遍历、权限管理、硬链接操作等。</p>
-</li>
+<h4 id="优势"><strong>2. 优势</strong></h4>
+<ul>
+<li><strong>跨平台</strong>：自动处理不同操作系统的路径分隔符（如
+<code>/</code> 和 <code>\</code>）。</li>
+<li><strong>异常安全</strong>：使用 RAII
+管理资源，避免手动关闭文件。</li>
+<li><strong>功能丰富</strong>：支持文件遍历、权限管理、硬链接操作等。</li>
 </ul>
 
     </div>
@@ -482,7 +463,12 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81open-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%88Unix-Linux%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、open() 系统调用（Unix&#x2F;Linux）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.1.</span> <span class="nav-text">1. 核心知识点回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.2.</span> <span class="nav-text">2. 关键标志位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">3. 错误处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">4. 相关系统调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81C-%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">二、C++ 标准库中的文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-fstream-%E5%BA%93%EF%BC%88%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. &lt;fstream&gt; 库（推荐方案）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%A8%A1%E5%BC%8F%EF%BC%88std-ios-base-openmode%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 文件打开模式（std::ios_base::openmode）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81C-17-%E5%8F%8A%E4%BB%A5%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%BA%93%EF%BC%88-filesystem-%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、C++17 及以后的文件系统库（&lt;filesystem&gt;）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">1. 文件操作示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BC%98%E5%8A%BF"><span class="nav-number">3.2.</span> <span class="nav-text">2. 优势</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80open-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8unixlinux"><span class="nav-number">1.</span> <span class="nav-text">一、open()
+系统调用（Unix&#x2F;Linux）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.1.</span> <span class="nav-text">1. 核心知识点回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.2.</span> <span class="nav-text">2. 关键标志位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">3. 错误处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">4. 相关系统调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cc-%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">二、C++
+标准库中的文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fstream-%E5%BA%93%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">1. &lt;fstream&gt;
+库（推荐方案）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%A8%A1%E5%BC%8Fstdios_baseopenmode"><span class="nav-number">2.2.</span> <span class="nav-text">2.
+文件打开模式（std::ios_base::openmode）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89c17-%E5%8F%8A%E4%BB%A5%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%BA%93filesystem"><span class="nav-number">3.</span> <span class="nav-text">三、C++17
+及以后的文件系统库（&lt;filesystem&gt;）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">1. 文件操作示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">3.2.</span> <span class="nav-text">2. 优势</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -498,7 +484,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -559,7 +545,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

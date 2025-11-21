@@ -210,14 +210,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -229,136 +229,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p>回填技术是<strong>编译器语义分析</strong>阶段（特别是您列出的第 6 章，处理条件语句和循环语句时）用于<strong>生成中间代码</strong>的一种高效方法，专门用来处理<strong>跳转指令</strong>中的<strong>地址问题</strong>。</p>
-<h3 id="📌-核心问题：为什么需要回填？">📌 核心问题：为什么需要回填？</h3>
-<p>在生成条件语句（<code>if-else</code>）和循环语句（<code>while</code>）的中间代码（如三地址码）时，会涉及到大量的<strong>跳转指令</strong>（如 <code>goto L</code> 或 <code>if_false E goto L</code>）。</p>
-<p><strong>问题在于：</strong> 当编译器遇到一个跳转指令时，它往往并不知道该指令应该跳向的<strong>目标标签 $L$</strong> 在代码中的<strong>具体地址</strong>（行号或偏移量）。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>例如：</strong> 在翻译 <code>if (E) S1 else S2;</code> 时，当我们生成 <code>if_false E goto L_else</code> 这条指令时，我们还没有开始翻译 $S2$，所以我们不知道 $L_{else}$（$S2$ 的起始地址）在哪里。</p>
-</li>
+<p>回填技术是<strong>编译器语义分析</strong>阶段（特别是您列出的第 6
+章，处理条件语句和循环语句时）用于<strong>生成中间代码</strong>的一种高效方法，专门用来处理<strong>跳转指令</strong>中的<strong>地址问题</strong>。</p>
+<h3 id="核心问题为什么需要回填">📌 核心问题：为什么需要回填？</h3>
+<p>在生成条件语句（<code>if-else</code>）和循环语句（<code>while</code>）的中间代码（如三地址码）时，会涉及到大量的<strong>跳转指令</strong>（如
+<code>goto L</code> 或 <code>if_false E goto L</code>）。</p>
+<p><strong>问题在于：</strong>
+当编译器遇到一个跳转指令时，它往往并不知道该指令应该跳向的<strong>目标标签
+<span class="math inline"><em>L</em></span></strong>
+在代码中的<strong>具体地址</strong>（行号或偏移量）。</p>
+<ul>
+<li><strong>例如：</strong> 在翻译 <code>if (E) S1 else S2;</code>
+时，当我们生成 <code>if_false E goto L_else</code>
+这条指令时，我们还没有开始翻译 <span
+class="math inline"><em>S</em>2</span>，所以我们不知道 <span
+class="math inline"><em>L</em><sub><em>e</em><em>l</em><em>s</em><em>e</em></sub></span>（<span
+class="math inline"><em>S</em>2</span> 的起始地址）在哪里。</li>
 </ul>
-<h3 id="💡-回填技术的核心思想">💡 回填技术的核心思想</h3>
+<h3 id="回填技术的核心思想">💡 回填技术的核心思想</h3>
 <p>与其在不知道目标地址时就生成错误的地址或占位符，回填技术采取了以下策略：</p>
-<ol>
-<li class="lvl-4">
-<p><strong>生成跳转指令时，先留空目标地址。</strong></p>
-</li>
-<li class="lvl-4">
-<p><strong>记录</strong>下哪些跳转指令的目标地址是<strong>未知的</strong>。</p>
-</li>
-<li class="lvl-4">
-<p><strong>当目标地址最终确定时</strong>（即遇到目标标签时），回到（<strong>回填</strong>）所有记录下的跳转指令，将它们的地址信息填上。</p>
-</li>
+<ol type="1">
+<li><strong>生成跳转指令时，先留空目标地址。</strong></li>
+<li><strong>记录</strong>下哪些跳转指令的目标地址是<strong>未知的</strong>。</li>
+<li><strong>当目标地址最终确定时</strong>（即遇到目标标签时），回到（<strong>回填</strong>）所有记录下的跳转指令，将它们的地址信息填上。</li>
 </ol>
-<h3 id="🛠️-回填技术的实现机制">🛠️ 回填技术的实现机制</h3>
+<h3 id="回填技术的实现机制">🛠️ 回填技术的实现机制</h3>
 <p>回填技术依赖于三个主要的<strong>链表（List）</strong>：</p>
-<h4 id="1-真出口链-True-List-T">1. 真出口链 (True List, $T$)</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>用途：</strong> 存储所有**“当条件为真时”**需要跳转的指令的地址（行号）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>示例：</strong> <code>if (A or B)</code>，如果 $A$ 或 $B$ 为真，我们需要跳转到执行体（$S$）的起始处。</p>
-</li>
+<h4 id="真出口链-true-list-t">1. 真出口链 (True List, <span
+class="math inline"><em>T</em></span>)</h4>
+<ul>
+<li><strong>用途：</strong>
+存储所有<strong>“当条件为真时”</strong>需要跳转的指令的地址（行号）。</li>
+<li><strong>示例：</strong> <code>if (A or B)</code>，如果 <span
+class="math inline"><em>A</em></span> 或 <span
+class="math inline"><em>B</em></span> 为真，我们需要跳转到执行体（<span
+class="math inline"><em>S</em></span>）的起始处。</li>
 </ul>
-<h4 id="2-假出口链-False-List-F">2. 假出口链 (False List, $F$)</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>用途：</strong> 存储所有**“当条件为假时”**需要跳转的指令的地址（行号）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>示例：</strong> <code>if (E) S1 else S2;</code>，如果 $E$ 为假，我们需要跳转到 $S2$ 的起始处。</p>
-</li>
+<h4 id="假出口链-false-list-f">2. 假出口链 (False List, <span
+class="math inline"><em>F</em></span>)</h4>
+<ul>
+<li><strong>用途：</strong>
+存储所有<strong>“当条件为假时”</strong>需要跳转的指令的地址（行号）。</li>
+<li><strong>示例：</strong> <code>if (E) S1 else S2;</code>，如果 <span
+class="math inline"><em>E</em></span> 为假，我们需要跳转到 <span
+class="math inline"><em>S</em>2</span> 的起始处。</li>
 </ul>
-<h4 id="3-下一语句链-Next-List-N">3. 下一语句链 (Next List, $N$)</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>用途：</strong> 存储所有**“执行完当前语句后”<strong>需要跳到当前语句</strong>后面**的指令的地址。</p>
-</li>
-<li class="lvl-2">
-<p><strong>示例：</strong> 执行完 <code>if (E) S1</code> 中的 $S1$ 后，需要无条件跳转到整个 <code>if-else</code> 语句的末尾。</p>
-</li>
+<h4 id="下一语句链-next-list-n">3. 下一语句链 (Next List, <span
+class="math inline"><em>N</em></span>)</h4>
+<ul>
+<li><strong>用途：</strong>
+存储所有<strong>“执行完当前语句后”</strong>需要跳到当前语句<strong>后面</strong>的指令的地址。</li>
+<li><strong>示例：</strong> 执行完 <code>if (E) S1</code> 中的 <span
+class="math inline"><em>S</em>1</span> 后，需要无条件跳转到整个
+<code>if-else</code> 语句的末尾。</li>
 </ul>
-<h4 id="核心操作：backpatch-list-target-address">核心操作：<code>backpatch(list, target_address)</code></h4>
+<h4
+id="核心操作backpatchlist-target_address">核心操作：<code>backpatch(list, target_address)</code></h4>
 <p>这是一个函数，用于执行真正的回填操作：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>它接收一个<strong>指令地址链表</strong> (<code>list</code>) 和一个确定的<strong>目标地址</strong> (<code>target_address</code>)。</p>
-</li>
-<li class="lvl-2">
-<p>它遍历 <code>list</code> 中的每一个地址 $i$，然后将<strong>第 $i$ 条指令</strong>中的跳转目标地址域<strong>填入 $target_address$</strong>。</p>
-</li>
+<ul>
+<li>它接收一个<strong>指令地址链表</strong> (<code>list</code>)
+和一个确定的<strong>目标地址</strong>
+(<code>target_address</code>)。</li>
+<li>它遍历 <code>list</code> 中的每一个地址 <span
+class="math inline"><em>i</em></span>，然后将<strong>第 <span
+class="math inline"><em>i</em></span>
+条指令</strong>中的跳转目标地址域<strong>填入 <span
+class="math inline"><em>t</em><em>a</em><em>r</em><em>g</em><em>e</em><em>t</em>_<em>a</em><em>d</em><em>d</em><em>r</em><em>e</em><em>s</em><em>s</em></span></strong>。</li>
 </ul>
-<h3 id="📝-典型应用：if-E-S1-else-S2-的翻译">📝 典型应用：<code>if (E) S1 else S2;</code> 的翻译</h3>
+<h3 id="典型应用if-e-s1-else-s2-的翻译">📝
+典型应用：<code>if (E) S1 else S2;</code> 的翻译</h3>
 <p>以您 6.6 节的 <code>if-then-else</code> 语句为例：</p>
 <table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
 <tr>
-<th style="text-align:left">步骤</th>
-<th style="text-align:left">语义动作 / 生成的代码</th>
-<th style="text-align:left">链表操作</th>
-<th style="text-align:left">状态</th>
+<th style="text-align: left;">步骤</th>
+<th style="text-align: left;">语义动作 / 生成的代码</th>
+<th style="text-align: left;">链表操作</th>
+<th style="text-align: left;">状态</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>1. 翻译 $E$</strong></td>
-<td style="text-align:left"><code>t1 = ...</code> (表达式代码)</td>
-<td style="text-align:left">$E$ 产生两个链：$E.T$ (真出口) 和 $E.F$ (假出口)</td>
-<td style="text-align:left">$E.T$ 指令需要跳到 $S1$</td>
+<td style="text-align: left;"><strong>1. 翻译 <span
+class="math inline"><em>E</em></span></strong></td>
+<td style="text-align: left;"><code>t1 = ...</code> (表达式代码)</td>
+<td style="text-align: left;"><span
+class="math inline"><em>E</em></span> 产生两个链：<span
+class="math inline"><em>E</em>.<em>T</em></span> (真出口) 和 <span
+class="math inline"><em>E</em>.<em>F</em></span> (假出口)</td>
+<td style="text-align: left;"><span
+class="math inline"><em>E</em>.<em>T</em></span> 指令需要跳到 <span
+class="math inline"><em>S</em>1</span></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>2. 遇到 $S1$ 开始</strong></td>
-<td style="text-align:left"><strong>记录当前代码行号 $L_{S1}$</strong></td>
-<td style="text-align:left"><strong>回填 $E.T$</strong>：`backpatch(E.T, L_{S1})$</td>
-<td style="text-align:left">$E$ 为真时的跳转目标确定！</td>
+<td style="text-align: left;"><strong>2. 遇到 <span
+class="math inline"><em>S</em>1</span> 开始</strong></td>
+<td style="text-align: left;"><strong>记录当前代码行号 <span
+class="math inline"><em>L</em><sub><em>S</em>1</sub></span></strong></td>
+<td style="text-align: left;"><strong>回填 <span
+class="math inline"><em>E</em>.<em>T</em></span></strong>：<code>backpatch(E.T, L_{S1})$ | $E$ 为真时的跳转目标确定！ | | **3. 翻译 $S1$** |</code>S1<code>的中间代码 | $S1$ 产生一个 $S1.N$ 链（无条件跳转） | $S1.N$ 需要跳到整个语句末尾 | | **4. $S1$ 结束，无条件跳转** | 生成</code>goto
+__<em><code>指令，地址留空 | 将此指令的地址加入 $S1.N$ 链 | $S1.N$ 现在包含 $S1$ 后的</code>goto<code>| | **5. 遇到 $S2$ 开始** | **记录当前代码行号 $L_{S2}$** | **回填 $E.F$**：</code>backpatch(E.F,
+L</em>{S2})$</td>
+<td style="text-align: left;"><span
+class="math inline"><em>E</em></span> 为假时的跳转目标确定！</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>3. 翻译 $S1$</strong></td>
-<td style="text-align:left"><code>S1</code> 的中间代码</td>
-<td style="text-align:left">$S1$ 产生一个 $S1.N$ 链（无条件跳转）</td>
-<td style="text-align:left">$S1.N$ 需要跳到整个语句末尾</td>
+<td style="text-align: left;"><strong>6. 翻译 <span
+class="math inline"><em>S</em>2</span></strong></td>
+<td style="text-align: left;"><code>S2</code> 的中间代码</td>
+<td style="text-align: left;"><span
+class="math inline"><em>S</em>2</span> 产生一个 <span
+class="math inline"><em>S</em>2.<em>N</em></span> 链</td>
+<td style="text-align: left;"><span
+class="math inline"><em>S</em>2.<em>N</em></span>
+需要跳到整个语句末尾</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>4. $S1$ 结束，无条件跳转</strong></td>
-<td style="text-align:left">生成 <code>goto ___</code> 指令，地址留空</td>
-<td style="text-align:left">将此指令的地址加入 $S1.N$ 链</td>
-<td style="text-align:left">$S1.N$ 现在包含 $S1$ 后的 <code>goto</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>5. 遇到 $S2$ 开始</strong></td>
-<td style="text-align:left"><strong>记录当前代码行号 $L_{S2}$</strong></td>
-<td style="text-align:left"><strong>回填 $E.F$</strong>：`backpatch(E.F, L_{S2})$</td>
-<td style="text-align:left">$E$ 为假时的跳转目标确定！</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>6. 翻译 $S2$</strong></td>
-<td style="text-align:left"><code>S2</code> 的中间代码</td>
-<td style="text-align:left">$S2$ 产生一个 $S2.N$ 链</td>
-<td style="text-align:left">$S2.N$ 需要跳到整个语句末尾</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>7. 语句结束</strong></td>
-<td style="text-align:left"><strong>记录当前代码行号 $L_{end}$</strong></td>
-<td style="text-align:left"><strong>合并 $S1.N$ 和 $S2.N$</strong> 成一个 $D.N$ 链。<strong>回填 $D.N$</strong>：`backpatch(D.N, L_{end})$</td>
-<td style="text-align:left">整个语句结束后的跳转目标确定！</td>
+<td style="text-align: left;"><strong>7. 语句结束</strong></td>
+<td style="text-align: left;"><strong>记录当前代码行号 <span
+class="math inline"><em>L</em><sub><em>e</em><em>n</em><em>d</em></sub></span></strong></td>
+<td style="text-align: left;"><strong>合并 <span
+class="math inline"><em>S</em>1.<em>N</em></span> 和 <span
+class="math inline"><em>S</em>2.<em>N</em></span></strong> 成一个 <span
+class="math inline"><em>D</em>.<em>N</em></span> 链。<strong>回填 <span
+class="math inline"><em>D</em>.<em>N</em></span></strong>：`backpatch(D.N,
+L_{end})$</td>
+<td style="text-align: left;">整个语句结束后的跳转目标确定！</td>
 </tr>
 </tbody>
 </table>
-<h3 id="✅-回填技术的优点">✅ 回填技术的优点</h3>
-<ol>
-<li class="lvl-4">
-<p><strong>单遍扫描 (One-Pass)：</strong> 允许编译器在<strong>一次性</strong>读取和处理源代码时就生成控制流代码，而不需要进行二次扫描或复杂的符号表查找。</p>
-</li>
-<li class="lvl-4">
-<p><strong>地址无关：</strong> 在生成跳转指令时，不必关心目标地址的具体数值，简化了代码生成过程。</p>
-</li>
-<li class="lvl-4">
-<p><strong>适用于 SDT：</strong> 它与<strong>语法制导翻译 (SDT)</strong> 的自顶向下或自底向上方法结合得非常好，特别是当编译器结构化地遍历语法树时。</p>
-</li>
+<h3 id="回填技术的优点">✅ 回填技术的优点</h3>
+<ol type="1">
+<li><strong>单遍扫描 (One-Pass)：</strong>
+允许编译器在<strong>一次性</strong>读取和处理源代码时就生成控制流代码，而不需要进行二次扫描或复杂的符号表查找。</li>
+<li><strong>地址无关：</strong>
+在生成跳转指令时，不必关心目标地址的具体数值，简化了代码生成过程。</li>
+<li><strong>适用于 SDT：</strong> 它与<strong>语法制导翻译
+(SDT)</strong>
+的自顶向下或自底向上方法结合得非常好，特别是当编译器结构化地遍历语法树时。</li>
 </ol>
 <p>简而言之，<strong>回填技术就是一种“先占位，后填充”的机制，完美解决了在生成跳转指令时“不知道目标地址”的核心问题。</strong></p>
 
@@ -443,7 +461,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%8C-%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9E%E5%A1%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">📌 核心问题：为什么需要回填？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%92%A1-%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">💡 回填技术的核心思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">🛠️ 回填技术的实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%9C%9F%E5%87%BA%E5%8F%A3%E9%93%BE-True-List-T"><span class="nav-number">3.1.</span> <span class="nav-text">1. 真出口链 (True List, $T$)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%81%87%E5%87%BA%E5%8F%A3%E9%93%BE-False-List-F"><span class="nav-number">3.2.</span> <span class="nav-text">2. 假出口链 (False List, $F$)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%8B%E4%B8%80%E8%AF%AD%E5%8F%A5%E9%93%BE-Next-List-N"><span class="nav-number">3.3.</span> <span class="nav-text">3. 下一语句链 (Next List, $N$)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C%EF%BC%9Abackpatch-list-target-address"><span class="nav-number">3.4.</span> <span class="nav-text">核心操作：backpatch(list, target_address)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%EF%BC%9Aif-E-S1-else-S2-%E7%9A%84%E7%BF%BB%E8%AF%91"><span class="nav-number">4.</span> <span class="nav-text">📝 典型应用：if (E) S1 else S2; 的翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">✅ 回填技术的优点</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9E%E5%A1%AB"><span class="nav-number">1.</span> <span class="nav-text">📌 核心问题：为什么需要回填？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">💡 回填技术的核心思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">🛠️ 回填技术的实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%9F%E5%87%BA%E5%8F%A3%E9%93%BE-true-list-t"><span class="nav-number">3.1.</span> <span class="nav-text">1. 真出口链 (True List, T)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%87%E5%87%BA%E5%8F%A3%E9%93%BE-false-list-f"><span class="nav-number">3.2.</span> <span class="nav-text">2. 假出口链 (False List, F)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E4%B8%80%E8%AF%AD%E5%8F%A5%E9%93%BE-next-list-n"><span class="nav-number">3.3.</span> <span class="nav-text">3. 下一语句链 (Next List, N)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9Cbackpatchlist-target_address"><span class="nav-number">3.4.</span> <span class="nav-text">核心操作：backpatch(list, target_address)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8if-e-s1-else-s2-%E7%9A%84%E7%BF%BB%E8%AF%91"><span class="nav-number">4.</span> <span class="nav-text">📝
+典型应用：if (E) S1 else S2; 的翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%A1%AB%E6%8A%80%E6%9C%AF%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">✅ 回填技术的优点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -459,7 +478,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -520,7 +539,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

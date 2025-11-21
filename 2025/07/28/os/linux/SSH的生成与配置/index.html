@@ -220,7 +220,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>816</span>
+              <span>808</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -239,9 +239,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>记录SSH的用法</p>
- <span id="more"></span>
-<h1>SSH的生成与配置</h1>
+        <p>记录SSH的用法 <span id="more"></span></p>
+<h1 id="ssh的生成与配置">SSH的生成与配置</h1>
 <h3 id="生成">生成</h3>
 <p><strong>1.检查Linux中是否有ssh</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检查是否安装</span></span><br><span class="line">ssh -V</span><br><span class="line"></span><br><span class="line"><span class="comment">#检查是否正在运行</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status sshd </span><br><span class="line"></span><br><span class="line"><span class="comment">#启动ssh</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl start sshd</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置为开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> sshd</span><br></pre></td></tr></table></figure>
@@ -254,27 +253,24 @@
 </blockquote>
 <p><strong>法一:</strong><code>ssh-copy-id</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~/.ssh/id_ed25519.pub 用户名@服务器IP</span><br></pre></td></tr></table></figure>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>无参数 i 会默认尝试复制当前用户目录下的默认公钥文件（通常是 <code>~/.ssh/id_rsa.pub</code>，如果存在的话）</p>
-</li>
+<ul>
+<li>无参数 i 会默认尝试复制当前用户目录下的默认公钥文件（通常是
+<code>~/.ssh/id_rsa.pub</code>，如果存在的话）</li>
 </ul>
-<p>**法二:**手动上传</p>
+<p><strong>法二:</strong>手动上传</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将本地公钥内容传到服务器的authorized_keys</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_ed25519.pub | ssh 用户名@服务器IP <span class="string">&quot;cat &gt;&gt; ~/.ssh/authorized_keys &amp;&amp; chmod 600 ~/.ssh/authorized_keys&quot;</span></span><br></pre></td></tr></table></figure>
-<p>**法三:**使用scp</p>
+<p><strong>法三:</strong>使用scp</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ~/.ssh/本地公钥文件名 远程用户名@远程服务器IP:~/目标路径</span><br></pre></td></tr></table></figure>
 <p>之后再把传输过去的公钥写入<code>authorized_keys</code>文件中</p>
 <h3 id="常见问题解决"><strong>常见问题解决</strong></h3>
-<ol>
-<li class="lvl-3">
-<p><strong>权限错误</strong>：若提示 “Permission denied”，检查服务器<code>~/.ssh</code>和<code>authorized_keys</code>的权限是否为 700 和 600。</p>
-</li>
-<li class="lvl-3">
-<p><strong>端口问题</strong>：服务器 SSH 端口非默认时，连接需指定端口：<code>ssh -p 2222 用户名@IP</code>，或在<code>config</code>中配置<code>Port</code>。</p>
-</li>
-<li class="lvl-3">
-<p><strong>密钥未生效</strong>：重启服务器 SSH 服务：<code>sudo systemctl restart sshd</code>（Linux）。</p>
-</li>
+<ol type="1">
+<li><strong>权限错误</strong>： 若提示 “Permission
+denied”，检查服务器<code>~/.ssh</code>和<code>authorized_keys</code>的权限是否为
+700 和 600。</li>
+<li><strong>端口问题</strong>： 服务器 SSH
+端口非默认时，连接需指定端口：<code>ssh -p 2222 用户名@IP</code>，或在<code>config</code>中配置<code>Port</code>。</li>
+<li><strong>密钥未生效</strong>： 重启服务器 SSH
+服务：<code>sudo systemctl restart sshd</code>（Linux）。</li>
 </ol>
 
     </div>
@@ -363,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">SSH的生成与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.0.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">1.0.3.</span> <span class="nav-text">常见问题解决</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh%E7%9A%84%E7%94%9F%E6%88%90%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">SSH的生成与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.0.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">1.0.3.</span> <span class="nav-text">常见问题解决</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -379,7 +375,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -440,7 +436,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

@@ -211,14 +211,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.1k</span>
+              <span>6.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -230,379 +230,443 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<h1>多维随机变量及其分布知识点整理</h1>
-<h2 id="一、多维随机变量的基本概念">一、多维随机变量的基本概念</h2>
-<h3 id="1-1-多维随机变量的定义">1.1 多维随机变量的定义</h3>
-<p>设$E$是一个随机试验，样本空间为$S={e}$。设$X_1=X_1(e), X_2=X_2(e), \ldots, X_n=X_n(e)$是定义在$S$上的$n$个随机变量，由它们构成的一个$n$维向量$(X_1, X_2, \ldots, X_n)$称为$n$维随机向量或$n$维随机变量。</p>
-<h3 id="1-2-联合分布函数">1.2 联合分布函数</h3>
+<h1
+id="多维随机变量及其分布知识点整理">多维随机变量及其分布知识点整理</h1>
+<h2 id="一多维随机变量的基本概念">一、多维随机变量的基本概念</h2>
+<h3 id="多维随机变量的定义">1.1 多维随机变量的定义</h3>
+<p>设<span
+class="math inline"><em>E</em></span>是一个随机试验，样本空间为<span
+class="math inline"><em>S</em> = {<em>e</em>}</span>。设<span
+class="math inline"><em>X</em><sub>1</sub> = <em>X</em><sub>1</sub>(<em>e</em>), <em>X</em><sub>2</sub> = <em>X</em><sub>2</sub>(<em>e</em>), …, <em>X</em><sub><em>n</em></sub> = <em>X</em><sub><em>n</em></sub>(<em>e</em>)</span>是定义在<span
+class="math inline"><em>S</em></span>上的<span
+class="math inline"><em>n</em></span>个随机变量，由它们构成的一个<span
+class="math inline"><em>n</em></span>维向量<span
+class="math inline">(<em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>称为<span
+class="math inline"><em>n</em></span>维随机向量或<span
+class="math inline"><em>n</em></span>维随机变量。</p>
+<h3 id="联合分布函数">1.2 联合分布函数</h3>
 <h4 id="定义">定义</h4>
-<p>对于$n$维随机变量$(X_1, X_2, \ldots, X_n)$，$n$元函数：<br>
-$$F(x_1, x_2, \ldots, x_n) = P{X_1 \leq x_1, X_2 \leq x_2, \ldots, X_n \leq x_n}$$<br>
-称为$n$维随机变量$(X_1, X_2, \ldots, X_n)$的联合分布函数。</p>
+<p>对于<span class="math inline"><em>n</em></span>维随机变量<span
+class="math inline">(<em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>，<span
+class="math inline"><em>n</em></span>元函数： <span
+class="math display"><em>F</em>(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub>) = <em>P</em>{<em>X</em><sub>1</sub> ≤ <em>x</em><sub>1</sub>, <em>X</em><sub>2</sub> ≤ <em>x</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub> ≤ <em>x</em><sub><em>n</em></sub>}</span>
+称为<span class="math inline"><em>n</em></span>维随机变量<span
+class="math inline">(<em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>的联合分布函数。</p>
 <h4 id="二维联合分布函数">二维联合分布函数</h4>
-<p>对于二维随机变量$(X, Y)$，联合分布函数为：<br>
-$$F(x, y) = P{X \leq x, Y \leq y}$$</p>
-<h4 id="基本性质（高频考点）">基本性质（高频考点）</h4>
-<ol>
-<li class="lvl-3">
-<p><strong>单调性</strong>：$F(x, y)$是变量$x$和$y$的不减函数</p>
-</li>
-<li class="lvl-3">
-<p><strong>有界性</strong>：$0 \leq F(x, y) \leq 1$</p>
-</li>
-<li class="lvl-3">
-<p><strong>右连续性</strong>：$F(x, y)$关于$x$右连续，关于$y$右连续</p>
-</li>
-<li class="lvl-3">
-<p><strong>边缘极限</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">$F(-\infty, y) = 0$</li>
-<li class="lvl-5">$F(x, -\infty) = 0$</li>
-<li class="lvl-5">$F(-\infty, -\infty) = 0$</li>
-<li class="lvl-5">$F(+\infty, +\infty) = 1$</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>矩形不等式</strong>：对于任意$x_1 &lt; x_2, y_1 &lt; y_2$，有：<br>
-$$F(x_2, y_2) - F(x_1, y_2) - F(x_2, y_1) + F(x_1, y_1) \geq 0$$</p>
-</li>
+<p>对于二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>，联合分布函数为：
+<span
+class="math display"><em>F</em>(<em>x</em>, <em>y</em>) = <em>P</em>{<em>X</em> ≤ <em>x</em>, <em>Y</em> ≤ <em>y</em>}</span></p>
+<h4 id="基本性质高频考点">基本性质（高频考点）</h4>
+<ol type="1">
+<li><strong>单调性</strong>：<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>)</span>是变量<span
+class="math inline"><em>x</em></span>和<span
+class="math inline"><em>y</em></span>的不减函数</li>
+<li><strong>有界性</strong>：<span
+class="math inline">0 ≤ <em>F</em>(<em>x</em>, <em>y</em>) ≤ 1</span></li>
+<li><strong>右连续性</strong>：<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>)</span>关于<span
+class="math inline"><em>x</em></span>右连续，关于<span
+class="math inline"><em>y</em></span>右连续</li>
+<li><strong>边缘极限</strong>：
+<ul>
+<li><span class="math inline"><em>F</em>(−∞, <em>y</em>) = 0</span></li>
+<li><span class="math inline"><em>F</em>(<em>x</em>, −∞) = 0</span></li>
+<li><span class="math inline"><em>F</em>(−∞, −∞) = 0</span></li>
+<li><span class="math inline"><em>F</em>(+∞, +∞) = 1</span></li>
+</ul></li>
+<li><strong>矩形不等式</strong>：对于任意<span
+class="math inline"><em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub>, <em>y</em><sub>1</sub> &lt; <em>y</em><sub>2</sub></span>，有：
+<span
+class="math display"><em>F</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>) − <em>F</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>2</sub>) − <em>F</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>1</sub>) + <em>F</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>) ≥ 0</span></li>
 </ol>
-<p><strong>常考题型</strong>：利用分布函数性质判断是否为 valid 的分布函数</p>
-<h2 id="二、二维离散型随机变量">二、二维离散型随机变量</h2>
-<h3 id="2-1-联合概率分布律">2.1 联合概率分布律</h3>
-<h4 id="定义-2">定义</h4>
-<p>如果二维随机变量$(X, Y)$全部可能取到的不相同的值是有限对或可列无限多对，则称$(X, Y)$是离散型的二维随机变量。</p>
-<p>设$(X, Y)$所有可能取值为$(x_i, y_j)$，$i, j = 1, 2, \ldots$，则：<br>
-$$P{X = x_i, Y = y_j} = p_{ij}, \quad i, j = 1, 2, \ldots$$<br>
-称为二维离散型随机变量$(X, Y)$的联合概率分布律。</p>
+<p><strong>常考题型</strong>：利用分布函数性质判断是否为 valid
+的分布函数</p>
+<h2 id="二二维离散型随机变量">二、二维离散型随机变量</h2>
+<h3 id="联合概率分布律">2.1 联合概率分布律</h3>
+<h4 id="定义-1">定义</h4>
+<p>如果二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>全部可能取到的不相同的值是有限对或可列无限多对，则称<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>是离散型的二维随机变量。</p>
+<p>设<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>所有可能取值为<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>j</em></sub>)</span>，<span
+class="math inline"><em>i</em>, <em>j</em> = 1, 2, …</span>，则： <span
+class="math display"><em>P</em>{<em>X</em> = <em>x</em><sub><em>i</em></sub>, <em>Y</em> = <em>y</em><sub><em>j</em></sub>} = <em>p</em><sub><em>i</em><em>j</em></sub>,  <em>i</em>, <em>j</em> = 1, 2, …</span>
+称为二维离散型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合概率分布律。</p>
 <h4 id="基本性质">基本性质</h4>
-<ol>
-<li class="lvl-3">
-<p><strong>非负性</strong>：$p_{ij} \geq 0$</p>
-</li>
-<li class="lvl-3">
-<p><strong>规范性</strong>：$\sum_{i=1}^{\infty} \sum_{j=1}^{\infty} p_{ij} = 1$</p>
-</li>
+<ol type="1">
+<li><strong>非负性</strong>：<span
+class="math inline"><em>p</em><sub><em>i</em><em>j</em></sub> ≥ 0</span></li>
+<li><strong>规范性</strong>：<span
+class="math inline">$\sum_{i=1}^{\infty} \sum_{j=1}^{\infty} p_{ij} =
+1$</span></li>
 </ol>
-<h3 id="2-2-边缘分布律">2.2 边缘分布律</h3>
-<h4 id="定义-3">定义</h4>
-<p>对于二维离散型随机变量$(X, Y)$：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>$X$的边缘分布律：$p_i = P{X = x_i} = \sum_{j=1}^{\infty} p_{ij}$</p>
-</li>
-<li class="lvl-2">
-<p>$Y$的边缘分布律：$p_j = P{Y = y_j} = \sum_{i=1}^{\infty} p_{ij}$</p>
-</li>
-</ul>
+<h3 id="边缘分布律">2.2 边缘分布律</h3>
+<h4 id="定义-2">定义</h4>
+<p>对于二维离散型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>： - <span
+class="math inline"><em>X</em></span>的边缘分布律：<span
+class="math inline">$p_i = P\{X = x_i\} = \sum_{j=1}^{\infty}
+p_{ij}$</span> - <span
+class="math inline"><em>Y</em></span>的边缘分布律：<span
+class="math inline">$p_j = P\{Y = y_j\} = \sum_{i=1}^{\infty}
+p_{ij}$</span></p>
 <p><strong>重要考点</strong>：联合分布可以确定边缘分布，但边缘分布不能确定联合分布</p>
-<h3 id="2-3-条件分布律">2.3 条件分布律</h3>
-<h4 id="定义-4">定义</h4>
-<p>设$(X, Y)$是二维离散型随机变量，对于固定的$j$，若$P{Y = y_j} &gt; 0$，则：<br>
-$$P{X = x_i | Y = y_j} = \frac{P{X = x_i, Y = y_j}}{P{Y = y_j}} = \frac{p_{ij}}{p_j}, \quad i = 1, 2, \ldots$$<br>
-称为在$Y = y_j$条件下随机变量$X$的条件分布律。</p>
-<p>同理，对于固定的$i$，若$P{X = x_i} &gt; 0$，则：<br>
-$$P{Y = y_j | X = x_i} = \frac{P{X = x_i, Y = y_j}}{P{X = x_i}} = \frac{p_{ij}}{p_i}, \quad j = 1, 2, \ldots$$<br>
-称为在$X = x_i$条件下随机变量$Y$的条件分布律。</p>
+<h3 id="条件分布律">2.3 条件分布律</h3>
+<h4 id="定义-3">定义</h4>
+<p>设<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>是二维离散型随机变量，对于固定的<span
+class="math inline"><em>j</em></span>，若<span
+class="math inline"><em>P</em>{<em>Y</em> = <em>y</em><sub><em>j</em></sub>} &gt; 0</span>，则：
+<span class="math display">$$P\{X = x_i | Y = y_j\} = \frac{P\{X = x_i,
+Y = y_j\}}{P\{Y = y_j\}} = \frac{p_{ij}}{p_j}, \quad i = 1, 2,
+\ldots$$</span> 称为在<span
+class="math inline"><em>Y</em> = <em>y</em><sub><em>j</em></sub></span>条件下随机变量<span
+class="math inline"><em>X</em></span>的条件分布律。</p>
+<p>同理，对于固定的<span class="math inline"><em>i</em></span>，若<span
+class="math inline"><em>P</em>{<em>X</em> = <em>x</em><sub><em>i</em></sub>} &gt; 0</span>，则：
+<span class="math display">$$P\{Y = y_j | X = x_i\} = \frac{P\{X = x_i,
+Y = y_j\}}{P\{X = x_i\}} = \frac{p_{ij}}{p_i}, \quad j = 1, 2,
+\ldots$$</span> 称为在<span
+class="math inline"><em>X</em> = <em>x</em><sub><em>i</em></sub></span>条件下随机变量<span
+class="math inline"><em>Y</em></span>的条件分布律。</p>
 <p><strong>常考题型</strong>：由联合分布律求边缘分布律和条件分布律</p>
-<h2 id="三、二维连续型随机变量">三、二维连续型随机变量</h2>
-<h3 id="3-1-联合概率密度函数">3.1 联合概率密度函数</h3>
-<h4 id="定义-5">定义</h4>
-<p>设二维随机变量$(X, Y)$的分布函数为$F(x, y)$，如果存在非负可积的二元函数$f(x, y)$，使得对于任意实数$x, y$，有：<br>
-$$F(x, y) = \int_{-\infty}^{y} \int_{-\infty}^{x} f(u, v) , du , dv$$<br>
-则称$(X, Y)$是连续型的二维随机变量，函数$f(x, y)$称为二维随机变量$(X, Y)$的联合概率密度函数。</p>
-<h4 id="基本性质（高频考点）-2">基本性质（高频考点）</h4>
-<ol>
-<li class="lvl-3">
-<p><strong>非负性</strong>：$f(x, y) \geq 0$</p>
-</li>
-<li class="lvl-3">
-<p><strong>规范性</strong>：$\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) , dx , dy = 1$</p>
-</li>
-<li class="lvl-3">
-<p><strong>概率计算</strong>：$P{(X, Y) \in G} = \iint_{G} f(x, y) , dx , dy$</p>
-</li>
-<li class="lvl-3">
-<p><strong>导数关系</strong>：在$f(x, y)$的连续点处，有$f(x, y) = \frac{\partial^2 F(x, y)}{\partial x \partial y}$</p>
-</li>
+<h2 id="三二维连续型随机变量">三、二维连续型随机变量</h2>
+<h3 id="联合概率密度函数">3.1 联合概率密度函数</h3>
+<h4 id="定义-4">定义</h4>
+<p>设二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的分布函数为<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>)</span>，如果存在非负可积的二元函数<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>，使得对于任意实数<span
+class="math inline"><em>x</em>, <em>y</em></span>，有： <span
+class="math display"><em>F</em>(<em>x</em>, <em>y</em>) = ∫<sub>−∞</sub><sup><em>y</em></sup>∫<sub>−∞</sub><sup><em>x</em></sup><em>f</em>(<em>u</em>, <em>v</em>) <em>d</em><em>u</em> <em>d</em><em>v</em></span>
+则称<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>是连续型的二维随机变量，函数<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>称为二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合概率密度函数。</p>
+<h4 id="基本性质高频考点-1">基本性质（高频考点）</h4>
+<ol type="1">
+<li><strong>非负性</strong>：<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>) ≥ 0</span></li>
+<li><strong>规范性</strong>：<span
+class="math inline">∫<sub>−∞</sub><sup>∞</sup>∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>y</em>) <em>d</em><em>x</em> <em>d</em><em>y</em> = 1</span></li>
+<li><strong>概率计算</strong>：<span
+class="math inline"><em>P</em>{(<em>X</em>, <em>Y</em>) ∈ <em>G</em>} = ∬<sub><em>G</em></sub><em>f</em>(<em>x</em>, <em>y</em>) <em>d</em><em>x</em> <em>d</em><em>y</em></span></li>
+<li><strong>导数关系</strong>：在<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>的连续点处，有<span
+class="math inline">$f(x, y) = \frac{\partial^2 F(x, y)}{\partial x
+\partial y}$</span></li>
 </ol>
 <p><strong>重要提醒</strong>：概率密度函数可以大于1，这与概率的取值范围不同</p>
-<h3 id="3-2-边缘概率密度">3.2 边缘概率密度</h3>
+<h3 id="边缘概率密度">3.2 边缘概率密度</h3>
+<h4 id="定义-5">定义</h4>
+<p>对于二维连续型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>： - <span
+class="math inline"><em>X</em></span>的边缘概率密度：<span
+class="math inline"><em>f</em><sub><em>X</em></sub>(<em>x</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>y</em>) <em>d</em><em>y</em></span>
+- <span class="math inline"><em>Y</em></span>的边缘概率密度：<span
+class="math inline"><em>f</em><sub><em>Y</em></sub>(<em>y</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>y</em>) <em>d</em><em>x</em></span></p>
+<p><strong>计算要点</strong>： -
+确定积分区域：根据联合概率密度的定义域确定积分上下限 -
+分段函数处理：如果联合概率密度是分段函数，边缘概率密度也一定是分段函数</p>
+<h3 id="条件概率密度">3.3 条件概率密度</h3>
 <h4 id="定义-6">定义</h4>
-<p>对于二维连续型随机变量$(X, Y)$：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>$X$的边缘概率密度：$f_X(x) = \int_{-\infty}^{\infty} f(x, y) , dy$</p>
-</li>
-<li class="lvl-2">
-<p>$Y$的边缘概率密度：$f_Y(y) = \int_{-\infty}^{\infty} f(x, y) , dx$</p>
-</li>
-</ul>
-<p><strong>计算要点</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>确定积分区域：根据联合概率密度的定义域确定积分上下限</p>
-</li>
-<li class="lvl-2">
-<p>分段函数处理：如果联合概率密度是分段函数，边缘概率密度也一定是分段函数</p>
-</li>
-</ul>
-<h3 id="3-3-条件概率密度">3.3 条件概率密度</h3>
-<h4 id="定义-7">定义</h4>
-<p>设二维连续型随机变量$(X, Y)$的联合概率密度为$f(x, y)$，边缘概率密度分别为$f_X(x)$和$f_Y(y)$：</p>
-<p>对于固定的$y$，若$f_Y(y) &gt; 0$，则：<br>
-$$f_{X|Y}(x|y) = \frac{f(x, y)}{f_Y(y)}$$<br>
-称为在$Y = y$条件下$X$的条件概率密度。</p>
-<p>对于固定的$x$，若$f_X(x) &gt; 0$，则：<br>
-$$f_{Y|X}(y|x) = \frac{f(x, y)}{f_X(x)}$$<br>
-称为在$X = x$条件下$Y$的条件概率密度。</p>
-<p>相应的条件分布函数为：<br>
-$$F_{X|Y}(x|y) = \int_{-\infty}^{x} \frac{f(u, y)}{f_Y(y)} , du$$<br>
-$$F_{Y|X}(y|x) = \int_{-\infty}^{y} \frac{f(x, v)}{f_X(x)} , dv$$</p>
-<p><strong>常考题型</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p>由联合概率密度求边缘概率密度</p>
-</li>
-<li class="lvl-3">
-<p>计算条件概率密度</p>
-</li>
-<li class="lvl-3">
-<p>利用条件概率密度求条件概率</p>
-</li>
-</ol>
-<h2 id="四、随机变量的独立性">四、随机变量的独立性</h2>
-<h3 id="4-1-独立性定义">4.1 独立性定义</h3>
+<p>设二维连续型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合概率密度为<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>，边缘概率密度分别为<span
+class="math inline"><em>f</em><sub><em>X</em></sub>(<em>x</em>)</span>和<span
+class="math inline"><em>f</em><sub><em>Y</em></sub>(<em>y</em>)</span>：</p>
+<p>对于固定的<span class="math inline"><em>y</em></span>，若<span
+class="math inline"><em>f</em><sub><em>Y</em></sub>(<em>y</em>) &gt; 0</span>，则：
+<span class="math display">$$f_{X|Y}(x|y) = \frac{f(x,
+y)}{f_Y(y)}$$</span> 称为在<span
+class="math inline"><em>Y</em> = <em>y</em></span>条件下<span
+class="math inline"><em>X</em></span>的条件概率密度。</p>
+<p>对于固定的<span class="math inline"><em>x</em></span>，若<span
+class="math inline"><em>f</em><sub><em>X</em></sub>(<em>x</em>) &gt; 0</span>，则：
+<span class="math display">$$f_{Y|X}(y|x) = \frac{f(x,
+y)}{f_X(x)}$$</span> 称为在<span
+class="math inline"><em>X</em> = <em>x</em></span>条件下<span
+class="math inline"><em>Y</em></span>的条件概率密度。</p>
+<p>相应的条件分布函数为： <span class="math display">$$F_{X|Y}(x|y) =
+\int_{-\infty}^{x} \frac{f(u, y)}{f_Y(y)} \, du$$</span> <span
+class="math display">$$F_{Y|X}(y|x) = \int_{-\infty}^{y} \frac{f(x,
+v)}{f_X(x)} \, dv$$</span></p>
+<p><strong>常考题型</strong>： 1. 由联合概率密度求边缘概率密度 2.
+计算条件概率密度 3. 利用条件概率密度求条件概率</p>
+<h2 id="四随机变量的独立性">四、随机变量的独立性</h2>
+<h3 id="独立性定义">4.1 独立性定义</h3>
 <h4 id="一般定义">一般定义</h4>
-<p>设$F(x, y)$及$F_X(x)$，$F_Y(y)$分别是二维随机变量$(X, Y)$的联合分布函数及边缘分布函数。若对于所有$x, y$有：<br>
-$$F(x, y) = F_X(x) F_Y(y)$$<br>
-则称随机变量$X$和$Y$是相互独立的。</p>
+<p>设<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>)</span>及<span
+class="math inline"><em>F</em><sub><em>X</em></sub>(<em>x</em>)</span>，<span
+class="math inline"><em>F</em><sub><em>Y</em></sub>(<em>y</em>)</span>分别是二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合分布函数及边缘分布函数。若对于所有<span
+class="math inline"><em>x</em>, <em>y</em></span>有： <span
+class="math display"><em>F</em>(<em>x</em>, <em>y</em>) = <em>F</em><sub><em>X</em></sub>(<em>x</em>)<em>F</em><sub><em>Y</em></sub>(<em>y</em>)</span>
+则称随机变量<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>是相互独立的。</p>
 <h4 id="离散型情况">离散型情况</h4>
-<p>对于二维离散型随机变量$(X, Y)$，$X$和$Y$相互独立的充要条件是：<br>
-$$p_{ij} = p_i p_j, \quad \forall i, j$$</p>
+<p>对于二维离散型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>，<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立的充要条件是： <span
+class="math display"><em>p</em><sub><em>i</em><em>j</em></sub> = <em>p</em><sub><em>i</em></sub><em>p</em><sub><em>j</em></sub>,  ∀<em>i</em>, <em>j</em></span></p>
 <h4 id="连续型情况">连续型情况</h4>
-<p>对于二维连续型随机变量$(X, Y)$，$X$和$Y$相互独立的充要条件是：<br>
-$$f(x, y) = f_X(x) f_Y(y), \quad \text{几乎处处成立}$$</p>
-<h3 id="4-2-独立性的重要性质（高频考点）">4.2 独立性的重要性质（高频考点）</h3>
-<ol>
-<li class="lvl-3">
-<p><strong>函数独立性</strong>：若$X$和$Y$相互独立，则它们的函数$g(X)$和$h(Y)$也相互独立</p>
-</li>
-<li class="lvl-3">
-<p><strong>多维推广</strong>：若$X_1, X_2, \ldots, X_n$相互独立，则其中任意$k$个随机变量也相互独立</p>
-</li>
-<li class="lvl-3">
-<p><strong>期望性质</strong>：若$X$和$Y$相互独立，则$E[XY] = E[X]E[Y]$</p>
-</li>
-<li class="lvl-3">
-<p><strong>方差性质</strong>：若$X$和$Y$相互独立，则$D(X + Y) = D(X) + D(Y)$</p>
-</li>
+<p>对于二维连续型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>，<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立的充要条件是： <span
+class="math display"><em>f</em>(<em>x</em>, <em>y</em>) = <em>f</em><sub><em>X</em></sub>(<em>x</em>)<em>f</em><sub><em>Y</em></sub>(<em>y</em>),  几乎处处成立</span></p>
+<h3 id="独立性的重要性质高频考点">4.2 独立性的重要性质（高频考点）</h3>
+<ol type="1">
+<li><strong>函数独立性</strong>：若<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，则它们的函数<span
+class="math inline"><em>g</em>(<em>X</em>)</span>和<span
+class="math inline"><em>h</em>(<em>Y</em>)</span>也相互独立</li>
+<li><strong>多维推广</strong>：若<span
+class="math inline"><em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub></span>相互独立，则其中任意<span
+class="math inline"><em>k</em></span>个随机变量也相互独立</li>
+<li><strong>期望性质</strong>：若<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，则<span
+class="math inline"><em>E</em>[<em>X</em><em>Y</em>] = <em>E</em>[<em>X</em>]<em>E</em>[<em>Y</em>]</span></li>
+<li><strong>方差性质</strong>：若<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，则<span
+class="math inline"><em>D</em>(<em>X</em> + <em>Y</em>) = <em>D</em>(<em>X</em>) + <em>D</em>(<em>Y</em>)</span></li>
 </ol>
-<h3 id="4-3-不相关性">4.3 不相关性</h3>
-<h4 id="定义-8">定义</h4>
-<p>若随机变量$X$和$Y$的相关系数$\rho_{XY} = 0$，则称$X$和$Y$不相关。</p>
-<h4 id="关系（重要考点）">关系（重要考点）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>相互独立</strong> $\implies$ <strong>不相关</strong></p>
-</li>
-<li class="lvl-2">
-<p><strong>不相关</strong> $\nRightarrow$ <strong>相互独立</strong>（除非是正态分布）</p>
-</li>
+<h3 id="不相关性">4.3 不相关性</h3>
+<h4 id="定义-7">定义</h4>
+<p>若随机变量<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的相关系数<span
+class="math inline"><em>ρ</em><sub><em>X</em><em>Y</em></sub> = 0</span>，则称<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>不相关。</p>
+<h4 id="关系重要考点">关系（重要考点）</h4>
+<ul>
+<li><strong>相互独立</strong> <span class="math inline">⟹</span>
+<strong>不相关</strong></li>
+<li><strong>不相关</strong> <span class="math inline">⇏</span>
+<strong>相互独立</strong>（除非是正态分布）</li>
 </ul>
 <p><strong>特殊情况</strong>：对于正态分布，独立性与不相关性是等价的</p>
-<h2 id="五、常用二维分布">五、常用二维分布</h2>
-<h3 id="5-1-二维均匀分布">5.1 二维均匀分布</h3>
-<h4 id="定义-9">定义</h4>
-<p>设$G$是平面上的有界区域，面积为$A$。若二维随机变量$(X, Y)$的联合概率密度为：<br>
-$$f(x, y) = \begin{cases}<br>
-\frac{1}{A}, &amp; (x, y) \in G \<br>
-0, &amp; \text{其他}<br>
-\end{cases}$$<br>
-则称$(X, Y)$在区域$G$上服从均匀分布。</p>
+<h2 id="五常用二维分布">五、常用二维分布</h2>
+<h3 id="二维均匀分布">5.1 二维均匀分布</h3>
+<h4 id="定义-8">定义</h4>
+<p>设<span
+class="math inline"><em>G</em></span>是平面上的有界区域，面积为<span
+class="math inline"><em>A</em></span>。若二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合概率密度为：
+<span class="math display">$$f(x, y) = \begin{cases}
+\frac{1}{A}, &amp; (x, y) \in G \\
+0, &amp; \text{其他}
+\end{cases}$$</span> 则称<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>在区域<span
+class="math inline"><em>G</em></span>上服从均匀分布。</p>
 <h4 id="性质">性质</h4>
-<ol>
-<li class="lvl-3">
-<p>概率计算：$P{(X, Y) \in D} = \frac{\text{区域}D \cap G\text{的面积}}{A}$</p>
-</li>
-<li class="lvl-3">
-<p>边缘分布不一定是均匀分布</p>
-</li>
+<ol type="1">
+<li>概率计算：<span class="math inline">$P\{(X, Y) \in D\} =
+\frac{\text{区域}D \cap G\text{的面积}}{A}$</span></li>
+<li>边缘分布不一定是均匀分布</li>
 </ol>
 <p><strong>常考题型</strong>：在矩形区域、圆形区域等特殊区域上的均匀分布计算</p>
-<h3 id="5-2-二维正态分布（最重要的多维分布）">5.2 二维正态分布（最重要的多维分布）</h3>
-<h4 id="定义-10">定义</h4>
-<p>若二维随机变量$(X, Y)$的联合概率密度为：<br>
-$$f(x, y) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}} \exp\left{-\frac{1}{2(1-\rho<sup>2)}\left[\frac{(x-\mu_1)</sup>2}{\sigma_1^2} - 2\rho\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2} + \frac{(y-\mu_2)<sup>2}{\sigma_2</sup>2}\right]\right}$$<br>
-其中$\mu_1, \mu_2, \sigma_1 &gt; 0, \sigma_2 &gt; 0, |\rho| &lt; 1$是常数，则称$(X, Y)$服从参数为$\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho$的二维正态分布，记为$(X, Y) \sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$。</p>
+<h3 id="二维正态分布最重要的多维分布">5.2
+二维正态分布（最重要的多维分布）</h3>
+<h4 id="定义-9">定义</h4>
+<p>若二维随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合概率密度为：
+<span class="math display">$$f(x, y) =
+\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}
+\exp\left\{-\frac{1}{2(1-\rho^2)}\left[\frac{(x-\mu_1)^2}{\sigma_1^2} -
+2\rho\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2} +
+\frac{(y-\mu_2)^2}{\sigma_2^2}\right]\right\}$$</span> 其中<span
+class="math inline"><em>μ</em><sub>1</sub>, <em>μ</em><sub>2</sub>, <em>σ</em><sub>1</sub> &gt; 0, <em>σ</em><sub>2</sub> &gt; 0, |<em>ρ</em>| &lt; 1</span>是常数，则称<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>服从参数为<span
+class="math inline"><em>μ</em><sub>1</sub>, <em>μ</em><sub>2</sub>, <em>σ</em><sub>1</sub><sup>2</sup>, <em>σ</em><sub>2</sub><sup>2</sup>, <em>ρ</em></span>的二维正态分布，记为<span
+class="math inline">(<em>X</em>, <em>Y</em>) ∼ <em>N</em>(<em>μ</em><sub>1</sub>, <em>μ</em><sub>2</sub>, <em>σ</em><sub>1</sub><sup>2</sup>, <em>σ</em><sub>2</sub><sup>2</sup>, <em>ρ</em>)</span>。</p>
 <h4 id="参数意义">参数意义</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>$\mu_1, \mu_2$：分别是$X$和$Y$的数学期望</p>
-</li>
-<li class="lvl-2">
-<p>$\sigma_1^2, \sigma_2^2$：分别是$X$和$Y$的方差</p>
-</li>
-<li class="lvl-2">
-<p>$\rho$：$X$和$Y$的相关系数</p>
-</li>
+<ul>
+<li><span
+class="math inline"><em>μ</em><sub>1</sub>, <em>μ</em><sub>2</sub></span>：分别是<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的数学期望</li>
+<li><span
+class="math inline"><em>σ</em><sub>1</sub><sup>2</sup>, <em>σ</em><sub>2</sub><sup>2</sup></span>：分别是<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的方差</li>
+<li><span class="math inline"><em>ρ</em></span>：<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的相关系数</li>
 </ul>
-<h4 id="重要性质（高频考点）">重要性质（高频考点）</h4>
-<ol>
-<li class="lvl-3">
-<p><strong>边缘分布</strong>：$X \sim N(\mu_1, \sigma_1^2)$，$Y \sim N(\mu_2, \sigma_2^2)$</p>
-</li>
-<li class="lvl-3">
-<p><strong>独立性</strong>：$X$和$Y$相互独立的充要条件是$\rho = 0$</p>
-</li>
-<li class="lvl-3">
-<p><strong>条件分布</strong>：在给定$Y = y$条件下，$X$服从正态分布$N\left(\mu_1 + \rho\frac{\sigma_1}{\sigma_2}(y-\mu_2), \sigma_1<sup>2(1-\rho</sup>2)\right)$</p>
-</li>
-<li class="lvl-3">
-<p><strong>线性变换不变性</strong>：若$(X, Y)$服从二维正态分布，则对任意常数$a, b, c, d$，$aX + bY$和$cX + dY$也服从二维正态分布</p>
-</li>
-<li class="lvl-3">
-<p><strong>线性组合正态性</strong>：若$(X, Y)$服从二维正态分布，则$aX + bY$服从一维正态分布$N(a\mu_1 + b\mu_2, a<sup>2\sigma_1</sup>2 + b<sup>2\sigma_2</sup>2 + 2ab\rho\sigma_1\sigma_2)$</p>
-</li>
+<h4 id="重要性质高频考点">重要性质（高频考点）</h4>
+<ol type="1">
+<li><strong>边缘分布</strong>：<span
+class="math inline"><em>X</em> ∼ <em>N</em>(<em>μ</em><sub>1</sub>, <em>σ</em><sub>1</sub><sup>2</sup>)</span>，<span
+class="math inline"><em>Y</em> ∼ <em>N</em>(<em>μ</em><sub>2</sub>, <em>σ</em><sub>2</sub><sup>2</sup>)</span></li>
+<li><strong>独立性</strong>：<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立的充要条件是<span
+class="math inline"><em>ρ</em> = 0</span></li>
+<li><strong>条件分布</strong>：在给定<span
+class="math inline"><em>Y</em> = <em>y</em></span>条件下，<span
+class="math inline"><em>X</em></span>服从正态分布<span
+class="math inline">$N\left(\mu_1 +
+\rho\frac{\sigma_1}{\sigma_2}(y-\mu_2),
+\sigma_1^2(1-\rho^2)\right)$</span></li>
+<li><strong>线性变换不变性</strong>：若<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>服从二维正态分布，则对任意常数<span
+class="math inline"><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em></span>，<span
+class="math inline"><em>a</em><em>X</em> + <em>b</em><em>Y</em></span>和<span
+class="math inline"><em>c</em><em>X</em> + <em>d</em><em>Y</em></span>也服从二维正态分布</li>
+<li><strong>线性组合正态性</strong>：若<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>服从二维正态分布，则<span
+class="math inline"><em>a</em><em>X</em> + <em>b</em><em>Y</em></span>服从一维正态分布<span
+class="math inline"><em>N</em>(<em>a</em><em>μ</em><sub>1</sub> + <em>b</em><em>μ</em><sub>2</sub>, <em>a</em><sup>2</sup><em>σ</em><sub>1</sub><sup>2</sup> + <em>b</em><sup>2</sup><em>σ</em><sub>2</sub><sup>2</sup> + 2<em>a</em><em>b</em><em>ρ</em><em>σ</em><sub>1</sub><em>σ</em><sub>2</sub>)</span></li>
 </ol>
-<p><strong>常考题型</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p>二维正态分布的概率计算</p>
-</li>
-<li class="lvl-3">
-<p>利用独立性条件（$\rho = 0$）求解问题</p>
-</li>
-<li class="lvl-3">
-<p>条件分布的应用</p>
-</li>
-<li class="lvl-3">
-<p>线性组合的分布计算</p>
-</li>
-</ol>
-<h2 id="六、两个随机变量函数的分布">六、两个随机变量函数的分布</h2>
-<h3 id="6-1-离散型情况">6.1 离散型情况</h3>
-<p>设$(X, Y)$是二维离散型随机变量，联合分布律为$P{X = x_i, Y = y_j} = p_{ij}$，$Z = g(X, Y)$，则$Z$的分布律为：<br>
-$$P{Z = z_k} = \sum_{\substack{g(x_i, y_j) = z_k}} p_{ij}, \quad k = 1, 2, \ldots$$</p>
-<h3 id="6-2-连续型情况">6.2 连续型情况</h3>
-<p>设$(X, Y)$是二维连续型随机变量，联合概率密度为$f(x, y)$，$Z = g(X, Y)$，则$Z$的分布函数为：<br>
-$$F_Z(z) = P{Z \leq z} = P{g(X, Y) \leq z} = \iint_{g(x, y) \leq z} f(x, y) , dx , dy$$</p>
-<p>$Z$的概率密度为：<br>
-$$f_Z(z) = \frac{dF_Z(z)}{dz}$$</p>
-<h3 id="6-3-常用函数分布（重点掌握）">6.3 常用函数分布（重点掌握）</h3>
-<h4 id="和的分布（卷积公式）">和的分布（卷积公式）</h4>
-<p>设$Z = X + Y$，则：<br>
-$$f_Z(z) = \int_{-\infty}^{\infty} f(x, z - x) , dx = \int_{-\infty}^{\infty} f(z - y, y) , dy$$</p>
-<p>若$X$和$Y$相互独立，则：<br>
-$$f_Z(z) = f_X * f_Y(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) , dx$$</p>
-<p><strong>重要特例</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>正态分布的可加性：若$X \sim N(\mu_1, \sigma_1^2)$，$Y \sim N(\mu_2, \sigma_2^2)$且独立，则$X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$</p>
-</li>
-<li class="lvl-2">
-<p>泊松分布的可加性：若$X \sim P(\lambda_1)$，$Y \sim P(\lambda_2)$且独立，则$X + Y \sim P(\lambda_1 + \lambda_2)$</p>
-</li>
-<li class="lvl-2">
-<p>二项分布的可加性：若$X \sim B(n, p)$，$Y \sim B(m, p)$且独立，则$X + Y \sim B(n + m, p)$</p>
-</li>
-</ul>
+<p><strong>常考题型</strong>： 1. 二维正态分布的概率计算 2.
+利用独立性条件（<span
+class="math inline"><em>ρ</em> = 0</span>）求解问题 3. 条件分布的应用 4.
+线性组合的分布计算</p>
+<h2 id="六两个随机变量函数的分布">六、两个随机变量函数的分布</h2>
+<h3 id="离散型情况-1">6.1 离散型情况</h3>
+<p>设<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>是二维离散型随机变量，联合分布律为<span
+class="math inline"><em>P</em>{<em>X</em> = <em>x</em><sub><em>i</em></sub>, <em>Y</em> = <em>y</em><sub><em>j</em></sub>} = <em>p</em><sub><em>i</em><em>j</em></sub></span>，<span
+class="math inline"><em>Z</em> = <em>g</em>(<em>X</em>, <em>Y</em>)</span>，则<span
+class="math inline"><em>Z</em></span>的分布律为： <span
+class="math display">$$P\{Z = z_k\} = \sum_{\substack{g(x_i, y_j) =
+z_k}} p_{ij}, \quad k = 1, 2, \ldots$$</span></p>
+<h3 id="连续型情况-1">6.2 连续型情况</h3>
+<p>设<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>是二维连续型随机变量，联合概率密度为<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>，<span
+class="math inline"><em>Z</em> = <em>g</em>(<em>X</em>, <em>Y</em>)</span>，则<span
+class="math inline"><em>Z</em></span>的分布函数为： <span
+class="math display"><em>F</em><sub><em>Z</em></sub>(<em>z</em>) = <em>P</em>{<em>Z</em> ≤ <em>z</em>} = <em>P</em>{<em>g</em>(<em>X</em>, <em>Y</em>) ≤ <em>z</em>} = ∬<sub><em>g</em>(<em>x</em>, <em>y</em>) ≤ <em>z</em></sub><em>f</em>(<em>x</em>, <em>y</em>) <em>d</em><em>x</em> <em>d</em><em>y</em></span></p>
+<p><span class="math inline"><em>Z</em></span>的概率密度为： <span
+class="math display">$$f_Z(z) = \frac{dF_Z(z)}{dz}$$</span></p>
+<h3 id="常用函数分布重点掌握">6.3 常用函数分布（重点掌握）</h3>
+<h4 id="和的分布卷积公式">和的分布（卷积公式）</h4>
+<p>设<span
+class="math inline"><em>Z</em> = <em>X</em> + <em>Y</em></span>，则：
+<span
+class="math display"><em>f</em><sub><em>Z</em></sub>(<em>z</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>z</em> − <em>x</em>) <em>d</em><em>x</em> = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>z</em> − <em>y</em>, <em>y</em>) <em>d</em><em>y</em></span></p>
+<p>若<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，则： <span
+class="math display"><em>f</em><sub><em>Z</em></sub>(<em>z</em>) = <em>f</em><sub><em>X</em></sub> * <em>f</em><sub><em>Y</em></sub>(<em>z</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em><sub><em>X</em></sub>(<em>x</em>)<em>f</em><sub><em>Y</em></sub>(<em>z</em> − <em>x</em>) <em>d</em><em>x</em></span></p>
+<p><strong>重要特例</strong>： - 正态分布的可加性：若<span
+class="math inline"><em>X</em> ∼ <em>N</em>(<em>μ</em><sub>1</sub>, <em>σ</em><sub>1</sub><sup>2</sup>)</span>，<span
+class="math inline"><em>Y</em> ∼ <em>N</em>(<em>μ</em><sub>2</sub>, <em>σ</em><sub>2</sub><sup>2</sup>)</span>且独立，则<span
+class="math inline"><em>X</em> + <em>Y</em> ∼ <em>N</em>(<em>μ</em><sub>1</sub> + <em>μ</em><sub>2</sub>, <em>σ</em><sub>1</sub><sup>2</sup> + <em>σ</em><sub>2</sub><sup>2</sup>)</span>
+- 泊松分布的可加性：若<span
+class="math inline"><em>X</em> ∼ <em>P</em>(<em>λ</em><sub>1</sub>)</span>，<span
+class="math inline"><em>Y</em> ∼ <em>P</em>(<em>λ</em><sub>2</sub>)</span>且独立，则<span
+class="math inline"><em>X</em> + <em>Y</em> ∼ <em>P</em>(<em>λ</em><sub>1</sub> + <em>λ</em><sub>2</sub>)</span>
+- 二项分布的可加性：若<span
+class="math inline"><em>X</em> ∼ <em>B</em>(<em>n</em>, <em>p</em>)</span>，<span
+class="math inline"><em>Y</em> ∼ <em>B</em>(<em>m</em>, <em>p</em>)</span>且独立，则<span
+class="math inline"><em>X</em> + <em>Y</em> ∼ <em>B</em>(<em>n</em> + <em>m</em>, <em>p</em>)</span></p>
 <h4 id="商的分布">商的分布</h4>
-<p>设$Z = \frac{X}{Y}$，则：<br>
-$$f_Z(z) = \int_{-\infty}^{\infty} |y| f(zy, y) , dy$$</p>
-<p>若$X$和$Y$相互独立，则：<br>
-$$f_Z(z) = \int_{-\infty}^{\infty} |y| f_X(zy) f_Y(y) , dy$$</p>
-<h4 id="最大值和最小值分布（高频考点）">最大值和最小值分布（高频考点）</h4>
-<p>设$M = \max(X, Y)$，$N = \min(X, Y)$，$X$和$Y$相互独立：</p>
-<p>$$F_M(z) = F_X(z) F_Y(z)$$<br>
-$$F_N(z) = 1 - [1 - F_X(z)][1 - F_Y(z)]$$</p>
-<p><strong>推广到n个变量</strong>：若$X_1, X_2, \ldots, X_n$相互独立，$M = \max(X_1, \ldots, X_n)$，$N = \min(X_1, \ldots, X_n)$，则：<br>
-$$F_M(z) = \prod_{i=1}^n F_{X_i}(z)$$<br>
-$$F_N(z) = 1 - \prod_{i=1}^n [1 - F_{X_i}(z)]$$</p>
-<h3 id="6-4-变换法（雅可比行列式法）">6.4 变换法（雅可比行列式法）</h3>
-<p>对于一一对应的变换$\begin{cases} Z = g(X, Y) \ W = h(X, Y) \end{cases}$，联合概率密度为：<br>
-$$f_{Z,W}(z, w) = f_{X,Y}(x(z,w), y(z,w)) |J|$$<br>
-其中$J$是雅可比行列式：<br>
-$$J = \begin{vmatrix} \frac{\partial x}{\partial z} &amp; \frac{\partial x}{\partial w} \ \frac{\partial y}{\partial z} &amp; \frac{\partial y}{\partial w} \end{vmatrix}$$</p>
-<p><strong>常考题型</strong>：</p>
-<ol>
-<li class="lvl-3">
-<p>求两个随机变量和的分布</p>
-</li>
-<li class="lvl-3">
-<p>求最大值、最小值的分布</p>
-</li>
-<li class="lvl-3">
-<p>利用变换法求复杂函数的分布</p>
-</li>
-</ol>
-<h2 id="七、重要公式总结">七、重要公式总结</h2>
-<h3 id="7-1-分布函数相关">7.1 分布函数相关</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>联合分布函数：$F(x, y) = P{X \leq x, Y \leq y}$</p>
-</li>
-<li class="lvl-2">
-<p>边缘分布函数：$F_X(x) = F(x, +\infty)$，$F_Y(y) = F(+\infty, y)$</p>
-</li>
-<li class="lvl-2">
-<p>矩形概率：$P{x_1 &lt; X \leq x_2, y_1 &lt; Y \leq y_2} = F(x_2,y_2) - F(x_1,y_2) - F(x_2,y_1) + F(x_1,y_1)$</p>
-</li>
+<p>设<span class="math inline">$Z = \frac{X}{Y}$</span>，则： <span
+class="math display"><em>f</em><sub><em>Z</em></sub>(<em>z</em>) = ∫<sub>−∞</sub><sup>∞</sup>|<em>y</em>|<em>f</em>(<em>z</em><em>y</em>, <em>y</em>) <em>d</em><em>y</em></span></p>
+<p>若<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，则： <span
+class="math display"><em>f</em><sub><em>Z</em></sub>(<em>z</em>) = ∫<sub>−∞</sub><sup>∞</sup>|<em>y</em>|<em>f</em><sub><em>X</em></sub>(<em>z</em><em>y</em>)<em>f</em><sub><em>Y</em></sub>(<em>y</em>) <em>d</em><em>y</em></span></p>
+<h4 id="最大值和最小值分布高频考点">最大值和最小值分布（高频考点）</h4>
+<p>设<span
+class="math inline"><em>M</em> = max (<em>X</em>, <em>Y</em>)</span>，<span
+class="math inline"><em>N</em> = min (<em>X</em>, <em>Y</em>)</span>，<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立：</p>
+<p><span
+class="math display"><em>F</em><sub><em>M</em></sub>(<em>z</em>) = <em>F</em><sub><em>X</em></sub>(<em>z</em>)<em>F</em><sub><em>Y</em></sub>(<em>z</em>)</span>
+<span
+class="math display"><em>F</em><sub><em>N</em></sub>(<em>z</em>) = 1 − [1 − <em>F</em><sub><em>X</em></sub>(<em>z</em>)][1 − <em>F</em><sub><em>Y</em></sub>(<em>z</em>)]</span></p>
+<p><strong>推广到n个变量</strong>： 若<span
+class="math inline"><em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub></span>相互独立，<span
+class="math inline"><em>M</em> = max (<em>X</em><sub>1</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>，<span
+class="math inline"><em>N</em> = min (<em>X</em><sub>1</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>，则：
+<span class="math display">$$F_M(z) = \prod_{i=1}^n F_{X_i}(z)$$</span>
+<span class="math display">$$F_N(z) = 1 - \prod_{i=1}^n [1 -
+F_{X_i}(z)]$$</span></p>
+<h3 id="变换法雅可比行列式法">6.4 变换法（雅可比行列式法）</h3>
+<p>对于一一对应的变换<span class="math inline">$\begin{cases} Z = g(X,
+Y) \\ W = h(X, Y) \end{cases}$</span>，联合概率密度为： <span
+class="math display"><em>f</em><sub><em>Z</em>, <em>W</em></sub>(<em>z</em>, <em>w</em>) = <em>f</em><sub><em>X</em>, <em>Y</em></sub>(<em>x</em>(<em>z</em>, <em>w</em>), <em>y</em>(<em>z</em>, <em>w</em>))|<em>J</em>|</span>
+其中<span class="math inline"><em>J</em></span>是雅可比行列式： <span
+class="math display">$$J = \begin{vmatrix} \frac{\partial x}{\partial z}
+&amp; \frac{\partial x}{\partial w} \\ \frac{\partial y}{\partial z}
+&amp; \frac{\partial y}{\partial w} \end{vmatrix}$$</span></p>
+<p><strong>常考题型</strong>： 1. 求两个随机变量和的分布 2.
+求最大值、最小值的分布 3. 利用变换法求复杂函数的分布</p>
+<h2 id="七重要公式总结">七、重要公式总结</h2>
+<h3 id="分布函数相关">7.1 分布函数相关</h3>
+<ul>
+<li>联合分布函数：<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>) = <em>P</em>{<em>X</em> ≤ <em>x</em>, <em>Y</em> ≤ <em>y</em>}</span></li>
+<li>边缘分布函数：<span
+class="math inline"><em>F</em><sub><em>X</em></sub>(<em>x</em>) = <em>F</em>(<em>x</em>, +∞)</span>，<span
+class="math inline"><em>F</em><sub><em>Y</em></sub>(<em>y</em>) = <em>F</em>(+∞, <em>y</em>)</span></li>
+<li>矩形概率：<span
+class="math inline"><em>P</em>{<em>x</em><sub>1</sub> &lt; <em>X</em> ≤ <em>x</em><sub>2</sub>, <em>y</em><sub>1</sub> &lt; <em>Y</em> ≤ <em>y</em><sub>2</sub>} = <em>F</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>) − <em>F</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>2</sub>) − <em>F</em>(<em>x</em><sub>2</sub>, <em>y</em><sub>1</sub>) + <em>F</em>(<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>)</span></li>
 </ul>
-<h3 id="7-2-概率密度相关">7.2 概率密度相关</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>联合概率密度：$f(x, y) = \frac{\partial^2 F(x, y)}{\partial x \partial y}$</p>
-</li>
-<li class="lvl-2">
-<p>边缘概率密度：$f_X(x) = \int_{-\infty}^{\infty} f(x, y) dy$，$f_Y(y) = \int_{-\infty}^{\infty} f(x, y) dx$</p>
-</li>
-<li class="lvl-2">
-<p>条件概率密度：$f_{X|Y}(x|y) = \frac{f(x, y)}{f_Y(y)}$，$f_{Y|X}(y|x) = \frac{f(x, y)}{f_X(x)}$</p>
-</li>
+<h3 id="概率密度相关">7.2 概率密度相关</h3>
+<ul>
+<li>联合概率密度：<span class="math inline">$f(x, y) = \frac{\partial^2
+F(x, y)}{\partial x \partial y}$</span></li>
+<li>边缘概率密度：<span
+class="math inline"><em>f</em><sub><em>X</em></sub>(<em>x</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>y</em>)<em>d</em><em>y</em></span>，<span
+class="math inline"><em>f</em><sub><em>Y</em></sub>(<em>y</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>y</em>)<em>d</em><em>x</em></span></li>
+<li>条件概率密度：<span class="math inline">$f_{X|Y}(x|y) = \frac{f(x,
+y)}{f_Y(y)}$</span>，<span class="math inline">$f_{Y|X}(y|x) =
+\frac{f(x, y)}{f_X(x)}$</span></li>
 </ul>
-<h3 id="7-3-独立性条件">7.3 独立性条件</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>分布函数：$F(x, y) = F_X(x)F_Y(y)$</p>
-</li>
-<li class="lvl-2">
-<p>离散型：$p_{ij} = p_i p_j$</p>
-</li>
-<li class="lvl-2">
-<p>连续型：$f(x, y) = f_X(x)f_Y(y)$</p>
-</li>
+<h3 id="独立性条件">7.3 独立性条件</h3>
+<ul>
+<li>分布函数：<span
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>) = <em>F</em><sub><em>X</em></sub>(<em>x</em>)<em>F</em><sub><em>Y</em></sub>(<em>y</em>)</span></li>
+<li>离散型：<span
+class="math inline"><em>p</em><sub><em>i</em><em>j</em></sub> = <em>p</em><sub><em>i</em></sub><em>p</em><sub><em>j</em></sub></span></li>
+<li>连续型：<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>) = <em>f</em><sub><em>X</em></sub>(<em>x</em>)<em>f</em><sub><em>Y</em></sub>(<em>y</em>)</span></li>
 </ul>
-<h3 id="7-4-常用分布">7.4 常用分布</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>二维均匀分布</strong>：$f(x, y) = \frac{1}{A}, (x, y) \in G$</p>
-</li>
-<li class="lvl-2">
-<p><strong>二维正态分布</strong>：$f(x, y) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}} \exp\left{-\frac{1}{2(1-\rho<sup>2)}\left[\frac{(x-\mu_1)</sup>2}{\sigma_1^2} - 2\rho\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2} + \frac{(y-\mu_2)<sup>2}{\sigma_2</sup>2}\right]\right}$</p>
-</li>
+<h3 id="常用分布">7.4 常用分布</h3>
+<ul>
+<li><strong>二维均匀分布</strong>：<span class="math inline">$f(x, y) =
+\frac{1}{A}, (x, y) \in G$</span></li>
+<li><strong>二维正态分布</strong>：<span class="math inline">$f(x, y) =
+\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}
+\exp\left\{-\frac{1}{2(1-\rho^2)}\left[\frac{(x-\mu_1)^2}{\sigma_1^2} -
+2\rho\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2} +
+\frac{(y-\mu_2)^2}{\sigma_2^2}\right]\right\}$</span></li>
 </ul>
-<h3 id="7-5-函数分布">7.5 函数分布</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>和的分布</strong>：$f_Z(z) = \int_{-\infty}^{\infty} f(x, z-x) dx$</p>
-</li>
-<li class="lvl-2">
-<p><strong>最大值分布</strong>：$F_M(z) = F_X(z)F_Y(z)$</p>
-</li>
-<li class="lvl-2">
-<p><strong>最小值分布</strong>：$F_N(z) = 1 - [1-F_X(z)][1-F_Y(z)]$</p>
-</li>
+<h3 id="函数分布">7.5 函数分布</h3>
+<ul>
+<li><strong>和的分布</strong>：<span
+class="math inline"><em>f</em><sub><em>Z</em></sub>(<em>z</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>x</em>, <em>z</em> − <em>x</em>)<em>d</em><em>x</em></span></li>
+<li><strong>最大值分布</strong>：<span
+class="math inline"><em>F</em><sub><em>M</em></sub>(<em>z</em>) = <em>F</em><sub><em>X</em></sub>(<em>z</em>)<em>F</em><sub><em>Y</em></sub>(<em>z</em>)</span></li>
+<li><strong>最小值分布</strong>：<span
+class="math inline"><em>F</em><sub><em>N</em></sub>(<em>z</em>) = 1 − [1 − <em>F</em><sub><em>X</em></sub>(<em>z</em>)][1 − <em>F</em><sub><em>Y</em></sub>(<em>z</em>)]</span></li>
 </ul>
-<h2 id="八、典型例题分析">八、典型例题分析</h2>
-<h3 id="例题1：联合分布律与边缘分布律（基础题型）">例题1：联合分布律与边缘分布律（基础题型）</h3>
-<p>设二维离散型随机变量$(X, Y)$的联合分布律为：</p>
+<h2 id="八典型例题分析">八、典型例题分析</h2>
+<h3
+id="例题1联合分布律与边缘分布律基础题型">例题1：联合分布律与边缘分布律（基础题型）</h3>
+<p>设二维离散型随机变量<span
+class="math inline">(<em>X</em>, <em>Y</em>)</span>的联合分布律为：</p>
 <table>
 <thead>
 <tr>
-<th>Y\X</th>
+<th>Y</th>
 <th>0</th>
 <th>1</th>
 <th>2</th>
@@ -623,69 +687,89 @@ $$J = \begin{vmatrix} \frac{\partial x}{\partial z} &amp; \frac{\partial x}{\par
 </tr>
 </tbody>
 </table>
-<p>求：(1) $X$和$Y$的边缘分布律；(2) 判断$X$和$Y$是否独立。</p>
-<p><strong>解答：</strong><br>
-(1) 边缘分布律：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>$P{X=0} = 0.1 + 0.2 = 0.3$</p>
-</li>
-<li class="lvl-2">
-<p>$P{X=1} = 0.2 + 0.3 = 0.5$</p>
-</li>
-<li class="lvl-2">
-<p>$P{X=2} = 0.1 + 0.1 = 0.2$</p>
-</li>
-<li class="lvl-2">
-<p>$P{Y=0} = 0.1 + 0.2 + 0.1 = 0.4$</p>
-</li>
-<li class="lvl-2">
-<p>$P{Y=1} = 0.2 + 0.3 + 0.1 = 0.6$</p>
-</li>
-</ul>
-<p>(2) 独立性判断：<br>
-$P{X=0,Y=0} = 0.1$，$P{X=0}P{Y=0} = 0.3 \times 0.4 = 0.12$<br>
-由于$0.1 \neq 0.12$，故$X$和$Y$不独立。</p>
-<h3 id="例题2：二维正态分布的性质（重要考点）">例题2：二维正态分布的性质（重要考点）</h3>
-<p>设$(X, Y) \sim N(1, 2, 4, 9, 0.5)$，求：(1) $X$和$Y$的边缘分布；(2) $P{X \leq 1}$；(3) 在$Y = 2$条件下$X$的条件分布。</p>
-<p><strong>解答：</strong><br>
-(1) 边缘分布：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>$X \sim N(1, 4)$</p>
-</li>
-<li class="lvl-2">
-<p>$Y \sim N(2, 9)$</p>
-</li>
-</ul>
-<p>(2) $P{X \leq 1} = \Phi\left(\frac{1-1}{2}\right) = \Phi(0) = 0.5$</p>
-<p>(3) 条件分布：<br>
-$\mu_{X|Y=2} = 1 + 0.5 \times \frac{2}{3} \times (2-2) = 1$<br>
-$\sigma_{X|Y=2}^2 = 4 \times (1 - 0.5^2) = 3$<br>
-故$X|Y=2 \sim N(1, 3)$</p>
-<h3 id="例题3：两个随机变量函数的分布（高频考点）">例题3：两个随机变量函数的分布（高频考点）</h3>
-<p>设$X$和$Y$相互独立，且都服从$N(0, 1)$分布，求$Z = X^2 + Y^2$的概率密度。</p>
-<p><strong>解答：</strong><br>
-使用分布函数法：<br>
-$$F_Z(z) = P{X^2 + Y^2 \leq z}$$</p>
-<p>当$z \leq 0$时，$F_Z(z) = 0$</p>
-<p>当$z &gt; 0$时，转换到极坐标：<br>
-$$F_Z(z) = \int_{0}^{2\pi} \int_{0}^{\sqrt{z}} \frac{1}{2\pi} e<sup>{-\frac{r</sup>2}{2}} r , dr , d\theta = 1 - e^{-\frac{z}{2}}$$</p>
-<p>因此，$Z$的概率密度为：<br>
-$$f_Z(z) = \begin{cases}<br>
-\frac{1}{2} e^{-\frac{z}{2}}, &amp; z &gt; 0 \<br>
-0, &amp; z \leq 0<br>
-\end{cases}$$<br>
-即$Z \sim \chi^2(2)$分布（自由度为2的卡方分布）</p>
-<h3 id="例题4：最大值最小值分布（常考题型）">例题4：最大值最小值分布（常考题型）</h3>
-<p>设$X_1, X_2, \ldots, X_n$相互独立，且都服从$U(0, 1)$分布，求$M = \max(X_1, X_2, \ldots, X_n)$和$N = \min(X_1, X_2, \ldots, X_n)$的概率密度。</p>
-<p><strong>解答：</strong><br>
-对于$M = \max(X_1, \ldots, X_n)$：<br>
-$$F_M(z) = [F_X(z)]^n = z^n, \quad 0 &lt; z &lt; 1$$<br>
-$$f_M(z) = n z^{n-1}, \quad 0 &lt; z &lt; 1$$</p>
-<p>对于$N = \min(X_1, \ldots, X_n)$：<br>
-$$F_N(z) = 1 - [1 - F_X(z)]^n = 1 - (1 - z)^n, \quad 0 &lt; z &lt; 1$$<br>
-$$f_N(z) = n (1 - z)^{n-1}, \quad 0 &lt; z &lt; 1$$</p>
+<p>求：(1) <span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的边缘分布律；(2) 判断<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>是否独立。</p>
+<p><strong>解答：</strong> (1) 边缘分布律： - <span
+class="math inline"><em>P</em>{<em>X</em> = 0} = 0.1 + 0.2 = 0.3</span>
+- <span
+class="math inline"><em>P</em>{<em>X</em> = 1} = 0.2 + 0.3 = 0.5</span>
+- <span
+class="math inline"><em>P</em>{<em>X</em> = 2} = 0.1 + 0.1 = 0.2</span>
+- <span
+class="math inline"><em>P</em>{<em>Y</em> = 0} = 0.1 + 0.2 + 0.1 = 0.4</span>
+- <span
+class="math inline"><em>P</em>{<em>Y</em> = 1} = 0.2 + 0.3 + 0.1 = 0.6</span></p>
+<ol start="2" type="1">
+<li>独立性判断： <span
+class="math inline"><em>P</em>{<em>X</em> = 0, <em>Y</em> = 0} = 0.1</span>，<span
+class="math inline"><em>P</em>{<em>X</em> = 0}<em>P</em>{<em>Y</em> = 0} = 0.3 × 0.4 = 0.12</span>
+由于<span class="math inline">0.1 ≠ 0.12</span>，故<span
+class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>不独立。</li>
+</ol>
+<h3
+id="例题2二维正态分布的性质重要考点">例题2：二维正态分布的性质（重要考点）</h3>
+<p>设<span
+class="math inline">(<em>X</em>, <em>Y</em>) ∼ <em>N</em>(1, 2, 4, 9, 0.5)</span>，求：(1)
+<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>的边缘分布；(2) <span
+class="math inline"><em>P</em>{<em>X</em> ≤ 1}</span>；(3) 在<span
+class="math inline"><em>Y</em> = 2</span>条件下<span
+class="math inline"><em>X</em></span>的条件分布。</p>
+<p><strong>解答：</strong> (1) 边缘分布： - <span
+class="math inline"><em>X</em> ∼ <em>N</em>(1, 4)</span> - <span
+class="math inline"><em>Y</em> ∼ <em>N</em>(2, 9)</span></p>
+<ol start="2" type="1">
+<li><p><span class="math inline">$P\{X \leq 1\} =
+\Phi\left(\frac{1-1}{2}\right) = \Phi(0) = 0.5$</span></p></li>
+<li><p>条件分布： <span class="math inline">$\mu_{X|Y=2} = 1 + 0.5
+\times \frac{2}{3} \times (2-2) = 1$</span> <span
+class="math inline"><em>σ</em><sub><em>X</em>|<em>Y</em> = 2</sub><sup>2</sup> = 4 × (1 − 0.5<sup>2</sup>) = 3</span>
+故<span
+class="math inline"><em>X</em>|<em>Y</em> = 2 ∼ <em>N</em>(1, 3)</span></p></li>
+</ol>
+<h3
+id="例题3两个随机变量函数的分布高频考点">例题3：两个随机变量函数的分布（高频考点）</h3>
+<p>设<span class="math inline"><em>X</em></span>和<span
+class="math inline"><em>Y</em></span>相互独立，且都服从<span
+class="math inline"><em>N</em>(0, 1)</span>分布，求<span
+class="math inline"><em>Z</em> = <em>X</em><sup>2</sup> + <em>Y</em><sup>2</sup></span>的概率密度。</p>
+<p><strong>解答：</strong> 使用分布函数法： <span
+class="math display"><em>F</em><sub><em>Z</em></sub>(<em>z</em>) = <em>P</em>{<em>X</em><sup>2</sup> + <em>Y</em><sup>2</sup> ≤ <em>z</em>}</span></p>
+<p>当<span class="math inline"><em>z</em> ≤ 0</span>时，<span
+class="math inline"><em>F</em><sub><em>Z</em></sub>(<em>z</em>) = 0</span></p>
+<p>当<span
+class="math inline"><em>z</em> &gt; 0</span>时，转换到极坐标： <span
+class="math display">$$F_Z(z) = \int_{0}^{2\pi} \int_{0}^{\sqrt{z}}
+\frac{1}{2\pi} e^{-\frac{r^2}{2}} r \, dr \, d\theta = 1 -
+e^{-\frac{z}{2}}$$</span></p>
+<p>因此，<span class="math inline"><em>Z</em></span>的概率密度为： <span
+class="math display">$$f_Z(z) = \begin{cases}
+\frac{1}{2} e^{-\frac{z}{2}}, &amp; z &gt; 0 \\
+0, &amp; z \leq 0
+\end{cases}$$</span> 即<span
+class="math inline"><em>Z</em> ∼ <em>χ</em><sup>2</sup>(2)</span>分布（自由度为2的卡方分布）</p>
+<h3
+id="例题4最大值最小值分布常考题型">例题4：最大值最小值分布（常考题型）</h3>
+<p>设<span
+class="math inline"><em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub></span>相互独立，且都服从<span
+class="math inline"><em>U</em>(0, 1)</span>分布，求<span
+class="math inline"><em>M</em> = max (<em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>和<span
+class="math inline"><em>N</em> = min (<em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>的概率密度。</p>
+<p><strong>解答：</strong> 对于<span
+class="math inline"><em>M</em> = max (<em>X</em><sub>1</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>：
+<span
+class="math display"><em>F</em><sub><em>M</em></sub>(<em>z</em>) = [<em>F</em><sub><em>X</em></sub>(<em>z</em>)]<sup><em>n</em></sup> = <em>z</em><sup><em>n</em></sup>,  0 &lt; <em>z</em> &lt; 1</span>
+<span
+class="math display"><em>f</em><sub><em>M</em></sub>(<em>z</em>) = <em>n</em><em>z</em><sup><em>n</em> − 1</sup>,  0 &lt; <em>z</em> &lt; 1</span></p>
+<p>对于<span
+class="math inline"><em>N</em> = min (<em>X</em><sub>1</sub>, …, <em>X</em><sub><em>n</em></sub>)</span>：
+<span
+class="math display"><em>F</em><sub><em>N</em></sub>(<em>z</em>) = 1 − [1 − <em>F</em><sub><em>X</em></sub>(<em>z</em>)]<sup><em>n</em></sup> = 1 − (1 − <em>z</em>)<sup><em>n</em></sup>,  0 &lt; <em>z</em> &lt; 1</span>
+<span
+class="math display"><em>f</em><sub><em>N</em></sub>(<em>z</em>) = <em>n</em>(1 − <em>z</em>)<sup><em>n</em> − 1</sup>,  0 &lt; <em>z</em> &lt; 1</span></p>
 
     </div>
 
@@ -772,7 +856,8 @@ $$f_N(z) = n (1 - z)^{n-1}, \quad 0 &lt; z &lt; 1$$</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">多维随机变量及其分布知识点整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">一、多维随机变量的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 多维随机变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 联合分布函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">二维联合分布函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">基本性质（高频考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BA%8C%E7%BB%B4%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、二维离散型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 联合概率分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">基本性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 边缘分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 条件分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BA%8C%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">三、二维连续型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 联合概率密度函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89-2"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">基本性质（高频考点）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BE%B9%E7%BC%98%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 边缘概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-6"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 条件概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-7"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">四、随机变量的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E7%8B%AC%E7%AB%8B%E6%80%A7%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 独立性定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">一般定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">离散型情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">连续型情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%8B%AC%E7%AB%8B%E6%80%A7%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 独立性的重要性质（高频考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E4%B8%8D%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 不相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-8"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%EF%BC%88%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">关系（重要考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%B8%B8%E7%94%A8%E4%BA%8C%E7%BB%B4%E5%88%86%E5%B8%83"><span class="nav-number">1.5.</span> <span class="nav-text">五、常用二维分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E4%BA%8C%E7%BB%B4%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 二维均匀分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-9"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E4%BA%8C%E7%BB%B4%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%EF%BC%88%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%A4%9A%E7%BB%B4%E5%88%86%E5%B8%83%EF%BC%89"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 二维正态分布（最重要的多维分布）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-10"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%84%8F%E4%B9%89"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">参数意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">重要性质（高频考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%B8%A4%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.6.</span> <span class="nav-text">六、两个随机变量函数的分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E7%A6%BB%E6%95%A3%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 离散型情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E8%BF%9E%E7%BB%AD%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 连续型情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83%EF%BC%88%E9%87%8D%E7%82%B9%E6%8E%8C%E6%8F%A1%EF%BC%89"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 常用函数分布（重点掌握）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83%EF%BC%88%E5%8D%B7%E7%A7%AF%E5%85%AC%E5%BC%8F%EF%BC%89"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">和的分布（卷积公式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%86%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">商的分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">最大值和最小值分布（高频考点）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E5%8F%98%E6%8D%A2%E6%B3%95%EF%BC%88%E9%9B%85%E5%8F%AF%E6%AF%94%E8%A1%8C%E5%88%97%E5%BC%8F%E6%B3%95%EF%BC%89"><span class="nav-number">1.6.4.</span> <span class="nav-text">6.4 变换法（雅可比行列式法）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%87%8D%E8%A6%81%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">七、重要公式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 分布函数相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 概率密度相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E7%8B%AC%E7%AB%8B%E6%80%A7%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.7.3.</span> <span class="nav-text">7.3 独立性条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E5%B8%B8%E7%94%A8%E5%88%86%E5%B8%83"><span class="nav-number">1.7.4.</span> <span class="nav-text">7.4 常用分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83"><span class="nav-number">1.7.5.</span> <span class="nav-text">7.5 函数分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.8.</span> <span class="nav-text">八、典型例题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%981%EF%BC%9A%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%BE%8B%E4%B8%8E%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%BE%8B%EF%BC%88%E5%9F%BA%E7%A1%80%E9%A2%98%E5%9E%8B%EF%BC%89"><span class="nav-number">1.8.1.</span> <span class="nav-text">例题1：联合分布律与边缘分布律（基础题型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%982%EF%BC%9A%E4%BA%8C%E7%BB%B4%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E6%80%A7%E8%B4%A8%EF%BC%88%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.8.2.</span> <span class="nav-text">例题2：二维正态分布的性质（重要考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%983%EF%BC%9A%E4%B8%A4%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.8.3.</span> <span class="nav-text">例题3：两个随机变量函数的分布（高频考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%984%EF%BC%9A%E6%9C%80%E5%A4%A7%E5%80%BC%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83%EF%BC%88%E5%B8%B8%E8%80%83%E9%A2%98%E5%9E%8B%EF%BC%89"><span class="nav-number">1.8.4.</span> <span class="nav-text">例题4：最大值最小值分布（常考题型）</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">多维随机变量及其分布知识点整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">一、多维随机变量的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 多维随机变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 联合分布函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">二维联合分布函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">基本性质（高频考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E4%BA%8C%E7%BB%B4%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、二维离散型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 联合概率分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">基本性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 边缘分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 条件分布律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%BA%8C%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">三、二维连续型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 联合概率密度函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9-1"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">基本性质（高频考点）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 边缘概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 条件概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-6"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">四、随机变量的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 独立性定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">一般定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">离散型情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9E%8B%E6%83%85%E5%86%B5"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">连续型情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 独立性的重要性质（高频考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 不相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-7"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">关系（重要考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%B8%B8%E7%94%A8%E4%BA%8C%E7%BB%B4%E5%88%86%E5%B8%83"><span class="nav-number">1.5.</span> <span class="nav-text">五、常用二维分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 二维均匀分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-8"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%A4%9A%E7%BB%B4%E5%88%86%E5%B8%83"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2
+二维正态分布（最重要的多维分布）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-9"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%84%8F%E4%B9%89"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">参数意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">重要性质（高频考点）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E4%B8%A4%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.6.</span> <span class="nav-text">六、两个随机变量函数的分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%9E%8B%E6%83%85%E5%86%B5-1"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 离散型情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9E%8B%E6%83%85%E5%86%B5-1"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 连续型情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83%E9%87%8D%E7%82%B9%E6%8E%8C%E6%8F%A1"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 常用函数分布（重点掌握）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83%E5%8D%B7%E7%A7%AF%E5%85%AC%E5%BC%8F"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">和的分布（卷积公式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%86%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">商的分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">最大值和最小值分布（高频考点）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E6%B3%95%E9%9B%85%E5%8F%AF%E6%AF%94%E8%A1%8C%E5%88%97%E5%BC%8F%E6%B3%95"><span class="nav-number">1.6.4.</span> <span class="nav-text">6.4 变换法（雅可比行列式法）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E9%87%8D%E8%A6%81%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">七、重要公式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 分布函数相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 概率密度相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.7.3.</span> <span class="nav-text">7.3 独立性条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%88%86%E5%B8%83"><span class="nav-number">1.7.4.</span> <span class="nav-text">7.4 常用分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83"><span class="nav-number">1.7.5.</span> <span class="nav-text">7.5 函数分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.8.</span> <span class="nav-text">八、典型例题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%981%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%BE%8B%E4%B8%8E%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%BE%8B%E5%9F%BA%E7%A1%80%E9%A2%98%E5%9E%8B"><span class="nav-number">1.8.1.</span> <span class="nav-text">例题1：联合分布律与边缘分布律（基础题型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%982%E4%BA%8C%E7%BB%B4%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E6%80%A7%E8%B4%A8%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-number">1.8.2.</span> <span class="nav-text">例题2：二维正态分布的性质（重要考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%983%E4%B8%A4%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9"><span class="nav-number">1.8.3.</span> <span class="nav-text">例题3：两个随机变量函数的分布（高频考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%984%E6%9C%80%E5%A4%A7%E5%80%BC%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83%E5%B8%B8%E8%80%83%E9%A2%98%E5%9E%8B"><span class="nav-number">1.8.4.</span> <span class="nav-text">例题4：最大值最小值分布（常考题型）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -788,7 +873,7 @@ $$f_N(z) = n (1 - z)^{n-1}, \quad 0 &lt; z &lt; 1$$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -849,7 +934,7 @@ $$f_N(z) = n (1 - z)^{n-1}, \quad 0 &lt; z &lt; 1$$</p>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         

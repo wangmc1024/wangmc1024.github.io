@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理简单了解即可">
+  <meta name="description" content="想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理 简单了解即可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows批处理脚本相关概念">
 <meta property="og:url" content="https://wangmc1024.github.io/2025/10/20/os/windows/windows%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="Computer Science">
-<meta property="og:description" content="想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理简单了解即可">
+<meta property="og:description" content="想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理 简单了解即可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-20T07:36:16.000Z">
 <meta property="article:modified_time" content="2025-10-20T07:57:44.595Z">
@@ -233,123 +233,57 @@
 
       
         <blockquote>
-<p>想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理简单了解即可</p>
+<p>想自动化创建markdown文件时了解到的相关技术，利用AI进行了整理
+简单了解即可</p>
 </blockquote>
 <span id="more"></span>
-<h1>批处理脚本（BAT）完整教程：语法、概念与实践</h1>
+<h1
+id="批处理脚本bat完整教程语法概念与实践">批处理脚本（BAT）完整教程：语法、概念与实践</h1>
 <h2 id="目录">目录</h2>
-<ol>
-<li class="lvl-3">
-<p><a href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">基本概念</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">常用命令</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E5%8F%98%E9%87%8F%E7%B3%BB%E7%BB%9F">变量系统</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95">特殊参数扩展</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86">命令行参数处理</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7">特殊符号</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84">控制结构</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5">高级概念</a></p>
-</li>
-<li class="lvl-3">
-<p><a href="#%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B">实用脚本示例</a></p>
-</li>
+<ol type="1">
+<li><a href="#基本概念">基本概念</a></li>
+<li><a href="#常用命令">常用命令</a></li>
+<li><a href="#变量系统">变量系统</a></li>
+<li><a href="#特殊参数扩展">特殊参数扩展</a></li>
+<li><a href="#命令行参数处理">命令行参数处理</a></li>
+<li><a href="#特殊符号">特殊符号</a></li>
+<li><a href="#控制结构">控制结构</a></li>
+<li><a href="#高级概念">高级概念</a></li>
+<li><a href="#实用脚本示例">实用脚本示例</a></li>
 </ol>
 <h2 id="基本概念">基本概念</h2>
-<p>批处理脚本（.bat 或 .cmd 文件）是Windows系统下的脚本文件，包含一系列DOS命令，用于自动化执行任务。它是一种解释性语言，由命令提示符（cmd.exe）解释执行。</p>
-<p><strong>特点：</strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>无需编译，直接执行</p>
-</li>
-<li class="lvl-2">
-<p>逐行解释执行</p>
-</li>
-<li class="lvl-2">
-<p>可以调用系统命令和其他程序</p>
-</li>
-<li class="lvl-2">
-<p>支持变量、条件判断和循环等基本编程结构</p>
-</li>
-</ul>
+<p>批处理脚本（.bat 或 .cmd
+文件）是Windows系统下的脚本文件，包含一系列DOS命令，用于自动化执行任务。它是一种解释性语言，由命令提示符（cmd.exe）解释执行。</p>
+<p><strong>特点：</strong> - 无需编译，直接执行 - 逐行解释执行 -
+可以调用系统命令和其他程序 - 支持变量、条件判断和循环等基本编程结构</p>
 <h2 id="常用命令">常用命令</h2>
 <h3 id="文件操作">文件操作</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>dir</code> - 显示目录内容</p>
-</li>
-<li class="lvl-2">
-<p><code>cd</code> - 改变当前目录</p>
-</li>
-<li class="lvl-2">
-<p><code>md</code>/<code>mkdir</code> - 创建目录</p>
-</li>
-<li class="lvl-2">
-<p><code>rd</code>/<code>rmdir</code> - 删除目录</p>
-</li>
-<li class="lvl-2">
-<p><code>copy</code> - 复制文件</p>
-</li>
-<li class="lvl-2">
-<p><code>move</code> - 移动文件</p>
-</li>
-<li class="lvl-2">
-<p><code>del</code> - 删除文件</p>
-</li>
-<li class="lvl-2">
-<p><code>ren</code>/<code>rename</code> - 重命名文件</p>
-</li>
+<ul>
+<li><code>dir</code> - 显示目录内容</li>
+<li><code>cd</code> - 改变当前目录</li>
+<li><code>md</code>/<code>mkdir</code> - 创建目录</li>
+<li><code>rd</code>/<code>rmdir</code> - 删除目录</li>
+<li><code>copy</code> - 复制文件</li>
+<li><code>move</code> - 移动文件</li>
+<li><code>del</code> - 删除文件</li>
+<li><code>ren</code>/<code>rename</code> - 重命名文件</li>
 </ul>
 <h3 id="系统操作">系统操作</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>echo</code> - 显示文本或关闭/打开命令回显</p>
-</li>
-<li class="lvl-2">
-<p><code>cls</code> - 清空屏幕</p>
-</li>
-<li class="lvl-2">
-<p><code>type</code> - 显示文件内容</p>
-</li>
-<li class="lvl-2">
-<p><code>date</code> - 显示或设置日期</p>
-</li>
-<li class="lvl-2">
-<p><code>time</code> - 显示或设置时间</p>
-</li>
-<li class="lvl-2">
-<p><code>ver</code> - 显示Windows版本</p>
-</li>
-<li class="lvl-2">
-<p><code>title</code> - 设置命令提示符窗口标题</p>
-</li>
+<ul>
+<li><code>echo</code> - 显示文本或关闭/打开命令回显</li>
+<li><code>cls</code> - 清空屏幕</li>
+<li><code>type</code> - 显示文件内容</li>
+<li><code>date</code> - 显示或设置日期</li>
+<li><code>time</code> - 显示或设置时间</li>
+<li><code>ver</code> - 显示Windows版本</li>
+<li><code>title</code> - 设置命令提示符窗口标题</li>
 </ul>
 <h3 id="程序执行">程序执行</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>start</code> - 启动一个新窗口执行程序</p>
-</li>
-<li class="lvl-2">
-<p><code>call</code> - 调用另一个批处理文件</p>
-</li>
-<li class="lvl-2">
-<p><code>exit</code> - 退出批处理程序</p>
-</li>
-<li class="lvl-2">
-<p><code>pause</code> - 暂停程序执行，等待用户按键</p>
-</li>
+<ul>
+<li><code>start</code> - 启动一个新窗口执行程序</li>
+<li><code>call</code> - 调用另一个批处理文件</li>
+<li><code>exit</code> - 退出批处理程序</li>
+<li><code>pause</code> - 暂停程序执行，等待用户按键</li>
 </ul>
 <h2 id="变量系统">变量系统</h2>
 <h3 id="系统变量">系统变量</h3>
@@ -363,7 +297,7 @@
 <tbody>
 <tr>
 <td><code>%SystemRoot%</code></td>
-<td>Windows系统目录（通常是C:\Windows）</td>
+<td>Windows系统目录（通常是C:）</td>
 </tr>
 <tr>
 <td><code>%SystemDrive%</code></td>
@@ -493,6 +427,10 @@
 <p>根据官方文档，批处理脚本提供了强大的参数扩展功能，使用<code>%~</code>语法可以对参数进行各种转换。</p>
 <h3 id="基础扩展修饰符">基础扩展修饰符</h3>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr>
 <th>语法</th>
@@ -547,22 +485,17 @@
 </tbody>
 </table>
 <h3 id="dp0详解"><code>%~dp0</code>详解</h3>
-<p><code>%~dp0</code>是最常用的特殊扩展之一：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>d</code> = 驱动器号</p>
-</li>
-<li class="lvl-2">
-<p><code>p</code> = 路径</p>
-</li>
-<li class="lvl-2">
-<p><code>0</code> = 表示批处理文件本身</p>
-</li>
-</ul>
-<p>例如，如果批处理文件位于<code>F:\Temp\Batch\test.bat</code>，则：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo %~dp0  :: 输出 F:\Temp\Batch\</span><br><span class="line">echo %~f0  :: 输出 F:\Temp\Batch\test.bat</span><br><span class="line">echo %~n0  :: 输出 test</span><br><span class="line">echo %~x0  :: 输出 .bat</span><br></pre></td></tr></table></figure>
+<p><code>%~dp0</code>是最常用的特殊扩展之一： - <code>d</code> =
+驱动器号 - <code>p</code> = 路径 - <code>0</code> =
+表示批处理文件本身</p>
+<p>例如，如果批处理文件位于<code>F:\Temp\Batch\test.bat</code>，则：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo %~dp0  :: 输出 F:\Temp\Batch\</span><br><span class="line">echo %~f0  :: 输出 F:\Temp\Batch\test.bat</span><br><span class="line">echo %~n0  :: 输出 test</span><br><span class="line">echo %~x0  :: 输出 .bat</span><br></pre></td></tr></table></figure></p>
 <h3 id="组合扩展示例">组合扩展示例</h3>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr>
 <th>语法</th>
@@ -601,55 +534,28 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">set &quot;source=&quot;</span><br><span class="line">set &quot;destination=&quot;</span><br><span class="line">set &quot;verbose=false&quot;</span><br><span class="line"></span><br><span class="line">:parse_args</span><br><span class="line">if &quot;%1&quot;==&quot;&quot; goto end_parse</span><br><span class="line">if &quot;%1&quot;==&quot;/v&quot; (</span><br><span class="line">    set &quot;verbose=true&quot;</span><br><span class="line">    shift</span><br><span class="line">    goto parse_args</span><br><span class="line">)</span><br><span class="line">if not defined source (</span><br><span class="line">    set &quot;source=%1&quot;</span><br><span class="line">) else if not defined destination (</span><br><span class="line">    set &quot;destination=%1&quot;</span><br><span class="line">)</span><br><span class="line">shift</span><br><span class="line">goto parse_args</span><br><span class="line"></span><br><span class="line">:end_parse</span><br><span class="line">echo 源: %source%</span><br><span class="line">echo 目标: %destination%</span><br><span class="line">echo 详细模式: %verbose%</span><br><span class="line">endlocal</span><br></pre></td></tr></table></figure>
 <h2 id="特殊符号">特殊符号</h2>
 <h3 id="重定向符号">重定向符号</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>&gt;</code> - 输出重定向（覆盖文件）</p>
-</li>
-<li class="lvl-2">
-<p><code>&gt;&gt;</code> - 输出重定向（追加到文件）</p>
-</li>
-<li class="lvl-2">
-<p><code>&lt;</code> - 输入重定向</p>
-</li>
-<li class="lvl-2">
-<p><code>|</code> - 管道符号，将前一个命令的输出作为后一个命令的输入</p>
-</li>
+<ul>
+<li><code>&gt;</code> - 输出重定向（覆盖文件）</li>
+<li><code>&gt;&gt;</code> - 输出重定向（追加到文件）</li>
+<li><code>&lt;</code> - 输入重定向</li>
+<li><code>|</code> -
+管道符号，将前一个命令的输出作为后一个命令的输入</li>
 </ul>
 <h3 id="通配符">通配符</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>*</code> - 匹配任意字符序列</p>
-</li>
-<li class="lvl-2">
-<p><code>?</code> - 匹配任意单个字符</p>
-</li>
+<ul>
+<li><code>*</code> - 匹配任意字符序列</li>
+<li><code>?</code> - 匹配任意单个字符</li>
 </ul>
 <h3 id="其他符号">其他符号</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>@</code> - 隐藏命令本身的显示</p>
-</li>
-<li class="lvl-2">
-<p><code>:</code> - 标签定义</p>
-</li>
-<li class="lvl-2">
-<p><code>::</code> - 注释（与rem类似，但执行更快）</p>
-</li>
-<li class="lvl-2">
-<p><code>&amp;</code> - 命令分隔符，在同一行执行多个命令</p>
-</li>
-<li class="lvl-2">
-<p><code>&amp;&amp;</code> - 逻辑与，前一个命令成功才执行后一个</p>
-</li>
-<li class="lvl-2">
-<p><code>||</code> - 逻辑或，前一个命令失败才执行后一个</p>
-</li>
-<li class="lvl-2">
-<p><code>()</code> - 命令块，将多个命令作为一个整体执行</p>
-</li>
-<li class="lvl-2">
-<p><code>^</code> - 转义字符，用于显示特殊字符本身</p>
-</li>
+<ul>
+<li><code>@</code> - 隐藏命令本身的显示</li>
+<li><code>:</code> - 标签定义</li>
+<li><code>::</code> - 注释（与rem类似，但执行更快）</li>
+<li><code>&amp;</code> - 命令分隔符，在同一行执行多个命令</li>
+<li><code>&amp;&amp;</code> - 逻辑与，前一个命令成功才执行后一个</li>
+<li><code>||</code> - 逻辑或，前一个命令失败才执行后一个</li>
+<li><code>()</code> - 命令块，将多个命令作为一个整体执行</li>
+<li><code>^</code> - 转义字符，用于显示特殊字符本身</li>
 </ul>
 <h3 id="高级重定向示例">高级重定向示例</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">:: 将命令输出同时保存到文件和显示在屏幕上</span><br><span class="line">dir | tee output.txt</span><br><span class="line"></span><br><span class="line">:: 错误重定向</span><br><span class="line">command 2&gt; error.log  :: 将错误输出到文件</span><br><span class="line">command 2&gt;&amp;1          :: 将错误输出重定向到标准输出</span><br><span class="line">command &gt; output.log 2&gt;&amp;1  :: 将所有输出重定向到文件</span><br></pre></td></tr></table></figure>
@@ -771,7 +677,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">批处理脚本（BAT）完整教程：语法、概念与实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.1.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">系统操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.3.</span> <span class="nav-text">程序执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.</span> <span class="nav-text">变量系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">系统变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">用户自定义变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95"><span class="nav-number">1.5.</span> <span class="nav-text">特殊参数扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%89%A9%E5%B1%95%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.5.1.</span> <span class="nav-text">基础扩展修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dp0%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.5.2.</span> <span class="nav-text">%~dp0详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%89%A9%E5%B1%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">组合扩展示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">命令行参数处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8F%82%E6%95%B0%E8%AE%BF%E9%97%AE"><span class="nav-number">1.6.1.</span> <span class="nav-text">基本参数访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">1.6.2.</span> <span class="nav-text">%*的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%B6%85%E8%BF%879%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-number">1.6.3.</span> <span class="nav-text">处理超过9个参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.6.4.</span> <span class="nav-text">参数解析示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.</span> <span class="nav-text">特殊符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.1.</span> <span class="nav-text">重定向符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">1.7.2.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.3.</span> <span class="nav-text">其他符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E9%87%8D%E5%AE%9A%E5%90%91%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.4.</span> <span class="nav-text">高级重定向示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.8.</span> <span class="nav-text">控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.8.1.</span> <span class="nav-text">if 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.8.2.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#goto-%E8%AF%AD%E5%8F%A5%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="nav-number">1.8.3.</span> <span class="nav-text">goto 语句和标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.8.4.</span> <span class="nav-text">call 语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5"><span class="nav-number">1.9.</span> <span class="nav-text">高级概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E5%8F%98%E9%87%8F%E6%89%A9%E5%B1%95"><span class="nav-number">1.9.1.</span> <span class="nav-text">延迟变量扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.9.2.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.3.</span> <span class="nav-text">环境变量操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.9.4.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.5.</span> <span class="nav-text">字符串操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.10.</span> <span class="nav-text">实用脚本示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.1.</span> <span class="nav-text">文件备份脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.2.</span> <span class="nav-text">系统信息收集脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.3.</span> <span class="nav-text">文件批量重命名脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.4.</span> <span class="nav-text">批量文件处理脚本</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%ACbat%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B%E8%AF%AD%E6%B3%95%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.</span> <span class="nav-text">批处理脚本（BAT）完整教程：语法、概念与实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.1.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">系统操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.3.</span> <span class="nav-text">程序执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.</span> <span class="nav-text">变量系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">系统变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">用户自定义变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95"><span class="nav-number">1.5.</span> <span class="nav-text">特殊参数扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%89%A9%E5%B1%95%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.5.1.</span> <span class="nav-text">基础扩展修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dp0%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.5.2.</span> <span class="nav-text">%~dp0详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%89%A9%E5%B1%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">组合扩展示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">命令行参数处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8F%82%E6%95%B0%E8%AE%BF%E9%97%AE"><span class="nav-number">1.6.1.</span> <span class="nav-text">基本参数访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">1.6.2.</span> <span class="nav-text">%*的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E8%B6%85%E8%BF%879%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-number">1.6.3.</span> <span class="nav-text">处理超过9个参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.6.4.</span> <span class="nav-text">参数解析示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.</span> <span class="nav-text">特殊符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.1.</span> <span class="nav-text">重定向符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">1.7.2.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.7.3.</span> <span class="nav-text">其他符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E9%87%8D%E5%AE%9A%E5%90%91%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.4.</span> <span class="nav-text">高级重定向示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.8.</span> <span class="nav-text">控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.8.1.</span> <span class="nav-text">if 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.8.2.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#goto-%E8%AF%AD%E5%8F%A5%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="nav-number">1.8.3.</span> <span class="nav-text">goto 语句和标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.8.4.</span> <span class="nav-text">call 语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%A6%82%E5%BF%B5"><span class="nav-number">1.9.</span> <span class="nav-text">高级概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E5%8F%98%E9%87%8F%E6%89%A9%E5%B1%95"><span class="nav-number">1.9.1.</span> <span class="nav-text">延迟变量扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.9.2.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.3.</span> <span class="nav-text">环境变量操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.9.4.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.5.</span> <span class="nav-text">字符串操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.10.</span> <span class="nav-text">实用脚本示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.1.</span> <span class="nav-text">文件备份脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.2.</span> <span class="nav-text">系统信息收集脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.3.</span> <span class="nav-text">文件批量重命名脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">1.10.4.</span> <span class="nav-text">批量文件处理脚本</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -787,7 +693,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -848,7 +754,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">729k</span>
+    <span title="站点总字数">726k</span>
 </div>
 
         
