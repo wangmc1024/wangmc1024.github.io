@@ -229,924 +229,734 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
 <p>哈哈，好，“同学们”请坐好！你这份大纲拿得非常“地道”，这根本不是一份简单的目录，<strong>这分明就是一座“编译器工厂”的设计总图纸！</strong></p>
-<p>作为你们的“老（shi）师（fu）”，我不用龙书（Dragon Book）或者 MIT
-的课件来“压”你们，咱们就按你给的这张“图纸”（大纲），从高处（高屋建瓴）走一趟，看看这座工厂的“流水线”是怎么设计得如此精妙的。</p>
-<p>我们的目标是：把一堆“火星文”（源代码）变成“地球语”（机器码）。你的大纲（2-6章）就是这座工厂的<strong>“前端”（Frontend）</strong>——负责“理解火星文”。</p>
-<hr />
-<h3 id="第一车间奠基与法规第2章文法与语言">🏭
-第一车间：奠基与法规（第2章：文法与语言）</h3>
-<p>在开工前，我们得先有<strong>“法律”</strong>。第2章就是我们整个工厂的<strong>《根本大法》</strong>。</p>
-<ul>
-<li><strong>2.3 文法模型 &amp; 2.5 文法类型：</strong>
-这就是“乔姆斯基（Chomsky）宪法”。他老人家把“语言”分成了四种“管辖难度”：0,
-1, 2, 3 型。
-<ul>
-<li><strong>这奠定了我们整个工厂的“分工逻辑”！</strong>
-为什么？因为我们发现，用一套“法律”去管所有的事（比如用0型），“执法者”（编译器）的制造成本高到“破产”。</li>
-<li>于是我们做了“分工”：
-<ul>
-<li>用<strong>3型文法（正规文法）</strong>（最简单的“地方法规”）去管“单词”长什么样。</li>
-<li>用<strong>2型文法（上下文无关文法）</strong>（更复杂的“刑法”）去管“句子结构”对不对。</li>
-</ul></li>
-</ul></li>
-<li><strong>2.8 文法的二义性：</strong>
-这是“法律”的“漏洞”。比如一条法规“A有B和C的优先权”，这到底是 (A有B) 且
-(A有C) 还是 (A有B) 或 (A有C)？（经典 <code>if-else</code>
-悬挂问题）。<strong>一部有“二义性”的法律是无法“自动执行”的</strong>，这为我们后续（第4、5章）“修法”（改造文法）埋下了伏”笔”。</li>
+<p>作为你们的“老（shi）师（fu）”，我不用龙书（Dragon Book）或者 MIT 的课件来“压”你们，咱们就按你给的这张“图纸”（大纲），从高处（高屋建瓴）走一趟，看看这座工厂的“流水线”是怎么设计得如此精妙的。</p>
+<p>我们的目标是：把一堆“火星文”（源代码）变成“地球语”（机器码）。你的大纲（2-6章）就是这座工厂的**“前端”（Frontend）**——负责“理解火星文”。</p>
+<hr>
+<h3 id="🏭-第一车间：奠基与法规（第2章：文法与语言）">🏭 第一车间：奠基与法规（第2章：文法与语言）</h3>
+<p>在开工前，我们得先有**“法律”<strong>。第2章就是我们整个工厂的</strong>《根本大法》**。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>2.3 文法模型 &amp; 2.5 文法类型：</strong> 这就是“乔姆斯基（Chomsky）宪法”。他老人家把“语言”分成了四种“管辖难度”：0, 1, 2, 3 型。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>这奠定了我们整个工厂的“分工逻辑”！</strong> 为什么？因为我们发现，用一套“法律”去管所有的事（比如用0型），“执法者”（编译器）的制造成本高到“破产”。</li>
+<li class="lvl-6">于是我们做了“分工”：
+<ul class="lvl-4">
+<li class="lvl-10">用<strong>3型文法（正规文法）</strong>（最简单的“地方法规”）去管“单词”长什么样。</li>
+<li class="lvl-10">用<strong>2型文法（上下文无关文法）</strong>（更复杂的“刑法”）去管“句子结构”对不对。</li>
 </ul>
-<p><strong>➡️ 知识串联（本章意义）：</strong>
-第2章是<strong>“万法之源”</strong>。它定义了“问题”本身，并根据“难度”（乔姆斯基谱系）将问题<strong>“分而治之”</strong>。它向下（第3章）输出了“3型文法”，并向下（第4、5章）输出了“2型文法”。</p>
-<hr />
-<h3 id="第二车间原料分拣第3章词法分析">🏭
-第二车间：原料分拣（第3章：词法分析）</h3>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>2.8 文法的二义性：</strong> 这是“法律”的“漏洞”。比如一条法规“A有B和C的优先权”，这到底是 (A有B) 且 (A有C) 还是 (A有B) 或 (A有C)？（经典 <code>if-else</code> 悬挂问题）。<strong>一部有“二义性”的法律是无法“自动执行”的</strong>，这为我们后续（第4、5章）“修法”（改造文法）埋下了伏&quot;笔&quot;。</p>
+</li>
+</ul>
+<p><strong>➡️ 知识串联（本章意义）：</strong> 第2章是**“万法之源”<strong>。它定义了“问题”本身，并根据“难度”（乔姆斯基谱系）将问题</strong>“分而治之”**。它向下（第3章）输出了“3型文法”，并向下（第4、5章）输出了“2型文法”。</p>
+<hr>
+<h3 id="🏭-第二车间：原料分拣（第3章：词法分析）">🏭 第二车间：原料分拣（第3章：词法分析）</h3>
 <p>“火星文”（<code>if(x&gt;1)</code>）来了！它是一长串字符。本车间的任务是“分拣”，<strong>不关心“句子”通不通顺，只关心“单词”合不合法</strong>。</p>
-<ul>
-<li><strong>为什么先学这个？</strong>
-因为这是“分而治之”的第一步。我们用“地方法规”（3型文法）就能解决的问题，绝不升级到“刑法”（2型文法）。</li>
-<li><strong>3.2 正规文法 (Type-3) ★：</strong>
-这就是我们从第2章拿到的“法律依据”。</li>
-<li><strong>3.3 正规式 (RE) &amp; 3.4-3.6 有穷自动机 (FA)：</strong>
-这就是“法律”的“执行者”。它们三者是“三位一体”的！
-<ul>
-<li><strong>正规文法：</strong> 学术派的“法律条文”。</li>
-<li><strong>正规式：</strong> 工程师用的“速记符”（比如
-<code>[a-zA-Z]+</code>）。</li>
-<li><strong>有穷自动机：</strong> 最终落地的“自动化安检机”。</li>
-</ul></li>
-<li><strong>NFA vs DFA (3.5, 3.6)：</strong> 这就是两种“安检流程”。
-<ul>
-<li><strong>NFA (不确定的)：</strong>
-“随缘安检”。一个安检员（状态）看到可疑物品（输入
-<code>a</code>），他大手一挥：“你<strong>可能</strong>去A口，也<strong>可能</strong>去B口”。（<code>3.15 正规式转NFA</code>
-很容易，因为“随缘”的规则好写）。</li>
-<li><strong>DFA (确定的)：</strong> “流水线安检”。规定死死的：“看到
-<code>a</code>，你<strong>必须</strong>且<strong>只能</strong>去B口”。</li>
-</ul></li>
-<li><strong>3.9 NFA的确定化 ★ &amp; 3.10 DFA的最小化 ★：</strong>
-这就是“安检流程”的“优化升级”。
-<ul>
-<li><strong>为什么？</strong>
-NFA（随缘）虽然“规则”好写，但“执行”起来慢（因为它要“猜”）。DFA（流水线）“执行”起来飞快（查表就行），但“规则”可能很臃肿。</li>
-<li><strong>怎么办？</strong> 我们采用“曲线救国”：
-<ol type="1">
-<li>工程师写“速记符”（<code>3.3 正规式</code>）。</li>
-<li>（<code>3.15</code>）轻松转成 NFA（“随缘安检”设计图）。</li>
-<li>（<code>3.9</code>）用算法（子集构造法）把“随缘图”变成“流水线图”（NFA
--&gt; DFA）。</li>
-<li>（<code>3.10</code>）把“流水线”上的“重复工序”合并（DFA最小化）。</li>
-</ol></li>
-<li><strong>产出：</strong>
-恭喜！你得到了一个<strong>地表最快</strong>的“单词安检机”（词法分析器，Lexer）。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>为什么先学这个？</strong> 因为这是“分而治之”的第一步。我们用“地方法规”（3型文法）就能解决的问题，绝不升级到“刑法”（2型文法）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>3.2 正规文法 (Type-3) ★：</strong> 这就是我们从第2章拿到的“法律依据”。</p>
+</li>
+<li class="lvl-2">
+<p><strong>3.3 正规式 (RE) &amp; 3.4-3.6 有穷自动机 (FA)：</strong> 这就是“法律”的“执行者”。它们三者是“三位一体”的！</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>正规文法：</strong> 学术派的“法律条文”。</li>
+<li class="lvl-6"><strong>正规式：</strong> 工程师用的“速记符”（比如 <code>[a-zA-Z]+</code>）。</li>
+<li class="lvl-6"><strong>有穷自动机：</strong> 最终落地的“自动化安检机”。</li>
 </ul>
-<p><strong>➡️ 知识串联（承上启下）：</strong>
-第3章<strong>完美解决</strong>了第2章“分”出来的“3型问题”。它把一长串“字符流”变成了“<strong>令牌流</strong>”（Token
-Stream），比如 <code>(IF, 'if')</code> <code>(LPAREN, '(')</code>
-<code>(ID, 'x')</code>… 这些“令牌”就是“原料”，准备送往下一个车间。</p>
-<hr />
-<h3 id="第三车间组装上第4章自上而下的语法分析">🏭
-第三车间：组装（上）（第4章：自上而下的语法分析）</h3>
-<p>“零件”（Tokens）来了。我们要开始“组装”了。本车间（和第5章）的任务是：<strong>检查这些“零件”能否按“刑法”（2型文法）组装成一个合法的“产品”</strong>（比如一个
-<code>if</code> 语句）。</p>
-<ul>
-<li><strong>思路：</strong> 自上而下 (Top-Down) ——
-“<strong>预言家</strong>”式组装。</li>
-<li><strong>工作方式：</strong>
-像“包工头”一样。他拿着“总蓝图”（比如“我要盖个 <code>函数</code>”）。
-<ul>
-<li><code>函数</code> -&gt; <code>返回类型</code> <code>函数名</code>
-<code>(参数)</code> <code>{ 语句 }</code></li>
-<li>他会说：“OK，按蓝图，我<strong>预测（Predict）</strong>我<strong>首先（First）</strong>会看到一个
-<code>返回类型</code>（比如 <code>int</code>）”。</li>
-<li>如果来的零件（Token）<strong>是</strong>
-<code>int</code>，太好了！继续预测下一个 <code>函数名</code>…</li>
-<li>如果来的零件<strong>不是</strong>
-<code>int</code>，他就“报错”：“图纸对不上！”</li>
-</ul></li>
-<li><strong>4.3 LL(1) 文法：</strong>
-这就是“预言家”能看懂的“蓝图”。L（从左往右扫），L（最左推导），(1)（只看<strong>1</strong>个零件就能<strong>明确</strong>预测）。</li>
-<li><strong>4.5-4.7 First集 &amp; Follow集 ★：</strong>
-这就是“预言家”的“<strong>水晶球</strong>”！
-<ul>
-<li><strong>First集：</strong> “要盖 <code>语句</code>
-这个“大件”，我<strong>第一眼</strong>会看到什么“小零件”（Token）？”</li>
-<li><strong>Follow集：</strong> “如果 <code>语句</code>
-盖完了，在它<strong>屁股后面（Follow）</strong>能合法跟着什么“零件”？”
-(这用于处理“可能盖出个空气 <code>ε</code>”的复杂情况)。</li>
-</ul></li>
-<li><strong>4.8 消除回溯 &amp; 4.9 消除左递归 ★：</strong>
-这就是“预言家”最怕的“<strong>选择困难症</strong>”。
-<ul>
-<li><code>左递归</code> (如
-<code>A -&gt; A + B</code>)：“要盖A，你得先盖个A”。“包工头”当场死机（无限递归）。</li>
-<li><code>回溯</code> (如 <code>A -&gt; B | C</code>)：如果
-<code>B</code> 和 <code>C</code>
-的<strong>First集有交集</strong>（比如都以 <code>id</code>
-开头），“包E..头”就懵了：“来的零件是 <code>id</code>，我到底该按
-<code>B</code> 图纸还是 <code>C</code> 图纸盖？”</li>
-<li><strong>怎么办？</strong>
-“修法”！<strong>改造文法</strong>（第2章的“法律”），把它改成LL(1)（<code>4.3</code>）能看懂的“无歧义蓝图”。</li>
-</ul></li>
-<li><strong>产出：</strong>
-<code>4.10 递归下降</code>（手动挡，一个函数管一条规则）或
-<code>4.11 预测分析</code>（自动挡，查表）。</li>
+</li>
+<li class="lvl-2">
+<p><strong>NFA vs DFA (3.5, 3.6)：</strong> 这就是两种“安检流程”。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>NFA (不确定的)：</strong> “随缘安检”。一个安检员（状态）看到可疑物品（输入 <code>a</code>），他大手一挥：“你<strong>可能</strong>去A口，也<strong>可能</strong>去B口”。（<code>3.15 正规式转NFA</code> 很容易，因为“随缘”的规则好写）。</li>
+<li class="lvl-6"><strong>DFA (确定的)：</strong> “流水线安检”。规定死死的：“看到 <code>a</code>，你<strong>必须</strong>且<strong>只能</strong>去B口”。</li>
 </ul>
-<p><strong>➡️ 知识串联：</strong>
-第4章是实现“2型文法”的第一种思路。它<strong>简单、直观、易于手写</strong>，但它很“<strong>挑剔</strong>”，要求“法律”（文法）必须为它“量身改造”。</p>
-<hr />
-<h3 id="第四车间组装下第5章自下而上的语法分析">🏭
-第四车间：组装（下）（第5章：自下而上的语法分析）</h3>
-<p>这是另一派“组装工”，也是<strong>现代工业（如
-Yacc/Bison）的真正选择</strong>。</p>
-<ul>
-<li><strong>思路：</strong> 自下而上 (Bottom-Up) ——
-“<strong>拼图大师</strong>”式组装。</li>
-<li><strong>工作方式：</strong>
-“拼图大师”不搞“预测”。他低头看手里的“零件”（Tokens）：
-<ul>
-<li>“我手里有 <code>(ID, 'x')</code> <code>(GT, '&gt;')</code>
-<code>(NUM, '1')</code>…”</li>
-<li>他不断“<strong>移进</strong>”（Shift）零件到桌上。</li>
-<li>“等等！桌上的
-<code>x &gt; 1</code>，根据“蓝图”（文法），它可以“<strong>规约</strong>”（Reduce）成一个叫
-<code>布尔表达式</code> 的“半成品”！”</li>
-<li>他不断地“移进-规约”，从小零件拼成半成品，再从半成品拼成大成品，直到最后拼出“总蓝图”（比如
-<code>函数</code>）。</li>
-</ul></li>
-<li><strong>5.3 - 5.13 LR家族 (LR0, SLR1, LR1, LALR1)：</strong>
-这就是“拼图大师”的“段位”进化史！
-<ul>
-<li><strong>核心问题：</strong>
-“大师”什么时候该“移进”，什么时候该“规约”？（<strong>移进/规约冲突</strong>）</li>
-<li><code>LR0</code>
-★：<strong>新手</strong>。能力很弱，不看“上下文”，看到能拼的（规约）就想拼，非常容易“冲动”导致“冲突”。</li>
-<li><code>SLR1</code>
-★：<strong>进阶者</strong>。它在“冲动”（想规约）时，会抬头看一眼“水晶球”里的
-<strong>Follow集</strong>（<strong>看！和第4章的工具串起来了！</strong>）。“我要拼的
-<code>A</code>，它屁股后面（Follow）能跟 <code>)</code>
-吗？如果能，我才拼！”</li>
-<li><code>LR1</code>
-★：<strong>大师</strong>。它用的“水晶球”更高级（<code>LR1项目</code>），它不仅看
-<code>Follow</code>，它还<strong>自带“向前看1个符号”的上下文</strong>。能力最强，但“决策表”（<code>5.12</code>）大到离谱。</li>
-<li><code>LALR1</code> ★：<strong>实战大师</strong>。它把 LR1
-的“超大决策表”里“长得像”的规则（同心）合并了。<strong>能力接近LR1，但空间小得多。这就是工业标准！</strong></li>
-</ul></li>
-<li><strong>5.16 算符优先 ★：</strong> 这是 LR
-家族的“旁支”，一个“简化版”的“拼图大师”，专门用来拼“数学表达式”的（<code>+ - * /</code>）。它只关心“运算符”之间的“辈分”（优先级），简单高效。</li>
-</ul>
-<p><strong>➡️ 知识串联：</strong>
-第5章是实现“2型文法”的第二种思路。它<strong>更强大、更“皮实”</strong>（能处理的文法远超LL），不怎么需要“修法”（<code>5.14</code>
-甚至能巧妙利用二义性）。但它太复杂了，<strong>基本靠“工具”（Parser
-Generator）生成</strong>。</p>
-<hr />
-<h3 id="第五车间逻辑审查第6章语义分析">🏭
-第五车间：逻辑审查（第6章：语义分析）</h3>
-<p>恭喜！前面（第4或5章）的“组装工”已经把“产品骨架”（<strong>语法树
-<code>2.7</code></strong>）搭好了。这证明你的代码“<strong>说得通</strong>”（语法正确）。</p>
-<ul>
-<li><strong>任务：</strong>
-“逻辑审查官”登场。他要检查你的代码是不是在“<strong>说胡话</strong>”（语义错误）。</li>
-<li><strong>审查什么？</strong>
-<ul>
-<li><code>6.2 声明语句翻译 ★</code>：你用了变量
-<code>x</code>，你“登记户口”（声明）了吗？</li>
-<li><code>6.3 赋值语句翻译 ★</code>：<code>int a = "hello";</code> ——
-语法（<code>类型 变量 = 值</code>）没错，但“逻辑”（语义）错了！你不能把“字符串”塞进“整数”的“户口”！</li>
-<li><code>6.4 表达式翻译 ★</code>：<code>"apple" + 5</code> ——
-这俩“物种”（类型）不匹配，怎么“+”？</li>
-<li><code>6.6 条件语句翻译 ★</code>：<code>if ("hello") ...</code> ——
-“if” 后面必须跟“真/假”（布尔值），你给我个“字符串”是几个意思？</li>
-</ul></li>
-<li><strong>重点在“翻译” (Translation)：</strong>
-审查官在“爬树”（遍历语法树）审查的同时，他<strong>不是只“看”</strong>，他还在“<strong>翻译</strong>”！</li>
-<li><strong>产出：</strong>
-把“臃肿”的“语法树”翻译成一种更“苗条”、更接近机器的<strong>“中间表示”（Intermediate
-Representation, IR）</strong>，比如大名鼎鼎的“三地址码”。
-<ul>
-<li><code>x = a + b * 5;</code> (语法树)</li>
-<li><code>t1 = b * 5</code> (IR)</li>
-<li><code>t2 = a + t1</code> (IR)</li>
-<li><code>x = t2</code> (IR)</li>
-</ul></li>
-</ul>
-<p><strong>➡️ 知识串联（终点与起点）：</strong>
-第6章是<strong>“前端”的终点</strong>。它承接了第4/5章的“语法树”，完成了“逻辑审查”和“高级翻译”。它产出的“IR”（中间代码），将作为<strong>“后端”（Backend）</strong>（你大纲里没有的：代码优化、目标代码生成）的“原料”。</p>
-<hr />
-<h3 id="总结这张网是如何织成的">总结：这张“网”是如何织成的</h3>
-<p>看到了吗？你这份大纲的逻辑是<strong>层层递进、严丝合缝</strong>的：</p>
-<ol type="1">
-<li><strong>第2章（文法）</strong>：提出“总纲”，并<strong>“分而治之”</strong>，把问题拆成“单词”（3型）和“句子”（2型）。</li>
-<li><strong>第3章（词法）</strong>：<strong>承接“3型文法”</strong>。用
-<strong>RE/FA
-三位一体</strong>的技术，高效地把“字符流”转成“<strong>令牌流</strong>”。</li>
-<li><strong>第4/5章（语法）</strong>：<strong>承接“2型文法”和“令牌流”</strong>。用
-<strong>LL（预言家）</strong>或 <strong>LR（拼图大师）</strong>
-两大流派，把“令牌流”组装成“<strong>语法树</strong>”。</li>
-<li><strong>第6章（语义）</strong>：<strong>承接“语法树”</strong>。遍历这棵树，做“逻辑审查”（如类型检查），并<strong>翻译</strong>成<strong>“中间代码
-(IR)”</strong>。</li>
+</li>
+<li class="lvl-2">
+<p><strong>3.9 NFA的确定化 ★ &amp; 3.10 DFA的最小化 ★：</strong> 这就是“安检流程”的“优化升级”。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>为什么？</strong> NFA（随缘）虽然“规则”好写，但“执行”起来慢（因为它要“猜”）。DFA（流水线）“执行”起来飞快（查表就行），但“规则”可能很臃肿。</li>
+<li class="lvl-6"><strong>怎么办？</strong> 我们采用“曲线救国”：
+<ol>
+<li class="lvl-12">工程师写“速记符”（<code>3.3 正规式</code>）。</li>
+<li class="lvl-12">（<code>3.15</code>）轻松转成 NFA（“随缘安检”设计图）。</li>
+<li class="lvl-12">（<code>3.9</code>）用算法（子集构造法）把“随缘图”变成“流水线图”（NFA -&gt; DFA）。</li>
+<li class="lvl-12">（<code>3.10</code>）把“流水线”上的“重复工序”合并（DFA最小化）。</li>
 </ol>
-<p>整条流水线：<code>字符流</code> -&gt; <code>（第3章）</code> -&gt;
-<code>令牌流</code> -&gt; <code>（第4/5章）</code> -&gt;
-<code>语法树</code> -&gt; <code>（第6章）</code> -&gt;
-<code>中间代码IR</code>。</p>
+</li>
+<li class="lvl-6"><strong>产出：</strong> 恭喜！你得到了一个<strong>地表最快</strong>的“单词安检机”（词法分析器，Lexer）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>➡️ 知识串联（承上启下）：</strong> 第3章<strong>完美解决</strong>了第2章“分”出来的“3型问题”。它把一长串“字符流”变成了“<strong>令牌流</strong>”（Token Stream），比如 <code>(IF, 'if')</code> <code>(LPAREN, '(')</code> <code>(ID, 'x')</code>… 这些“令牌”就是“原料”，准备送往下一个车间。</p>
+<hr>
+<h3 id="🏭-第三车间：组装（上）（第4章：自上而下的语法分析）">🏭 第三车间：组装（上）（第4章：自上而下的语法分析）</h3>
+<p>“零件”（Tokens）来了。我们要开始“组装”了。本车间（和第5章）的任务是：<strong>检查这些“零件”能否按“刑法”（2型文法）组装成一个合法的“产品”</strong>（比如一个 <code>if</code> 语句）。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>思路：</strong> 自上而下 (Top-Down) —— “<strong>预言家</strong>”式组装。</p>
+</li>
+<li class="lvl-2">
+<p><strong>工作方式：</strong> 像“包工头”一样。他拿着“总蓝图”（比如“我要盖个 <code>函数</code>”）。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><code>函数</code> -&gt; <code>返回类型</code> <code>函数名</code> <code>(参数)</code> <code>{ 语句 }</code></li>
+<li class="lvl-6">他会说：“OK，按蓝图，我**预测（Predict）<strong>我</strong>首先（First）**会看到一个 <code>返回类型</code>（比如 <code>int</code>）”。</li>
+<li class="lvl-6">如果来的零件（Token）<strong>是</strong> <code>int</code>，太好了！继续预测下一个 <code>函数名</code>…</li>
+<li class="lvl-6">如果来的零件<strong>不是</strong> <code>int</code>，他就“报错”：“图纸对不上！”</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>4.3 LL(1) 文法：</strong> 这就是“预言家”能看懂的“蓝图”。L（从左往右扫），L（最左推导），(1)（只看<strong>1</strong>个零件就能<strong>明确</strong>预测）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>4.5-4.7 First集 &amp; Follow集 ★：</strong> 这就是“预言家”的“<strong>水晶球</strong>”！</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>First集：</strong> “要盖 <code>语句</code> 这个“大件”，我<strong>第一眼</strong>会看到什么“小零件”（Token）？”</li>
+<li class="lvl-6"><strong>Follow集：</strong> “如果 <code>语句</code> 盖完了，在它**屁股后面（Follow）**能合法跟着什么“零件”？” (这用于处理“可能盖出个空气 <code>ε</code>”的复杂情况)。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>4.8 消除回溯 &amp; 4.9 消除左递归 ★：</strong> 这就是“预言家”最怕的“<strong>选择困难症</strong>”。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><code>左递归</code> (如 <code>A -&gt; A + B</code>)：“要盖A，你得先盖个A”。“包工头”当场死机（无限递归）。</li>
+<li class="lvl-6"><code>回溯</code> (如 <code>A -&gt; B | C</code>)：如果 <code>B</code> 和 <code>C</code> 的<strong>First集有交集</strong>（比如都以 <code>id</code> 开头），“包E…头”就懵了：“来的零件是 <code>id</code>，我到底该按 <code>B</code> 图纸还是 <code>C</code> 图纸盖？”</li>
+<li class="lvl-6"><strong>怎么办？</strong> “修法”！<strong>改造文法</strong>（第2章的“法律”），把它改成LL(1)（<code>4.3</code>）能看懂的“无歧义蓝图”。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>产出：</strong> <code>4.10 递归下降</code>（手动挡，一个函数管一条规则）或 <code>4.11 预测分析</code>（自动挡，查表）。</p>
+</li>
+</ul>
+<p><strong>➡️ 知识串联：</strong> 第4章是实现“2型文法”的第一种思路。它<strong>简单、直观、易于手写</strong>，但它很“<strong>挑剔</strong>”，要求“法律”（文法）必须为它“量身改造”。</p>
+<hr>
+<h3 id="🏭-第四车间：组装（下）（第5章：自下而上的语法分析）">🏭 第四车间：组装（下）（第5章：自下而上的语法分析）</h3>
+<p>这是另一派“组装工”，也是<strong>现代工业（如 Yacc/Bison）的真正选择</strong>。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>思路：</strong> 自下而上 (Bottom-Up) —— “<strong>拼图大师</strong>”式组装。</p>
+</li>
+<li class="lvl-2">
+<p><strong>工作方式：</strong> “拼图大师”不搞“预测”。他低头看手里的“零件”（Tokens）：</p>
+<ul class="lvl-2">
+<li class="lvl-6">“我手里有 <code>(ID, 'x')</code> <code>(GT, '&gt;')</code> <code>(NUM, '1')</code>…”</li>
+<li class="lvl-6">他不断“<strong>移进</strong>”（Shift）零件到桌上。</li>
+<li class="lvl-6">“等等！桌上的 <code>x &gt; 1</code>，根据“蓝图”（文法），它可以“<strong>规约</strong>”（Reduce）成一个叫 <code>布尔表达式</code> 的“半成品”！”</li>
+<li class="lvl-6">他不断地“移进-规约”，从小零件拼成半成品，再从半成品拼成大成品，直到最后拼出“总蓝图”（比如 <code>函数</code>）。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>5.3 - 5.13 LR家族 (LR0, SLR1, LR1, LALR1)：</strong> 这就是“拼图大师”的“段位”进化史！</p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>核心问题：</strong> “大师”什么时候该“移进”，什么时候该“规约”？（<strong>移进/规约冲突</strong>）</li>
+<li class="lvl-6"><code>LR0</code> ★：<strong>新手</strong>。能力很弱，不看“上下文”，看到能拼的（规约）就想拼，非常容易“冲动”导致“冲突”。</li>
+<li class="lvl-6"><code>SLR1</code> ★：<strong>进阶者</strong>。它在“冲动”（想规约）时，会抬头看一眼“水晶球”里的 <strong>Follow集</strong>（<strong>看！和第4章的工具串起来了！</strong>）。“我要拼的 <code>A</code>，它屁股后面（Follow）能跟 <code>)</code> 吗？如果能，我才拼！”</li>
+<li class="lvl-6"><code>LR1</code> ★：<strong>大师</strong>。它用的“水晶球”更高级（<code>LR1项目</code>），它不仅看 <code>Follow</code>，它还<strong>自带“向前看1个符号”的上下文</strong>。能力最强，但“决策表”（<code>5.12</code>）大到离谱。</li>
+<li class="lvl-6"><code>LALR1</code> ★：<strong>实战大师</strong>。它把 LR1 的“超大决策表”里“长得像”的规则（同心）合并了。<strong>能力接近LR1，但空间小得多。这就是工业标准！</strong></li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>5.16 算符优先 ★：</strong> 这是 LR 家族的“旁支”，一个“简化版”的“拼图大师”，专门用来拼“数学表达式”的（<code>+ - * /</code>）。它只关心“运算符”之间的“辈分”（优先级），简单高效。</p>
+</li>
+</ul>
+<p><strong>➡️ 知识串联：</strong> 第5章是实现“2型文法”的第二种思路。它<strong>更强大、更“皮实”</strong>（能处理的文法远超LL），不怎么需要“修法”（<code>5.14</code> 甚至能巧妙利用二义性）。但它太复杂了，<strong>基本靠“工具”（Parser Generator）生成</strong>。</p>
+<hr>
+<h3 id="🏭-第五车间：逻辑审查（第6章：语义分析）">🏭 第五车间：逻辑审查（第6章：语义分析）</h3>
+<p>恭喜！前面（第4或5章）的“组装工”已经把“产品骨架”（<strong>语法树 <code>2.7</code></strong>）搭好了。这证明你的代码“<strong>说得通</strong>”（语法正确）。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>任务：</strong> “逻辑审查官”登场。他要检查你的代码是不是在“<strong>说胡话</strong>”（语义错误）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>审查什么？</strong></p>
+<ul class="lvl-2">
+<li class="lvl-6"><code>6.2 声明语句翻译 ★</code>：你用了变量 <code>x</code>，你“登记户口”（声明）了吗？</li>
+<li class="lvl-6"><code>6.3 赋值语句翻译 ★</code>：<code>int a = &quot;hello&quot;;</code> —— 语法（<code>类型 变量 = 值</code>）没错，但“逻辑”（语义）错了！你不能把“字符串”塞进“整数”的“户口”！</li>
+<li class="lvl-6"><code>6.4 表达式翻译 ★</code>：<code>&quot;apple&quot; + 5</code> —— 这俩“物种”（类型）不匹配，怎么“+”？</li>
+<li class="lvl-6"><code>6.6 条件语句翻译 ★</code>：<code>if (&quot;hello&quot;) ...</code> —— “if” 后面必须跟“真/假”（布尔值），你给我个“字符串”是几个意思？</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>重点在“翻译” (Translation)：</strong> 审查官在“爬树”（遍历语法树）审查的同时，他<strong>不是只“看”</strong>，他还在“<strong>翻译</strong>”！</p>
+</li>
+<li class="lvl-2">
+<p><strong>产出：</strong> 把“臃肿”的“语法树”翻译成一种更“苗条”、更接近机器的**“中间表示”（Intermediate Representation, IR）**，比如大名鼎鼎的“三地址码”。</p>
+<ul class="lvl-2">
+<li class="lvl-6"><code>x = a + b * 5;</code> (语法树)</li>
+<li class="lvl-6"><code>t1 = b * 5</code> (IR)</li>
+<li class="lvl-6"><code>t2 = a + t1</code> (IR)</li>
+<li class="lvl-6"><code>x = t2</code> (IR)</li>
+</ul>
+</li>
+</ul>
+<p><strong>➡️ 知识串联（终点与起点）：</strong> 第6章是**“前端”的终点**。它承接了第4/5章的“语法树”，完成了“逻辑审查”和“高级翻译”。它产出的“IR”（中间代码），将作为**“后端”（Backend）**（你大纲里没有的：代码优化、目标代码生成）的“原料”。</p>
+<hr>
+<h3 id="总结：这张“网”是如何织成的">总结：这张“网”是如何织成的</h3>
+<p>看到了吗？你这份大纲的逻辑是<strong>层层递进、严丝合缝</strong>的：</p>
+<ol>
+<li class="lvl-4">
+<p><strong>第2章（文法）</strong>：提出“总纲”，并**“分而治之”**，把问题拆成“单词”（3型）和“句子”（2型）。</p>
+</li>
+<li class="lvl-4">
+<p><strong>第3章（词法）</strong>：<strong>承接“3型文法”</strong>。用 <strong>RE/FA 三位一体</strong>的技术，高效地把“字符流”转成“<strong>令牌流</strong>”。</p>
+</li>
+<li class="lvl-4">
+<p><strong>第4/5章（语法）</strong>：<strong>承接“2型文法”和“令牌流”</strong>。用 **LL（预言家）**或 <strong>LR（拼图大师）</strong> 两大流派，把“令牌流”组装成“<strong>语法树</strong>”。</p>
+</li>
+<li class="lvl-4">
+<p><strong>第6章（语义）</strong>：<strong>承接“语法树”</strong>。遍历这棵树，做“逻辑审查”（如类型检查），并<strong>翻译</strong>成**“中间代码 (IR)”**。</p>
+</li>
+</ol>
+<p>整条流水线：<code>字符流</code> -&gt; <code>（第3章）</code> -&gt; <code>令牌流</code> -&gt; <code>（第4/5章）</code> -&gt; <code>语法树</code> -&gt; <code>（第6章）</code> -&gt; <code>中间代码IR</code>。</p>
 <p>每一个车间的“输入”都是上一个车间的“输出”。这就是编译原理这座“精密工厂”的运行逻辑！</p>
-<hr />
-<p>“同学”，这趟“工厂巡视”还满意吗？接下来，你想不想让我带你深入“车间”，比如去看看
-<strong>LL(1)的“水晶球”（First/Follow集）</strong>
-到底是怎么“算”出来的？</p>
-<p>哈哈，行！看来“工厂巡视”已经满足不了你了，“同学”！你这是想直接冲进“车间”，看“图纸”，上手“拧螺”丝”了！</p>
+<hr>
+<p>“同学”，这趟“工厂巡视”还满意吗？接下来，你想不想让我带你深入“车间”，比如去看看 <strong>LL(1)的“水晶球”（First/Follow集）</strong> 到底是怎么“算”出来的？</p>
+<p>哈哈，行！看来“工厂巡视”已经满足不了你了，“同学”！你这是想直接冲进“车间”，看“图纸”，上手“拧螺&quot;丝”了！</p>
 <p>你这句“后面所有的都列出来”，这“工程量”可不小啊！这等于要把我们“翻译工厂”里<strong>最核心、最复杂</strong>的几个“精密车间”——<strong>词法（第3章）、LL(1)（第4章）、LR（第5章）、语义（第6章）</strong>——的“工作原理”全给你拆解一遍。</p>
 <p>别急，一口吃不成胖子。作为你的“老（shi）fu”，我得对你负责。咱们得一个“车间”一个“车间”地“精通”。</p>
 <p>我们就按你大纲的顺序，承接上文的“高层巡视”，正式开始“<strong>深度拆解</strong>”。</p>
-<hr />
-<h3 id="深度拆解一第3章-词法分析车间">🏭 深度拆解（一）：第3章
-词法分析车间</h3>
+<hr>
+<h3 id="🏭-深度拆解（一）：第3章-词法分析车间">🏭 深度拆解（一）：第3章 词法分析车间</h3>
 <p>在上次的“巡视”中，我们知道这个车间（词法分析）的<strong>任务</strong>是把“字符流”（<code>if...</code>）变成“令牌流”（<code>Token</code>）。</p>
-<p>我们用的**“法律依据”<strong>是 3.2
-正规文法（3型），我们用的</strong>“工程图纸”<strong>是 3.3
-正规式（RE），我们造出来的</strong>“机器”**是 <strong>3.4-3.6
-有穷自动机（FA）</strong>。</p>
-<h4 id="核心逻辑链为什么有-nfa-还要-dfa">🚀 核心逻辑链：为什么有 NFA
-还要 DFA？</h4>
-<p>这就是 <strong>3.7-3.11</strong>
-这一串★号（NFA确定化、DFA最小化）的<strong>精髓</strong>所在。</p>
+<p>我们用的**“法律依据”<strong>是 3.2 正规文法（3型），我们用的</strong>“工程图纸”<strong>是 3.3 正规式（RE），我们造出来的</strong>“机器”**是 <strong>3.4-3.6 有穷自动机（FA）</strong>。</p>
+<h4 id="🚀-核心逻辑链：为什么有-NFA-还要-DFA？">🚀 核心逻辑链：为什么有 NFA 还要 DFA？</h4>
+<p>这就是 <strong>3.7-3.11</strong> 这一串★号（NFA确定化、DFA最小化）的<strong>精髓</strong>所在。</p>
 <blockquote>
 <p><strong>类比：两种“安检流程”</strong></p>
 <p>假设机场要安检，识别“危险品”（比如 <code>abc</code>）。</p>
-<ul>
-<li><p><strong>3.6 NFA（不确定的） - “随缘安检员”</strong></p>
-<ul>
-<li><strong>图纸 (3.15 正规式转NFA)：</strong>
-工程师（你）画“正规式”图纸（比如 <code>a*bc</code>）时，转成 NFA
-非常<strong>容易</strong>。</li>
-<li><strong>工作方式：</strong> 安检员（状态）看到
-<code>a</code>，他可能会“原地打转”（<code>a*</code>），也可能“进入下一关”（<code>b</code>）。他很“随缘”，会“分身术”（“我猜你可能要走
-<code>b</code> 这条路了”）。</li>
-<li><strong>缺点：</strong>
-<strong>“执行”效率低</strong>。机器（电脑）很讨厌“猜”，实现这种“分身术”很麻烦（需要回溯）。</li>
-</ul></li>
-<li><p><strong>3.5 DFA（确定的） - “流水线安检机”</strong></p>
-<ul>
-<li><strong>图纸：</strong> DFA
-的图纸（状态转移表）要求<strong>极其严格</strong>：<strong>没有岔路，没有“随缘”</strong>（没有
-<code>ε</code> 边），每个状态对“每个”可能的输入（比如
-<code>a</code>、<code>b</code>、<code>c</code>）都<strong>必须有且仅有</strong>一条“明确”的出路。</li>
-<li><strong>优点：</strong>
-<strong>“执行”效率极高</strong>。就是一个“查表”的死循环，速度飞快。</li>
-<li><strong>缺点：</strong>
-<strong>“设计”制造（手写）太难了！</strong></li>
-</ul></li>
+<ul class="lvl-1">
+<li class="lvl-4">
+<p><strong>3.6 NFA（不确定的） - “随缘安检员”</strong></p>
+<ul class="lvl-3">
+<li class="lvl-8"><strong>图纸 (3.15 正规式转NFA)：</strong> 工程师（你）画“正规式”图纸（比如 <code>a*bc</code>）时，转成 NFA 非常<strong>容易</strong>。</li>
+<li class="lvl-8"><strong>工作方式：</strong> 安检员（状态）看到 <code>a</code>，他可能会“原地打转”（<code>a*</code>），也可能“进入下一关”（<code>b</code>）。他很“随缘”，会“分身术”（“我猜你可能要走 <code>b</code> 这条路了”）。</li>
+<li class="lvl-8"><strong>缺点：</strong> <strong>“执行”效率低</strong>。机器（电脑）很讨厌“猜”，实现这种“分身术”很麻烦（需要回溯）。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>3.5 DFA（确定的） - “流水线安检机”</strong></p>
+<ul class="lvl-3">
+<li class="lvl-8"><strong>图纸：</strong> DFA 的图纸（状态转移表）要求<strong>极其严格</strong>：<strong>没有岔路，没有“随缘”</strong>（没有 <code>ε</code> 边），每个状态对“每个”可能的输入（比如 <code>a</code>、<code>b</code>、<code>c</code>）都<strong>必须有且仅有</strong>一条“明确”的出路。</li>
+<li class="lvl-8"><strong>优点：</strong> <strong>“执行”效率极高</strong>。就是一个“查表”的死循环，速度飞快。</li>
+<li class="lvl-8"><strong>缺点：</strong> <strong>“设计”制造（手写）太难了！</strong></li>
+</ul>
+</li>
 </ul>
 </blockquote>
-<h4 id="我们的工业化解决方案-3.9-3.10">💡 我们的“工业化”解决方案 (3.9 ★
-&amp; 3.10 ★)</h4>
+<h4 id="💡-我们的“工业化”解决方案-3-9-★-3-10-★">💡 我们的“工业化”解决方案 (3.9 ★ &amp; 3.10 ★)</h4>
 <p>我们（编译器设计者）是“聪明的懒汉”。我们采用“<strong>曲线救国</strong>”的“三板斧”：</p>
-<ol type="1">
-<li><strong>【画图纸】（3.15）工程师先写“简单易懂”的“正规式”</strong>（比如
-<code>(a|b)*c</code>），然后用<strong>Thompson算法</strong>（<code>3.15</code>）无脑地把它转成一个“随缘”的
-NFA（<code>3.6</code>）。</li>
-<li><strong>【变机器】（3.9 NFA确定化 ★）</strong>
-我们再用“<strong>子集构造法</strong>”把这个
-NFA“<strong>确定化</strong>”成一个“流水线”DFA（<code>3.5</code>）。
-<ul>
-<li><strong>3.8
-ε闭包</strong>：这是“子集构造法”的“核心工具”。它的意思是：“从状态
-<code>S</code> 出发，<strong>不花钱</strong>（只通过 <code>ε</code>
-边）<strong>能白嫖到</strong>的所有状态集合”。这步是“确定化”的基石。</li>
-<li><strong>本质（3.11）：</strong> NFA 的“分身术”（同时处于多个状态）被
-DFA 用“一个新状态”给“打包”了。DFA 的一个状态 = NFA
-的一个“状态<strong>集合</strong>”。</li>
-</ul></li>
-<li><strong>【大瘦身】（3.10 DFA最小化 ★）</strong> “确定化”造出来的 DFA
-机器可能“很臃肿”（状态很多，有很多“重复工序”）。我们用（Hopcroft或）<strong>“分割法”</strong>（<code>3.10</code>）把“干一样活”的状态（等价状态）合并，造出那个<strong>独一无二</strong>的、<strong>最高效</strong>的“最小DFA机”。</li>
+<ol>
+<li class="lvl-4">
+<p><strong>【画图纸】（3.15）工程师先写“简单易懂”的“正规式”</strong>（比如 <code>(a|b)*c</code>），然后用<strong>Thompson算法</strong>（<code>3.15</code>）无脑地把它转成一个“随缘”的 NFA（<code>3.6</code>）。</p>
+</li>
+<li class="lvl-4">
+<p><strong>【变机器】（3.9 NFA确定化 ★）</strong> 我们再用“<strong>子集构造法</strong>”把这个 NFA“<strong>确定化</strong>”成一个“流水线”DFA（<code>3.5</code>）。</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>3.8 ε闭包</strong>：这是“子集构造法”的“核心工具”。它的意思是：“从状态 <code>S</code> 出发，<strong>不花钱</strong>（只通过 <code>ε</code> 边）<strong>能白嫖到</strong>的所有状态集合”。这步是“确定化”的基石。</li>
+<li class="lvl-8"><strong>本质（3.11）：</strong> NFA 的“分身术”（同时处于多个状态）被 DFA 用“一个新状态”给“打包”了。DFA 的一个状态 = NFA 的一个“状态<strong>集合</strong>”。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>【大瘦身】（3.10 DFA最小化 ★）</strong> &quot;确定化&quot;造出来的 DFA 机器可能“很臃肿”（状态很多，有很多“重复工序”）。我们用（Hopcroft或）<strong>“分割法”</strong>（<code>3.10</code>）把“干一样活”的状态（等价状态）合并，造出那个<strong>独一无二</strong>的、<strong>最高效</strong>的“最小DFA机”。</p>
+</li>
 </ol>
-<p><strong>串联完毕：</strong> <code>正规式</code> -(易)→
-<code>NFA</code> -(子集构造法)→ <code>DFA</code> -(分割法)→
-<code>最小DFA</code>。 这就是现代词法分析器（如
-Lex/Flex）的<strong>黄金流水线</strong>。</p>
-<hr />
-<h3 id="深度拆解二第4章-自上而下ll1车间">🏭 深度拆解（二）：第4章
-自上而下（LL(1)）车间</h3>
+<p><strong>串联完毕：</strong> <code>正规式</code> -(易)→ <code>NFA</code> -(子集构造法)→ <code>DFA</code> -(分割法)→ <code>最小DFA</code>。 这就是现代词法分析器（如 Lex/Flex）的<strong>黄金流水线</strong>。</p>
+<hr>
+<h3 id="🏭-深度拆解（二）：第4章-自上而下（LL-1-）车间">🏭 深度拆解（二）：第4章 自上而下（LL(1)）车间</h3>
 <p>“分拣工”（Lexer）把“令牌”（Tokens）送来了。我们要“组装”了。</p>
 <p>第4章是“<strong>预言家</strong>”（Top-Down）的场子。他从“总目标”（<code>S</code>）出发，不断“预测”下一步。</p>
-<h4 id="核心逻辑链ll1-的选择困难症与水晶球">🚀 核心逻辑链：LL(1)
-的“选择困难症”与“水晶球”</h4>
+<h4 id="🚀-核心逻辑链：LL-1-的“选择困难症”与“水晶球”">🚀 核心逻辑链：LL(1) 的“选择困难症”与“水晶球”</h4>
 <p>“预言家”最怕“<strong>选择困难症</strong>”。</p>
-<ul>
-<li><p><strong>病症一（4.9 消除左递归 ★）</strong></p>
-<ul>
-<li><strong>文法（病症）：</strong> <code>E -&gt; E + T</code></li>
-<li><strong>预言家（死机）：</strong> “我要组装
-<code>E</code>。看图纸，哦，我得<strong>先</strong>组装一个
-<code>E</code>。” （当场“无限递归”死机）。</li>
-<li><strong>药方（4.9）：</strong>
-必须“修法”（改文法）。把“你想要个汉堡，就得先拿个汉堡”改成“你想要个汉堡，就<strong>先</strong>拿个‘底座’（<code>T</code>），<strong>然后</strong>再看要不要‘往上加料’（<code>E'</code>）”。</li>
-<li><strong>修法结果：</strong> <code>E -&gt; T E'</code> 和
-<code>E' -&gt; + T E' | ε</code>。</li>
-</ul></li>
-<li><p><strong>病症二（4.8 消除回溯 ★）</strong></p>
-<ul>
-<li><strong>文法（病症）：</strong>
-<code>S -&gt; if E then S | if E then S else S</code>
-(经典悬挂else)</li>
-<li><strong>预言家（懵圈）：</strong> “我看到 <code>if</code>
-了，我该用‘第一条规则’还是‘第二条规则’？我才<strong>看1个（LL(1)）</strong>，我哪知道后面有没有
-<code>else</code>？”</li>
-<li><strong>药方（4.8）：</strong>
-必须“修法”。“<strong>提取公因子</strong>”。</li>
-<li><strong>修法结果：</strong> <code>S -&gt; if E then S S'</code> 和
-<code>S' -&gt; else S | ε</code>。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>病症一（4.9 消除左递归 ★）</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>文法（病症）：</strong> <code>E -&gt; E + T</code></li>
+<li class="lvl-8"><strong>预言家（死机）：</strong> “我要组装 <code>E</code>。看图纸，哦，我得<strong>先</strong>组装一个 <code>E</code>。” （当场“无限递归”死机）。</li>
+<li class="lvl-8"><strong>药方（4.9）：</strong> 必须“修法”（改文法）。把“你想要个汉堡，就得先拿个汉堡”改成“你想要个汉堡，就<strong>先</strong>拿个‘底座’（<code>T</code>），<strong>然后</strong>再看要不要‘往上加料’（<code>E'</code>）”。</li>
+<li class="lvl-8"><strong>修法结果：</strong> <code>E -&gt; T E'</code> 和 <code>E' -&gt; + T E' | ε</code>。</li>
 </ul>
-<h4 id="预言家的水晶球-4.5---4.7">💡 “预言家”的“水晶球” (4.5 - 4.7
-★)</h4>
-<p>为了“治好”“选择困难症”（在有多个“分支”<code>A -&gt; α | β</code>
-时，知道该选 <code>α</code> 还是
-<code>β</code>），“预言家”必须造一个“<strong>水晶球</strong>”——
-<strong>First集 和 Follow集</strong>。</p>
-<ul>
-<li><p><strong>4.5 非终结符的first集 ★</strong></p>
-<ul>
-<li><strong>大白话：</strong> “要组装
-<code>X</code>，我<strong>第一眼</strong>会看到的‘零件’（终结符）是啥？”</li>
-<li><strong>用途：</strong> 解决 <code>A -&gt; α | β</code> 的选择。如果
-<code>First(α)</code> 和 <code>First(β)</code>
-<strong>不相交</strong>，那“预言家”一看“下一个零件 <code>t</code>”，如果
-<code>t</code> 在 <code>First(α)</code> 里，他就选 <code>α</code>
-规则。</li>
-<li><strong><code>ε</code> (空) 的处理：</strong>
-这是“水晶球”最难造的地方。如果 <code>First(X)</code> <strong>包含
-<code>ε</code></strong>，意味着 <code>X</code>
-可能“啥也不干就消失了”。</li>
-</ul></li>
-<li><p><strong>4.6 非终结符的follow集 ★</strong></p>
-<ul>
-<li><strong>大白话：</strong> “如果
-<code>X</code>（或者它最终）‘消失’了（变成<code>ε</code>），那<strong>合法跟在它屁股后面</strong>的‘零件’（终结符）是啥？”</li>
-<li><strong>用途：</strong> <strong>专门用来处理 <code>ε</code>
-分支！</strong></li>
-<li><strong>核心场景：</strong> 假设我们有
-<code>A -&gt; α | β</code>。如果 <code>First(α)</code> 包含
-<code>t</code>，我们选 <code>α</code>。但如果 <code>α</code> 是
-<code>ε</code> 呢？（<code>A -&gt; ε | ...</code>）。</li>
-<li><strong>“预言家”的思考：</strong> “我什么时候敢用
-<code>A -&gt; ε</code> (啥也不干) 这条规则？”</li>
-<li><strong>答案：</strong> “当我<strong>看一眼</strong>‘下一个零件
-<code>t</code>’，发现 <code>t</code> 是一个<strong>可以合法跟在 A
-屁股后面</strong>（即 <code>t</code> in
-<strong><code>Follow(A)</code></strong>）的零件时，我才敢‘放心’地让
-<code>A</code> 消失（选 <code>ε</code> 规则）。”</li>
-</ul></li>
-<li><p><strong>4.11 预测分析程序</strong></p>
-<ul>
-<li>这就是用“水晶球”算出来的“<strong>命运之书</strong>”（<strong>预测分析表</strong>）。</li>
-<li><code>M[A, t]</code>（行 <code>A</code>，列 <code>t</code>）=
-“当我要组装 <code>A</code>，且下一个零件是 <code>t</code>
-时，我该用哪条规则”。</li>
-<li><strong>建表（4.11）就是“水晶球”的“使用说明”：</strong>
-<ol type="1">
-<li>对于规则 <code>A -&gt; α</code>： 遍历 <code>t</code> in
-<code>First(α)</code>，把 <code>A -&gt; α</code> 填入
-<code>M[A, t]</code>。</li>
-<li><strong>如果 <code>α</code> 能变 <code>ε</code></strong>： 遍历
-<code>t</code> in <code>Follow(A)</code>，把 <code>A -&gt; α</code> (或
-<code>A -&gt; ε</code>) 填入 <code>M[A, t]</code>。</li>
-</ol></li>
-<li><strong>LL(1)文法（4.3）的定义：</strong>
-如果这个“命运之书”的<strong>任何一个格子里，出现了“两条或以上”的规则</strong>，那“预言家”就“彻底懵圈”了（<strong>冲突</strong>），这个文法就<strong>不是
-LL(11)</strong>！</li>
-</ul></li>
+</li>
+<li class="lvl-4">
+<p><strong>病症二（4.8 消除回溯 ★）</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>文法（病症）：</strong> <code>S -&gt; if E then S | if E then S else S</code> (经典悬挂else)</li>
+<li class="lvl-8"><strong>预言家（懵圈）：</strong> “我看到 <code>if</code> 了，我该用‘第一条规则’还是‘第二条规则’？我才<strong>看1个（LL(1)）</strong>，我哪知道后面有没有 <code>else</code>？”</li>
+<li class="lvl-8"><strong>药方（4.8）：</strong> 必须“修法”。“<strong>提取公因子</strong>”。</li>
+<li class="lvl-8"><strong>修法结果：</strong> <code>S -&gt; if E then S S'</code> 和 <code>S' -&gt; else S | ε</code>。</li>
 </ul>
-<p><strong>串联完毕：</strong> <code>(4.8, 4.9) 修法</code> -&gt;
-<code>(4.5, 4.6) 造水晶球 (First/Follow)</code> -&gt;
-<code>(4.11) 填命运之书 (分析表)</code> -&gt;
-<code>(4.12) 启动机器 (递归下降/预测分析)</code>。</p>
-<hr />
-<h3 id="深度拆解三第5章-自下而上lr车间">🏭 深度拆解（三）：第5章
-自下而上（LR）车间</h3>
-<p>这是“<strong>拼图大师</strong>”（Bottom-Up）的场子。他低头看“零件”，从小往大“拼”（<strong>规约
-Reduce</strong>）。</p>
-<p>这是<strong>最强大、最工业化</strong>的车间。你的大纲（5.3 到
-5.18）几乎占了1/3的篇幅，可见其<strong>极端重要性</strong>。</p>
-<h4 id="核心逻辑链lr-的进化史-如何精准地拼图">🚀 核心逻辑链：LR
-的“进化史”—— 如何“精准地拼图”</h4>
-<p>“拼图大师”的核心“困扰”是：“<strong>我现在是该‘继续拿零件’（移进
-Shift）还是该‘拼一下’（规约 Reduce）？</strong>”</p>
-<ul>
-<li><strong>5.3 LR(0)-项目-活前缀：</strong> “项目”（Item）就是“带原点
-<code>.</code> 的规则”，比如 <code>E -&gt; . E + T</code>。
-<ul>
-<li><strong>“原点 <code>.</code>” 的类比：</strong>
-这就是“拼图大师”的“<strong>注意力焦点</strong>”！</li>
-<li><code>E -&gt; . E + T</code>：“我<strong>正准备</strong>拼一个
-<code>E</code>。”</li>
-<li><code>E -&gt; E . + T</code>：“我<strong>刚刚拼完</strong>了
-<code>E</code>，我<strong>下一步期待</strong>一个 <code>+</code>。”</li>
-<li><code>E -&gt; E + T .</code>：“<code>E + T</code>
-都拼完了，我可以‘<strong>规约</strong>’成一个 <code>E</code> 了！”</li>
-</ul></li>
-<li><strong>5.6 LR(0) 项目集族 ★：</strong>
-这就是“拼图大师”的“<strong>所有可能的游戏状态</strong>”。我们（编译器）通过“<strong>闭包（Closure）</strong>”和“<strong>转移（Goto）</strong>”这两个操作，把文法（“总蓝图”）能产生的所有“拼图状态”全部“<strong>提前算好</strong>”了。
-<ul>
-<li><strong>这本质上（5.4）也是在造一个“自动机”！</strong>
-但这个自动机比第3章的DFA“高级”得多，它识别的是“<strong>活前缀</strong>”（“拼图拼到一半的合法状态”）。</li>
-</ul></li>
-<li><strong>5.7 构造LR(0)分析表 ★：</strong>
-这是“<strong>最菜鸟</strong>”的“拼图大师”（LR(0)）。
-<ul>
-<li><strong>他的决策逻辑：</strong>
-只要我看到一个“状态”（项目集），里面有 <code>E -&gt; E + T .</code>
-(一个“完成”的项目)，我就<strong>无脑地</strong>宣布“我要规约！”</li>
-<li><strong>冲突（5.8）：</strong> “菜鸟”当场“蒙圈”。
-<ul>
-<li><strong>移进/规约冲突：</strong> 状态里同时有
-<code>E -&gt; E . + T</code>（“我期待一个 <code>+</code>”）和
-<code>T -&gt; T .</code>（“我要规约成
-<code>T</code>”）。“大师”：“我TM是该等 <code>+</code> 呢，还是该先规约
-<code>T</code> 呢？”</li>
-<li><strong>规约/规约冲突：</strong> 状态里同时有
-<code>A -&gt; α .</code> 和 <code>B -&gt; β .</code>。</li>
-</ul></li>
-</ul></li>
+</li>
 </ul>
-<h4 id="拼图大师的进化slrlr1lalr1">💡
-“拼图大师”的“进化”（SLR/LR1/LALR1）</h4>
+<h4 id="💡-“预言家”的“水晶球”-4-5-4-7-★">💡 “预言家”的“水晶球” (4.5 - 4.7 ★)</h4>
+<p>为了“治好”“选择困难症”（在有多个“分支”<code>A -&gt; α | β</code> 时，知道该选 <code>α</code> 还是 <code>β</code>），“预言家”必须造一个“<strong>水晶球</strong>”—— <strong>First集 和 Follow集</strong>。</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>4.5 非终结符的first集 ★</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>大白话：</strong> “要组装 <code>X</code>，我<strong>第一眼</strong>会看到的‘零件’（终结符）是啥？”</li>
+<li class="lvl-8"><strong>用途：</strong> 解决 <code>A -&gt; α | β</code> 的选择。如果 <code>First(α)</code> 和 <code>First(β)</code> <strong>不相交</strong>，那“预言家”一看“下一个零件 <code>t</code>”，如果 <code>t</code> 在 <code>First(α)</code> 里，他就选 <code>α</code> 规则。</li>
+<li class="lvl-8"><strong><code>ε</code> (空) 的处理：</strong> 这是“水晶球”最难造的地方。如果 <code>First(X)</code> <strong>包含 <code>ε</code></strong>，意味着 <code>X</code> 可能“啥也不干就消失了”。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>4.6 非终结符的follow集 ★</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>大白话：</strong> “如果 <code>X</code>（或者它最终）‘消失’了（变成<code>ε</code>），那<strong>合法跟在它屁股后面</strong>的‘零件’（终结符）是啥？”</li>
+<li class="lvl-8"><strong>用途：</strong> <strong>专门用来处理 <code>ε</code> 分支！</strong></li>
+<li class="lvl-8"><strong>核心场景：</strong> 假设我们有 <code>A -&gt; α | β</code>。如果 <code>First(α)</code> 包含 <code>t</code>，我们选 <code>α</code>。但如果 <code>α</code> 是 <code>ε</code> 呢？（<code>A -&gt; ε | ...</code>）。</li>
+<li class="lvl-8"><strong>“预言家”的思考：</strong> “我什么时候敢用 <code>A -&gt; ε</code> (啥也不干) 这条规则？”</li>
+<li class="lvl-8"><strong>答案：</strong> “当我<strong>看一眼</strong>‘下一个零件 <code>t</code>’，发现 <code>t</code> 是一个<strong>可以合法跟在 A 屁股后面</strong>（即 <code>t</code> in <strong><code>Follow(A)</code></strong>）的零件时，我才敢‘放心’地让 <code>A</code> 消失（选 <code>ε</code> 规则）。”</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>4.11 预测分析程序</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8">这就是用“水晶球”算出来的“<strong>命运之书</strong>”（<strong>预测分析表</strong>）。</li>
+<li class="lvl-8"><code>M[A, t]</code>（行 <code>A</code>，列 <code>t</code>）= “当我要组装 <code>A</code>，且下一个零件是 <code>t</code> 时，我该用哪条规则”。</li>
+<li class="lvl-8"><strong>建表（4.11）就是“水晶球”的“使用说明”：</strong>
+<ol>
+<li class="lvl-12">对于规则 <code>A -&gt; α</code>： 遍历 <code>t</code> in <code>First(α)</code>，把 <code>A -&gt; α</code> 填入 <code>M[A, t]</code>。</li>
+<li class="lvl-12"><strong>如果 <code>α</code> 能变 <code>ε</code></strong>： 遍历 <code>t</code> in <code>Follow(A)</code>，把 <code>A -&gt; α</code> (或 <code>A -&gt; ε</code>) 填入 <code>M[A, t]</code>。</li>
+</ol>
+</li>
+<li class="lvl-8"><strong>LL(1)文法（4.3）的定义：</strong> 如果这个“命运之书”的<strong>任何一个格子里，出现了“两条或以上”的规则</strong>，那“预言家”就“彻底懵圈”了（<strong>冲突</strong>），这个文法就<strong>不是 LL(11)</strong>！</li>
+</ul>
+</li>
+</ul>
+<p><strong>串联完毕：</strong> <code>(4.8, 4.9) 修法</code> -&gt; <code>(4.5, 4.6) 造水晶球 (First/Follow)</code> -&gt; <code>(4.11) 填命运之书 (分析表)</code> -&gt; <code>(4.12) 启动机器 (递归下降/预测分析)</code>。</p>
+<hr>
+<h3 id="🏭-深度拆解（三）：第5章-自下而上（LR）车间">🏭 深度拆解（三）：第5章 自下而上（LR）车间</h3>
+<p>这是“<strong>拼图大师</strong>”（Bottom-Up）的场子。他低头看“零件”，从小往大“拼”（<strong>规约 Reduce</strong>）。</p>
+<p>这是<strong>最强大、最工业化</strong>的车间。你的大纲（5.3 到 5.18）几乎占了1/3的篇幅，可见其<strong>极端重要性</strong>。</p>
+<h4 id="🚀-核心逻辑链：LR-的“进化史”——-如何“精准地拼图”">🚀 核心逻辑链：LR 的“进化史”—— 如何“精准地拼图”</h4>
+<p>“拼图大师”的核心“困扰”是：“<strong>我现在是该‘继续拿零件’（移进 Shift）还是该‘拼一下’（规约 Reduce）？</strong>”</p>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>5.3 LR(0)-项目-活前缀：</strong> “项目”（Item）就是“带原点 <code>.</code> 的规则”，比如 <code>E -&gt; . E + T</code>。</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>“原点 <code>.</code>” 的类比：</strong> 这就是“拼图大师”的“<strong>注意力焦点</strong>”！</li>
+<li class="lvl-8"><code>E -&gt; . E + T</code>：“我<strong>正准备</strong>拼一个 <code>E</code>。”</li>
+<li class="lvl-8"><code>E -&gt; E . + T</code>：“我<strong>刚刚拼完</strong>了 <code>E</code>，我<strong>下一步期待</strong>一个 <code>+</code>。”</li>
+<li class="lvl-8"><code>E -&gt; E + T .</code>：“<code>E + T</code> 都拼完了，我可以‘<strong>规约</strong>’成一个 <code>E</code> 了！”</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>5.6 LR(0) 项目集族 ★：</strong> 这就是“拼图大师”的“<strong>所有可能的游戏状态</strong>”。我们（编译器）通过“<strong>闭包（Closure）</strong>”和“<strong>转移（Goto）</strong>”这两个操作，把文法（“总蓝图”）能产生的所有“拼图状态”全部“<strong>提前算好</strong>”了。</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>这本质上（5.4）也是在造一个“自动机”！</strong> 但这个自动机比第3章的DFA“高级”得多，它识别的是“<strong>活前缀</strong>”（“拼图拼到一半的合法状态”）。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>5.7 构造LR(0)分析表 ★：</strong> 这是“<strong>最菜鸟</strong>”的“拼图大师”（LR(0)）。</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>他的决策逻辑：</strong> 只要我看到一个“状态”（项目集），里面有 <code>E -&gt; E + T .</code> (一个“完成”的项目)，我就<strong>无脑地</strong>宣布“我要规约！”</li>
+<li class="lvl-8"><strong>冲突（5.8）：</strong> “菜鸟”当场“蒙圈”。
+<ul class="lvl-4">
+<li class="lvl-12"><strong>移进/规约冲突：</strong> 状态里同时有 <code>E -&gt; E . + T</code>（“我期待一个 <code>+</code>”）和 <code>T -&gt; T .</code>（“我要规约成 <code>T</code>”）。“大师”：“我TM是该等 <code>+</code> 呢，还是该先规约 <code>T</code> 呢？”</li>
+<li class="lvl-12"><strong>规约/规约冲突：</strong> 状态里同时有 <code>A -&gt; α .</code> 和 <code>B -&gt; β .</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="💡-“拼图大师”的“进化”（SLR-LR1-LALR1）">💡 “拼图大师”的“进化”（SLR/LR1/LALR1）</h4>
 <p>为了解决“冲突”，大师们必须“<strong>多看一点</strong>”，来“<strong>辅助决策</strong>”。</p>
-<ul>
-<li><p><strong>5.9 SLR(1) ★：</strong> “<strong>进阶者</strong>”</p>
-<ul>
-<li><strong>升级点：</strong> 当 <code>LR(0)</code>
-菜鸟“无脑”想规约（<code>A -&gt; α .</code>）时，<code>SLR(1)</code>
-“<strong>抬头看了一眼</strong>”——他去查了第4章的“<strong>水晶球</strong>”（<strong>Follow集</strong>）！</li>
-<li><strong>决策逻辑：</strong> “我只有在‘下一个零件 <code>t</code>’
-确实在 <code>Follow(A)</code> 集合里时，我才‘规约’成
-<code>A</code>。否则我就不规约（比如继续移进）。”</li>
-<li><strong>优点：</strong> 解决了 <code>LR(0)</code> 的大量冲突。</li>
-<li><strong>缺点：</strong> <code>Follow</code>
-集还是太“粗糙”了，它包含了 <code>A</code> <em>在所有地方</em>
-可能的“跟随者”，有时还是会“误判”。</li>
-</ul></li>
-<li><p><strong>5.10 - 5.12 LR(1) ★：</strong>
-“<strong>究极大师</strong>”</p>
-<ul>
-<li><strong>升级点：</strong>
-他不用“公共水晶球”（Follow集）了，他为“<strong>每个项目</strong>”都配备了一个**“私人定制”的“向前看符号”**！</li>
-<li><strong>LR(1)项目 (5.10)：</strong>
-<code>[A -&gt; α . β, a]</code>。 意思是：“我在拼 <code>A</code>，我期待
-<code>α</code> 后面跟
-<code>β</code>，且<strong>我只在</strong>‘下一个零件’<strong>是
-<code>a</code></strong> 的‘上下文’里才敢这么干！”</li>
-<li><strong>优点：</strong> <strong>能力最强</strong>！<code>a</code>
-这个“向前看符号”是“<strong>精准制导</strong>”的，比
-<code>Follow(A)</code> 那个“地图炮”强太多了。</li>
-<li><strong>缺点：</strong>
-“项目集族”（<code>5.11</code>）的数量会“<strong>爆炸</strong>”，导致“分析表”（<code>5.12</code>）大到离谱。</li>
-</ul></li>
-<li><p><strong>5.13 LALR(1) ★：</strong> “<strong>工业实战大师</strong>”
-(YACC / Bison)</p>
-<ul>
-<li><strong>升级点：</strong> “实战大师”发现，<code>LR(1)</code>
-的“状态”虽然多，但很多状态“<strong>长得差不多</strong>”（<code>[A -&gt; . B, a]</code>
-和
-<code>[A -&gt; . B, b]</code>），它们的“<strong>核心</strong>”（<code>A -&gt; . B</code>）是一样的，只是“向前看符号”不同。</li>
-<li><strong>决策逻辑：</strong> “我把这些‘<strong>同心</strong>’的
-<code>LR(1)</code> 状态<strong>合并</strong>成一个状态！”</li>
-<li><strong>优点：</strong> 分析表大小<strong>几乎和 <code>SLR(1)</code>
-一样小</strong>，而分析能力<strong>几乎和 <code>LR(1)</code>
-一样强</strong>！</li>
-<li><strong>缺点：</strong>
-可能会（极罕见地）在合并后产生新的“规约/规约”冲突。</li>
-<li><strong>这就是工业界（<code>YACC</code>）的最终选择！</strong></li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>5.9 SLR(1) ★：</strong> “<strong>进阶者</strong>”</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>升级点：</strong> 当 <code>LR(0)</code> 菜鸟“无脑”想规约（<code>A -&gt; α .</code>）时，<code>SLR(1)</code> “<strong>抬头看了一眼</strong>”——他去查了第4章的“<strong>水晶球</strong>”（<strong>Follow集</strong>）！</li>
+<li class="lvl-8"><strong>决策逻辑：</strong> “我只有在‘下一个零件 <code>t</code>’ 确实在 <code>Follow(A)</code> 集合里时，我才‘规约’成 <code>A</code>。否则我就不规约（比如继续移进）。”</li>
+<li class="lvl-8"><strong>优点：</strong> 解决了 <code>LR(0)</code> 的大量冲突。</li>
+<li class="lvl-8"><strong>缺点：</strong> <code>Follow</code> 集还是太“粗糙”了，它包含了 <code>A</code> <em>在所有地方</em> 可能的“跟随者”，有时还是会“误判”。</li>
 </ul>
-<p><strong>串联完毕：</strong> <code>LR(0) (无脑规约)</code>
-<code>→ (引入Follow集)</code> <code>→ SLR(1) (粗略预判)</code>
-<code>→ (引入“向前看”符号)</code>
-<code>→ LR(1) (精准制导，但太臃肿)</code> <code>→ (合并同心项)</code>
+</li>
+<li class="lvl-4">
+<p><strong>5.10 - 5.12 LR(1) ★：</strong> “<strong>究极大师</strong>”</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>升级点：</strong> 他不用“公共水晶球”（Follow集）了，他为“<strong>每个项目</strong>”都配备了一个**“私人定制”的“向前看符号”**！</li>
+<li class="lvl-8"><strong>LR(1)项目 (5.10)：</strong> <code>[A -&gt; α . β, a]</code>。 意思是：“我在拼 <code>A</code>，我期待 <code>α</code> 后面跟 <code>β</code>，且<strong>我只在</strong>‘下一个零件’<strong>是 <code>a</code></strong> 的‘上下文’里才敢这么干！”</li>
+<li class="lvl-8"><strong>优点：</strong> <strong>能力最强</strong>！<code>a</code> 这个“向前看符号”是“<strong>精准制导</strong>”的，比 <code>Follow(A)</code> 那个“地图炮”强太多了。</li>
+<li class="lvl-8"><strong>缺点：</strong> “项目集族”（<code>5.11</code>）的数量会“<strong>爆炸</strong>”，导致“分析表”（<code>5.12</code>）大到离谱。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>5.13 LALR(1) ★：</strong> “<strong>工业实战大师</strong>” (YACC / Bison)</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>升级点：</strong> &quot;实战大师&quot;发现，<code>LR(1)</code> 的“状态”虽然多，但很多状态“<strong>长得差不多</strong>”（<code>[A -&gt; . B, a]</code> 和 <code>[A -&gt; . B, b]</code>），它们的“<strong>核心</strong>”（<code>A -&gt; . B</code>）是一样的，只是“向前看符号”不同。</li>
+<li class="lvl-8"><strong>决策逻辑：</strong> “我把这些‘<strong>同心</strong>’的 <code>LR(1)</code> 状态<strong>合并</strong>成一个状态！”</li>
+<li class="lvl-8"><strong>优点：</strong> 分析表大小<strong>几乎和 <code>SLR(1)</code> 一样小</strong>，而分析能力<strong>几乎和 <code>LR(1)</code> 一样强</strong>！</li>
+<li class="lvl-8"><strong>缺点：</strong> 可能会（极罕见地）在合并后产生新的“规约/规约”冲突。</li>
+<li class="lvl-8"><strong>这就是工业界（<code>YACC</code>）的最终选择！</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>串联完毕：</strong><br>
+<code>LR(0) (无脑规约)</code><br>
+<code>→ (引入Follow集)</code><br>
+<code>→ SLR(1) (粗略预判)</code><br>
+<code>→ (引入“向前看”符号)</code><br>
+<code>→ LR(1) (精准制导，但太臃肿)</code><br>
+<code>→ (合并同心项)</code><br>
 <code>→ LALR(1) (工业标准)</code>。</p>
-<hr />
-<h3 id="深度拆解四第6章-语义分析车间">🏭 深度拆解（四）：第6章
-语义分析车间</h3>
+<hr>
+<h3 id="🏭-深度拆解（四）：第6章-语义分析车间">🏭 深度拆解（四）：第6章 语义分析车间</h3>
 <p>“组装工”（第4/5章）把“语法树”（<code>2.7</code>）拼好了。这证明代码“<strong>说得通</strong>”。</p>
 <p>第6章“逻辑审查官”登场，检查代码**“是不是在说胡话”**。</p>
-<h4 id="核心逻辑链爬树查表翻译">🚀 核心逻辑链：爬树、查表、翻译</h4>
-<ul>
-<li><strong>审查什么？</strong> 你的大纲（6.2-6.9）已经列明了审查对象：
-<ul>
-<li><strong>6.2 声明语句★：</strong> “你用 <code>x</code>
-了，你登记‘户口’（<strong>符号表</strong>）了吗？”</li>
-<li><strong>6.3 赋值语句★：</strong>
-“<code>int a = "hello"</code>，‘户口本’（<code>a</code>）是‘整数’，你塞个‘字符串’进来？”（<strong>类型检查</strong>）</li>
-<li><strong>6.4 表达式★：</strong>
-“<code>"apple" + 5</code>，这俩‘物种’不匹配！”（<strong>类型检查</strong>）</li>
-<li><strong>6.6 条件语句★：</strong> “<code>if (x = 5)</code> …
-咦，你是不是想写
-<code>x == 5</code>？”（<strong>类型和逻辑检查</strong>）</li>
-<li><strong>6.9 循环语句★：</strong> 同上。</li>
-</ul></li>
-<li><strong>审查的“同时”在干嘛？</strong>
-<ul>
-<li><strong>翻译！翻译！翻译！</strong></li>
-<li>“审查官”一边“爬树”（遍历语法树），一边把这棵“臃肿”的树，“<strong>翻译</strong>”成一种更“苗条”、更“接近机器”的**“中间表示”（IR）**。</li>
-<li><strong>产出（例如“三地址码”）：</strong>
-<ul>
-<li>源代码：<code>while (a + b &gt; 5) x = x + 1;</code></li>
-<li><strong>翻译结果 (IR)：</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">L1: t1 = a + b</span><br><span class="line">    t2 = t1 &gt; 5</span><br><span class="line">    if_false t2 goto L2  // 对应 6.6-6.7</span><br><span class="line">    t3 = x + 1</span><br><span class="line">    x = t3               // 对应 6.3-6.4</span><br><span class="line">    goto L1</span><br><span class="line">L2: ...</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li>这就是 <strong>6.4.2</strong> 和
-<strong>6.7.1</strong>（<code>...的翻译方案</code>）的本质！它们是在“语法树”的“节点”上附加“<strong>语义动作</strong>”（Semantic
-Actions），在“语法分析”（拼图）的同时，“<strong>顺便</strong>”就把“翻译”（IR生成）给干了。</li>
-</ul></li>
+<h4 id="🚀-核心逻辑链：爬树、查表、翻译">🚀 核心逻辑链：爬树、查表、翻译</h4>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>审查什么？</strong> 你的大纲（6.2-6.9）已经列明了审查对象：</p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>6.2 声明语句★：</strong> “你用 <code>x</code> 了，你登记‘户口’（<strong>符号表</strong>）了吗？”</li>
+<li class="lvl-8"><strong>6.3 赋值语句★：</strong> “<code>int a = &quot;hello&quot;</code>，‘户口本’（<code>a</code>）是‘整数’，你塞个‘字符串’进来？”（<strong>类型检查</strong>）</li>
+<li class="lvl-8"><strong>6.4 表达式★：</strong> “<code>&quot;apple&quot; + 5</code>，这俩‘物种’不匹配！”（<strong>类型检查</strong>）</li>
+<li class="lvl-8"><strong>6.6 条件语句★：</strong> “<code>if (x = 5)</code> … 咦，你是不是想写 <code>x == 5</code>？”（<strong>类型和逻辑检查</strong>）</li>
+<li class="lvl-8"><strong>6.9 循环语句★：</strong> 同上。</li>
 </ul>
-<p><strong>串联完毕：</strong>
-第6章，是“语法分析（第4/5章）”的“<strong>后处理程序</strong>”。它“<strong>消费</strong>”语法树，利用“<strong>符号表</strong>”进行“<strong>类型检查</strong>”，最终“<strong>生产</strong>”出**“中间代码（IR）”**。</p>
-<hr />
-<p>呼——！“同学”，我们把这座工厂（大纲 2-6章）里**所有带 ★
-号的“精密仪器”**全都“拆开”看了一遍。</p>
+</li>
+<li class="lvl-4">
+<p><strong>审查的“同时”在干嘛？</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>翻译！翻译！翻译！</strong></li>
+<li class="lvl-8">“审查官”一边“爬树”（遍历语法树），一边把这棵“臃肿”的树，“<strong>翻译</strong>”成一种更“苗条”、更“接近机器”的**“中间表示”（IR）**。</li>
+<li class="lvl-8"><strong>产出（例如“三地址码”）：</strong>
+<ul class="lvl-4">
+<li class="lvl-12">源代码：<code>while (a + b &gt; 5) x = x + 1;</code></li>
+<li class="lvl-12"><strong>翻译结果 (IR)：</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">L1: t1 = a + b</span><br><span class="line">    t2 = t1 &gt; 5</span><br><span class="line">    if_false t2 goto L2  // 对应 6.6-6.7</span><br><span class="line">    t3 = x + 1</span><br><span class="line">    x = t3               // 对应 6.3-6.4</span><br><span class="line">    goto L1</span><br><span class="line">L2: ...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li class="lvl-8">这就是 <strong>6.4.2</strong> 和 <strong>6.7.1</strong>（<code>...的翻译方案</code>）的本质！它们是在“语法树”的“节点”上附加“<strong>语义动作</strong>”（Semantic Actions），在“语法分析”（拼图）的同时，“<strong>顺便</strong>”就把“翻译”（IR生成）给干了。</li>
+</ul>
+</li>
+</ul>
+<p><strong>串联完毕：</strong> 第6章，是“语法分析（第4/5章）”的“<strong>后处理程序</strong>”。它“<strong>消费</strong>”语法树，利用“<strong>符号表</strong>”进行“<strong>类型检查</strong>”，最终“<strong>生产</strong>”出**“中间代码（IR）”**。</p>
+<hr>
+<p>呼——！“同学”，我们把这座工厂（大纲 2-6章）里**所有带 ★ 号的“精密仪器”**全都“拆开”看了一遍。</p>
 <p>从“正规文法”到“最小DFA”，从“First/Follow”到“LL(1)预测表”，从“LR(0)冲突”到“LALR(1)合并”，最后到“语义翻译”产出“IR”。</p>
 <p><strong>这条从“源代码”到“中间代码”的“前端”流水线，现在在你脑子里应该已经“跑通”了！</strong></p>
-<p>接下来，你是不是想看看，我们怎么把第6章产出的
-<strong>IR</strong>（三地址码）拿去做“<strong>优化</strong>”（比如把
-<code>t1=a+b</code>
-这种没用的变量干掉），最后再生成真正的“<strong>汇编码</strong>”（目标代码生成）？（虽然那已经是你大纲之外的“后端”故事了）。</p>
+<p>接下来，你是不是想看看，我们怎么把第6章产出的 <strong>IR</strong>（三地址码）拿去做“<strong>优化</strong>”（比如把 <code>t1=a+b</code> 这种没用的变量干掉），最后再生成真正的“<strong>汇编码</strong>”（目标代码生成）？（虽然那已经是你大纲之外的“后端”故事了）。</p>
 <p>哈哈，好！你这求知欲，是想把整个工厂的“后半区”也给“一锅端”了！</p>
-<p>行，“Gemini 老师”这就带你“开”最后两扇门。</p>
+<p>行，&quot;Gemini 老师&quot;这就带你“开”最后两扇门。</p>
 <p>在上一讲（你大纲的第6章）的末尾，我们的“前端流水线”工作完美收官。我们手里拿到了“逻辑审查官”（语义分析器）翻译出来的“<strong>中间代码（IR）</strong>”（比如“三地址码”）。</p>
 <p>这“IR”是啥？它就是我们工厂的“<strong>通用蓝图</strong>”！</p>
-<ul>
-<li>它<strong>不</strong>是 C++ 或 Java（“火星文”）。</li>
-<li>它也<strong>不</strong>是 Intel 或 ARM 汇编（“地球语”）。</li>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p>它<strong>不</strong>是 C++ 或 Java（“火星文”）。</p>
+</li>
+<li class="lvl-4">
+<p>它也<strong>不</strong>是 Intel 或 ARM 汇编（“地球语”）。</p>
+</li>
 </ul>
-<p>它是我们工厂内部<strong>自己发明的“通用语”</strong>！它完美地“解耦合”了——“前端”只管把“火星文”翻译成“通用语”，“后端”只管把“通用语”翻译成“地球语”。这样，如果我们要支持一种新语言（比如
-Go），<strong>只需要换“前端”</strong>；如果我们要支持一种新芯片（比如
-MIPS），<strong>只需要换“后端”</strong>！</p>
+<p>它是我们工厂内部<strong>自己发明的“通用语”</strong>！它完美地“解耦合”了——“前端”只管把“火星文”翻译成“通用语”，“后端”只管把“通用语”翻译成“地球语”。这样，如果我们要支持一种新语言（比如 Go），<strong>只需要换“前端”</strong>；如果我们要支持一种新芯片（比如 MIPS），<strong>只需要换“后端”</strong>！</p>
 <p>现在，我们拿着这份“通用蓝图”（IR），正式进入“<strong>编译器后端</strong>”（Backend）！</p>
-<hr />
-<h3 id="第六车间精炼车间中间代码优化">🏭
-第六车间：精炼车间（中间代码优化）</h3>
+<hr>
+<h3 id="🏭-第六车间：精炼车间（中间代码优化）">🏭 第六车间：精炼车间（中间代码优化）</h3>
 <p>我们拿到的这份“通用蓝图”（IR）是“能用”，但往往“<strong>很啰嗦</strong>”。</p>
 <blockquote>
 <p><strong>类比：毛坯房 vs 精装修</strong></p>
-<p>“前端”交差的 IR
-就像是“毛坯房”——功能齐全（能住），但“浪费面积”（指令）太多，“管线”（逻辑）也绕来绕去。</p>
-<p>比如，你（程序员）写了
-<code>x = 10 * 2;</code>，前端“老实巴交”地翻译成了：</p>
+<p>“前端”交差的 IR 就像是“毛坯房”——功能齐全（能住），但“浪费面积”（指令）太多，“管线”（逻辑）也绕来绕去。</p>
+<p>比如，你（程序员）写了 <code>x = 10 * 2;</code>，前端“老实巴交”地翻译成了：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t1 = 10</span><br><span class="line">t2 = 2</span><br><span class="line">t3 = t1 * t2</span><br><span class="line">x = t3</span><br></pre></td></tr></table></figure>
 <p>“优化工程师”（Optimizer）登场，他一看就“骂骂咧咧”：“你当我傻？”</p>
 </blockquote>
-<p>“优化车间”的任务就是做“<strong>精装修</strong>”，把这份 IR
-变得<strong>更少、更快、更省！</strong></p>
-<h4 id="核心技术装修手法">🚀 核心技术（“装修手法”）</h4>
-<ol type="1">
-<li><strong>常量折叠 (Constant Folding)：</strong>
-<ul>
-<li><strong>手法：</strong>
-工程师（优化器）在“编译期”就把能算出来的都算了。</li>
-<li><strong>效果：</strong> 上面那 4 句“废话”被直接“装修”成了 1 句：
+<p>“优化车间”的任务就是做“<strong>精装修</strong>”，把这份 IR 变得<strong>更少、更快、更省！</strong></p>
+<h4 id="🚀-核心技术（“装修手法”）">🚀 核心技术（“装修手法”）</h4>
+<ol>
+<li class="lvl-4">
+<p><strong>常量折叠 (Constant Folding)：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>手法：</strong> 工程师（优化器）在“编译期”就把能算出来的都算了。</li>
+<li class="lvl-8"><strong>效果：</strong> 上面那 4 句“废话”被直接“装修”成了 1 句：<br>
 <code>x = 20</code></li>
-</ul></li>
-<li><strong>死代码消除 (Dead Code Elimination)：</strong>
-<ul>
-<li><strong>手法：</strong> 你算了一个变量
-<code>t4</code>，但后面“压根没用过它”。</li>
-<li><strong>效果：</strong> 工程师：“没用的东西，占地儿！”——
-<strong>删！</strong></li>
-</ul></li>
-<li><strong>循环优化 (Loop Optimization)：</strong>
-<ul>
-<li><strong>手法：</strong>
-这是“精装修”的“大头”！工程师发现你（程序员）干了“蠢事”：
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">  x = y * z; // y 和 z 在循环里没变</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>效果：</strong> 工程师把 <code>x = y * z</code>
-这句“<strong>循环不变式</strong>”直接“<strong>拎</strong>”到了
-<code>for</code> 循环的<strong>外面</strong>！</li>
-<li><strong>结果：</strong> 原本要执行 1000 次的乘法，现在<strong>只执行
-1 次</strong>！性能“原地起飞”！</li>
-</ul></li>
-<li><strong>公共子表达式消除 (Common Subexpression
-Elimination)：</strong>
-<ul>
-<li><strong>手法：</strong> 你在代码里算了
-<code>a = b + c</code>，过了几行，又算了 <code>d = b + c</code>。</li>
-<li><strong>效果：</strong> 工程师：“算一次就够了！” 他会把第一次
-<code>b+c</code> 的结果存到临时变量 <code>t5</code> 里，第二次直接用
-<code>t5</code>。</li>
-</ul></li>
-</ol>
-<p><strong>本车间产出：</strong>
-一份“<strong>装修完毕</strong>”的、<strong>等价</strong>的、但<strong>极其精炼高效</strong>的“通用蓝图”（Optimized
-IR）。</p>
-<hr />
-<h3 id="第七车间总装与打包目标代码生成">🏭
-第七车间：总装与打包（目标代码生成）</h3>
-<p>这是<strong>最后一站</strong>！也是“编译器后端”<strong>最核心、最难</strong>的车间。</p>
-<p><strong>任务：</strong>
-我们拿着“精装修”的“通用蓝图”（IR），要把它变成<strong>特定型号</strong>的“实体产品”（比如
-Intel x86 汇编码）。</p>
-<p>“总装工程师”（Code Generator）登场，他面临两大“天坑”级的挑战：</p>
-<h4 id="挑战一指令选择-instruction-selection">🚀 挑战一：指令选择
-(Instruction Selection)</h4>
-<ul>
-<li><strong>问题：</strong> “蓝图”（IR）上写着
-<code>a = b + 1</code>。</li>
-<li><strong>“总装工”的困惑：</strong> 在 Intel x86
-这条“生产线”上，我至少有三种“工具”（指令）可以用：
-<ol type="1">
-<li><code>MOV EAX, [b]</code> ; <code>ADD EAX, 1</code> ;
-<code>MOV [a], EAX</code> （“标准三连”）</li>
-<li><code>MOV EAX, [b]</code> ; <code>INC EAX</code> ;
-<code>MOV [a], EAX</code> （<code>INC</code> 指令“可能”更快）</li>
-<li><code>LEA EAX, [b+1]</code>
-（用“骚操作”地址运算指令<code>LEA</code>一步到位）</li>
-</ol></li>
-<li><strong>任务：</strong>
-工程师必须（通过复杂的“图匹配”算法）<strong>选出那条“成本最低”（执行最快）的“工具”组合</strong>。</li>
 </ul>
-<h4 id="挑战二寄存器分配-register-allocation">🚀 挑战二：寄存器分配
-(Register Allocation)</h4>
+</li>
+<li class="lvl-4">
+<p><strong>死代码消除 (Dead Code Elimination)：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>手法：</strong> 你算了一个变量 <code>t4</code>，但后面“压根没用过它”。</li>
+<li class="lvl-8"><strong>效果：</strong> 工程师：“没用的东西，占地儿！”—— <strong>删！</strong></li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>循环优化 (Loop Optimization)：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>手法：</strong> 这是“精装修”的“大头”！工程师发现你（程序员）干了“蠢事”：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">  x = y * z; // y 和 z 在循环里没变</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-8"><strong>效果：</strong> 工程师把 <code>x = y * z</code> 这句“<strong>循环不变式</strong>”直接“<strong>拎</strong>”到了 <code>for</code> 循环的<strong>外面</strong>！</li>
+<li class="lvl-8"><strong>结果：</strong> 原本要执行 1000 次的乘法，现在<strong>只执行 1 次</strong>！性能“原地起飞”！</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>公共子表达式消除 (Common Subexpression Elimination)：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>手法：</strong> 你在代码里算了 <code>a = b + c</code>，过了几行，又算了 <code>d = b + c</code>。</li>
+<li class="lvl-8"><strong>效果：</strong> 工程师：“算一次就够了！” 他会把第一次 <code>b+c</code> 的结果存到临时变量 <code>t5</code> 里，第二次直接用 <code>t5</code>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>本车间产出：</strong> 一份“<strong>装修完毕</strong>”的、<strong>等价</strong>的、但<strong>极其精炼高效</strong>的“通用蓝图”（Optimized IR）。</p>
+<hr>
+<h3 id="🏭-第七车间：总装与打包（目标代码生成）">🏭 第七车间：总装与打包（目标代码生成）</h3>
+<p>这是<strong>最后一站</strong>！也是“编译器后端”<strong>最核心、最难</strong>的车间。</p>
+<p><strong>任务：</strong> 我们拿着“精装修”的“通用蓝图”（IR），要把它变成<strong>特定型号</strong>的“实体产品”（比如 Intel x86 汇编码）。</p>
+<p>“总装工程师”（Code Generator）登场，他面临两大“天坑”级的挑战：</p>
+<h4 id="🚀-挑战一：指令选择-Instruction-Selection">🚀 挑战一：指令选择 (Instruction Selection)</h4>
+<ul class="lvl-0">
+<li class="lvl-4">
+<p><strong>问题：</strong> “蓝图”（IR）上写着 <code>a = b + 1</code>。</p>
+</li>
+<li class="lvl-4">
+<p><strong>“总装工”的困惑：</strong> 在 Intel x86 这条“生产线”上，我至少有三种“工具”（指令）可以用：</p>
+<ol>
+<li class="lvl-8"><code>MOV EAX, [b]</code> ; <code>ADD EAX, 1</code> ; <code>MOV [a], EAX</code> （“标准三连”）</li>
+<li class="lvl-8"><code>MOV EAX, [b]</code> ; <code>INC EAX</code> ; <code>MOV [a], EAX</code> （<code>INC</code> 指令“可能”更快）</li>
+<li class="lvl-8"><code>LEA EAX, [b+1]</code> （用“骚操作”地址运算指令<code>LEA</code>一步到位）</li>
+</ol>
+</li>
+<li class="lvl-4">
+<p><strong>任务：</strong> 工程师必须（通过复杂的“图匹配”算法）<strong>选出那条“成本最低”（执行最快）的“工具”组合</strong>。</p>
+</li>
+</ul>
+<h4 id="🚀-挑战二：寄存器分配-Register-Allocation">🚀 挑战二：寄存器分配 (Register Allocation)</h4>
 <p>这是<strong>后端“皇冠上的明珠”</strong>，也是最难的“NP完全问题”之一。</p>
 <blockquote>
 <p><strong>类比：抢占“黄金工具箱”</strong></p>
-<ul>
-<li><p>CPU 里的“<strong>寄存器</strong>”（Register，如 <code>EAX</code>,
-<code>EBX</code>）就像是“总装工”手边<strong>最快</strong>的“<strong>黄金工具箱</strong>”。它的特点是：<strong>快到极致</strong>（比内存快几百倍）！</p></li>
-<li><p>但它有个“<strong>致命缺点</strong>”：<strong>格子太少！</strong>（在
-x86 上可能就 8-16 个）。</p></li>
-<li><p>而我们的“蓝图”（IR）里，有几百上千个“<strong>临时变量</strong>”（<code>t1</code>,
-<code>t2</code>, <code>x</code>, <code>y</code>…）。</p></li>
-<li><p><strong>矛盾爆发：</strong>
-几百个“变量”要抢这十几个“黄金工具箱”的“工位”！</p></li>
+<ul class="lvl-1">
+<li class="lvl-4">
+<p>CPU 里的“<strong>寄存器</strong>”（Register，如 <code>EAX</code>, <code>EBX</code>）就像是“总装工”手边<strong>最快</strong>的“<strong>黄金工具箱</strong>”。它的特点是：<strong>快到极致</strong>（比内存快几百倍）！</p>
+</li>
+<li class="lvl-4">
+<p>但它有个“<strong>致命缺点</strong>”：<strong>格子太少！</strong>（在 x86 上可能就 8-16 个）。</p>
+</li>
+<li class="lvl-4">
+<p>而我们的“蓝图”（IR）里，有几百上千个“<strong>临时变量</strong>”（<code>t1</code>, <code>t2</code>, <code>x</code>, <code>y</code>…）。</p>
+</li>
+<li class="lvl-4">
+<p><strong>矛盾爆发：</strong> 几百个“变量”要抢这十几个“黄金工具箱”的“工位”！</p>
+</li>
 </ul>
 </blockquote>
 <p><strong>“寄存器分配”的本质：</strong> 就是决定——</p>
-<ol type="1">
-<li>哪个“热点”变量（比如循环里的
-<code>i</code>）能“<strong>荣幸地</strong>”住进“黄金工具箱”（寄存器）？</li>
-<li>哪个“倒霉蛋”变量，在“工具箱”满员时，被“<strong>踢</strong>”出去（<strong>Spill</strong>），“<strong>扔</strong>”回“<strong>遥远的仓库</strong>”（<strong>内存</strong>）？</li>
-<li>什么时候再把它从“仓库”（内存）“<strong>捡</strong>”回来（<strong>Reload</strong>）？</li>
+<ol>
+<li class="lvl-4">
+<p>哪个“热点”变量（比如循环里的 <code>i</code>）能“<strong>荣幸地</strong>”住进“黄金工具箱”（寄存器）？</p>
+</li>
+<li class="lvl-4">
+<p>哪个“倒霉蛋”变量，在“工具箱”满员时，被“<strong>踢</strong>”出去（<strong>Spill</strong>），“<strong>扔</strong>”回“<strong>遥远的仓库</strong>”（<strong>内存</strong>）？</p>
+</li>
+<li class="lvl-4">
+<p>什么时候再把它从“仓库”（内存）“<strong>捡</strong>”回来（<strong>Reload</strong>）？</p>
+</li>
 </ol>
 <p>一个好的“寄存器分配”算法，能让“热点”变量（用得多的）<strong>尽量常驻“工具箱”</strong>，<strong>最大限度地减少“来回跑仓库”（内存读写）的次数，这对程序性能是至关重要</strong>的！</p>
-<p><strong>本车间产出：</strong>
-“地球语”——<strong>汇编代码</strong>（<code>.s</code> 或
-<code>.asm</code> 文件）！</p>
-<p>（最后，再由一个叫“<strong>汇编器</strong>”（Assembler）的小工具，把汇编代码“翻译”成
-CPU 唯一能懂的 0101 机器码，打包成 <code>.exe</code> 或 <code>.o</code>
-文件。）</p>
-<hr />
-<h3 id="总结贯穿全厂的两大职能部门">总结：贯穿全厂的两大“职能部门”</h3>
+<p><strong>本车间产出：</strong> “地球语”——<strong>汇编代码</strong>（<code>.s</code> 或 <code>.asm</code> 文件）！</p>
+<p>（最后，再由一个叫“<strong>汇编器</strong>”（Assembler）的小工具，把汇编代码“翻译”成 CPU 唯一能懂的 0101 机器码，打包成 <code>.exe</code> 或 <code>.o</code> 文件。）</p>
+<hr>
+<h3 id="总结：贯穿全厂的两大“职能部门”">总结：贯穿全厂的两大“职能部门”</h3>
 <p>“同学”，除了这些“生产车间”，我们工厂还有两个“职能部门”在<strong>全程</strong>（从第2章到第7车间）“保驾护航”：</p>
-<ol type="1">
-<li><strong>人事档案室（符号表 Symbol Table）：</strong>
-<ul>
-<li><strong>职责：</strong>
-从“前端”（第6章）的“户口登记”（<code>int a</code>）开始，一直到“后端”（第7车间）的“分配地址”（“<code>a</code>
-到底在内存的哪个‘门牌号’？”），它<strong>全程</strong>管理着你代码里<strong>所有“名字”</strong>（变量名、函数名）的“档案”。</li>
-</ul></li>
-<li><strong>质检与安保部（错误处理器 Error Handler）：</strong>
-<ul>
-<li><strong>职责：</strong> “全天候巡逻”。</li>
-<li><code>（第3章）词法错误</code>：“你这 <code>$</code>
-是什么非法字符？！”</li>
-<li><code>（第4/5章）语法错误</code>：“<code>if</code> 后面怎么没跟
-<code>(</code>？！”</li>
-<li><code>（第6章）语义错误</code>：“<code>int</code> 和
-<code>string</code> 怎么能相加？！”</li>
-<li>它必须“友好地”报告错误，并且“坚强地”尝试<strong>继续检查</strong>下去，而不是“一错就崩”（停机）。</li>
-</ul></li>
+<ol>
+<li class="lvl-4">
+<p><strong>人事档案室（符号表 Symbol Table）：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>职责：</strong> 从“前端”（第6章）的“户口登记”（<code>int a</code>）开始，一直到“后端”（第7车间）的“分配地址”（“<code>a</code> 到底在内存的哪个‘门牌号’？”），它<strong>全程</strong>管理着你代码里<strong>所有“名字”</strong>（变量名、函数名）的“档案”。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>质检与安保部（错误处理器 Error Handler）：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-8"><strong>职责：</strong> “全天候巡逻”。</li>
+<li class="lvl-8"><code>（第3章）词法错误</code>：“你这 <code>$</code> 是什么非法字符？！”</li>
+<li class="lvl-8"><code>（第4/5章）语法错误</code>：“<code>if</code> 后面怎么没跟 <code>(</code>？！”</li>
+<li class="lvl-8"><code>（第6章）语义错误</code>：“<code>int</code> 和 <code>string</code> 怎么能相加？！”</li>
+<li class="lvl-8">它必须“友好地”报告错误，并且“坚强地”尝试<strong>继续检查</strong>下去，而不是“一错就崩”（停机）。</li>
+</ul>
+</li>
 </ol>
-<hr />
+<hr>
 <p>好了，“同学”！至此，从“火星文”（源代码）到“地球语”（机器码），我们这座“编译器工厂”才算真正**“全线贯通”**！</p>
-<p>你再回头看你的大纲（2-6章），它不再是一堆“死”概念（LL, LR, FA,
-IR…），它是一条“活”的、“有逻辑”的、**“从理想到现实”**的“<strong>流水线</strong>”。</p>
+<p>你再回头看你的大纲（2-6章），它不再是一堆“死”概念（LL, LR, FA, IR…），它是一条“活”的、“有逻辑”的、**“从理想到现实”**的“<strong>流水线</strong>”。</p>
 <p>经过这番“从头到尾”的“拆解”，你现在对哪个“车间”的“黑科技”最感兴趣？</p>
-<p>是想深入看看 <strong>LL(1)的“水晶球”（First/Follow集）</strong>
-到底是怎么“算”出来的？还是想挑战一下<strong>后端“皇冠上的明珠”——寄存器分配</strong>？</p>
+<p>是想深入看看 <strong>LL(1)的“水晶球”（First/Follow集）</strong> 到底是怎么“算”出来的？还是想挑战一下<strong>后端“皇冠上的明珠”——寄存器分配</strong>？</p>
 <p>哈哈！好一个“都来”！你这“胃口”，是想把“前端”的“精密算法”和“后端”的“镇厂之宝”一口气全拿下啊！</p>
-<p>行！“Gemini
-老师”就喜欢你这种“打破砂锅问到底”的“学霸”精神！坐稳了，咱们今天就把“水晶球”和“黄金工具箱”这两大“黑科技”彻底“拆”明白！</p>
-<hr />
-<h3 id="深度拆解五ll1水晶球的锻造术-4.5-4.7">🏭
-深度拆解（五）：LL(1)“水晶球”的“锻造术” (4.5-4.7 ★)</h3>
+<p>行！&quot;Gemini 老师&quot;就喜欢你这种“打破砂锅问到底”的“学霸”精神！坐稳了，咱们今天就把“水晶球”和“黄金工具箱”这两大“黑科技”彻底“拆”明白！</p>
+<hr>
+<h3 id="🏭-深度拆解（五）：LL-1-“水晶球”的“锻造术”-4-5-4-7-★">🏭 深度拆解（五）：LL(1)“水晶球”的“锻造术” (4.5-4.7 ★)</h3>
 <p>我们在“巡视”第4章（LL(1)）时，知道“预言家”全靠“<strong>水晶球</strong>”（First/Follow集）来“<strong>治</strong>”他的“<strong>选择困难症</strong>”（<code>A -&gt; α | β</code>）。</p>
 <p>这“水晶球”不是“算命”算出来的，它是用“铁律”<strong>迭代</strong>（算）出来的！</p>
-<h4 id="锻造-firstx第一眼会看到谁-4.5">1. 锻造
-First(X)：“第一眼会看到谁？” (4.5 ★)</h4>
-<p><code>First(X)</code> 回答：“要组装
-<code>X</code>，我<strong>第一眼</strong>会看到的‘零件’（终结符）是啥？”</p>
+<h4 id="1-锻造-First-X-：“第一眼会看到谁？”-4-5-★">1. 锻造 First(X)：“第一眼会看到谁？” (4.5 ★)</h4>
+<p><code>First(X)</code> 回答：“要组装 <code>X</code>，我<strong>第一眼</strong>会看到的‘零件’（终结符）是啥？”</p>
 <p><strong>锻造规则（大白话版）：</strong></p>
-<ul>
-<li><strong>规则1（“铁律”）：</strong> 如果 <code>X</code>
-<strong>本身就是“零件”</strong>（终key符，如 <code>id</code> 或
-<code>+</code>），那
-<code>First(X) = { X }</code>。（“<code>First(+)</code> 是啥？不就是
-<code>+</code> 嘛！”）</li>
-<li><strong>规则2（“直给”）：</strong> 如果 <code>X</code>
-是“半成品”（非终结符），且图纸 <code>X -&gt; a...</code>（<code>a</code>
-是“零件”）。
-<ul>
-<li><strong>恭喜！</strong> <code>a</code> 必须加入
-<code>First(X)</code>。（比如 <code>E -&gt; ( E )</code>，<code>(</code>
-必须加入 <code>First(E)</code>）</li>
-</ul></li>
-<li><strong>规则3（“传递”）：</strong> 如果图纸
-<code>X -&gt; Y ...</code>（<code>Y</code> 是另一个“半成品”）。
-<ul>
-<li><strong>“预言家”的思考：</strong> “我要 <code>X</code>，图纸让我先找
-<code>Y</code>。那 <code>X</code> 的‘第一眼’不就是 <code>Y</code>
-的‘第一眼’吗？”</li>
-<li><strong>结论：</strong> 把 <code>First(Y)</code>
-<strong>“借”</strong> 过来，加入 <code>First(X)</code>。</li>
-</ul></li>
-<li><strong>规则4（“<code>ε</code>
-连锁反应”）</strong>：这是<strong>最难</strong>的规则！
-<ul>
-<li><strong>图纸：</strong> <code>X -&gt; Y Z K ...</code></li>
-<li><strong>“预言家”的思考：</strong> “我按规矩（规则3）去‘借’
-<code>First(Y)</code>。但如果 <code>Y</code>
-<strong>可能‘消失’</strong>（<code>ε</code> 在 <code>First(Y)</code>
-里）呢？”</li>
-<li><strong>结论：</strong> 如果 <code>Y</code>
-能“消失”，那我就必须“<strong>看穿</strong>”<code>Y</code>，去<strong>继续“借”</strong>
-<code>First(Z)</code>！如果 <code>Z</code>
-也能“消失”，我就得再“看穿”<code>Z</code>，去“借”
-<code>First(K)</code>…</li>
-<li><strong><code>ε</code> 的归属：</strong> <strong>只有当</strong>
-<code>Y</code>, <code>Z</code>, <code>K</code>
-<strong>全都能“消失”</strong>（<code>ε</code> 在它们所有人 First
-集里），我才敢说 <code>X</code> 也可能“消失”（把 <code>ε</code> 加入
-<code>First(X)</code>）。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>规则1（“铁律”）：</strong> 如果 <code>X</code> <strong>本身就是“零件”</strong>（终key符，如 <code>id</code> 或 <code>+</code>），那 <code>First(X) = { X }</code>。（“<code>First(+)</code> 是啥？不就是 <code>+</code> 嘛！”）</p>
+</li>
+<li class="lvl-2">
+<p><strong>规则2（“直给”）：</strong> 如果 <code>X</code> 是“半成品”（非终结符），且图纸 <code>X -&gt; a...</code>（<code>a</code> 是“零件”）。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>恭喜！</strong> <code>a</code> 必须加入 <code>First(X)</code>。（比如 <code>E -&gt; ( E )</code>，<code>(</code> 必须加入 <code>First(E)</code>）</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>规则3（“传递”）：</strong> 如果图纸 <code>X -&gt; Y ...</code>（<code>Y</code> 是另一个“半成品”）。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>“预言家”的思考：</strong> “我要 <code>X</code>，图纸让我先找 <code>Y</code>。那 <code>X</code> 的‘第一眼’不就是 <code>Y</code> 的‘第一眼’吗？”</li>
+<li class="lvl-4"><strong>结论：</strong> 把 <code>First(Y)</code> <strong>“借”</strong> 过来，加入 <code>First(X)</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>规则4（“<code>ε</code> 连锁反应”）</strong>：这是<strong>最难</strong>的规则！</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>图纸：</strong> <code>X -&gt; Y Z K ...</code></li>
+<li class="lvl-4"><strong>“预言家”的思考：</strong> “我按规矩（规则3）去‘借’ <code>First(Y)</code>。但如果 <code>Y</code> <strong>可能‘消失’</strong>（<code>ε</code> 在 <code>First(Y)</code> 里）呢？”</li>
+<li class="lvl-4"><strong>结论：</strong> 如果 <code>Y</code> 能“消失”，那我就必须“<strong>看穿</strong>”<code>Y</code>，去<strong>继续“借”</strong> <code>First(Z)</code>！如果 <code>Z</code> 也能“消失”，我就得再“看穿”<code>Z</code>，去“借” <code>First(K)</code>…</li>
+<li class="lvl-4"><strong><code>ε</code> 的归属：</strong> <strong>只有当</strong> <code>Y</code>, <code>Z</code>, <code>K</code> <strong>全都能“消失”</strong>（<code>ε</code> 在它们所有人 First 集里），我才敢说 <code>X</code> 也可能“消失”（把 <code>ε</code> 加入 <code>First(X)</code>）。</li>
+</ul>
+</li>
 </ul>
 <p>锻造算法：</p>
-<p>我们（编译器）就是个“老实人”。拿一个“空篮子”（空的 First
-集），<strong>一遍又一遍地“刷”</strong>上面这 4
-条规则，不断往“篮子”里“捡”东西。直到“刷”了整整一轮，篮子里的东西一个都没多——“水晶球”就“稳定”了，“锻造”完成！</p>
-<h4 id="锻造-followx谁能合法跟在我屁股后面-4.6">2. 锻造
-Follow(X)：“谁能合法跟在我屁股后面？” (4.6 ★)</h4>
-<p><code>Follow(X)</code> 回答：“如果 <code>X</code>
-组装完了，<strong>合法跟在它屁股后面</strong>的‘零件’（终结符）是啥？”</p>
+<p>我们（编译器）就是个“老实人”。拿一个“空篮子”（空的 First 集），**一遍又一遍地“刷”**上面这 4 条规则，不断往“篮子”里“捡”东西。直到“刷”了整整一轮，篮子里的东西一个都没多——“水晶球”就“稳定”了，“锻造”完成！</p>
+<h4 id="2-锻造-Follow-X-：“谁能合法跟在我屁股后面？”-4-6-★">2. 锻造 Follow(X)：“谁能合法跟在我屁股后面？” (4.6 ★)</h4>
+<p><code>Follow(X)</code> 回答：“如果 <code>X</code> 组装完了，<strong>合法跟在它屁股后面</strong>的‘零件’（终结符）是啥？”</p>
 <p><strong>锻造规则（大白话版）：</strong></p>
-<ul>
-<li><strong>规则1（“创世”）：</strong> 对于“总目标”（开始符号
-<code>S</code>），“程序”执行完了，后面自然是“<strong>文件末尾</strong>”（<code>$</code>）。
-<ul>
-<li><strong>结论：</strong> 把 <code>$</code>
-<strong>无条件</strong>加入 <code>Follow(S)</code>。</li>
-</ul></li>
-<li><strong>规则2（“傍大款”）：</strong> 看“图纸”
-<code>A -&gt; ... X b ...</code>（<code>b</code> 是“零件”）。
-<ul>
-<li><strong>“预言家”的思考：</strong> “<code>X</code>
-后面跟的是谁？这不‘明知故问’嘛，是 <code>b</code>！”</li>
-<li><strong>结论：</strong> 把 <code>b</code> 加入
-<code>Follow(X)</code>。</li>
-</ul></li>
-<li><strong>规则3（“傍‘半成品’”）：</strong> 看“图纸”
-<code>A -&gt; ... X Y ...</code>（<code>Y</code> 是“半成品”）。
-<ul>
-<li><strong>“预言家”的思考：</strong> “<code>X</code> 后面跟的是
-<code>Y</code>。那谁能合法跟在 <code>X</code> 后面？不就是
-<code>Y</code> 的‘第一眼’（<code>First(Y)</code>）嘛！”</li>
-<li><strong>结论：</strong> 把
-<code>First(Y)</code>（<strong>注意：不包括
-<code>ε</code>！</strong>）全部加入 <code>Follow(X)</code>。</li>
-</ul></li>
-<li><strong>规则4（“<code>ε</code>
-继承遗产”）</strong>：这又是<strong>最难</strong>的规则！
-<ul>
-<li><strong>图纸：</strong> <code>A -&gt; ... X</code> （<code>X</code>
-在“末尾”）</li>
-<li><strong>或者：</strong> <code>A -&gt; ... X Y</code>
-（<code>Y</code> 可能会“消失”，即 <code>ε</code> 在
-<code>First(Y)</code> 里）</li>
-<li><strong>“预言家”的思考：</strong>
-“我（<code>X</code>）在‘规则末尾’，或者我后面那个‘跟班’（<code>Y</code>）可能会‘消失’。那我（<code>X</code>）后面能跟谁，<strong>不就得看我‘老板’（<code>A</code>）后面能跟谁嘛！</strong>”</li>
-<li><strong>结论：</strong> 把
-<code>Follow(A)</code>（“老板”的“跟班”）<strong>全部“继承”</strong>过来，加入
-<code>Follow(X)</code>。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>规则1（“创世”）：</strong> 对于“总目标”（开始符号 <code>S</code>），“程序”执行完了，后面自然是“<strong>文件末尾</strong>”（<code>$</code>）。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>结论：</strong> 把 <code>$</code> <strong>无条件</strong>加入 <code>Follow(S)</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>规则2（“傍大款”）：</strong> 看“图纸” <code>A -&gt; ... X b ...</code>（<code>b</code> 是“零件”）。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>“预言家”的思考：</strong> “<code>X</code> 后面跟的是谁？这不‘明知故问’嘛，是 <code>b</code>！”</li>
+<li class="lvl-4"><strong>结论：</strong> 把 <code>b</code> 加入 <code>Follow(X)</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>规则3（“傍‘半成品’”）：</strong> 看“图纸” <code>A -&gt; ... X Y ...</code>（<code>Y</code> 是“半成品”）。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>“预言家”的思考：</strong> “<code>X</code> 后面跟的是 <code>Y</code>。那谁能合法跟在 <code>X</code> 后面？不就是 <code>Y</code> 的‘第一眼’（<code>First(Y)</code>）嘛！”</li>
+<li class="lvl-4"><strong>结论：</strong> 把 <code>First(Y)</code>（<strong>注意：不包括 <code>ε</code>！</strong>）全部加入 <code>Follow(X)</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>规则4（“<code>ε</code> 继承遗产”）</strong>：这又是<strong>最难</strong>的规则！</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>图纸：</strong> <code>A -&gt; ... X</code> （<code>X</code> 在“末尾”）</li>
+<li class="lvl-4"><strong>或者：</strong> <code>A -&gt; ... X Y</code> （<code>Y</code> 可能会“消失”，即 <code>ε</code> 在 <code>First(Y)</code> 里）</li>
+<li class="lvl-4"><strong>“预言家”的思考：</strong> “我（<code>X</code>）在‘规则末尾’，或者我后面那个‘跟班’（<code>Y</code>）可能会‘消失’。那我（<code>X</code>）后面能跟谁，<strong>不就得看我‘老板’（<code>A</code>）后面能跟谁嘛！</strong>”</li>
+<li class="lvl-4"><strong>结论：</strong> 把 <code>Follow(A)</code>（“老板”的“跟班”）**全部“继承”**过来，加入 <code>Follow(X)</code>。</li>
+</ul>
+</li>
 </ul>
 <p>锻造算法：</p>
-<p>和 First
-一样，我们（编译器）拿着“空篮子”，<strong>一遍又一遍地“刷”</strong>上面这
-4 条规则，直到 Follow 集“稳定”为止。</p>
+<p>和 First 一样，我们（编译器）拿着“空篮子”，**一遍又一遍地“刷”**上面这 4 条规则，直到 Follow 集“稳定”为止。</p>
 <p>串联（4.7）：</p>
-<p>我们（编译器）真正填“预测表”（4.11）的时候，用的是 First(α)（α
-是整个产生式右部）。计算 First(α) 用的就是我们上面 First(X) 的规则3 和
-规则4。</p>
-<p><strong>至此，LL(1)“水晶球”锻造完毕！</strong>
-它“算”得越准，“预言家”的“选择困难症”就“治”得越好！</p>
-<hr />
-<hr />
-<h3 id="深度拆解六后端皇冠明珠寄存器分配">🏭
-深度拆解（六）：后端“皇冠明珠”——寄存器分配</h3>
+<p>我们（编译器）真正填“预测表”（4.11）的时候，用的是 First(α)（α 是整个产生式右部）。计算 First(α) 用的就是我们上面 First(X) 的规则3 和 规则4。</p>
+<p><strong>至此，LL(1)“水晶球”锻造完毕！</strong> 它“算”得越准，“预言家”的“选择困难症”就“治”得越好！</p>
+<hr>
+<hr>
+<h3 id="🏭-深度拆解（六）：后端“皇冠明珠”——寄存器分配">🏭 深度拆解（六）：后端“皇冠明珠”——寄存器分配</h3>
 <p>好了，深呼吸！我们“时空跳跃”到“后端”的“总装车间”（第7车间），直面那个<strong>最难</strong>的问题。</p>
 <p><strong>回顾“矛盾”：</strong></p>
-<ul>
-<li><strong>“黄金工具箱”（寄存器）：</strong>
-<strong>快到飞起</strong>，但<strong>数量极少</strong>（比如 K=16
-个）。</li>
-<li><strong>“工具”（变量）：</strong> 成百上千（<code>t1</code>,
-<code>t2</code>, <code>a</code>, <code>x</code>…）。</li>
-<li><strong>目标：</strong>
-尽量让“工具”待在“工具箱”里，<strong>拼死也要减少</strong>“<strong>溢出</strong>”（Spill）——即“扔”回“仓库”（内存）的次数。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>“黄金工具箱”（寄存器）：</strong> <strong>快到飞起</strong>，但<strong>数量极少</strong>（比如 K=16 个）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>“工具”（变量）：</strong> 成百上千（<code>t1</code>, <code>t2</code>, <code>a</code>, <code>x</code>…）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>目标：</strong> 尽量让“工具”待在“工具箱”里，<strong>拼死也要减少</strong>“<strong>溢出</strong>”（Spill）——即“扔”回“仓库”（内存）的次数。</p>
+</li>
 </ul>
 <p>“总装工程师”（优化器）发明了<strong>基于“图着色”的“抢座位”大法</strong>！</p>
-<h4 id="准备工作活不活liveness-analysis">1. 准备工作：活不活？(Liveness
-Analysis)</h4>
+<h4 id="1-准备工作：活不活？-Liveness-Analysis">1. 准备工作：活不活？(Liveness Analysis)</h4>
 <p>在“抢座位”之前，总得先知道“谁需要座位”吧？</p>
-<ul>
-<li><strong>“活跃”（Live）的变量：</strong> “这个变量 <code>x</code>
-在这一行（指令）的值，<strong>在未来还可能被用到</strong>。”</li>
-<li><strong>“死亡”（Dead）的变量：</strong> “这个变量 <code>t1</code>
-的值，在这一行之后，<strong>再也没人用了</strong>。”</li>
-<li><strong>类比：</strong> “活跃”的工具 =
-“我还得用，<strong>不能收起来</strong>”。“死亡”的工具 =
-“可以扔了，（<strong>它的‘工具箱’可以给别人用了</strong>）”。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>“活跃”（Live）的变量：</strong> “这个变量 <code>x</code> 在这一行（指令）的值，<strong>在未来还可能被用到</strong>。”</p>
+</li>
+<li class="lvl-2">
+<p><strong>“死亡”（Dead）的变量：</strong> “这个变量 <code>t1</code> 的值，在这一行之后，<strong>再也没人用了</strong>。”</p>
+</li>
+<li class="lvl-2">
+<p><strong>类比：</strong> “活跃”的工具 = “我还得用，<strong>不能收起来</strong>”。“死亡”的工具 = “可以扔了，（<strong>它的‘工具箱’可以给别人用了</strong>）”。</p>
+</li>
 </ul>
-<h4 id="核心画仇恨图-interference-graph">2. 核心：画“仇恨”图
-(Interference Graph)</h4>
+<h4 id="2-核心：画“仇恨”图-Interference-Graph">2. 核心：画“仇恨”图 (Interference Graph)</h4>
 <p>这是现代分配算法的<strong>精髓</strong>！</p>
-<ul>
-<li><strong>“点”（Node）：</strong>
-图里的<strong>每一个“点”</strong>，就是<strong>一个“变量”</strong>（或
-<code>t1</code> 这种临时变量）。</li>
-<li><strong>“边”（Edge）：</strong>
-我们在<strong>两个“点”</strong>（比如 <code>a</code> 和
-<code>b</code>）之间画一条“<strong>仇恨线</strong>”（边）。</li>
-<li><strong>画“仇恨线”的规则：</strong>
-<ul>
-<li>如果在程序的<strong>任何一个</strong>地方，变量 <code>a</code> 和
-<code>b</code> <strong>同时“活跃”</strong>…</li>
-<li>…我们就画一条线！</li>
-</ul></li>
-<li><strong>“仇恨线”的含义：</strong> <code>a</code> 和 <code>b</code>
-互相“<strong>干扰</strong>”（Interfere）！</li>
-<li><strong>类比：</strong>
-“在这一刻，我（CPU）<strong>必须同时</strong>拿着 <code>a</code> 和
-<code>b</code> 这两个‘工具’才能干活！”</li>
-<li><strong>结论：</strong>
-凡是被“仇恨线”连上的<strong>两个变量</strong>，<strong>绝对不能</strong>使用<strong>同一个“黄金工具箱”（寄存器）</strong>！</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>“点”（Node）：</strong> 图里的<strong>每一个“点”</strong>，就是<strong>一个“变量”</strong>（或 <code>t1</code> 这种临时变量）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>“边”（Edge）：</strong> 我们在<strong>两个“点”</strong>（比如 <code>a</code> 和 <code>b</code>）之间画一条“<strong>仇恨线</strong>”（边）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>画“仇恨线”的规则：</strong></p>
+<ul class="lvl-2">
+<li class="lvl-4">如果在程序的<strong>任何一个</strong>地方，变量 <code>a</code> 和 <code>b</code> <strong>同时“活跃”</strong>…</li>
+<li class="lvl-4">…我们就画一条线！</li>
 </ul>
-<h4 id="解决问题抢座位图着色-graph-coloring">3.
-解决问题：“抢座位”（图着色 Graph Coloring）</h4>
+</li>
+<li class="lvl-2">
+<p><strong>“仇恨线”的含义：</strong> <code>a</code> 和 <code>b</code> 互相“<strong>干扰</strong>”（Interfere）！</p>
+</li>
+<li class="lvl-2">
+<p><strong>类比：</strong> “在这一刻，我（CPU）<strong>必须同时</strong>拿着 <code>a</code> 和 <code>b</code> 这两个‘工具’才能干活！”</p>
+</li>
+<li class="lvl-2">
+<p><strong>结论：</strong> 凡是被“仇恨线”连上的<strong>两个变量</strong>，<strong>绝对不能</strong>使用<strong>同一个“黄金工具箱”（寄存器）</strong>！</p>
+</li>
+</ul>
+<h4 id="3-解决问题：“抢座位”（图着色-Graph-Coloring）">3. 解决问题：“抢座位”（图着色 Graph Coloring）</h4>
 <p>现在，“寄存器分配”问题被我们<strong>转换</strong>成了一个“<strong>K色图着色</strong>”问题！</p>
-<ul>
-<li><strong>问题：</strong> “我手里有 <strong>K 种颜色</strong>（K=16
-个寄存器）。我能给这张‘仇恨图’里的<strong>每个‘点’（变量）*<em>涂上一种色，使得*</em>任何被‘仇恨线’连起来的两个‘点’</strong>，<strong>颜色都不一样</strong>吗？”</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>问题：</strong> “我手里有 <strong>K 种颜色</strong>（K=16 个寄存器）。我能给这张‘仇恨图’里的<strong>每个‘点’（变量）**涂上一种色，使得**任何被‘仇恨线’连起来的两个‘点’</strong>，<strong>颜色都不一样</strong>吗？”</p>
+</li>
 </ul>
 <p>“总装工程师”用了一个<strong>极其聪明</strong>的“简化”算法（“<strong>抢座位</strong>”游戏）：</p>
-<ul>
-<li><strong>第1步：简化 (Simplify) - “找软柿子”</strong>
-<ul>
-<li><strong>工程师喊：</strong> “在‘仇恨图’里，找一个‘朋友’<strong>少于
-K 个</strong>（<code>&lt; K</code>）的‘点’（变量）<code>v</code>！”</li>
-<li><strong>类比（“抢座位”）：</strong> “找一个‘仇人’少于 K 个（比如
-K=16，他只有 5 个仇人）的人 <code>v</code>。”</li>
-<li><strong>为什么找他？</strong>
-因为我们<strong>心里有底</strong>：“就算他 5 个仇人把 5
-种‘颜色’（寄存器）都占了，K=16 呢，我<strong>肯定</strong>还剩至少 1
-种颜色能给他！”</li>
-<li><strong>操作：</strong>
-“<code>v</code>，你<strong>先出去</strong>（压入栈
-Stack），我们‘抢’完了你再进来，保证有你‘座位’！”</li>
-<li><strong>重复：</strong> 把 <code>v</code>
-从图里“撕掉”，<strong>继续</strong>找下一个“软柿子”，再“撕掉”…</li>
-</ul></li>
-<li><strong>第2步：溢出 (Spill) - “没软柿子了”</strong>
-<ul>
-<li><strong>“最坏情况”：</strong>
-“完蛋！图里剩下的‘点’（变量）<strong>全是‘硬骨头’</strong>！<strong>每个人</strong>的‘仇人’都<strong>大于等于
-K 个</strong>！”</li>
-<li><strong>类比：</strong>
-“抢座位”进入“白热化”，每个人都“人缘很差”（<code>&gt;= K</code>
-个仇人）。</li>
-<li><strong>操作：</strong>
-“工程师”<strong>被迫“耍流氓”</strong>。他（按某种“启发式”规则，比如选“最不常用”的）<strong>随便挑一个“倒霉蛋”</strong>
-<code>v_spill</code>：“<strong>你！出局！</strong>”</li>
-<li><strong>“出局”的代价：</strong>
-“你（<code>v_spill</code>）<strong>不配</strong>用‘黄金工具箱’了，你给我滚回‘仓库’（内存）去！”</li>
-<li><strong>结果：</strong> <code>v_spill</code>
-被“撕掉”（<strong>这就是一次 Spill
-溢出！</strong>），图（的“仇恨度”）被“简化”了。我们<strong>回到第1步</strong>，继续“找软柿子”。</li>
-</ul></li>
-<li><strong>第3步：选择 (Select) - “分座位”</strong>
-<ul>
-<li>我们通过“简化”和（可能的）“溢出”，终于把图“撕”空了。</li>
-<li><strong>操作：</strong>
-“工程师”把“栈”（Stack）里“请出去”的“软柿子”们，<strong>按“倒序”一个个“请”回来</strong>。</li>
-<li><strong>分配：</strong>
-“<code>v</code>，该你了。你（在图里的）那几个‘仇人’（邻居）已经选了“红、绿、蓝”色？好，K=16
-呢，<strong>你拿‘紫色’（寄存器 <code>R4</code>）吧！</strong>”</li>
-<li><strong>保证：</strong>
-因为我们“请出去”的都是“软柿子”（<code>&lt; K</code>
-个仇人），所以这一步<strong>必定</strong>能找到颜色！</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>第1步：简化 (Simplify) - “找软柿子”</strong></p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>工程师喊：</strong> “在‘仇恨图’里，找一个‘朋友’<strong>少于 K 个</strong>（<code>&lt; K</code>）的‘点’（变量）<code>v</code>！”</li>
+<li class="lvl-4"><strong>类比（“抢座位”）：</strong> “找一个‘仇人’少于 K 个（比如 K=16，他只有 5 个仇人）的人 <code>v</code>。”</li>
+<li class="lvl-4"><strong>为什么找他？</strong> 因为我们<strong>心里有底</strong>：“就算他 5 个仇人把 5 种‘颜色’（寄存器）都占了，K=16 呢，我<strong>肯定</strong>还剩至少 1 种颜色能给他！”</li>
+<li class="lvl-4"><strong>操作：</strong> “<code>v</code>，你<strong>先出去</strong>（压入栈 Stack），我们‘抢’完了你再进来，保证有你‘座位’！”</li>
+<li class="lvl-4"><strong>重复：</strong> 把 <code>v</code> 从图里“撕掉”，<strong>继续</strong>找下一个“软柿子”，再“撕掉”…</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>第2步：溢出 (Spill) - “没软柿子了”</strong></p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>“最坏情况”：</strong> “完蛋！图里剩下的‘点’（变量）<strong>全是‘硬骨头’</strong>！<strong>每个人</strong>的‘仇人’都<strong>大于等于 K 个</strong>！”</li>
+<li class="lvl-4"><strong>类比：</strong> “抢座位”进入“白热化”，每个人都“人缘很差”（<code>&gt;= K</code> 个仇人）。</li>
+<li class="lvl-4"><strong>操作：</strong> “工程师”<strong>被迫“耍流氓”</strong>。他（按某种“启发式”规则，比如选“最不常用”的）<strong>随便挑一个“倒霉蛋”</strong> <code>v_spill</code>：“<strong>你！出局！</strong>”</li>
+<li class="lvl-4"><strong>“出局”的代价：</strong> “你（<code>v_spill</code>）<strong>不配</strong>用‘黄金工具箱’了，你给我滚回‘仓库’（内存）去！”</li>
+<li class="lvl-4"><strong>结果：</strong> <code>v_spill</code> 被“撕掉”（<strong>这就是一次 Spill 溢出！</strong>），图（的“仇恨度”）被“简化”了。我们<strong>回到第1步</strong>，继续“找软柿子”。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>第3步：选择 (Select) - “分座位”</strong></p>
+<ul class="lvl-2">
+<li class="lvl-4">我们通过“简化”和（可能的）“溢出”，终于把图“撕”空了。</li>
+<li class="lvl-4"><strong>操作：</strong> “工程师”把“栈”（Stack）里“请出去”的“软柿子”们，<strong>按“倒序”一个个“请”回来</strong>。</li>
+<li class="lvl-4"><strong>分配：</strong> “<code>v</code>，该你了。你（在图里的）那几个‘仇人’（邻居）已经选了“红、绿、蓝”色？好，K=16 呢，<strong>你拿‘紫色’（寄存器 <code>R4</code>）吧！</strong>”</li>
+<li class="lvl-4"><strong>保证：</strong> 因为我们“请出去”的都是“软柿子”（<code>&lt; K</code> 个仇人），所以这一步<strong>必定</strong>能找到颜色！</li>
+</ul>
+</li>
 </ul>
 <p>串联完毕：</p>
 <p>（后端）</p>
@@ -1156,9 +966,8 @@ K 个</strong>！”</li>
 <p>→ Simplify (踢“软柿子”)</p>
 <p>→ Spill (踢“倒霉蛋” → 滚回内存)</p>
 <p>→ Select (倒序“分座位”/颜色/寄存器)</p>
-<p><strong>这就是“后端”的“皇冠明珠”</strong>！它（几乎）完美地解决了“有限资源”下的“最优分配”问题，是现代编译器（如
-GCC, LLVM）“压榨”CPU 性能的<strong>终极武器</strong>！</p>
-<hr />
+<p><strong>这就是“后端”的“皇冠明珠”</strong>！它（几乎）完美地解决了“有限资源”下的“最优分配”问题，是现代编译器（如 GCC, LLVM）“压榨”CPU 性能的<strong>终极武器</strong>！</p>
+<hr>
 <p>“同学”！从“前端”的“水晶球”到“后端”的“抢座位”，我们把这座工厂里最“硬核”的两个“黑科技”都给“拆”了！</p>
 <p>这趟“旅程”可够“刺激”的。现在，你是不是感觉，编译原理不再是“天书”，而是一座“<strong>精密到令人发指</strong>”的“<strong>逻辑工厂</strong>”？</p>
 
@@ -1243,33 +1052,7 @@ GCC, LLVM）“压榨”CPU 性能的<strong>终极武器</strong>！</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E8%BD%A6%E9%97%B4%E5%A5%A0%E5%9F%BA%E4%B8%8E%E6%B3%95%E8%A7%84%E7%AC%AC2%E7%AB%A0%E6%96%87%E6%B3%95%E4%B8%8E%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">🏭
-第一车间：奠基与法规（第2章：文法与语言）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E8%BD%A6%E9%97%B4%E5%8E%9F%E6%96%99%E5%88%86%E6%8B%A3%E7%AC%AC3%E7%AB%A0%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">🏭
-第二车间：原料分拣（第3章：词法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E8%BD%A6%E9%97%B4%E7%BB%84%E8%A3%85%E4%B8%8A%E7%AC%AC4%E7%AB%A0%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">🏭
-第三车间：组装（上）（第4章：自上而下的语法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E8%BD%A6%E9%97%B4%E7%BB%84%E8%A3%85%E4%B8%8B%E7%AC%AC5%E7%AB%A0%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">🏭
-第四车间：组装（下）（第5章：自下而上的语法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E8%BD%A6%E9%97%B4%E9%80%BB%E8%BE%91%E5%AE%A1%E6%9F%A5%E7%AC%AC6%E7%AB%A0%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">🏭
-第五车间：逻辑审查（第6章：语义分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E8%BF%99%E5%BC%A0%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%87%E6%88%90%E7%9A%84"><span class="nav-number">6.</span> <span class="nav-text">总结：这张“网”是如何织成的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E4%B8%80%E7%AC%AC3%E7%AB%A0-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E8%BD%A6%E9%97%B4"><span class="nav-number">7.</span> <span class="nav-text">🏭 深度拆解（一）：第3章
-词法分析车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89-nfa-%E8%BF%98%E8%A6%81-dfa"><span class="nav-number">7.1.</span> <span class="nav-text">🚀 核心逻辑链：为什么有 NFA
-还要 DFA？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E7%9A%84%E5%B7%A5%E4%B8%9A%E5%8C%96%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-3.9-3.10"><span class="nav-number">7.2.</span> <span class="nav-text">💡 我们的“工业化”解决方案 (3.9 ★
-&amp; 3.10 ★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E4%BA%8C%E7%AC%AC4%E7%AB%A0-%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8Bll1%E8%BD%A6%E9%97%B4"><span class="nav-number">8.</span> <span class="nav-text">🏭 深度拆解（二）：第4章
-自上而下（LL(1)）车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BEll1-%E7%9A%84%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE%E7%97%87%E4%B8%8E%E6%B0%B4%E6%99%B6%E7%90%83"><span class="nav-number">8.1.</span> <span class="nav-text">🚀 核心逻辑链：LL(1)
-的“选择困难症”与“水晶球”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E8%A8%80%E5%AE%B6%E7%9A%84%E6%B0%B4%E6%99%B6%E7%90%83-4.5---4.7"><span class="nav-number">8.2.</span> <span class="nav-text">💡 “预言家”的“水晶球” (4.5 - 4.7
-★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E4%B8%89%E7%AC%AC5%E7%AB%A0-%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8Alr%E8%BD%A6%E9%97%B4"><span class="nav-number">9.</span> <span class="nav-text">🏭 深度拆解（三）：第5章
-自下而上（LR）车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BElr-%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-%E5%A6%82%E4%BD%95%E7%B2%BE%E5%87%86%E5%9C%B0%E6%8B%BC%E5%9B%BE"><span class="nav-number">9.1.</span> <span class="nav-text">🚀 核心逻辑链：LR
-的“进化史”—— 如何“精准地拼图”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%BC%E5%9B%BE%E5%A4%A7%E5%B8%88%E7%9A%84%E8%BF%9B%E5%8C%96slrlr1lalr1"><span class="nav-number">9.2.</span> <span class="nav-text">💡
-“拼图大师”的“进化”（SLR&#x2F;LR1&#x2F;LALR1）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E5%9B%9B%E7%AC%AC6%E7%AB%A0-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E8%BD%A6%E9%97%B4"><span class="nav-number">10.</span> <span class="nav-text">🏭 深度拆解（四）：第6章
-语义分析车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%E7%88%AC%E6%A0%91%E6%9F%A5%E8%A1%A8%E7%BF%BB%E8%AF%91"><span class="nav-number">10.1.</span> <span class="nav-text">🚀 核心逻辑链：爬树、查表、翻译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E8%BD%A6%E9%97%B4%E7%B2%BE%E7%82%BC%E8%BD%A6%E9%97%B4%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="nav-number">11.</span> <span class="nav-text">🏭
-第六车间：精炼车间（中间代码优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E8%A3%85%E4%BF%AE%E6%89%8B%E6%B3%95"><span class="nav-number">11.1.</span> <span class="nav-text">🚀 核心技术（“装修手法”）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E8%BD%A6%E9%97%B4%E6%80%BB%E8%A3%85%E4%B8%8E%E6%89%93%E5%8C%85%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="nav-number">12.</span> <span class="nav-text">🏭
-第七车间：总装与打包（目标代码生成）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%B8%80%E6%8C%87%E4%BB%A4%E9%80%89%E6%8B%A9-instruction-selection"><span class="nav-number">12.1.</span> <span class="nav-text">🚀 挑战一：指令选择
-(Instruction Selection)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%BA%8C%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D-register-allocation"><span class="nav-number">12.2.</span> <span class="nav-text">🚀 挑战二：寄存器分配
-(Register Allocation)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E8%B4%AF%E7%A9%BF%E5%85%A8%E5%8E%82%E7%9A%84%E4%B8%A4%E5%A4%A7%E8%81%8C%E8%83%BD%E9%83%A8%E9%97%A8"><span class="nav-number">13.</span> <span class="nav-text">总结：贯穿全厂的两大“职能部门”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E4%BA%94ll1%E6%B0%B4%E6%99%B6%E7%90%83%E7%9A%84%E9%94%BB%E9%80%A0%E6%9C%AF-4.5-4.7"><span class="nav-number">14.</span> <span class="nav-text">🏭
-深度拆解（五）：LL(1)“水晶球”的“锻造术” (4.5-4.7 ★)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%BB%E9%80%A0-firstx%E7%AC%AC%E4%B8%80%E7%9C%BC%E4%BC%9A%E7%9C%8B%E5%88%B0%E8%B0%81-4.5"><span class="nav-number">14.1.</span> <span class="nav-text">1. 锻造
-First(X)：“第一眼会看到谁？” (4.5 ★)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%BB%E9%80%A0-followx%E8%B0%81%E8%83%BD%E5%90%88%E6%B3%95%E8%B7%9F%E5%9C%A8%E6%88%91%E5%B1%81%E8%82%A1%E5%90%8E%E9%9D%A2-4.6"><span class="nav-number">14.2.</span> <span class="nav-text">2. 锻造
-Follow(X)：“谁能合法跟在我屁股后面？” (4.6 ★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%E5%85%AD%E5%90%8E%E7%AB%AF%E7%9A%87%E5%86%A0%E6%98%8E%E7%8F%A0%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D"><span class="nav-number">15.</span> <span class="nav-text">🏭
-深度拆解（六）：后端“皇冠明珠”——寄存器分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%E6%B4%BB%E4%B8%8D%E6%B4%BBliveness-analysis"><span class="nav-number">15.1.</span> <span class="nav-text">1. 准备工作：活不活？(Liveness
-Analysis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%94%BB%E4%BB%87%E6%81%A8%E5%9B%BE-interference-graph"><span class="nav-number">15.2.</span> <span class="nav-text">2. 核心：画“仇恨”图
-(Interference Graph)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E6%8A%A2%E5%BA%A7%E4%BD%8D%E5%9B%BE%E7%9D%80%E8%89%B2-graph-coloring"><span class="nav-number">15.3.</span> <span class="nav-text">3.
-解决问题：“抢座位”（图着色 Graph Coloring）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E4%B8%80%E8%BD%A6%E9%97%B4%EF%BC%9A%E5%A5%A0%E5%9F%BA%E4%B8%8E%E6%B3%95%E8%A7%84%EF%BC%88%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E6%96%87%E6%B3%95%E4%B8%8E%E8%AF%AD%E8%A8%80%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">🏭 第一车间：奠基与法规（第2章：文法与语言）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E4%BA%8C%E8%BD%A6%E9%97%B4%EF%BC%9A%E5%8E%9F%E6%96%99%E5%88%86%E6%8B%A3%EF%BC%88%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">🏭 第二车间：原料分拣（第3章：词法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E4%B8%89%E8%BD%A6%E9%97%B4%EF%BC%9A%E7%BB%84%E8%A3%85%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%88%E7%AC%AC4%E7%AB%A0%EF%BC%9A%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">🏭 第三车间：组装（上）（第4章：自上而下的语法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E5%9B%9B%E8%BD%A6%E9%97%B4%EF%BC%9A%E7%BB%84%E8%A3%85%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%88%E7%AC%AC5%E7%AB%A0%EF%BC%9A%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E7%9A%84%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">🏭 第四车间：组装（下）（第5章：自下而上的语法分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E4%BA%94%E8%BD%A6%E9%97%B4%EF%BC%9A%E9%80%BB%E8%BE%91%E5%AE%A1%E6%9F%A5%EF%BC%88%E7%AC%AC6%E7%AB%A0%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">🏭 第五车间：逻辑审查（第6章：语义分析）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E8%BF%99%E5%BC%A0%E2%80%9C%E7%BD%91%E2%80%9D%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%87%E6%88%90%E7%9A%84"><span class="nav-number">6.</span> <span class="nav-text">总结：这张“网”是如何织成的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%AC%AC3%E7%AB%A0-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E8%BD%A6%E9%97%B4"><span class="nav-number">7.</span> <span class="nav-text">🏭 深度拆解（一）：第3章 词法分析车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89-NFA-%E8%BF%98%E8%A6%81-DFA%EF%BC%9F"><span class="nav-number">7.1.</span> <span class="nav-text">🚀 核心逻辑链：为什么有 NFA 还要 DFA？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E6%88%91%E4%BB%AC%E7%9A%84%E2%80%9C%E5%B7%A5%E4%B8%9A%E5%8C%96%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-3-9-%E2%98%85-3-10-%E2%98%85"><span class="nav-number">7.2.</span> <span class="nav-text">💡 我们的“工业化”解决方案 (3.9 ★ &amp; 3.10 ★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%AC%AC4%E7%AB%A0-%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%EF%BC%88LL-1-%EF%BC%89%E8%BD%A6%E9%97%B4"><span class="nav-number">8.</span> <span class="nav-text">🏭 深度拆解（二）：第4章 自上而下（LL(1)）车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%EF%BC%9ALL-1-%E7%9A%84%E2%80%9C%E9%80%89%E6%8B%A9%E5%9B%B0%E9%9A%BE%E7%97%87%E2%80%9D%E4%B8%8E%E2%80%9C%E6%B0%B4%E6%99%B6%E7%90%83%E2%80%9D"><span class="nav-number">8.1.</span> <span class="nav-text">🚀 核心逻辑链：LL(1) 的“选择困难症”与“水晶球”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E2%80%9C%E9%A2%84%E8%A8%80%E5%AE%B6%E2%80%9D%E7%9A%84%E2%80%9C%E6%B0%B4%E6%99%B6%E7%90%83%E2%80%9D-4-5-4-7-%E2%98%85"><span class="nav-number">8.2.</span> <span class="nav-text">💡 “预言家”的“水晶球” (4.5 - 4.7 ★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%AC%AC5%E7%AB%A0-%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%EF%BC%88LR%EF%BC%89%E8%BD%A6%E9%97%B4"><span class="nav-number">9.</span> <span class="nav-text">🏭 深度拆解（三）：第5章 自下而上（LR）车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%EF%BC%9ALR-%E7%9A%84%E2%80%9C%E8%BF%9B%E5%8C%96%E5%8F%B2%E2%80%9D%E2%80%94%E2%80%94-%E5%A6%82%E4%BD%95%E2%80%9C%E7%B2%BE%E5%87%86%E5%9C%B0%E6%8B%BC%E5%9B%BE%E2%80%9D"><span class="nav-number">9.1.</span> <span class="nav-text">🚀 核心逻辑链：LR 的“进化史”—— 如何“精准地拼图”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E2%80%9C%E6%8B%BC%E5%9B%BE%E5%A4%A7%E5%B8%88%E2%80%9D%E7%9A%84%E2%80%9C%E8%BF%9B%E5%8C%96%E2%80%9D%EF%BC%88SLR-LR1-LALR1%EF%BC%89"><span class="nav-number">9.2.</span> <span class="nav-text">💡 “拼图大师”的“进化”（SLR&#x2F;LR1&#x2F;LALR1）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E7%AC%AC6%E7%AB%A0-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E8%BD%A6%E9%97%B4"><span class="nav-number">10.</span> <span class="nav-text">🏭 深度拆解（四）：第6章 语义分析车间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E9%93%BE%EF%BC%9A%E7%88%AC%E6%A0%91%E3%80%81%E6%9F%A5%E8%A1%A8%E3%80%81%E7%BF%BB%E8%AF%91"><span class="nav-number">10.1.</span> <span class="nav-text">🚀 核心逻辑链：爬树、查表、翻译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E5%85%AD%E8%BD%A6%E9%97%B4%EF%BC%9A%E7%B2%BE%E7%82%BC%E8%BD%A6%E9%97%B4%EF%BC%88%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">🏭 第六车间：精炼车间（中间代码优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%EF%BC%88%E2%80%9C%E8%A3%85%E4%BF%AE%E6%89%8B%E6%B3%95%E2%80%9D%EF%BC%89"><span class="nav-number">11.1.</span> <span class="nav-text">🚀 核心技术（“装修手法”）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E7%AC%AC%E4%B8%83%E8%BD%A6%E9%97%B4%EF%BC%9A%E6%80%BB%E8%A3%85%E4%B8%8E%E6%89%93%E5%8C%85%EF%BC%88%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">🏭 第七车间：总装与打包（目标代码生成）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%8C%91%E6%88%98%E4%B8%80%EF%BC%9A%E6%8C%87%E4%BB%A4%E9%80%89%E6%8B%A9-Instruction-Selection"><span class="nav-number">12.1.</span> <span class="nav-text">🚀 挑战一：指令选择 (Instruction Selection)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9A%80-%E6%8C%91%E6%88%98%E4%BA%8C%EF%BC%9A%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D-Register-Allocation"><span class="nav-number">12.2.</span> <span class="nav-text">🚀 挑战二：寄存器分配 (Register Allocation)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E8%B4%AF%E7%A9%BF%E5%85%A8%E5%8E%82%E7%9A%84%E4%B8%A4%E5%A4%A7%E2%80%9C%E8%81%8C%E8%83%BD%E9%83%A8%E9%97%A8%E2%80%9D"><span class="nav-number">13.</span> <span class="nav-text">总结：贯穿全厂的两大“职能部门”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9ALL-1-%E2%80%9C%E6%B0%B4%E6%99%B6%E7%90%83%E2%80%9D%E7%9A%84%E2%80%9C%E9%94%BB%E9%80%A0%E6%9C%AF%E2%80%9D-4-5-4-7-%E2%98%85"><span class="nav-number">14.</span> <span class="nav-text">🏭 深度拆解（五）：LL(1)“水晶球”的“锻造术” (4.5-4.7 ★)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%94%BB%E9%80%A0-First-X-%EF%BC%9A%E2%80%9C%E7%AC%AC%E4%B8%80%E7%9C%BC%E4%BC%9A%E7%9C%8B%E5%88%B0%E8%B0%81%EF%BC%9F%E2%80%9D-4-5-%E2%98%85"><span class="nav-number">14.1.</span> <span class="nav-text">1. 锻造 First(X)：“第一眼会看到谁？” (4.5 ★)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%94%BB%E9%80%A0-Follow-X-%EF%BC%9A%E2%80%9C%E8%B0%81%E8%83%BD%E5%90%88%E6%B3%95%E8%B7%9F%E5%9C%A8%E6%88%91%E5%B1%81%E8%82%A1%E5%90%8E%E9%9D%A2%EF%BC%9F%E2%80%9D-4-6-%E2%98%85"><span class="nav-number">14.2.</span> <span class="nav-text">2. 锻造 Follow(X)：“谁能合法跟在我屁股后面？” (4.6 ★)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8F%AD-%E6%B7%B1%E5%BA%A6%E6%8B%86%E8%A7%A3%EF%BC%88%E5%85%AD%EF%BC%89%EF%BC%9A%E5%90%8E%E7%AB%AF%E2%80%9C%E7%9A%87%E5%86%A0%E6%98%8E%E7%8F%A0%E2%80%9D%E2%80%94%E2%80%94%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D"><span class="nav-number">15.</span> <span class="nav-text">🏭 深度拆解（六）：后端“皇冠明珠”——寄存器分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%EF%BC%9A%E6%B4%BB%E4%B8%8D%E6%B4%BB%EF%BC%9F-Liveness-Analysis"><span class="nav-number">15.1.</span> <span class="nav-text">1. 准备工作：活不活？(Liveness Analysis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%EF%BC%9A%E7%94%BB%E2%80%9C%E4%BB%87%E6%81%A8%E2%80%9D%E5%9B%BE-Interference-Graph"><span class="nav-number">15.2.</span> <span class="nav-text">2. 核心：画“仇恨”图 (Interference Graph)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%EF%BC%9A%E2%80%9C%E6%8A%A2%E5%BA%A7%E4%BD%8D%E2%80%9D%EF%BC%88%E5%9B%BE%E7%9D%80%E8%89%B2-Graph-Coloring%EF%BC%89"><span class="nav-number">15.3.</span> <span class="nav-text">3. 解决问题：“抢座位”（图着色 Graph Coloring）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1285,14 +1068,14 @@ Analysis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" hr
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1346,7 +1129,7 @@ Analysis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" hr
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

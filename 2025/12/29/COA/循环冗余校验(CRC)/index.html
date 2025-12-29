@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="循环冗余校验(CRC)">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/12/29/COA/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C(CRC)/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-29T14:17:09.000Z">
+<meta property="article:modified_time" content="2025-12-29T14:23:24.725Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/12/29/COA/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C(CRC)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>循环冗余校验(CRC) | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/12/29/COA/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C(CRC)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          循环冗余校验(CRC)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-29 22:17:09 / 修改时间：22:23:24" itemprop="dateCreated datePublished" datetime="2025-12-29T22:17:09+08:00">2025-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>循环冗余校验码(CRC) 知识点+解题方法 完整整理（应试版，最全无遗漏）</h1>
+<h2 id="一、CRC核心知识点（必背，填空-选择高频考点）">一、CRC核心知识点（必背，填空/选择高频考点）</h2>
+<h3 id="1-基本概念">1. 基本概念</h3>
+<p>CRC（循环冗余校验码）是<strong>检错码</strong>（只能检错，不能纠错），属于<strong>差错控制编码</strong>，在计算机网络（数据链路层）、存储系统中广泛使用，<strong>检错能力极强</strong>，漏检率极低。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>核心思想：在发送端，将待发送的二进制数据序列（信息位），<strong>除以一个约定的二进制除数（生成多项式G(x)）</strong>，得到的余数作为<strong>校验位</strong>，拼接在信息位后一起发送；</p>
+</li>
+<li class="lvl-2">
+<p>接收端：将收到的完整码字，用同一个生成多项式G(x)做除法，若余数为0则无差错（大概率），余数非0则判定有差错。</p>
+</li>
+<li class="lvl-2">
+<p>关键说明：CRC能检测出<strong>所有奇数个比特错误、所有双比特错误、所有长度≤生成多项式阶数的突发错误</strong>，是性价比最高的检错方式。</p>
+</li>
+</ul>
+<h3 id="2-核心术语（固定定义，必须记牢）">2. 核心术语（固定定义，必须记牢）</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>信息码/信息位</strong>：待发送的原始数据，记为 $K$ 位，对应多项式 $K(x)$</p>
+</li>
+<li class="lvl-3">
+<p><strong>校验码/冗余位/CRC位</strong>：CRC计算得到的余数，记为 $R$ 位，对应多项式 $R(x)$</p>
+</li>
+<li class="lvl-3">
+<p><strong>码字/编码后的代码</strong>：信息位+校验位，总长度 $N=K+R$ 位，对应多项式 $T(x)=x^R·K(x)+R(x)$</p>
+</li>
+<li class="lvl-3">
+<p><strong>生成多项式</strong>：约定的除数，记为 $\boldsymbol{G(x)}$，是一个<strong>二进制数串</strong>，也是考点的核心已知条件；<br>
+✅ 重要性质：生成多项式 $G(x)$ 为 $r+1$ 位二进制数 → 校验位一定是 $\boldsymbol{r}$ 位；<br>
+✅ 规范要求：$G(x)$ 必须<strong>最高位和最低位都为1</strong>（无例外，题目给的G(x)都满足）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>模2运算</strong>：CRC的所有加减乘除，全部使用<strong>模2运算</strong>（核心！和普通算术运算唯一区别）</p>
+<ul class="lvl-2">
+<li class="lvl-5">模2加法 = 模2减法 = <strong>按位异或</strong>：对应位相同为0，不同为1，无进位、无借位。</li>
+<li class="lvl-5">模2除法：被除数、除数做<strong>模2减法（异或）</strong>，商只记0/1，余数位数必须<strong>比除数少一位</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-生成多项式的两种写法（必考转换，无容错）">3. 生成多项式的两种写法（必考转换，无容错）</h3>
+<p>题目中生成多项式有<strong>多项式形式</strong>和<strong>二进制形式</strong>两种给出方式，必须能<strong>秒转换</strong>，例如：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>$G(x)=x^3+x+1$ → 最高次幂为3 → 二进制位数=3+1=4位 → 二进制：$\boldsymbol{1011}$</p>
+</li>
+<li class="lvl-2">
+<p>$G(x)=x<sup>4+x</sup>2+x+1$ → 最高次幂4 → 5位 → 二进制：$\boldsymbol{10111}$</p>
+</li>
+<li class="lvl-2">
+<p>$G(x)=x^3+1$ → 最高次幂3 →4位 → 二进制：$\boldsymbol{1001}$<br>
+✅ 转换规则：多项式的<strong>幂次对应二进制位的位置（从0开始，右→左）</strong>，有该幂次则写1，无则写0。</p>
+</li>
+</ul>
+<hr>
+<h2 id="二、CRC的三大核心题型">二、CRC的三大核心题型</h2>
+<blockquote>
+<p>前置通用结论：生成多项式 $G(x)$ 最高次幂为 $\boldsymbol{r}$ → 校验位有 $\boldsymbol{r}$ 位 → 信息位要<strong>左移r位</strong><mark>(末尾补r个0)</mark></p>
+</blockquote>
+<h3 id="✅-题型1：已知【信息位-生成多项式G-x-】，求CRC校验位-最终发送的码字（★★★）">✅ 题型1：已知【信息位+生成多项式G(x)】，求CRC校验位 + 最终发送的码字（★★★）</h3>
+<h4 id="解题万能步骤（死记，按顺序写）">解题万能步骤（死记，按顺序写）</h4>
+<ol>
+<li class="lvl-3">
+<p>确定生成多项式的二进制形式，得到 $G(x)$ 的位数 $n=r+1$，记录校验位位数 $r$；</p>
+</li>
+<li class="lvl-3">
+<p>信息位<strong>左移r位</strong>（等价于：信息位后面补r个0），得到移位后的信息位序列 $M$；</p>
+</li>
+<li class="lvl-3">
+<p>用移位后的信息位序列 $M$ 做<strong>模2除法</strong>，除以 $G(x)$ 的二进制序列，得到<strong>余数R</strong>；<br>
+⚠️ 关键要求：余数的位数必须是 $r$ 位！如果余数位数不足，<strong>高位补0补齐r位</strong>（比如r=3，余数是10→补0为010，余数是1→补0为001），这是最容易丢分的点！</p>
+</li>
+<li class="lvl-3">
+<p>CRC校验位 = 最终的余数R；</p>
+</li>
+<li class="lvl-3">
+<p>最终发送的码字 = 原始信息位 + CRC校验位（拼接）。</p>
+</li>
+</ol>
+<h4 id="例题示范（经典考题）">例题示范（经典考题）</h4>
+<p>已知信息位为 101001，生成多项式 $G(x)=x^3+x+1$，求CRC校验位和发送的码字。解：<br>
+① $G(x)=x^3+x+1$ → 二进制=1011，最高次幂r=3 → 校验位3位，信息位左移3位；<br>
+② 信息位101001左移3位 → 101001000；<br>
+③ 模2除法：101001000 ÷ 1011，求余数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">          100101</span><br><span class="line">        _________</span><br><span class="line">1011 ) 101001000</span><br><span class="line">        1011</span><br><span class="line">        -----</span><br><span class="line">          01110</span><br><span class="line">          0000</span><br><span class="line">          -----</span><br><span class="line">          11100</span><br><span class="line">          1011</span><br><span class="line">          -----</span><br><span class="line">           1010</span><br><span class="line">           1011</span><br><span class="line">           -----</span><br><span class="line">             001  （余数）</span><br></pre></td></tr></table></figure>
+<p>④ 余数=001，刚好3位，无需补0 → CRC校验位=001；<br>
+⑤ 发送的码字 = 101001 + 001 = <strong>101001001</strong>。</p>
+<h3 id="✅-题型2：已知【接收的码字-生成多项式G-x-】，判断传输是否出错（★★）">✅ 题型2：已知【接收的码字+生成多项式G(x)】，判断传输是否出错（★★）</h3>
+<h4 id="解题万能步骤（死记，最简步骤）">解题万能步骤（死记，最简步骤）</h4>
+<ol>
+<li class="lvl-3">
+<p>确定生成多项式G(x)的二进制形式；</p>
+</li>
+<li class="lvl-3">
+<p>将接收的完整码字，做<strong>模2除法</strong>，除以G(x)的二进制序列，求余数；</p>
+</li>
+<li class="lvl-3">
+<p>判断规则：</p>
+<ul class="lvl-2">
+<li class="lvl-5">余数 = 0 → 传输<strong>无差错</strong>（CRC的检错逻辑，大概率正确）；</li>
+<li class="lvl-5">余数 ≠ 0 → 传输<strong>有差错</strong>，需要重传。</li>
+</ul>
+</li>
+</ol>
+<h4 id="例题示范">例题示范</h4>
+<p>接收到的码字为101001001，生成多项式G(x)=x³+x+1，判断是否出错。解：用101001001 ÷ 1011，模2除法余数=0 → 无差错。补充：若接收到101001000，除法余数=110≠0 → 有差错。</p>
+<h3 id="✅-题型3：已知【信息位-CRC校验位-生成多项式G-x-】，反推校验位是否正确-求余数（题型1的逆题，必考）">✅ 题型3：已知【信息位+CRC校验位+生成多项式G(x)】，反推校验位是否正确 / 求余数（题型1的逆题，必考）</h3>
+<p>本质和题型2完全相同，解题步骤一致：将「信息位+校验位」拼接成完整码字，用G(x)模2除，余数为0则校验位正确，余数非0则错误。</p>
+<hr>
+<h2 id="三、CRC的关键补充知识点（易混点-易错点，避坑必备，选择题高频）">三、CRC的关键补充知识点（易混点+易错点，避坑必备，选择题高频）</h2>
+<h3 id="✔️-易错点整理">✔️ 易错点整理</h3>
+<p><strong>模2运算≠算术运算</strong>：模2减法是异或，<strong>没有借位</strong>，模2除法商只记0/1，余数位数必须比除数少1位，这是CRC的根基，错了全错；</p>
+<ol start="2">
+<li class="lvl-3">
+<p><strong>校验位的位数必须等于G(x)的最高次幂r</strong>：余数不足r位时，<strong>高位补0</strong>，不是低位补0！比如r=3，余数是1→001，余数是10→010；</p>
+</li>
+<li class="lvl-3">
+<p><strong>信息位左移r位 = 信息位×2^r</strong>：本质是给校验位留出位置，不是随便补0；</p>
+</li>
+<li class="lvl-3">
+<p><mark><strong>CRC是检错码，不是纠错码</strong></mark>：能发现错误，但无法定位错误位置，更不能纠正错误，发现错误后只能要求重传（选择题必考考点）；</p>
+</li>
+<li class="lvl-3">
+<p><strong>生成多项式的约束</strong>：G(x)必须最高位和最低位都是1，题目中不会给不符合的，但要知道这个性质。</p>
+</li>
+</ol>
+<h3 id="✔️-常考特性">✔️ 常考特性</h3>
+<ol>
+<li class="lvl-3">
+<p>CRC能检测出<strong>所有奇数个比特位的错误</strong>；</p>
+</li>
+<li class="lvl-3">
+<p>CRC能检测出<strong>所有长度≤r的突发错误</strong>（r是G(x)最高次幂）；</p>
+</li>
+<li class="lvl-3">
+<p>CRC能检测出<strong>绝大多数长度&gt;r的突发错误</strong>，漏检率极低；</p>
+</li>
+<li class="lvl-3">
+<p>发送的码字 $T(x) = x^r·K(x) + R(x)$，满足 $T(x) \mod G(x) = 0$，即码字能被生成多项式整除。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 计算机组成原理</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/28/os/IO%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" rel="prev" title="IO层次结构">
+      <i class="fa fa-chevron-left"></i> IO层次结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/12/29/COA/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/" rel="next" title="指令系统">
+      指令系统 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">循环冗余校验码(CRC) 知识点+解题方法 完整整理（应试版，最全无遗漏）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81CRC%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%88%E5%BF%85%E8%83%8C%EF%BC%8C%E5%A1%AB%E7%A9%BA-%E9%80%89%E6%8B%A9%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、CRC核心知识点（必背，填空&#x2F;选择高频考点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E6%9C%AF%E8%AF%AD%EF%BC%88%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%B9%89%EF%BC%8C%E5%BF%85%E9%A1%BB%E8%AE%B0%E7%89%A2%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 核心术语（固定定义，必须记牢）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%EF%BC%88%E5%BF%85%E8%80%83%E8%BD%AC%E6%8D%A2%EF%BC%8C%E6%97%A0%E5%AE%B9%E9%94%99%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 生成多项式的两种写法（必考转换，无容错）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81CRC%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E9%A2%98%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">二、CRC的三大核心题型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B1%EF%BC%9A%E5%B7%B2%E7%9F%A5%E3%80%90%E4%BF%A1%E6%81%AF%E4%BD%8D-%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8FG-x-%E3%80%91%EF%BC%8C%E6%B1%82CRC%E6%A0%A1%E9%AA%8C%E4%BD%8D-%E6%9C%80%E7%BB%88%E5%8F%91%E9%80%81%E7%9A%84%E7%A0%81%E5%AD%97%EF%BC%88%E2%98%85%E2%98%85%E2%98%85%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">✅ 题型1：已知【信息位+生成多项式G(x)】，求CRC校验位 + 最终发送的码字（★★★）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E4%B8%87%E8%83%BD%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%AD%BB%E8%AE%B0%EF%BC%8C%E6%8C%89%E9%A1%BA%E5%BA%8F%E5%86%99%EF%BC%89"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">解题万能步骤（死记，按顺序写）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%E7%A4%BA%E8%8C%83%EF%BC%88%E7%BB%8F%E5%85%B8%E8%80%83%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">例题示范（经典考题）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B2%EF%BC%9A%E5%B7%B2%E7%9F%A5%E3%80%90%E6%8E%A5%E6%94%B6%E7%9A%84%E7%A0%81%E5%AD%97-%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8FG-x-%E3%80%91%EF%BC%8C%E5%88%A4%E6%96%AD%E4%BC%A0%E8%BE%93%E6%98%AF%E5%90%A6%E5%87%BA%E9%94%99%EF%BC%88%E2%98%85%E2%98%85%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">✅ 题型2：已知【接收的码字+生成多项式G(x)】，判断传输是否出错（★★）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E4%B8%87%E8%83%BD%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%AD%BB%E8%AE%B0%EF%BC%8C%E6%9C%80%E7%AE%80%E6%AD%A5%E9%AA%A4%EF%BC%89"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">解题万能步骤（死记，最简步骤）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%E7%A4%BA%E8%8C%83"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">例题示范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B3%EF%BC%9A%E5%B7%B2%E7%9F%A5%E3%80%90%E4%BF%A1%E6%81%AF%E4%BD%8D-CRC%E6%A0%A1%E9%AA%8C%E4%BD%8D-%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8FG-x-%E3%80%91%EF%BC%8C%E5%8F%8D%E6%8E%A8%E6%A0%A1%E9%AA%8C%E4%BD%8D%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE-%E6%B1%82%E4%BD%99%E6%95%B0%EF%BC%88%E9%A2%98%E5%9E%8B1%E7%9A%84%E9%80%86%E9%A2%98%EF%BC%8C%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">✅ 题型3：已知【信息位+CRC校验位+生成多项式G(x)】，反推校验位是否正确 &#x2F; 求余数（题型1的逆题，必考）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81CRC%E7%9A%84%E5%85%B3%E9%94%AE%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%88%E6%98%93%E6%B7%B7%E7%82%B9-%E6%98%93%E9%94%99%E7%82%B9%EF%BC%8C%E9%81%BF%E5%9D%91%E5%BF%85%E5%A4%87%EF%BC%8C%E9%80%89%E6%8B%A9%E9%A2%98%E9%AB%98%E9%A2%91%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、CRC的关键补充知识点（易混点+易错点，避坑必备，选择题高频）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%94%EF%B8%8F-%E6%98%93%E9%94%99%E7%82%B9%E6%95%B4%E7%90%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">✔️ 易错点整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%94%EF%B8%8F-%E5%B8%B8%E8%80%83%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">✔️ 常考特性</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">852k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '1233af5770fc749df432b5bd84e0ffb4',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

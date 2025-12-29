@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="指令系统">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/12/29/COA/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-29T14:27:16.000Z">
+<meta property="article:modified_time" content="2025-12-29T14:35:20.028Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/12/29/COA/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>指令系统 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/12/29/COA/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          指令系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-29 22:27:16 / 修改时间：22:35:20" itemprop="dateCreated datePublished" datetime="2025-12-29T22:27:16+08:00">2025-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>「指令系统」</h1>
+<blockquote>
+<p>核心定位：指令系统是<strong>CPU能执行的所有指令的集合</strong>，是硬件和软件的接口，所有考点都围绕「<strong>指令格式怎么设计</strong>」「<strong>操作数怎么找（寻址）</strong>」「<strong>指令系统怎么分类优化</strong>」三大核心展开。</p>
+</blockquote>
+<hr>
+<h2 id="一、指令系统-核心知识点">一、指令系统 核心知识点</h2>
+<h3 id="✅-模块1：指令的基本概念（选择必考，填空，概念题，无计算）">✅ 模块1：指令的基本概念（选择必考，填空，概念题，无计算）</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>指令的定义</strong>：计算机能识别并执行的<strong>二进制代码</strong>，一条指令对应一种基本操作；指令 = <code>操作码(OP) + 地址码(A)</code>，缺一不可。</p>
+<ul class="lvl-2">
+<li class="lvl-5">操作码(OP)：表示<strong>指令要完成的操作</strong>（如加、减、取数、存数），位数决定<strong>指令条数</strong>。</li>
+<li class="lvl-5">地址码(A)：表示<strong>操作数的地址/操作数本身</strong>，位数决定<strong>寻址范围</strong>，地址码的个数称为「地址数」。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>指令字、机器字长、存储字长（★★★易混必考，选择题高频坑点）</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">指令字长：一条指令所占的<strong>二进制位数</strong>，可<strong>定长/变长</strong>；</li>
+<li class="lvl-5">机器字长：CPU一次能处理的二进制位数，决定寄存器、ALU的位数；</li>
+<li class="lvl-5">存储字长：存储器一个存储单元能存的二进制位数，等于存储单元的位数；<br>
+✔ 三者关系：可以相等/不等，指令字长可以是存储字长的整数倍（指令存不下时占多个存储单元）；机器字长越长，CPU处理效率越高。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>指令的执行过程</strong>（简答考点）：取指 → 分析指令（译码） → 取操作数 → 执行操作 → 写结果。</p>
+</li>
+<li class="lvl-3">
+<p><strong>指令系统的性能要求</strong>（简答）：完备性、有效性、规整性、兼容性（向上兼容为主）。</p>
+</li>
+</ol>
+<h3 id="✅-模块2：指令格式设计（★★★-重中之重，大题必考，综合设计题核心，占分最高）">✅ 模块2：指令格式设计（★★★ 重中之重，大题必考，综合设计题核心，占分最高）</h3>
+<blockquote>
+<p>该模块是指令系统的<strong>核心大题考点</strong>，每年必考「指令格式设计+指令条数计算」，所有题目都有固定解题步骤，无灵活考点，背规则就能做对。</p>
+</blockquote>
+<h4 id="（一）指令的基本格式分类（按「地址码的个数」分，5类，必背定义-特点-应用）">（一）指令的基本格式分类（按「地址码的个数」分，5类，必背定义+特点+应用）</h4>
+<p>所有指令格式的本质：<strong>指令字长固定时，操作码位数 ↔ 地址码位数 是此消彼长的关系</strong>（核心原则，设计题第一依据）</p>
+<ol>
+<li class="lvl-3">
+<p><strong>零地址指令</strong>：格式 <code>[操作码]</code>，无地址码</p>
+<ul class="lvl-2">
+<li class="lvl-5">特点：操作数来自<strong>堆栈栈顶</strong>，运算结果再压回栈顶；无需寻址，指令字长短。</li>
+<li class="lvl-5">应用：堆栈型计算机、无操作数指令（如停机、空操作）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>一地址指令</strong>：格式 <code>[操作码] + [A1]</code>，1个地址码</p>
+<ul class="lvl-2">
+<li class="lvl-5">两种情况：① 单操作数指令（如取反、加1），A1是操作数地址；② 双操作数指令，<strong>隐含一个操作数在累加器ACC中</strong>，A1是另一个操作数地址，结果存回ACC。</li>
+<li class="lvl-5">应用：绝大多数算术运算指令，节省地址码位数。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>二地址指令</strong>：格式 <code>[操作码] + [A1] + [A2]</code>，2个地址码</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：A1=源操作数地址，A2=目的操作数地址，运算后结果存回<strong>A2</strong>（必考规则）。</li>
+<li class="lvl-5">特点：指令字长较长，寻址直观，是最常用的指令格式。</li>
+<li class="lvl-5">公式：指令字长 = 操作码位数 + 地址码1位数 + 地址码2位数。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>三地址指令</strong>：格式 <code>[操作码] + [A1] + [A2] + [A3]</code>，3个地址码</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：A1、A2是源操作数地址，A3是结果地址，运算后源操作数不变。</li>
+<li class="lvl-5">特点：指令字长最长，寻址灵活，不破坏源操作数，但存储空间利用率低。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>多地址指令</strong>：多于3个地址码，仅用于特殊指令（如矩阵运算），考题极少。</p>
+</li>
+</ol>
+<h4 id="（二）操作码的设计（2种方式，★★★-大题必考，核心计算）">（二）操作码的设计（2种方式，★★★ 大题必考，核心计算）</h4>
+<p>操作码是指令格式的核心，只有<strong>定长操作码</strong>和<strong>变长操作码</strong>两种设计方式，<strong>全部是计算题考点</strong>，两种方式会结合出题，必须吃透。</p>
+<h5 id="✔-方式1：定长操作码（基础，送分题）">✔ 方式1：定长操作码（基础，送分题）</h5>
+<ol>
+<li class="lvl-3">
+<p>定义：所有指令的<strong>操作码位数固定</strong>，地址码位数也固定 → 指令字长定长。</p>
+</li>
+<li class="lvl-3">
+<p>核心公式（必考，背熟）：若操作码位数为 <strong>n位</strong> → 最多能设计 $\boldsymbol{2^n}$ 条指令。</p>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>译码速度快、硬件实现简单</strong>；缺点是<strong>指令条数固定，浪费操作码空间</strong>（若指令条数少于$2^n$，多余的操作码无意义）。</p>
+</li>
+<li class="lvl-3">
+<p>例：操作码占4位 → 最多设计 $2^4=16$ 条指令。</p>
+</li>
+</ol>
+<h5 id="✔-方式2：变长操作码（★★★-高频大题，难点-重点，必考）">✔ 方式2：变长操作码（★★★ 高频大题，难点+重点，必考）</h5>
+<ol>
+<li class="lvl-3">
+<p>定义：不同指令的<strong>操作码位数不同</strong>，地址码位数也不同 → 指令字长变长；<strong>地址码个数越少的指令，操作码位数越多</strong>（核心设计原则）。</p>
+<ul class="lvl-2">
+<li class="lvl-5">设计逻辑：二地址指令用短操作码，单地址/零地址指令用长操作码，充分利用操作码的编码空间，<strong>在指令字长固定的前提下，设计出更多的指令条数</strong>。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>核心规则（<strong>唯一的易错点，必考，必须记牢</strong>）：<strong>短操作码不能是长操作码的前缀</strong>（也叫「前缀码规则/无歧义规则」），否则CPU译码时无法区分指令，会出错。</p>
+</li>
+<li class="lvl-3">
+<p>核心公式（分步计算，万能模板）：已知：指令字长为L位，地址码每个占k位。</p>
+<ul class="lvl-2">
+<li class="lvl-5">第一步：设计<strong>二地址指令</strong>：操作码位数 = L-2k，条数 $N_2=2^{L-2k}$；</li>
+<li class="lvl-5">第二步：设计<strong>单地址指令</strong>：从二地址指令的操作码中<strong>拿出1个编码作为前缀</strong>，剩下的编码作为单地址的操作码，操作码位数增加k位，条数 $N_1=(N_2 - a)×2^k$ （a为二地址指令实际使用的条数）；</li>
+<li class="lvl-5">第三步：设计<strong>零地址指令</strong>：同理，从单地址指令中拿出1个编码做前缀，条数 $N_0=(N_1 - b)×2^k$ （b为单地址指令实际使用的条数）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>指令条数多，编码效率高，节省存储空间</strong>；缺点是译码速度慢，硬件实现复杂。</p>
+</li>
+</ol>
+<h4 id="（三）指令格式设计的核心原则（大题答题必写，采分点）">（三）指令格式设计的核心原则（大题答题必写，采分点）</h4>
+<ol>
+<li class="lvl-3">
+<p>指令字长尽可能与<strong>存储字长、机器字长</strong>一致，减少访存次数；</p>
+</li>
+<li class="lvl-3">
+<p>地址码的位数要满足<strong>寻址范围</strong>的要求（地址码n位 → 寻址范围$2^n$）；</p>
+</li>
+<li class="lvl-3">
+<p>变长操作码遵循「前缀无歧义」规则；</p>
+</li>
+<li class="lvl-3">
+<p>常用指令（如加减、取数）用短操作码，减少译码时间。</p>
+</li>
+</ol>
+<h3 id="✅-模块3：寻址方式（★★★-核心考点，选择-大题必考，计算-辨析双考点）">✅ 模块3：寻址方式（★★★ 核心考点，选择+大题必考，计算+辨析双考点）</h3>
+<blockquote>
+<p>寻址方式：<strong>寻找操作数的地址/操作数本身的方式</strong>，是指令系统的第二核心；考点分两类：① 各类寻址方式的<strong>定义、特点、有效地址计算</strong>（计算必考）；② 寻址方式的<strong>访存次数</strong>（选择题高频坑点）；③ 寻址方式的对比辨析（选择/简答）。核心符号（统一约定，考题通用）：</p>
+<ul class="lvl-1">
+<li class="lvl-2">EA：<strong>有效地址</strong>，操作数在存储器中的实际地址（必考计算）；</li>
+<li class="lvl-2">PC：程序计数器，存放下一条指令的地址；</li>
+<li class="lvl-2">IR：指令寄存器，存放当前正在执行的指令；</li>
+<li class="lvl-2">R：寄存器，®表示寄存器中的内容；</li>
+<li class="lvl-2">(X)：表示地址X中的内容（访存取数）。</li>
+</ul>
+</blockquote>
+<h4 id="（一）寻址方式的分类（按「操作数的位置」分，9类必考寻址方式，★★★-背熟：定义-EA公式-访存次数-特点）">（一）寻址方式的分类（按「操作数的位置」分，9类必考寻址方式，★★★ 背熟：定义+EA公式+访存次数+特点）</h4>
+<p>所有寻址方式按优先级排序：<strong>立即寻址 &lt; 寄存器寻址 &lt; 直接寻址 &lt; 间接寻址 &lt; 变址/基址/相对寻址</strong>，考频从高到低排列，公式全部必背，无例外！</p>
+<h5 id="▶-第一类：找「操作数本身」（无EA，无访存，最快）">▶ 第一类：找「操作数本身」（无EA，无访存，最快）</h5>
+<ol>
+<li class="lvl-3">
+<p><strong>立即寻址</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：地址码字段直接存放的是<strong>操作数本身</strong>（立即数），不是地址；</li>
+<li class="lvl-5">公式：无EA，操作数 = 地址码字段的内容；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{0}$ 次（不需要访问内存，指令里直接带数）；</li>
+<li class="lvl-5">特点：速度最快，无需寻址；缺点是操作数的位数受地址码位数限制，只能存小数值。</li>
+<li class="lvl-5">考题标识：地址码前加 <code>#</code>，如 <code>ADD A, #5</code> 表示立即数5。</li>
+</ul>
+</li>
+</ol>
+<h5 id="▶-第二类：找「寄存器中的操作数」（EA无意义，访存0次，速度第二快）">▶ 第二类：找「寄存器中的操作数」（EA无意义，访存0次，速度第二快）</h5>
+<ol start="2">
+<li class="lvl-3">
+<p><strong>寄存器寻址</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：地址码字段存放的是<strong>寄存器编号</strong>，操作数存放在该寄存器中；</li>
+<li class="lvl-5">公式：操作数 = ®；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{0}$ 次（寄存器在CPU内部，无需访存）；</li>
+<li class="lvl-5">特点：速度极快，寻址简单；缺点是寄存器数量有限，能存放的操作数少。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>寄存器间接寻址</strong>（★★★ 必考计算，易错）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：地址码字段存放的是<strong>寄存器编号</strong>，寄存器中存放的是<strong>操作数的有效地址EA</strong>；</li>
+<li class="lvl-5">公式：$\boldsymbol{EA=®}$，操作数 = (EA)；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{1}$ 次（寄存器中是地址，需要访存一次取操作数）；</li>
+<li class="lvl-5">特点：寻址范围大（寄存器位数=机器字长，寻址范围$2^{机器字长}$），速度比内存寻址快。</li>
+</ul>
+</li>
+</ol>
+<h5 id="▶-第三类：找「内存中的操作数」（有EA，需要访存，速度较慢，考点最多）">▶ 第三类：找「内存中的操作数」（有EA，需要访存，速度较慢，考点最多）</h5>
+<ol start="4">
+<li class="lvl-3">
+<p><strong>直接寻址</strong>（★★★ 必考）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：地址码字段直接存放的是<strong>操作数的有效地址EA</strong>；</li>
+<li class="lvl-5">公式：$\boldsymbol{EA=地址码字段的内容}$，操作数 = (EA)；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{1}$ 次；</li>
+<li class="lvl-5">特点：寻址简单，速度快；缺点是寻址范围小（地址码位数有限），地址固定，只能访问固定内存单元（无灵活性）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>间接寻址</strong>（★★★ 必考计算+易错点，分单级/多级）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：地址码字段存放的是<strong>一个内存地址X</strong>，X中的内容是操作数的有效地址EA（单级）；若X中的内容还是地址，直到找到EA，为多级间接寻址；</li>
+<li class="lvl-5">公式：单级 → $\boldsymbol{EA=(X)}$，操作数=(EA)；多级 → 依次访存直到找到EA；</li>
+<li class="lvl-5">访存次数：<strong>单级间接寻址→2次</strong>；<strong>多级→n+1次</strong>（n为间接寻址的级数）；【高频坑点：千万不要算成1次！】</li>
+<li class="lvl-5">特点：寻址范围极大，地址灵活；缺点是访存次数多，速度慢。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>变址寻址</strong>（★★★ 必考，计算+辨析，大题高频）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：设置一个<strong>变址寄存器(IX)</strong>，地址码字段存放<strong>位移量D</strong>，有效地址是「变址寄存器内容 + 位移量D」（<strong>模2加法，无进位</strong>）；</li>
+<li class="lvl-5">公式：$\boldsymbol{EA=(IX)+D}$；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{1}$ 次；</li>
+<li class="lvl-5">核心特点：<strong>变址寄存器的内容不变，位移量D可变</strong>；适合<strong>访问连续的内存单元</strong>（如数组、字符串），是循环程序的核心寻址方式；</li>
+<li class="lvl-5">补充：变址寄存器可以用PC代替，称为「PC变址寻址」。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>基址寻址</strong>（★★★ 必考，计算+辨析，和变址寻址成对考，选择题高频）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：设置一个<strong>基址寄存器(BR)</strong>，地址码字段存放<strong>位移量D</strong>，有效地址是「基址寄存器内容 + 位移量D」；</li>
+<li class="lvl-5">公式：$\boldsymbol{EA=(BR)+D}$；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{1}$ 次；</li>
+<li class="lvl-5">核心特点：<strong>基址寄存器的内容可变，位移量D不变</strong>；适合<strong>多道程序设计、内存分配</strong>，用来确定程序在内存中的起始地址（基址），实现程序的重定位；</li>
+<li class="lvl-5">✔ 【必考辨析】变址寻址 vs 基址寻址（选择题年年考，背熟）：
+<ul class="lvl-4">
+<li class="lvl-7">目的不同：变址寻址→<strong>找操作数</strong>（用户用），基址寻址→<strong>找程序在内存的位置</strong>（系统用）；</li>
+<li class="lvl-7">可变对象不同：变址→D变，IX不变；基址→BR变，D不变；</li>
+<li class="lvl-7">寻址范围：变址→由IX决定，基址→由BR决定（通常BR位数更长，寻址范围更大）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>相对寻址</strong>（★★★ 必考，计算，选择题高频）</p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：以<strong>程序计数器PC</strong>为基准，地址码字段存放<strong>位移量D</strong>，有效地址是「PC的内容 + 位移量D」；</li>
+<li class="lvl-5">公式：$\boldsymbol{EA=(PC)+D}$；</li>
+<li class="lvl-5">访存次数：$\boldsymbol{1}$ 次；</li>
+<li class="lvl-5">核心特点：位移量D可正可负（向前/向后跳转），寻址范围是「PC±D」；适合<strong>转移指令（如跳转、分支）</strong>，指令的地址与PC相关，实现程序的浮动（位置无关）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>堆栈寻址</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">定义：操作数存放在<strong>堆栈</strong>中，栈顶由堆栈指针(SP)指示，地址码字段无地址，隐含操作数在栈顶；</li>
+<li class="lvl-5">公式：EA=(SP)，出栈/入栈后SP自动增减；</li>
+<li class="lvl-5">访存次数：1次；</li>
+<li class="lvl-5">特点：适合子程序调用、中断处理，无需寻址，操作简单。</li>
+</ul>
+</li>
+</ol>
+<h4 id="（二）寻址方式的核心补充（选择题高频考点，避坑必备）">（二）寻址方式的核心补充（选择题高频考点，避坑必备）</h4>
+<ol>
+<li class="lvl-3">
+<p>访存次数的判断规则：<strong>只要需要从内存中取地址/取操作数，就记一次访存</strong>；寄存器操作不算访存，立即数不算访存。</p>
+</li>
+<li class="lvl-3">
+<p>所有寻址方式中，<strong>速度排序</strong>：立即寻址 &gt; 寄存器寻址 &gt; 寄存器间接寻址 &gt; 直接寻址 &gt; 变址/基址/相对寻址 &gt; 间接寻址（最慢）。</p>
+</li>
+<li class="lvl-3">
+<p>寻址范围排序：间接寻址 &gt; 基址寻址 &gt; 变址寻址 &gt; 直接寻址。</p>
+</li>
+</ol>
+<h3 id="✅-模块4：指令的类型与功能（选择考点，背熟分类即可，无计算）">✅ 模块4：指令的类型与功能（选择考点，背熟分类即可，无计算）</h3>
+<p>按指令的功能分类，考题以选择题为主，考「指令归属」，无需深入理解，记熟即可：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>数据传送类指令</strong>：最常用，如MOV（传送）、LOAD（取数）、STORE（存数）、PUSH（入栈）、POP（出栈）；核心是「复制数据」，不改变源操作数。</p>
+</li>
+<li class="lvl-3">
+<p><strong>算术运算类指令</strong>：加减乘除、加1、减1、求补、比较等，运算结果通常存回目的地址。</p>
+</li>
+<li class="lvl-3">
+<p><strong>逻辑运算类指令</strong>：与、或、非、异或、移位（算术移位/逻辑移位/循环移位），用于位操作、逻辑判断。</p>
+</li>
+<li class="lvl-3">
+<p><strong>程序控制类指令</strong>：改变程序执行顺序，如跳转、分支、调用、返回、停机，<strong>必用相对寻址/直接寻址</strong>。</p>
+</li>
+<li class="lvl-3">
+<p><strong>输入输出类指令</strong>：实现CPU与外设的数据交换，分「独立编址（专用I/O指令）」和「统一编址（用访存指令）」。</p>
+</li>
+<li class="lvl-3">
+<p><strong>特权指令</strong>：只能由操作系统执行，如关中断、清内存、启动外设，用户程序不能执行。</p>
+</li>
+</ol>
+<h3 id="✅-模块5：CISC与RISC（★★★-高频选择-简答，必考，无计算，背熟即可）">✅ 模块5：CISC与RISC（★★★ 高频选择+简答，必考，无计算，背熟即可）</h3>
+<blockquote>
+<p>考点：两类指令系统的<strong>定义、特点、区别</strong>，选择题考「判断对错」，简答题考「对比分析」，是性价比最高的考点，背熟就拿分。</p>
+</blockquote>
+<h4 id="1-CISC：复杂指令系统计算机（Complex-Instruction-Set-Computer）">1. CISC：复杂指令系统计算机（Complex Instruction Set Computer）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：指令系统<strong>庞大、复杂</strong>，指令条数多（几百条），指令格式多样，寻址方式丰富；</p>
+</li>
+<li class="lvl-2">
+<p>代表：x86架构（Intel/AMD）、传统的小型机、大型机；</p>
+</li>
+<li class="lvl-2">
+<p>核心特点（必背）：① 指令条数多，格式不规整；② 寻址方式多；③ 指令字长变长；④ 大部分指令执行时间长，执行速度慢；⑤ 硬件复杂，编译器简单。</p>
+</li>
+</ul>
+<h4 id="2-RISC：精简指令系统计算机（Reduced-Instruction-Set-Computer）">2. RISC：精简指令系统计算机（Reduced Instruction Set Computer）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：指令系统<strong>精简、简单</strong>，指令条数少（几十条），指令格式规整，寻址方式少；</p>
+</li>
+<li class="lvl-2">
+<p>代表：ARM架构、MIPS架构、RISC-V架构；</p>
+</li>
+<li class="lvl-2">
+<p>核心特点（必背）：① 指令条数少，格式定长；② 寻址方式极少（只有直接/寄存器寻址）；③ 指令字长固定；④ 所有指令在一个时钟周期内完成，执行速度快；⑤ 硬件简单，编译器复杂；⑥ 大量使用寄存器，减少访存次数。</p>
+</li>
+</ul>
+<h4 id="3-CISC与RISC的核心区别（★★★-选择题-简答必考，表格整理，一目了然）">3. CISC与RISC的核心区别（★★★ 选择题/简答必考，表格整理，一目了然）</h4>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>CISC</th>
+<th>RISC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指令条数</td>
+<td>多（几百条）</td>
+<td>少（几十条）</td>
+</tr>
+<tr>
+<td>指令格式</td>
+<td>变长、不规整</td>
+<td>定长、规整</td>
+</tr>
+<tr>
+<td>寻址方式</td>
+<td>丰富（多种）</td>
+<td>极少（2~3种）</td>
+</tr>
+<tr>
+<td>指令执行时间</td>
+<td>长短不一，多数&gt;1个时钟周期</td>
+<td>统一，1个时钟周期完成</td>
+</tr>
+<tr>
+<td>寄存器数量</td>
+<td>少</td>
+<td>多（大量通用寄存器）</td>
+</tr>
+<tr>
+<td>硬件复杂度</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>编译难度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>执行效率</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="二、指令系统-三大核心题型（解题模板-例题-答案，必考，全覆盖）">二、指令系统 三大核心题型（解题模板+例题+答案，必考，全覆盖）</h2>
+<p>指令系统的考题<strong>无偏题、怪题</strong>，所有题目都归为三类，全部有固定解题步骤，掌握模板后，所有题目都能套用，零失误！</p>
+<blockquote>
+<p>标注：★★★ = 大题必考，★★ = 选择高频，★ = 低频填空/简答</p>
+</blockquote>
+<h3 id="✅-题型1：指令格式设计-指令条数计算（★★★-大题必考，分值最高，核心压轴题）">✅ 题型1：指令格式设计+指令条数计算（★★★ 大题必考，分值最高，核心压轴题）</h3>
+<h4 id="【题型特征】">【题型特征】</h4>
+<p>已知：指令字长、地址码位数、地址数（二地址/单地址/零地址），要求：① 设计指令格式；② 计算各类指令的最大条数；③ 变长操作码的扩展设计。</p>
+<h4 id="【万能解题步骤（死记，按顺序写，采分点齐全）】">【万能解题步骤（死记，按顺序写，采分点齐全）】</h4>
+<ol>
+<li class="lvl-3">
+<p>确定指令字长L，地址码每个占k位，计算<strong>定长操作码的位数</strong>：操作码位数 = L - n×k（n为地址数）；</p>
+</li>
+<li class="lvl-3">
+<p>计算<strong>定长操作码的最大指令条数</strong>：$2^{操作码位数}$；</p>
+</li>
+<li class="lvl-3">
+<p>若要求设计<strong>变长操作码</strong>，按「二地址→单地址→零地址」的顺序扩展，遵循「前缀无歧义」规则，分步计算每类指令的最大条数；</p>
+</li>
+<li class="lvl-3">
+<p>画出指令格式图（操作码+地址码，标注位数），是大题的必写采分点！</p>
+</li>
+</ol>
+<h4 id="【经典例题（408真题改编，必考）】">【经典例题（408真题改编，必考）】</h4>
+<p>已知：指令字长为16位，每个地址码占4位，试设计：① 定长操作码的二地址、单地址、零地址指令的最大条数；② 变长操作码，若二地址指令有10条，单地址指令有16条，求零地址指令的最大条数。解：<br>
+① 定长操作码设计：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>二地址指令：操作码=16-4-4=8位 → 最大条数=$2^8=256$条；</p>
+</li>
+<li class="lvl-2">
+<p>单地址指令：操作码=16-4=12位 → 最大条数=$2^{12}=4096$条；</p>
+</li>
+<li class="lvl-2">
+<p>零地址指令：操作码=16位 → 最大条数=$2^{16}=65536$条。</p>
+</li>
+</ul>
+<p>② 变长操作码设计（核心步骤）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>步骤1：二地址指令，操作码8位，最大256条，实际用10条 → 剩余 $256-10=246$ 个编码作为单地址的前缀；</p>
+</li>
+<li class="lvl-2">
+<p>步骤2：单地址指令，操作码增加4位，每条前缀可扩展$2^4=16$条 → 最大条数=$246×16=3936$条，实际用16条 → 剩余 $3936-16=3920$ 个编码作为零地址的前缀；</p>
+</li>
+<li class="lvl-2">
+<p>步骤3：零地址指令，操作码再增加4位，每条前缀可扩展$2^4=16$条 → 零地址最大条数=$3920×16=62720$条。</p>
+</li>
+</ul>
+<h3 id="✅-题型2：寻址方式计算题（★★★-选择-大题必考，核心计算）">✅ 题型2：寻址方式计算题（★★★ 选择+大题必考，核心计算）</h3>
+<h4 id="【题型特征】-2">【题型特征】</h4>
+<p>已知：寻址方式、寄存器/PC/地址码的内容，要求：① 计算有效地址EA；② 计算操作数的值；③ 判断访存次数。</p>
+<h4 id="【万能解题步骤】">【万能解题步骤】</h4>
+<ol>
+<li class="lvl-3">
+<p>识别寻址方式，写出对应的<strong>EA计算公式</strong>（核心，背熟公式）；</p>
+</li>
+<li class="lvl-3">
+<p>代入已知数值，计算EA；</p>
+</li>
+<li class="lvl-3">
+<p>若求操作数：操作数=(EA)（访存取数）；</p>
+</li>
+<li class="lvl-3">
+<p>按规则判断访存次数，标注清楚。</p>
+</li>
+</ol>
+<h4 id="【经典例题（高频考题，全覆盖考点）】">【经典例题（高频考题，全覆盖考点）】</h4>
+<p>已知：变址寄存器IX的内容为1000H，位移量D为0010H，基址寄存器BR的内容为2000H，PC的内容为3000H，地址码字段的内容为4000H。分别计算：① 变址寻址的EA；② 基址寻址的EA；③ 相对寻址的EA；④ 直接寻址的EA；⑤ 寄存器间接寻址（寄存器R内容为5000H）的EA。解：<br>
+① 变址寻址：$EA=(IX)+D=1000H+0010H=1010H$；<br>
+② 基址寻址：$EA=(BR)+D=2000H+0010H=2010H$；<br>
+③ 相对寻址：$EA=(PC)+D=3000H+0010H=3010H$；<br>
+④ 直接寻址：$EA=4000H$；<br>
+⑤ 寄存器间接寻址：$EA=®=5000H$。</p>
+<h3 id="✅-题型3：CISC-RISC-寻址方式辨析题（★★-选择必考，简答高频）">✅ 题型3：CISC/RISC+寻址方式辨析题（★★ 选择必考，简答高频）</h3>
+<h4 id="【题型特征】-3">【题型特征】</h4>
+<p>选择题：给出描述，判断是哪种寻址方式/是CISC还是RISC；简答题：对比两种寻址方式（变址/基址）、对比CISC和RISC。</p>
+<h4 id="【解题技巧】">【解题技巧】</h4>
+<ol>
+<li class="lvl-3">
+<p>寻址方式辨析：抓住<strong>核心特点</strong>（如立即寻址是操作数本身，间接寻址访存2次）；</p>
+</li>
+<li class="lvl-3">
+<p>CISC/RISC辨析：抓住<strong>指令条数、格式、执行速度</strong>三个核心维度；</p>
+</li>
+<li class="lvl-3">
+<p>简答题：按表格的维度逐条写，采分点清晰，不丢分。</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、指令系统-易错点-避坑指南（选择题高频丢分点，必看）">三、指令系统 易错点+避坑指南（选择题高频丢分点，必看）</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>变长操作码的前缀规则</strong>：短操作码不能是长操作码的前缀，这是唯一的设计规则，违反则错误；</p>
+</li>
+<li class="lvl-3">
+<p><strong>访存次数的计算</strong>：寄存器间接寻址→1次，单级间接寻址→2次，多级→n+1次，千万不要算错！</p>
+</li>
+<li class="lvl-3">
+<p><strong>变址和基址的区别</strong>：变址是用户用，找操作数；基址是系统用，找程序位置，可变对象相反；</p>
+</li>
+<li class="lvl-3">
+<p><strong>指令条数的计算</strong>：定长操作码是$2^n$，变长是分步扩展，不是直接相加；</p>
+</li>
+<li class="lvl-3">
+<p><strong>立即寻址的地址码</strong>：是操作数，不是地址，无EA；</p>
+</li>
+<li class="lvl-3">
+<p><strong>RISC的核心特征</strong>：指令定长、单周期执行、大量寄存器，不是指令条数少这么简单。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 计算机组成原理</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/29/COA/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C(CRC)/" rel="prev" title="循环冗余校验(CRC)">
+      <i class="fa fa-chevron-left"></i> 循环冗余校验(CRC)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/12/29/COA/%E5%BE%AE%E6%8C%87%E4%BB%A4%E5%92%8C%E5%BE%AE%E7%A8%8B%E5%BA%8F/" rel="next" title="微指令和微程序">
+      微指令和微程序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">「指令系统」</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">一、指令系统 核心知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%971%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%EF%BC%88%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E5%A1%AB%E7%A9%BA%EF%BC%8C%E6%A6%82%E5%BF%B5%E9%A2%98%EF%BC%8C%E6%97%A0%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">✅ 模块1：指令的基本概念（选择必考，填空，概念题，无计算）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%972%EF%BC%9A%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E8%AE%BE%E8%AE%A1%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%87%8D%E4%B8%AD%E4%B9%8B%E9%87%8D%EF%BC%8C%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E7%BB%BC%E5%90%88%E8%AE%BE%E8%AE%A1%E9%A2%98%E6%A0%B8%E5%BF%83%EF%BC%8C%E5%8D%A0%E5%88%86%E6%9C%80%E9%AB%98%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">✅ 模块2：指令格式设计（★★★ 重中之重，大题必考，综合设计题核心，占分最高）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%8C%87%E4%BB%A4%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%88%86%E7%B1%BB%EF%BC%88%E6%8C%89%E3%80%8C%E5%9C%B0%E5%9D%80%E7%A0%81%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%8D%E5%88%86%EF%BC%8C5%E7%B1%BB%EF%BC%8C%E5%BF%85%E8%83%8C%E5%AE%9A%E4%B9%89-%E7%89%B9%E7%82%B9-%E5%BA%94%E7%94%A8%EF%BC%89"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">（一）指令的基本格式分类（按「地址码的个数」分，5类，必背定义+特点+应用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%93%8D%E4%BD%9C%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1%EF%BC%882%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%8C%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E6%A0%B8%E5%BF%83%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">（二）操作码的设计（2种方式，★★★ 大题必考，核心计算）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E6%96%B9%E5%BC%8F1%EF%BC%9A%E5%AE%9A%E9%95%BF%E6%93%8D%E4%BD%9C%E7%A0%81%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%8C%E9%80%81%E5%88%86%E9%A2%98%EF%BC%89"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">✔ 方式1：定长操作码（基础，送分题）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E6%96%B9%E5%BC%8F2%EF%BC%9A%E5%8F%98%E9%95%BF%E6%93%8D%E4%BD%9C%E7%A0%81%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%AB%98%E9%A2%91%E5%A4%A7%E9%A2%98%EF%BC%8C%E9%9A%BE%E7%82%B9-%E9%87%8D%E7%82%B9%EF%BC%8C%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">✔ 方式2：变长操作码（★★★ 高频大题，难点+重点，必考）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99%EF%BC%88%E5%A4%A7%E9%A2%98%E7%AD%94%E9%A2%98%E5%BF%85%E5%86%99%EF%BC%8C%E9%87%87%E5%88%86%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">（三）指令格式设计的核心原则（大题答题必写，采分点）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%973%EF%BC%9A%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%EF%BC%8C%E9%80%89%E6%8B%A9-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E8%AE%A1%E7%AE%97-%E8%BE%A8%E6%9E%90%E5%8F%8C%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">✅ 模块3：寻址方式（★★★ 核心考点，选择+大题必考，计算+辨析双考点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB%EF%BC%88%E6%8C%89%E3%80%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E3%80%8D%E5%88%86%EF%BC%8C9%E7%B1%BB%E5%BF%85%E8%80%83%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%EF%BC%8C%E2%98%85%E2%98%85%E2%98%85-%E8%83%8C%E7%86%9F%EF%BC%9A%E5%AE%9A%E4%B9%89-EA%E5%85%AC%E5%BC%8F-%E8%AE%BF%E5%AD%98%E6%AC%A1%E6%95%B0-%E7%89%B9%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">（一）寻址方式的分类（按「操作数的位置」分，9类必考寻址方式，★★★ 背熟：定义+EA公式+访存次数+特点）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%96%B6-%E7%AC%AC%E4%B8%80%E7%B1%BB%EF%BC%9A%E6%89%BE%E3%80%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E6%9C%AC%E8%BA%AB%E3%80%8D%EF%BC%88%E6%97%A0EA%EF%BC%8C%E6%97%A0%E8%AE%BF%E5%AD%98%EF%BC%8C%E6%9C%80%E5%BF%AB%EF%BC%89"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">▶ 第一类：找「操作数本身」（无EA，无访存，最快）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%96%B6-%E7%AC%AC%E4%BA%8C%E7%B1%BB%EF%BC%9A%E6%89%BE%E3%80%8C%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E6%95%B0%E3%80%8D%EF%BC%88EA%E6%97%A0%E6%84%8F%E4%B9%89%EF%BC%8C%E8%AE%BF%E5%AD%980%E6%AC%A1%EF%BC%8C%E9%80%9F%E5%BA%A6%E7%AC%AC%E4%BA%8C%E5%BF%AB%EF%BC%89"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">▶ 第二类：找「寄存器中的操作数」（EA无意义，访存0次，速度第二快）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%96%B6-%E7%AC%AC%E4%B8%89%E7%B1%BB%EF%BC%9A%E6%89%BE%E3%80%8C%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E6%95%B0%E3%80%8D%EF%BC%88%E6%9C%89EA%EF%BC%8C%E9%9C%80%E8%A6%81%E8%AE%BF%E5%AD%98%EF%BC%8C%E9%80%9F%E5%BA%A6%E8%BE%83%E6%85%A2%EF%BC%8C%E8%80%83%E7%82%B9%E6%9C%80%E5%A4%9A%EF%BC%89"><span class="nav-number">1.1.3.1.3.</span> <span class="nav-text">▶ 第三类：找「内存中的操作数」（有EA，需要访存，速度较慢，考点最多）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E7%9A%84%E6%A0%B8%E5%BF%83%E8%A1%A5%E5%85%85%EF%BC%88%E9%80%89%E6%8B%A9%E9%A2%98%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%EF%BC%8C%E9%81%BF%E5%9D%91%E5%BF%85%E5%A4%87%EF%BC%89"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">（二）寻址方式的核心补充（选择题高频考点，避坑必备）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%974%EF%BC%9A%E6%8C%87%E4%BB%A4%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%8A%9F%E8%83%BD%EF%BC%88%E9%80%89%E6%8B%A9%E8%80%83%E7%82%B9%EF%BC%8C%E8%83%8C%E7%86%9F%E5%88%86%E7%B1%BB%E5%8D%B3%E5%8F%AF%EF%BC%8C%E6%97%A0%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">✅ 模块4：指令的类型与功能（选择考点，背熟分类即可，无计算）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%975%EF%BC%9ACISC%E4%B8%8ERISC%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%AB%98%E9%A2%91%E9%80%89%E6%8B%A9-%E7%AE%80%E7%AD%94%EF%BC%8C%E5%BF%85%E8%80%83%EF%BC%8C%E6%97%A0%E8%AE%A1%E7%AE%97%EF%BC%8C%E8%83%8C%E7%86%9F%E5%8D%B3%E5%8F%AF%EF%BC%89"><span class="nav-number">1.1.5.</span> <span class="nav-text">✅ 模块5：CISC与RISC（★★★ 高频选择+简答，必考，无计算，背熟即可）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-CISC%EF%BC%9A%E5%A4%8D%E6%9D%82%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%88Complex-Instruction-Set-Computer%EF%BC%89"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1. CISC：复杂指令系统计算机（Complex Instruction Set Computer）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-RISC%EF%BC%9A%E7%B2%BE%E7%AE%80%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%88Reduced-Instruction-Set-Computer%EF%BC%89"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">2. RISC：精简指令系统计算机（Reduced Instruction Set Computer）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-CISC%E4%B8%8ERISC%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%80%89%E6%8B%A9%E9%A2%98-%E7%AE%80%E7%AD%94%E5%BF%85%E8%80%83%EF%BC%8C%E8%A1%A8%E6%A0%BC%E6%95%B4%E7%90%86%EF%BC%8C%E4%B8%80%E7%9B%AE%E4%BA%86%E7%84%B6%EF%BC%89"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">3. CISC与RISC的核心区别（★★★ 选择题&#x2F;简答必考，表格整理，一目了然）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E9%A2%98%E5%9E%8B%EF%BC%88%E8%A7%A3%E9%A2%98%E6%A8%A1%E6%9D%BF-%E4%BE%8B%E9%A2%98-%E7%AD%94%E6%A1%88%EF%BC%8C%E5%BF%85%E8%80%83%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、指令系统 三大核心题型（解题模板+例题+答案，必考，全覆盖）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B1%EF%BC%9A%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E8%AE%BE%E8%AE%A1-%E6%8C%87%E4%BB%A4%E6%9D%A1%E6%95%B0%E8%AE%A1%E7%AE%97%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E5%88%86%E5%80%BC%E6%9C%80%E9%AB%98%EF%BC%8C%E6%A0%B8%E5%BF%83%E5%8E%8B%E8%BD%B4%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">✅ 题型1：指令格式设计+指令条数计算（★★★ 大题必考，分值最高，核心压轴题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81%E3%80%91"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">【题型特征】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E4%B8%87%E8%83%BD%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%AD%BB%E8%AE%B0%EF%BC%8C%E6%8C%89%E9%A1%BA%E5%BA%8F%E5%86%99%EF%BC%8C%E9%87%87%E5%88%86%E7%82%B9%E9%BD%90%E5%85%A8%EF%BC%89%E3%80%91"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">【万能解题步骤（死记，按顺序写，采分点齐全）】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98%EF%BC%88408%E7%9C%9F%E9%A2%98%E6%94%B9%E7%BC%96%EF%BC%8C%E5%BF%85%E8%80%83%EF%BC%89%E3%80%91"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">【经典例题（408真题改编，必考）】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B2%EF%BC%9A%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E8%AE%A1%E7%AE%97%E9%A2%98%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%80%89%E6%8B%A9-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E6%A0%B8%E5%BF%83%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">✅ 题型2：寻址方式计算题（★★★ 选择+大题必考，核心计算）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81%E3%80%91-2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">【题型特征】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E4%B8%87%E8%83%BD%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%E3%80%91"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">【万能解题步骤】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98%EF%BC%88%E9%AB%98%E9%A2%91%E8%80%83%E9%A2%98%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E8%80%83%E7%82%B9%EF%BC%89%E3%80%91"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">【经典例题（高频考题，全覆盖考点）】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B3%EF%BC%9ACISC-RISC-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E8%BE%A8%E6%9E%90%E9%A2%98%EF%BC%88%E2%98%85%E2%98%85-%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E7%AE%80%E7%AD%94%E9%AB%98%E9%A2%91%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">✅ 题型3：CISC&#x2F;RISC+寻址方式辨析题（★★ 选择必考，简答高频）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81%E3%80%91-3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">【题型特征】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7%E3%80%91"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">【解题技巧】</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F-%E6%98%93%E9%94%99%E7%82%B9-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%EF%BC%88%E9%80%89%E6%8B%A9%E9%A2%98%E9%AB%98%E9%A2%91%E4%B8%A2%E5%88%86%E7%82%B9%EF%BC%8C%E5%BF%85%E7%9C%8B%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、指令系统 易错点+避坑指南（选择题高频丢分点，必看）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">852k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '8a5fd8a404f6081eeabe9c2acdcff21e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

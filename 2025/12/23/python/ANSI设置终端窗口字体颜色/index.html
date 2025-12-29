@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="ANSI设置终端窗口字体颜色">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/12/23/python/ANSI%E8%AE%BE%E7%BD%AE%E7%BB%88%E7%AB%AF%E7%AA%97%E5%8F%A3%E5%AD%97%E4%BD%93%E9%A2%9C%E8%89%B2/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-23T09:13:08.000Z">
+<meta property="article:modified_time" content="2025-12-23T09:14:14.556Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/12/23/python/ANSI%E8%AE%BE%E7%BD%AE%E7%BB%88%E7%AB%AF%E7%AA%97%E5%8F%A3%E5%AD%97%E4%BD%93%E9%A2%9C%E8%89%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ANSI设置终端窗口字体颜色 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/12/23/python/ANSI%E8%AE%BE%E7%BD%AE%E7%BB%88%E7%AB%AF%E7%AA%97%E5%8F%A3%E5%AD%97%E4%BD%93%E9%A2%9C%E8%89%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ANSI设置终端窗口字体颜色
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-23 17:13:08 / 修改时间：17:14:14" itemprop="dateCreated datePublished" datetime="2025-12-23T17:13:08+08:00">2025-12-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h3 id="先明确：SGR的使用格式">先明确：SGR的使用格式</h3>
+<p>在终端中，SGR通过<strong>ANSI转义序列</strong>触发，格式是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\033[参数1;参数2;...m 要设置样式的文本 \033[0m</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>\033[</code>：转义序列的起始标识（也可以写成<code>\x1b[</code>）</p>
+</li>
+<li class="lvl-2">
+<p><code>参数1;参数2;...</code>：多个SGR参数用分号分隔（比如同时设置“加粗+红色”就是<code>1;31</code>）</p>
+</li>
+<li class="lvl-2">
+<p><code>m</code>：转义序列的结束标识</p>
+</li>
+<li class="lvl-2">
+<p><code>\033[0m</code>：必须加，用于<strong>重置所有样式</strong>（否则后续文本会继承当前样式）</p>
+</li>
+</ul>
+<h3 id="分类型详细解释-用法示例">分类型详细解释+用法示例</h3>
+<h4 id="1-基础样式（重置-格式）">1. 基础样式（重置/格式）</h4>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>功能</th>
+<th>用法示例</th>
+<th>效果说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>重置所有样式</td>
+<td><code>print(&quot;\033[0m重置后的文本&quot;)</code></td>
+<td>恢复终端默认文字样式</td>
+</tr>
+<tr>
+<td>1</td>
+<td>加粗/高亮</td>
+<td><code>print(&quot;\033[1m这是加粗文本\033[0m&quot;)</code></td>
+<td>文字变粗（部分终端是高亮）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>斜体</td>
+<td><code>print(&quot;\033[3m这是斜体文本\033[0m&quot;)</code></td>
+<td>文字倾斜（部分终端不支持）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>下划线</td>
+<td><code>print(&quot;\033[4m这是下划线文本\033[0m&quot;)</code></td>
+<td>文字下方加横线</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-前景色（文字颜色）">2. 前景色（文字颜色）</h4>
+<h5 id="（1）基础8色（30-37）">（1）基础8色（30-37）</h5>
+<p>对应“黑、红、绿、黄、蓝、紫、青、白”，示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色文字（31）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[31m这是基础红色文字\033[0m&quot;</span>)</span><br><span class="line"><span class="comment"># 绿色文字（32）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[32m这是基础绿色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（2）高亮8色（90-97）">（2）高亮8色（90-97）</h5>
+<p>比基础色更明亮，示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色（91）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[91m这是高亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（3）256色（38-5-n）">（3）256色（38;5;n）</h5>
+<p>通过“38;5+数字n”调用256色调色板（n范围0-255），示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色中的第196号（亮红色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;5;196m这是256色的亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（4）RGB色（38-2-r-g-b）">（4）RGB色（38;2;r;g;b）</h5>
+<p>通过“38;2+r/g/b数值（0-255）”自定义颜色，示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RGB(255, 100, 100)：浅红色</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;2;255;100;100m这是自定义浅红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="3-背景色（文字底色）">3. 背景色（文字底色）</h4>
+<h5 id="（1）基础8色（40-47）">（1）基础8色（40-47）</h5>
+<p>对应基础色的背景，示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色背景（41）+ 白色文字（37）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[41;37m红底白字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（2）高亮8色（100-107）">（2）高亮8色（100-107）</h5>
+<p>更明亮的背景色，示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色背景（101）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[101;30m高亮红底黑字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（3）256色背景（48-5-n）">（3）256色背景（48;5;n）</h5>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色第200号背景（暗紫色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;5;200;37m256色背景+白色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="（4）RGB背景（48-2-r-g-b）">（4）RGB背景（48;2;r;g;b）</h5>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 背景RGB(100, 200, 255)（浅蓝色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;2;100;200;255;30mRGB背景+黑色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="4-多参数组合用法">4. 多参数组合用法</h4>
+<p>可以同时加多个SGR参数（用分号分隔），比如“加粗+红色+下划线”：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[1;31;4m加粗+红色+下划线的文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>SGR是终端控制文字样式的“指令集”，通过不同数值参数组合，能实现**文字颜色、背景色、格式（加粗/斜体等）**的自定义，而我们平时用Python打印彩色文字，本质就是调用这些SGR参数~</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/11/29/COA/%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%B9%98%E9%99%A4%E8%AE%A1%E7%AE%97/" rel="prev" title="定点数与浮点数的乘除计算">
+      <i class="fa fa-chevron-left"></i> 定点数与浮点数的乘除计算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/12/28/os/IO%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" rel="next" title="IO层次结构">
+      IO层次结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E6%98%8E%E7%A1%AE%EF%BC%9ASGR%E7%9A%84%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">先明确：SGR的使用格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%9E%8B%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">分类型详细解释+用法示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A0%B7%E5%BC%8F%EF%BC%88%E9%87%8D%E7%BD%AE-%E6%A0%BC%E5%BC%8F%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. 基础样式（重置&#x2F;格式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%89%8D%E6%99%AF%E8%89%B2%EF%BC%88%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 前景色（文字颜色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%808%E8%89%B2%EF%BC%8830-37%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）基础8色（30-37）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%AB%98%E4%BA%AE8%E8%89%B2%EF%BC%8890-97%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）高亮8色（90-97）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89256%E8%89%B2%EF%BC%8838-5-n%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）256色（38;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89RGB%E8%89%B2%EF%BC%8838-2-r-g-b%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）RGB色（38;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%83%8C%E6%99%AF%E8%89%B2%EF%BC%88%E6%96%87%E5%AD%97%E5%BA%95%E8%89%B2%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">3. 背景色（文字底色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%808%E8%89%B2%EF%BC%8840-47%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）基础8色（40-47）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%AB%98%E4%BA%AE8%E8%89%B2%EF%BC%88100-107%EF%BC%89"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）高亮8色（100-107）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89256%E8%89%B2%E8%83%8C%E6%99%AF%EF%BC%8848-5-n%EF%BC%89"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）256色背景（48;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89RGB%E8%83%8C%E6%99%AF%EF%BC%8848-2-r-g-b%EF%BC%89"><span class="nav-number">2.3.4.</span> <span class="nav-text">（4）RGB背景（48;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%A4%9A%E5%8F%82%E6%95%B0%E7%BB%84%E5%90%88%E7%94%A8%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4. 多参数组合用法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">852k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '5405f86ca4843b490b137761495dfe6a',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

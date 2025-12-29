@@ -323,7 +323,7 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -342,65 +342,72 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
 <p>在数学中，<strong>n的平方和</strong>与<strong>n的立方和</strong>是两类经典的数列求和问题，常用于代数、组合数学和微积分等领域。以下是具体的公式推导、结果及应用场景，按清晰的结构整理如下：</p>
-<h3 id="一n的平方和前n个正整数的平方和">一、n的平方和（前n个正整数的平方和）</h3>
-<p>即计算 ( S_2(n) = 1^2 + 2^2 + 3^2 + + n^2 ) 的结果。</p>
-<h4 id="最终公式">1. 最终公式</h4>
+<h3 id="一、n的平方和（前n个正整数的平方和）">一、n的平方和（前n个正整数的平方和）</h3>
+<p>即计算 ( S_2(n) = 1^2 + 2^2 + 3^2 + \dots + n^2 ) 的结果。</p>
+<h4 id="1-最终公式">1. 最终公式</h4>
 <p>前n个正整数的平方和公式为：<br>
-[ ]</p>
-<h4 id="简单推导利用恒等式拆分">2. 简单推导（利用恒等式拆分）</h4>
+[<br>
+\boxed{S_2(n) = \frac{n(n+1)(2n+1)}{6}}<br>
+]</p>
+<h4 id="2-简单推导（利用恒等式拆分）">2. 简单推导（利用恒等式拆分）</h4>
 <p>核心思路：通过“立方差恒等式”或“分项拆分”，将平方项转化为可抵消的多项式，简化求和。<br>
 以<strong>立方差恒等式</strong>为例：<br>
 已知 ( (k+1)^3 - k^3 = 3k^2 + 3k + 1 )（展开右边可验证）。<br>
-对k从1到n求和，左边会形成“ telescoping telescoping（ telescoping
-抵消）”：<br>
-[ <em>{k=1}^n = (n+1)^3 - 1^3 ] 右边展开求和：<br>
-[ </em>{k=1}^n (3k^2 + 3k + 1) = 3<em>{k=1}^n k^2 + 3</em>{k=1}^n k +
-<em>{k=1}^n 1 ] 代入已知的“前n个正整数和” ( </em>{k=1}^n k = )
-和“常数和” ( <em>{k=1}^n 1 = n )，整理后即可解出 ( </em>{k=1}^n k^2
-)，得到最终公式。</p>
-<h4 id="示例验证">3. 示例验证</h4>
-<ul>
-<li>当n=3时：( 1^2 + 2^2 + 3^2 = 1 + 4 + 9 = 14 )<br>
-代入公式：( = = 14 )，结果一致。</li>
-</ul>
-<h3 id="二n的立方和前n个正整数的立方和">二、n的立方和（前n个正整数的立方和）</h3>
-<p>即计算 ( S_3(n) = 1^3 + 2^3 + 3^3 + + n^3 ) 的结果。</p>
-<h4 id="最终公式-1">1. 最终公式</h4>
-<p>前n个正整数的立方和公式为：<br>
-[ ]
-<strong>关键规律</strong>：立方和等于“前n个正整数和的平方”，这是一个非常简洁且易记的结论。</p>
-<h4 id="简单推导利用平方差恒等式">2. 简单推导（利用平方差恒等式）</h4>
-<p>核心思路：通过“平方差”拆分，结合前n个正整数和的公式简化。<br>
-已知 ( k^3 = k k^2 )，且可利用恒等式：<br>
-[ 1^3 + 2^3 + + n^3 = (1 + 2 + + n)^2 ]
-可通过数学归纳法验证（两步即可）：<br>
--
-<strong>基例</strong>：n=1时，左边=1³=1，右边=（1×2/2）²=1，成立；<br>
-- <strong>归纳假设</strong>：若n=k时成立（即 ( S_3(k) = []^2
-)），则n=k+1时：<br>
-( S_3(k+1) = S_3(k) + (k+1)^3 = []^2 + (k+1)^3 )，整理后可化为 ( []^2
-)，即n=k+1时也成立。</p>
-<h4 id="示例验证-1">3. 示例验证</h4>
-<ul>
-<li>当n=3时：( 1^3 + 2^3 + 3^3 = 1 + 8 + 27 = 36 )<br>
-代入公式：( ( )^2 = 6^2 = 36 )，结果一致；<br>
+对k从1到n求和，左边会形成“ telescoping  telescoping（ telescoping 抵消）”：<br>
+[<br>
+\sum_{k=1}^n \left[(k+1)^3 - k^3\right] = (n+1)^3 - 1^3<br>
+]<br>
+右边展开求和：<br>
+[<br>
+\sum_{k=1}^n (3k^2 + 3k + 1) = 3\sum_{k=1}^n k^2 + 3\sum_{k=1}^n k + \sum_{k=1}^n 1<br>
+]<br>
+代入已知的“前n个正整数和” ( \sum_{k=1}^n k = \frac{n(n+1)}{2} ) 和“常数和” ( \sum_{k=1}^n 1 = n )，整理后即可解出 ( \sum_{k=1}^n k^2 )，得到最终公式。</p>
+<h4 id="3-示例验证">3. 示例验证</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>当n=3时：( 1^2 + 2^2 + 3^2 = 1 + 4 + 9 = 14 )<br>
+代入公式：( \frac{3 \times 4 \times 7}{6} = \frac{84}{6} = 14 )，结果一致。</p>
 </li>
-<li>当n=4时：( 1+8+27+64=100 )，公式计算：( (4×5/2)^2=10²=100
-)，结果一致。</li>
 </ul>
-<h3 id="三两个求和公式的对比与延伸">三、两个求和公式的对比与延伸</h3>
+<h3 id="二、n的立方和（前n个正整数的立方和）">二、n的立方和（前n个正整数的立方和）</h3>
+<p>即计算 ( S_3(n) = 1^3 + 2^3 + 3^3 + \dots + n^3 ) 的结果。</p>
+<h4 id="1-最终公式-2">1. 最终公式</h4>
+<p>前n个正整数的立方和公式为：<br>
+[<br>
+\boxed{S_3(n) = \left[ \frac{n(n+1)}{2} \right]^2}<br>
+]<br>
+<strong>关键规律</strong>：立方和等于“前n个正整数和的平方”，这是一个非常简洁且易记的结论。</p>
+<h4 id="2-简单推导（利用平方差恒等式）">2. 简单推导（利用平方差恒等式）</h4>
+<p>核心思路：通过“平方差”拆分，结合前n个正整数和的公式简化。<br>
+已知 ( k^3 = k \times k^2 )，且可利用恒等式：<br>
+[<br>
+1^3 + 2^3 + \dots + n^3 = (1 + 2 + \dots + n)^2<br>
+]<br>
+可通过数学归纳法验证（两步即可）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>基例</strong>：n=1时，左边=1³=1，右边=（1×2/2）²=1，成立；</p>
+</li>
+<li class="lvl-2">
+<p><strong>归纳假设</strong>：若n=k时成立（即 ( S_3(k) = [\frac{k(k+1)}{2}]^2 )），则n=k+1时：<br>
+( S_3(k+1) = S_3(k) + (k+1)^3 = [\frac{k(k+1)}{2}]^2 + (k+1)^3 )，整理后可化为 ( [\frac{(k+1)(k+2)}{2}]^2 )，即n=k+1时也成立。</p>
+</li>
+</ul>
+<h4 id="3-示例验证-2">3. 示例验证</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>当n=3时：( 1^3 + 2^3 + 3^3 = 1 + 8 + 27 = 36 )<br>
+代入公式：( \left( \frac{3 \times 4}{2} \right)^2 = 6^2 = 36 )，结果一致；</p>
+</li>
+<li class="lvl-2">
+<p>当n=4时：( 1+8+27+64=100 )，公式计算：( (4×5/2)^2=10²=100 )，结果一致。</p>
+</li>
+</ul>
+<h3 id="三、两个求和公式的对比与延伸">三、两个求和公式的对比与延伸</h3>
 <table>
-<colgroup>
-<col style="width: 12%">
-<col style="width: 31%">
-<col style="width: 27%">
-<col style="width: 28%">
-</colgroup>
 <thead>
 <tr>
 <th>类别</th>
@@ -412,23 +419,20 @@ mjx-container[display="true"] + br {
 <tbody>
 <tr>
 <td>n的平方和</td>
-<td>( )</td>
+<td>( \frac{n(n+1)(2n+1)}{6} )</td>
 <td>结果是n的三次多项式</td>
 <td>计算物体的转动惯量、统计方差等</td>
 </tr>
 <tr>
 <td>n的立方和</td>
-<td>( ^2 )</td>
+<td>( \left[ \frac{n(n+1)}{2} \right]^2 )</td>
 <td>等于“前n项和的平方”，四次多项式</td>
 <td>组合数学中的计数问题、体积计算</td>
 </tr>
 </tbody>
 </table>
-<h4 id="延伸更一般的幂和">延伸：更一般的“幂和”</h4>
-<p>平方和、立方和属于“前n个正整数的k次幂和”（记为 ( S_k(n) = _{i=1}^n
-i^k
-)）的特殊情况（k=2,3）。对于更高次的幂和（如k=4,5），公式会更复杂，但可通过“伯努利数”（Bernoulli
-numbers）统一表示，不过日常应用中，k=2和k=3的公式最为常用。</p>
+<h4 id="延伸：更一般的“幂和”">延伸：更一般的“幂和”</h4>
+<p>平方和、立方和属于“前n个正整数的k次幂和”（记为 ( S_k(n) = \sum_{i=1}^n i^k )）的特殊情况（k=2,3）。对于更高次的幂和（如k=4,5），公式会更复杂，但可通过“伯努利数”（Bernoulli numbers）统一表示，不过日常应用中，k=2和k=3的公式最为常用。</p>
 
     </div>
 
@@ -515,7 +519,7 @@ numbers）统一表示，不过日常应用中，k=2和k=3的公式最为常用�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80n%E7%9A%84%E5%B9%B3%E6%96%B9%E5%92%8C%E5%89%8Dn%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E7%9A%84%E5%B9%B3%E6%96%B9%E5%92%8C"><span class="nav-number">1.</span> <span class="nav-text">一、n的平方和（前n个正整数的平方和）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 最终公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%8E%A8%E5%AF%BC%E5%88%A9%E7%94%A8%E6%81%92%E7%AD%89%E5%BC%8F%E6%8B%86%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">2. 简单推导（利用恒等式拆分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E9%AA%8C%E8%AF%81"><span class="nav-number">1.3.</span> <span class="nav-text">3. 示例验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cn%E7%9A%84%E7%AB%8B%E6%96%B9%E5%92%8C%E5%89%8Dn%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E7%9A%84%E7%AB%8B%E6%96%B9%E5%92%8C"><span class="nav-number">2.</span> <span class="nav-text">二、n的立方和（前n个正整数的立方和）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%85%AC%E5%BC%8F-1"><span class="nav-number">2.1.</span> <span class="nav-text">1. 最终公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%8E%A8%E5%AF%BC%E5%88%A9%E7%94%A8%E5%B9%B3%E6%96%B9%E5%B7%AE%E6%81%92%E7%AD%89%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 简单推导（利用平方差恒等式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E9%AA%8C%E8%AF%81-1"><span class="nav-number">2.3.</span> <span class="nav-text">3. 示例验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%A4%E4%B8%AA%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.</span> <span class="nav-text">三、两个求和公式的对比与延伸</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E6%9B%B4%E4%B8%80%E8%88%AC%E7%9A%84%E5%B9%82%E5%92%8C"><span class="nav-number">3.1.</span> <span class="nav-text">延伸：更一般的“幂和”</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81n%E7%9A%84%E5%B9%B3%E6%96%B9%E5%92%8C%EF%BC%88%E5%89%8Dn%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E7%9A%84%E5%B9%B3%E6%96%B9%E5%92%8C%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、n的平方和（前n个正整数的平方和）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%80%E7%BB%88%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 最终公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%AE%80%E5%8D%95%E6%8E%A8%E5%AF%BC%EF%BC%88%E5%88%A9%E7%94%A8%E6%81%92%E7%AD%89%E5%BC%8F%E6%8B%86%E5%88%86%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 简单推导（利用恒等式拆分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%A4%BA%E4%BE%8B%E9%AA%8C%E8%AF%81"><span class="nav-number">1.3.</span> <span class="nav-text">3. 示例验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81n%E7%9A%84%E7%AB%8B%E6%96%B9%E5%92%8C%EF%BC%88%E5%89%8Dn%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E7%9A%84%E7%AB%8B%E6%96%B9%E5%92%8C%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、n的立方和（前n个正整数的立方和）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%80%E7%BB%88%E5%85%AC%E5%BC%8F-2"><span class="nav-number">2.1.</span> <span class="nav-text">1. 最终公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%AE%80%E5%8D%95%E6%8E%A8%E5%AF%BC%EF%BC%88%E5%88%A9%E7%94%A8%E5%B9%B3%E6%96%B9%E5%B7%AE%E6%81%92%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 简单推导（利用平方差恒等式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%A4%BA%E4%BE%8B%E9%AA%8C%E8%AF%81-2"><span class="nav-number">2.3.</span> <span class="nav-text">3. 示例验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%A4%E4%B8%AA%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.</span> <span class="nav-text">三、两个求和公式的对比与延伸</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%EF%BC%9A%E6%9B%B4%E4%B8%80%E8%88%AC%E7%9A%84%E2%80%9C%E5%B9%82%E5%92%8C%E2%80%9D"><span class="nav-number">3.1.</span> <span class="nav-text">延伸：更一般的“幂和”</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -531,14 +535,14 @@ numbers）统一表示，不过日常应用中，k=2和k=3的公式最为常用�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -592,7 +596,7 @@ numbers）统一表示，不过日常应用中，k=2和k=3的公式最为常用�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

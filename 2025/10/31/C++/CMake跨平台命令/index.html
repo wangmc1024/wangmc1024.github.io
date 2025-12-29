@@ -230,27 +230,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<p>在 CMake 跨平台工作流中，<code>cmake ..</code>（生成构建系统）和
-<code>cmake --build .</code>（执行构建）是最核心的两个跨平台命令，它们抽象了不同平台的构建工具（如
-Linux 的 <code>make</code>、Windows 的 <code>msbuild</code>、macOS 的
-<code>xcodebuild</code>
-等）。以下是围绕「配置→构建→测试→安装→打包→清理」全流程的跨平台命令集合，覆盖常见场景：</p>
-<h2
-id="一配置阶段生成构建系统对应-cmake-..">一、配置阶段：生成构建系统（对应
-<code>cmake ..</code>）</h2>
-<p>作用：在构建目录（如
-<code>build</code>）中生成平台对应的构建文件（Makefile、VS 项目、Xcode
-工程等），是跨平台构建的第一步。</p>
+<p>在 CMake 跨平台工作流中，<code>cmake ..</code>（生成构建系统）和 <code>cmake --build .</code>（执行构建）是最核心的两个跨平台命令，它们抽象了不同平台的构建工具（如 Linux 的 <code>make</code>、Windows 的 <code>msbuild</code>、macOS 的 <code>xcodebuild</code> 等）。以下是围绕「配置→构建→测试→安装→打包→清理」全流程的跨平台命令集合，覆盖常见场景：</p>
+<h2 id="一、配置阶段：生成构建系统（对应-cmake-）">一、配置阶段：生成构建系统（对应 <code>cmake ..</code>）</h2>
+<p>作用：在构建目录（如 <code>build</code>）中生成平台对应的构建文件（Makefile、VS 项目、Xcode 工程等），是跨平台构建的第一步。</p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -262,48 +247,33 @@ id="一配置阶段生成构建系统对应-cmake-..">一、配置阶段：生�
 <tr>
 <td><code>cmake &lt;source_dir&gt;</code></td>
 <td>基础配置：生成构建系统文件</td>
-<td>1. 在源码目录外创建 <code>build</code>
-目录并进入：<br><code>mkdir build &amp;&amp; cd build</code><br>2.
-指向源码目录（<code>..</code>
-表示父目录为源码根目录）：<br><code>cmake ..</code></td>
+<td>1. 在源码目录外创建 <code>build</code> 目录并进入：<br><code>mkdir build &amp;&amp; cd build</code><br>2. 指向源码目录（<code>..</code> 表示父目录为源码根目录）：<br><code>cmake ..</code></td>
 </tr>
 <tr>
 <td><code>cmake &lt;source_dir&gt; -DCMAKE_BUILD_TYPE=&lt;type&gt;</code></td>
 <td>指定构建类型（单配置生成器）</td>
-<td><code>cmake .. -DCMAKE_BUILD_TYPE=Release</code> # 生成 Release
-模式的 Makefile</td>
+<td><code>cmake .. -DCMAKE_BUILD_TYPE=Release</code>  # 生成 Release 模式的 Makefile</td>
 </tr>
 <tr>
 <td><code>cmake &lt;source_dir&gt; -DCMAKE_INSTALL_PREFIX=&lt;path&gt;</code></td>
 <td>指定默认安装路径</td>
-<td><code>cmake .. -DCMAKE_INSTALL_PREFIX=/opt/myapp</code> # 安装到
-/opt/myapp（Linux/macOS）</td>
+<td><code>cmake .. -DCMAKE_INSTALL_PREFIX=/opt/myapp</code>  # 安装到 /opt/myapp（Linux/macOS）</td>
 </tr>
 <tr>
 <td><code>cmake &lt;source_dir&gt; -G &lt;generator&gt;</code></td>
 <td>手动指定生成器（可选）</td>
-<td><code>cmake .. -G Ninja</code> # 用 Ninja 生成构建文件（需先安装
-Ninja）</td>
+<td><code>cmake .. -G Ninja</code>  # 用 Ninja 生成构建文件（需先安装 Ninja）</td>
 </tr>
 <tr>
 <td><code>cmake &lt;source_dir&gt; -D&lt;var&gt;=&lt;value&gt;</code></td>
 <td>传递自定义变量</td>
-<td><code>cmake .. -DBUILD_TESTS=ON -DBUILD_STATIC=OFF</code> #
-启用测试，禁用静态库</td>
+<td><code>cmake .. -DBUILD_TESTS=ON -DBUILD_STATIC=OFF</code>  # 启用测试，禁用静态库</td>
 </tr>
 </tbody>
 </table>
-<h2
-id="二构建阶段编译代码对应-cmake---build-.">二、构建阶段：编译代码（对应
-<code>cmake --build .</code>）</h2>
-<p>作用：执行实际编译，生成可执行文件/库，替代平台特定命令（<code>make</code>、<code>msbuild</code>、<code>xcodebuild</code>
-等），<strong>跨平台统一语法</strong>。</p>
+<h2 id="二、构建阶段：编译代码（对应-cmake-build-）">二、构建阶段：编译代码（对应 <code>cmake --build .</code>）</h2>
+<p>作用：执行实际编译，生成可执行文件/库，替代平台特定命令（<code>make</code>、<code>msbuild</code>、<code>xcodebuild</code> 等），<strong>跨平台统一语法</strong>。</p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -315,46 +285,33 @@ id="二构建阶段编译代码对应-cmake---build-.">二、构建阶段：编�
 <tr>
 <td><code>cmake --build &lt;build_dir&gt;</code></td>
 <td>基础构建：编译所有目标</td>
-<td>在 <code>build</code> 目录中执行：<br><code>cmake --build .</code> #
-编译所有目标</td>
+<td>在 <code>build</code> 目录中执行：<br><code>cmake --build .</code>  # 编译所有目标</td>
 </tr>
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --target &lt;target&gt;</code></td>
 <td>构建指定目标</td>
-<td><code>cmake --build . --target MyApp</code> # 仅编译 MyApp
-可执行文件</td>
+<td><code>cmake --build . --target MyApp</code>  # 仅编译 MyApp 可执行文件</td>
 </tr>
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --config &lt;type&gt;</code></td>
 <td>指定构建类型（多配置生成器）</td>
-<td><code>cmake --build . --config Release</code> # VS/Xcode 生成
-Release 版本</td>
+<td><code>cmake --build . --config Release</code>  # VS/Xcode 生成 Release 版本</td>
 </tr>
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --parallel &lt;N&gt;</code></td>
 <td>并行编译（加速）</td>
-<td><code>cmake --build . --parallel 8</code> # 8
-线程并行编译<br><code>cmake --build . -j 8</code> # 简写形式</td>
+<td><code>cmake --build . --parallel 8</code>  # 8 线程并行编译<br><code>cmake --build . -j 8</code>  # 简写形式</td>
 </tr>
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --clean-first</code></td>
 <td>先清理再构建</td>
-<td><code>cmake --build . --clean-first --config Debug</code> #
-清理后重新编译 Debug 版本</td>
+<td><code>cmake --build . --clean-first --config Debug</code>  # 清理后重新编译 Debug 版本</td>
 </tr>
 </tbody>
 </table>
-<h2
-id="三测试阶段运行测试跨平台替代-ctest-直接调用">三、测试阶段：运行测试（跨平台替代
-<code>ctest</code> 直接调用）</h2>
-<p>CMake 集成 CTest
-作为跨平台测试工具，替代手动运行测试程序，统一测试命令。</p>
+<h2 id="三、测试阶段：运行测试（跨平台替代-ctest-直接调用）">三、测试阶段：运行测试（跨平台替代 <code>ctest</code> 直接调用）</h2>
+<p>CMake 集成 CTest 作为跨平台测试工具，替代手动运行测试程序，统一测试命令。</p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -366,43 +323,33 @@ id="三测试阶段运行测试跨平台替代-ctest-直接调用">三、测试�
 <tr>
 <td><code>ctest</code></td>
 <td>运行所有测试</td>
-<td>在 <code>build</code> 目录中执行：<br><code>ctest</code> #
-运行所有测试</td>
+<td>在 <code>build</code> 目录中执行：<br><code>ctest</code>  # 运行所有测试</td>
 </tr>
 <tr>
 <td><code>ctest -C &lt;config&gt;</code></td>
 <td>指定测试配置（多配置生成器）</td>
-<td><code>ctest -C Release</code> # 运行 Release 版本的测试</td>
+<td><code>ctest -C Release</code>  # 运行 Release 版本的测试</td>
 </tr>
 <tr>
 <td><code>ctest -R &lt;regex&gt;</code></td>
 <td>运行匹配名称的测试</td>
-<td><code>ctest -R utils</code> # 运行名称含 “utils” 的测试</td>
+<td><code>ctest -R utils</code>  # 运行名称含 “utils” 的测试</td>
 </tr>
 <tr>
 <td><code>ctest -j &lt;N&gt;</code></td>
 <td>并行运行测试</td>
-<td><code>ctest -j 4</code> # 4 个测试并行运行</td>
+<td><code>ctest -j 4</code>  # 4 个测试并行运行</td>
 </tr>
 <tr>
 <td><code>ctest --output-on-failure</code></td>
 <td>测试失败时显示输出</td>
-<td><code>ctest --output-on-failure -C Debug</code> # Debug
-测试失败时显示日志</td>
+<td><code>ctest --output-on-failure -C Debug</code>  # Debug 测试失败时显示日志</td>
 </tr>
 </tbody>
 </table>
-<h2
-id="四安装阶段部署文件跨平台替代-make-install">四、安装阶段：部署文件（跨平台替代
-<code>make install</code>）</h2>
-<p>作用：将编译好的目标（可执行文件、库、头文件等）安装到指定路径，替代平台特定的安装命令（<code>make install</code>、<code>msbuild INSTALL.vcxproj</code>
-等）。</p>
+<h2 id="四、安装阶段：部署文件（跨平台替代-make-install）">四、安装阶段：部署文件（跨平台替代 <code>make install</code>）</h2>
+<p>作用：将编译好的目标（可执行文件、库、头文件等）安装到指定路径，替代平台特定的安装命令（<code>make install</code>、<code>msbuild INSTALL.vcxproj</code> 等）。</p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -414,42 +361,28 @@ id="四安装阶段部署文件跨平台替代-make-install">四、安装阶段�
 <tr>
 <td><code>cmake --install &lt;build_dir&gt;</code></td>
 <td>基础安装：按规则部署文件</td>
-<td>在 <code>build</code> 目录中执行：<br><code>cmake --install .</code>
-# 安装到默认前缀（如 /usr/local）</td>
+<td>在 <code>build</code> 目录中执行：<br><code>cmake --install .</code>  # 安装到默认前缀（如 /usr/local）</td>
 </tr>
 <tr>
 <td><code>cmake --install &lt;build_dir&gt; --prefix &lt;path&gt;</code></td>
 <td>自定义安装路径</td>
-<td><code>cmake --install . --prefix ~/myapp</code> #
-安装到用户目录（Linux/macOS）<br><code>cmake --install . --prefix C:\myapp</code>
-# Windows 安装路径</td>
+<td><code>cmake --install . --prefix ~/myapp</code>  # 安装到用户目录（Linux/macOS）<br><code>cmake --install . --prefix C:\myapp</code>  # Windows 安装路径</td>
 </tr>
 <tr>
 <td><code>cmake --install &lt;build_dir&gt; --config &lt;type&gt;</code></td>
 <td>指定安装配置（多配置生成器）</td>
-<td><code>cmake --install . --config Release --prefix /opt/myapp</code>
-# 安装 Release 版本到 /opt</td>
+<td><code>cmake --install . --config Release --prefix /opt/myapp</code>  # 安装 Release 版本到 /opt</td>
 </tr>
 <tr>
 <td><code>cmake --install &lt;build_dir&gt; --component &lt;component&gt;</code></td>
 <td>安装指定组件</td>
-<td><code>cmake --install . --component runtime</code> #
-仅安装运行时组件（可执行文件/动态库）</td>
+<td><code>cmake --install . --component runtime</code>  # 仅安装运行时组件（可执行文件/动态库）</td>
 </tr>
 </tbody>
 </table>
-<h2
-id="五打包阶段生成安装包跨平台替代-make-package">五、打包阶段：生成安装包（跨平台替代
-<code>make package</code>）</h2>
-<p>通过 CPack 生成跨平台安装包（如
-<code>.exe</code>、<code>.deb</code>、<code>.dmg</code>
-等），统一打包命令。</p>
+<h2 id="五、打包阶段：生成安装包（跨平台替代-make-package）">五、打包阶段：生成安装包（跨平台替代 <code>make package</code>）</h2>
+<p>通过 CPack 生成跨平台安装包（如 <code>.exe</code>、<code>.deb</code>、<code>.dmg</code> 等），统一打包命令。</p>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -461,34 +394,23 @@ id="五打包阶段生成安装包跨平台替代-make-package">五、打包阶�
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --target package</code></td>
 <td>构建后直接打包</td>
-<td><code>cmake --build . --target package --config Release</code> #
-生成 Release 版本安装包</td>
+<td><code>cmake --build . --target package --config Release</code>  # 生成 Release 版本安装包</td>
 </tr>
 <tr>
 <td><code>cpack</code></td>
 <td>直接打包（需先构建）</td>
-<td>在 <code>build</code> 目录中执行：<br><code>cpack -C Release</code>
-# 生成 Release 安装包</td>
+<td>在 <code>build</code> 目录中执行：<br><code>cpack -C Release</code>  # 生成 Release 安装包</td>
 </tr>
 <tr>
 <td><code>cpack -G &lt;generator&gt;</code></td>
 <td>指定打包生成器</td>
-<td><code>cpack -G ZIP</code> # 生成跨平台 ZIP
-压缩包<br><code>cpack -G DEB -C Release</code> # Linux 生成 DEB 包</td>
+<td><code>cpack -G ZIP</code>  # 生成跨平台 ZIP 压缩包<br><code>cpack -G DEB -C Release</code>  # Linux 生成 DEB 包</td>
 </tr>
 </tbody>
 </table>
-<h2
-id="六清理阶段删除构建产物跨平台替代-make-clean">六、清理阶段：删除构建产物（跨平台替代
-<code>make clean</code>）</h2>
+<h2 id="六、清理阶段：删除构建产物（跨平台替代-make-clean）">六、清理阶段：删除构建产物（跨平台替代 <code>make clean</code>）</h2>
 <p>作用：删除编译生成的中间文件和目标文件，保持构建目录干净。</p>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 40%" />
-<col style="width: 20%" />
-</colgroup>
 <thead>
 <tr>
 <th>命令</th>
@@ -501,29 +423,32 @@ id="六清理阶段删除构建产物跨平台替代-make-clean">六、清理阶
 <tr>
 <td><code>cmake --build &lt;build_dir&gt; --target clean</code></td>
 <td>清理构建产物</td>
-<td>替代 <code>make clean</code>、<code>msbuild /t:Clean</code>
-等，跨平台统一清理命令。</td>
-<td><code>cmake --build . --target clean</code> # 清理所有构建产物</td>
+<td>替代 <code>make clean</code>、<code>msbuild /t:Clean</code> 等，跨平台统一清理命令。</td>
+<td><code>cmake --build . --target clean</code>  # 清理所有构建产物</td>
 </tr>
 <tr>
-<td><code>rm -rf &lt;build_dir&gt;/*</code>（Linux/macOS）<br><code>del /f/s/q &lt;build_dir&gt;\*</code>（Windows
-cmd）</td>
+<td><code>rm -rf &lt;build_dir&gt;/*</code>（Linux/macOS）<br><code>del /f/s/q &lt;build_dir&gt;\*</code>（Windows cmd）</td>
 <td>彻底清理构建目录</td>
 <td>若清理不彻底（如缓存文件），可直接删除构建目录内容后重新配置。</td>
-<td>Linux/macOS：<br><code>cd build &amp;&amp; rm -rf *</code><br>Windows
-cmd：<br><code>cd build &amp;&amp; del /f/s/q *</code></td>
+<td>Linux/macOS：<br><code>cd build &amp;&amp; rm -rf *</code><br>Windows cmd：<br><code>cd build &amp;&amp; del /f/s/q *</code></td>
 </tr>
 </tbody>
 </table>
 <h2 id="跨平台命令优势总结">跨平台命令优势总结</h2>
-<p>这些命令的核心价值是<strong>屏蔽平台差异</strong>： - 无需记忆
-<code>make</code>（Linux）、<code>msbuild</code>（Windows）、<code>xcodebuild</code>（macOS）等工具的语法；
-- 同一套命令可在所有系统上运行（如 <code>cmake --build . -j 8</code>
-在任何平台都表示 8 线程编译）； - 通过选项（如
-<code>--config</code>、<code>--prefix</code>）灵活适配不同场景，无需修改
-CMakeLists.txt。</p>
-<p>实际工作流示例（跨平台通用）： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 创建并进入构建目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置（指定 Release 模式和安装前缀）</span></span><br><span class="line">cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/myapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 8 线程编译</span></span><br><span class="line">cmake --build . -j 8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 运行测试（失败时显示日志）</span></span><br><span class="line">ctest --output-on-failure -C Release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 安装到 /opt/myapp</span></span><br><span class="line">cmake --install .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 生成 ZIP 安装包</span></span><br><span class="line">cpack -G ZIP -C Release</span><br></pre></td></tr></table></figure></p>
-
+<p>这些命令的核心价值是<strong>屏蔽平台差异</strong>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>无需记忆 <code>make</code>（Linux）、<code>msbuild</code>（Windows）、<code>xcodebuild</code>（macOS）等工具的语法；</p>
+</li>
+<li class="lvl-2">
+<p>同一套命令可在所有系统上运行（如 <code>cmake --build . -j 8</code> 在任何平台都表示 8 线程编译）；</p>
+</li>
+<li class="lvl-2">
+<p>通过选项（如 <code>--config</code>、<code>--prefix</code>）灵活适配不同场景，无需修改 CMakeLists.txt。</p>
+</li>
+</ul>
+<p>实际工作流示例（跨平台通用）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 创建并进入构建目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置（指定 Release 模式和安装前缀）</span></span><br><span class="line">cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/myapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 8 线程编译</span></span><br><span class="line">cmake --build . -j 8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 运行测试（失败时显示日志）</span></span><br><span class="line">ctest --output-on-failure -C Release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 安装到 /opt/myapp</span></span><br><span class="line">cmake --install .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 生成 ZIP 安装包</span></span><br><span class="line">cpack -G ZIP -C Release</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -609,13 +534,7 @@ CMakeLists.txt。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%85%8D%E7%BD%AE%E9%98%B6%E6%AE%B5%E7%94%9F%E6%88%90%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%AF%B9%E5%BA%94-cmake-.."><span class="nav-number">1.</span> <span class="nav-text">一、配置阶段：生成构建系统（对应
-cmake ..）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%9E%84%E5%BB%BA%E9%98%B6%E6%AE%B5%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81%E5%AF%B9%E5%BA%94-cmake---build-."><span class="nav-number">2.</span> <span class="nav-text">二、构建阶段：编译代码（对应
-cmake --build .）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-ctest-%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">三、测试阶段：运行测试（跨平台替代
-ctest 直接调用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%AE%89%E8%A3%85%E9%98%B6%E6%AE%B5%E9%83%A8%E7%BD%B2%E6%96%87%E4%BB%B6%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-install"><span class="nav-number">4.</span> <span class="nav-text">四、安装阶段：部署文件（跨平台替代
-make install）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E6%89%93%E5%8C%85%E9%98%B6%E6%AE%B5%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-package"><span class="nav-number">5.</span> <span class="nav-text">五、打包阶段：生成安装包（跨平台替代
-make package）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E6%B8%85%E7%90%86%E9%98%B6%E6%AE%B5%E5%88%A0%E9%99%A4%E6%9E%84%E5%BB%BA%E4%BA%A7%E7%89%A9%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-clean"><span class="nav-number">6.</span> <span class="nav-text">六、清理阶段：删除构建产物（跨平台替代
-make clean）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%91%BD%E4%BB%A4%E4%BC%98%E5%8A%BF%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">跨平台命令优势总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%85%8D%E7%BD%AE%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%9F%E6%88%90%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%AF%B9%E5%BA%94-cmake-%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、配置阶段：生成构建系统（对应 cmake ..）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9E%84%E5%BB%BA%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81%EF%BC%88%E5%AF%B9%E5%BA%94-cmake-build-%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、构建阶段：编译代码（对应 cmake --build .）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95%EF%BC%88%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-ctest-%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、测试阶段：运行测试（跨平台替代 ctest 直接调用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%96%87%E4%BB%B6%EF%BC%88%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-install%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">四、安装阶段：部署文件（跨平台替代 make install）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%89%93%E5%8C%85%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%88%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-package%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">五、打包阶段：生成安装包（跨平台替代 make package）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%B8%85%E7%90%86%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%88%A0%E9%99%A4%E6%9E%84%E5%BB%BA%E4%BA%A7%E7%89%A9%EF%BC%88%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9B%BF%E4%BB%A3-make-clean%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">六、清理阶段：删除构建产物（跨平台替代 make clean）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%91%BD%E4%BB%A4%E4%BC%98%E5%8A%BF%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">跨平台命令优势总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -631,14 +550,14 @@ make clean）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -692,7 +611,7 @@ make clean）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

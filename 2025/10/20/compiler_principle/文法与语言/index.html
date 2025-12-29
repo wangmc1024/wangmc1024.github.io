@@ -218,7 +218,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
+              <span>4.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -241,132 +241,166 @@
 <p>编译原理文法语言的相关概念</p>
 </blockquote>
 <span id="more"></span>
-<h1 id="文法与语言">文法与语言</h1>
-<h3 id="引言文法的编译角色">2.1 引言：文法的“编译角色”</h3>
+<h1>文法与语言</h1>
+<h3 id="2-1-引言：文法的“编译角色”">2.1 引言：文法的“编译角色”</h3>
 <p>文法是<strong>编译过程“语法分析阶段”的形式化工具</strong>，核心作用是<strong>将“自然语言式的语法规则”转化为“机器可推导的严格规则”</strong>。</p>
-<ul>
-<li>编译流程中，<strong>词法分析</strong>处理“正则文法（3型）”（描述标识符、关键字等词法单元的模式）；<strong>语法分析</strong>处理“上下文无关文法（2型）”（描述表达式、语句等语法结构）。</li>
-<li>程序设计语言需“无歧义”：若语法存在歧义（如“<code>id+id*id</code>有两种解释”），编译器无法确定代码的逻辑结构，因此必须用“形式化文法”严格约束语法。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>编译流程中，<strong>词法分析</strong>处理“正则文法（3型）”（描述标识符、关键字等词法单元的模式）；<strong>语法分析</strong>处理“上下文无关文法（2型）”（描述表达式、语句等语法结构）。</p>
+</li>
+<li class="lvl-2">
+<p>程序设计语言需“无歧义”：若语法存在歧义（如“<code>id+id*id</code>有两种解释”），编译器无法确定代码的逻辑结构，因此必须用“形式化文法”严格约束语法。</p>
+</li>
 </ul>
-<h3 id="字母表-符号串-运算形式语言基础">2.2
-字母表-符号串-运算（形式语言基础）</h3>
+<h3 id="2-2-字母表-符号串-运算（形式语言基础）">2.2 字母表-符号串-运算（形式语言基础）</h3>
 <p>这是“用数学符号描述语言”的底层逻辑，需明确<strong>集合、序列、运算</strong>的形式化定义：</p>
-<h4 id="字母表σ">（1）字母表（Σ）</h4>
-<ul>
-<li>定义：<strong>非空有限的符号集合</strong>。
-例：<code>Σ₁ = {0, 1}</code>（二进制字母表）；<code>Σ₂ = {a, b, ..., z}</code>（小写字母表）；<code>Σ₃ = {id, +, *, (, )}</code>（某算术表达式的终结符集合）。</li>
+<h4 id="（1）字母表（Σ）">（1）字母表（Σ）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：<strong>非空有限的符号集合</strong>。例：<code>Σ₁ = {0, 1}</code>（二进制字母表）；<code>Σ₂ = {a, b, ..., z}</code>（小写字母表）；<code>Σ₃ = {id, +, *, (, )}</code>（某算术表达式的终结符集合）。</p>
+</li>
 </ul>
-<h4 id="符号串string">（2）符号串（String）</h4>
-<ul>
-<li>定义：设<code>Σ</code>为字母表，符号串<code>x</code>是<code>Σ</code>中符号的<strong>有限序列</strong>。
-<ul>
-<li>长度：<code>|x|</code>表示符号串的符号个数。例：<code>x = abc</code>，则<code>|x| = 3</code>；</li>
-<li>空串：<code>ε</code>（长度为0的符号串，<code>|ε| = 0</code>）。</li>
-</ul></li>
+<h4 id="（2）符号串（String）">（2）符号串（String）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：设<code>Σ</code>为字母表，符号串<code>x</code>是<code>Σ</code>中符号的<strong>有限序列</strong>。</p>
+<ul class="lvl-2">
+<li class="lvl-4">长度：<code>|x|</code>表示符号串的符号个数。例：<code>x = abc</code>，则<code>|x| = 3</code>；</li>
+<li class="lvl-4">空串：<code>ε</code>（长度为0的符号串，<code>|ε| = 0</code>）。</li>
 </ul>
-<h4 id="符号串的运算">（3）符号串的运算</h4>
-<ul>
-<li><p><strong>连接（Concatenation）</strong>：
-若<code>x = "ab"</code>，<code>y = "cd"</code>，则<code>x·y = "abcd"</code>（简记为<code>xy</code>）。
-性质：<strong>不满足交换律</strong>（<code>xy ≠ yx</code>，除非<code>x=y</code>或特殊构造）。</p></li>
-<li><p><strong>幂（Power）</strong>：</p>
-<ul>
-<li><code>x⁰ = ε</code>（空串）；</li>
-<li><code>x¹ = x</code>；</li>
-<li><code>xⁿ = xⁿ⁻¹ · x</code>（递归定义，例：<code>x="ab"</code>，则<code>x²="abab"</code>）。</li>
-</ul></li>
-<li><p><strong>闭包（Closure）</strong>：</p>
-<ul>
-<li>星闭包（<code>Σ*</code>）：<code>Σ</code>中符号组成的<strong>所有可能的符号串（含空串<code>ε</code>）</strong>的集合。
-例：<code>Σ = {a, b}</code>，则<code>Σ* = {ε, a, b, aa, ab, ba, bb, aaa, ...}</code>。</li>
-<li>正闭包（<code>Σ+</code>）：<code>Σ</code>中符号组成的<strong>所有非空符号串</strong>的集合（即<code>Σ* - {ε}</code>）。
-例：<code>Σ = {a, b}</code>，则<code>Σ+ = {a, b, aa, ab, ba, bb, ...}</code>。</li>
-</ul></li>
+</li>
 </ul>
-<h3 id="文法模型形式化四元组">2.3 文法模型★（形式化四元组）</h3>
-<p>文法是描述语言语法的<strong>四元组 G = (V<sub>N</sub>, V<sub>T</sub>,
-P, S)</strong>，各组件需结合“算术表达式文法”实例理解：</p>
-<h4
-id="非终结符vnnon-terminal-symbols">（1）非终结符（V<sub>N</sub>：Non-terminal
-Symbols）</h4>
-<ul>
-<li>定义：<strong>语法变量</strong>，表示“语法范畴/中间推导结果”，最终不会出现在“语言的句子”中。</li>
-<li>例：描述“算术表达式”的文法中，<code>V_N = {E, T, F}</code>（<code>E</code>表示“表达式”，<code>T</code>表示“项”，<code>F</code>表示“因子”）。</li>
+<h4 id="（3）符号串的运算">（3）符号串的运算</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>连接（Concatenation）</strong>：若<code>x = &quot;ab&quot;</code>，<code>y = &quot;cd&quot;</code>，则<code>x·y = &quot;abcd&quot;</code>（简记为<code>xy</code>）。性质：<strong>不满足交换律</strong>（<code>xy ≠ yx</code>，除非<code>x=y</code>或特殊构造）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>幂（Power）</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>x⁰ = ε</code>（空串）；</li>
+<li class="lvl-4"><code>x¹ = x</code>；</li>
+<li class="lvl-4"><code>xⁿ = xⁿ⁻¹ · x</code>（递归定义，例：<code>x=&quot;ab&quot;</code>，则<code>x²=&quot;abab&quot;</code>）。</li>
 </ul>
-<h4 id="终结符vtterminal-symbols">（2）终结符（V<sub>T</sub>：Terminal
-Symbols）</h4>
-<ul>
-<li>定义：<strong>语法的最小单位</strong>，是语言的“最终符号”，无法再被推导分解。</li>
-<li>例：算术表达式文法中，<code>V_T = {id, +, *, (, )}</code>（<code>id</code>为标识符，<code>+/*</code>为运算符，<code>()</code>为括号）。</li>
+</li>
+<li class="lvl-2">
+<p><strong>闭包（Closure）</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">星闭包（<code>Σ*</code>）：<code>Σ</code>中符号组成的**所有可能的符号串（含空串<code>ε</code>）**的集合。例：<code>Σ = {a, b}</code>，则<code>Σ* = {ε, a, b, aa, ab, ba, bb, aaa, ...}</code>。</li>
+<li class="lvl-4">正闭包（<code>Σ+</code>）：<code>Σ</code>中符号组成的<strong>所有非空符号串</strong>的集合（即<code>Σ* - {ε}</code>）。例：<code>Σ = {a, b}</code>，则<code>Σ+ = {a, b, aa, ab, ba, bb, ...}</code>。</li>
 </ul>
-<h4
-id="产生式pproductions">（3）产生式（<code>P</code>：Productions）</h4>
-<ul>
-<li>形式：<code>α → β</code>（读作“<code>α</code>定义为<code>β</code>”），表示“用<code>β</code>替换<code>α</code>”。
-<ul>
-<li><code>α</code>（左部）：至少包含一个非终结符（否则无法推导）；</li>
-<li><code>β</code>（右部）：可由“终结符、非终结符的任意组合”或空串<code>ε</code>组成。</li>
-</ul></li>
-<li>例：算术表达式的核心产生式：
-<ul>
-<li><code>E → E + T</code>（“表达式可以是‘表达式 + 项’”）；</li>
-<li><code>T → T * F</code>（“项可以是‘项 * 因子’”）；</li>
-<li><code>F → (E)</code>（“因子可以是‘括号中的表达式’”）；</li>
-<li><code>F → id</code>（“因子可以是‘标识符’”）。</li>
-</ul></li>
+</li>
 </ul>
-<h4 id="开始符号sstart-symbol">（4）开始符号（<code>S</code>：Start
-Symbol）</h4>
-<ul>
-<li>定义：<code>V_N</code>中指定的“起始语法变量”，所有推导从<code>S</code>开始。</li>
-<li>例：算术表达式文法中，<code>S = E</code>（推导从“表达式<code>E</code>”开始）。</li>
+<h3 id="2-3-文法模型★（形式化四元组）">2.3 文法模型★（形式化四元组）</h3>
+<p>文法是描述语言语法的<strong>四元组 G = (V<sub>N</sub>, V<sub>T</sub>, P, S)</strong>，各组件需结合“算术表达式文法”实例理解：</p>
+<h4 id="（1）非终结符（VN：Non-terminal-Symbols）">（1）非终结符（V<sub>N</sub>：Non-terminal Symbols）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：<strong>语法变量</strong>，表示“语法范畴/中间推导结果”，最终不会出现在“语言的句子”中。</p>
+</li>
+<li class="lvl-2">
+<p>例：描述“算术表达式”的文法中，<code>V_N = {E, T, F}</code>（<code>E</code>表示“表达式”，<code>T</code>表示“项”，<code>F</code>表示“因子”）。</p>
+</li>
 </ul>
-<h3 id="推导与句型文法的动态推导过程">2.4
-推导与句型（文法的“动态推导过程”）</h3>
+<h4 id="（2）终结符（VT：Terminal-Symbols）">（2）终结符（V<sub>T</sub>：Terminal Symbols）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：<strong>语法的最小单位</strong>，是语言的“最终符号”，无法再被推导分解。</p>
+</li>
+<li class="lvl-2">
+<p>例：算术表达式文法中，<code>V_T = {id, +, *, (, )}</code>（<code>id</code>为标识符，<code>+/*</code>为运算符，<code>()</code>为括号）。</p>
+</li>
+</ul>
+<h4 id="（3）产生式（P：Productions）">（3）产生式（<code>P</code>：Productions）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>形式：<code>α → β</code>（读作“<code>α</code>定义为<code>β</code>”），表示“用<code>β</code>替换<code>α</code>”。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>α</code>（左部）：至少包含一个非终结符（否则无法推导）；</li>
+<li class="lvl-4"><code>β</code>（右部）：可由“终结符、非终结符的任意组合”或空串<code>ε</code>组成。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>例：算术表达式的核心产生式：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>E → E + T</code>（“表达式可以是‘表达式 + 项’”）；</li>
+<li class="lvl-4"><code>T → T * F</code>（“项可以是‘项 * 因子’”）；</li>
+<li class="lvl-4"><code>F → (E)</code>（“因子可以是‘括号中的表达式’”）；</li>
+<li class="lvl-4"><code>F → id</code>（“因子可以是‘标识符’”）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="（4）开始符号（S：Start-Symbol）">（4）开始符号（<code>S</code>：Start Symbol）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：<code>V_N</code>中指定的“起始语法变量”，所有推导从<code>S</code>开始。</p>
+</li>
+<li class="lvl-2">
+<p>例：算术表达式文法中，<code>S = E</code>（推导从“表达式<code>E</code>”开始）。</p>
+</li>
+</ul>
+<h3 id="2-4-推导与句型（文法的“动态推导过程”）">2.4 推导与句型（文法的“动态推导过程”）</h3>
 <p>推导是“从开始符号出发，用产生式逐步替换非终结符”的过程；<strong>句型</strong>和<strong>句子</strong>是推导的“中间/最终结果”，需用<strong>推导符号</strong>（<code>⇒</code>、<code>⇒*</code>、<code>⇒+</code>）形式化描述：</p>
-<h4 id="推导符号">（1）推导符号</h4>
-<ul>
-<li><code>α ⇒ β</code>：<strong>一步推导</strong>（用一条产生式，将<code>α</code>中的某部分替换为<code>β</code>）；</li>
-<li><code>α ⇒* β</code>：<strong>零步或多步推导</strong>（<code>α</code>可直接等于<code>β</code>，或经若干步推导得到<code>β</code>）；</li>
-<li><code>α ⇒+ β</code>：<strong>一步或多步推导</strong>（<code>α</code>经至少一步推导得到<code>β</code>）。</li>
+<h4 id="（1）推导符号">（1）推导符号</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>α ⇒ β</code>：<strong>一步推导</strong>（用一条产生式，将<code>α</code>中的某部分替换为<code>β</code>）；</p>
+</li>
+<li class="lvl-2">
+<p><code>α ⇒* β</code>：<strong>零步或多步推导</strong>（<code>α</code>可直接等于<code>β</code>，或经若干步推导得到<code>β</code>）；</p>
+</li>
+<li class="lvl-2">
+<p><code>α ⇒+ β</code>：<strong>一步或多步推导</strong>（<code>α</code>经至少一步推导得到<code>β</code>）。</p>
+</li>
 </ul>
-<h4 id="推导类型">（2）推导类型</h4>
-<ul>
-<li><strong>最左推导</strong>：每次<strong>优先替换“最左侧”的非终结符</strong>；</li>
-<li><strong>最右推导（规范推导）</strong>：每次<strong>优先替换“最右侧”的非终结符</strong>（编译中“语法分析”的核心方式，对应“规范归约”）。</li>
+<h4 id="（2）推导类型">（2）推导类型</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>最左推导</strong>：每次<strong>优先替换“最左侧”的非终结符</strong>；</p>
+</li>
+<li class="lvl-2">
+<p><strong>最右推导（规范推导）</strong>：每次<strong>优先替换“最右侧”的非终结符</strong>（编译中“语法分析”的核心方式，对应“规范归约”）。</p>
+</li>
 </ul>
-<h4 id="句型与句子">（3）句型与句子</h4>
-<ul>
-<li><strong>句型</strong>：若<code>S ⇒* α</code>且<code>α ∈ (V_N ∪ V_T)*</code>（<code>α</code>含终结符或非终结符），则<code>α</code>是句型；</li>
-<li><strong>句子</strong>：若<code>S ⇒* α</code>且<code>α ∈ V_T*</code>（<code>α</code>仅含终结符），则<code>α</code>是句子（语言的“合法最终形式”）。</li>
+<h4 id="（3）句型与句子">（3）句型与句子</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>句型</strong>：若<code>S ⇒* α</code>且<code>α ∈ (V_N ∪ V_T)*</code>（<code>α</code>含终结符或非终结符），则<code>α</code>是句型；</p>
+</li>
+<li class="lvl-2">
+<p><strong>句子</strong>：若<code>S ⇒* α</code>且<code>α ∈ V_T*</code>（<code>α</code>仅含终结符），则<code>α</code>是句子（语言的“合法最终形式”）。</p>
+</li>
 </ul>
-<h4 id="实例算术表达式的最左推导">实例：算术表达式的最左推导</h4>
-<p>文法：<code>E → E+T | T</code>；<code>T → T*F | F</code>；<code>F → (E) | id</code>。
-推导句子<code>id+id*id</code>的<strong>最左推导</strong>过程：</p>
-<ol type="1">
-<li><code>E ⇒ E+T</code>（用<code>E→E+T</code>，替换最左的<code>E</code>）；</li>
-<li><code>T+T ⇒ F+T</code>（用<code>T→F</code>，替换最左的<code>T</code>）；</li>
-<li><code>id+T ⇒ id+T*F</code>（用<code>T→T*F</code>，替换最左的<code>T</code>）；</li>
-<li><code>id+F*F ⇒ id+id*F</code>（用<code>F→id</code>，替换最左的<code>F</code>）；</li>
-<li><code>id+id*id</code>（用<code>F→id</code>，替换最左的<code>F</code>）。</li>
+<h4 id="实例：算术表达式的最左推导">实例：算术表达式的最左推导</h4>
+<p>文法：<code>E → E+T | T</code>；<code>T → T*F | F</code>；<code>F → (E) | id</code>。推导句子<code>id+id*id</code>的<strong>最左推导</strong>过程：</p>
+<ol>
+<li class="lvl-3">
+<p><code>E ⇒ E+T</code>（用<code>E→E+T</code>，替换最左的<code>E</code>）；</p>
+</li>
+<li class="lvl-3">
+<p><code>T+T ⇒ F+T</code>（用<code>T→F</code>，替换最左的<code>T</code>）；</p>
+</li>
+<li class="lvl-3">
+<p><code>id+T ⇒ id+T*F</code>（用<code>T→T*F</code>，替换最左的<code>T</code>）；</p>
+</li>
+<li class="lvl-3">
+<p><code>id+F*F ⇒ id+id*F</code>（用<code>F→id</code>，替换最左的<code>F</code>）；</p>
+</li>
+<li class="lvl-3">
+<p><code>id+id*id</code>（用<code>F→id</code>，替换最左的<code>F</code>）。</p>
+</li>
 </ol>
-<ul>
-<li>中间结果如<code>E+T</code>、<code>T+T</code>、<code>id+T</code>、<code>id+T*F</code>、<code>id+F*F</code>、<code>id+id*F</code>都是<strong>句型</strong>（含非终结符）；</li>
-<li>最终结果<code>id+id*id</code>是<strong>句子</strong>（仅含终结符）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>中间结果如<code>E+T</code>、<code>T+T</code>、<code>id+T</code>、<code>id+T*F</code>、<code>id+F*F</code>、<code>id+id*F</code>都是<strong>句型</strong>（含非终结符）；</p>
+</li>
+<li class="lvl-2">
+<p>最终结果<code>id+id*id</code>是<strong>句子</strong>（仅含终结符）。</p>
+</li>
 </ul>
-<h3 id="文法的类型乔姆斯基分类">2.5 文法的类型（乔姆斯基分类）</h3>
-<p>乔姆斯基将文法分为<strong>4类</strong>（限制逐渐严格，呈“包含关系：3型
-⊂ 2型 ⊂ 1型 ⊂
-0型”），核心区别是“产生式的限制规则”，需结合<strong>自动机、语言类型</strong>联动理解：</p>
+<h3 id="2-5-文法的类型（乔姆斯基分类）">2.5 文法的类型（乔姆斯基分类）</h3>
+<p>乔姆斯基将文法分为<strong>4类</strong>（限制逐渐严格，呈“包含关系：3型 ⊂ 2型 ⊂ 1型 ⊂ 0型”），核心区别是“产生式的限制规则”，需结合<strong>自动机、语言类型</strong>联动理解：</p>
 <table>
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 10%" />
-<col style="width: 31%" />
-<col style="width: 7%" />
-<col style="width: 10%" />
-<col style="width: 30%" />
-</colgroup>
 <thead>
 <tr>
 <th>文法类型</th>
@@ -389,10 +423,10 @@ Symbol）</h4>
 <tr>
 <td>1型（上下文有关）</td>
 <td>上下文有关文法（CSG）</td>
-<td><code>α→β</code>满足<code>|α| ≤ |β|</code>（除<code>α→ε</code>，此时<code>α</code>是开始符号且不出现于其他产生式右部）；<br>或形式为<code>α₁Aα₂→α₁βα₂</code>（<code>A∈V_N</code>，<code>α₁,α₂∈(V_N∪V_T)*</code>，<code>β∈(V_N∪V_T)+</code>）</td>
-<td>上下文有关语言</td>
-<td>线性有界自动机（LBA）</td>
-<td>极少直接用，理论上描述“上下文敏感”规则</td>
+<td><code>α→β</code>满足`</td>
+<td>α</td>
+<td>≤</td>
+<td>β</td>
 </tr>
 <tr>
 <td>2型（上下文无关）</td>
@@ -405,94 +439,93 @@ Symbol）</h4>
 <tr>
 <td>3型（正则文法）</td>
 <td>正则文法（RG）</td>
-<td>产生式为<strong>左线性</strong>（<code>A→Ba</code> 或
-<code>A→a</code>）或<strong>右线性</strong>（<code>A→aB</code> 或
-<code>A→a</code>），其中<code>A,B∈V_N</code>，<code>a∈V_T∪{ε}</code>
-==右侧最多一个非终结符且必须在最左或最右==</td>
+<td>产生式为<strong>左线性</strong>（<code>A→Ba</code> 或 <code>A→a</code>）或<strong>右线性</strong>（<code>A→aB</code> 或 <code>A→a</code>），其中<code>A,B∈V_N</code>，<code>a∈V_T∪{ε}</code> <mark>右侧最多一个非终结符且必须在最左或最右</mark></td>
 <td>正则语言</td>
 <td>有限自动机（FA）</td>
 <td>描述<strong>词法规则</strong>（如标识符、关键字、常数的模式）</td>
 </tr>
 </tbody>
 </table>
-<h3 id="文法的构造与简化">2.6 文法的构造与简化★</h3>
-<h4
-id="文法构造自然语言产生式的转化">（1）文法构造：“自然语言→产生式”的转化</h4>
+<h3 id="2-6-文法的构造与简化★">2.6 文法的构造与简化★</h3>
+<h4 id="（1）文法构造：“自然语言→产生式”的转化">（1）文法构造：“自然语言→产生式”的转化</h4>
 <p>需将“语法规则的自然描述”转化为“形式化产生式”，核心是<strong>设计非终结符同步语法结构</strong>。</p>
-<ul>
-<li><p>例1：构造语言
-<code>L = {aⁿbⁿ | n≥1}</code>（“n个<code>a</code>后跟n个<code>b</code>”的所有串）的文法。
-思路：用非终结符<code>S</code>同步<code>a</code>和<code>b</code>的数量，产生式需保证“每生成一个<code>a</code>，就对应生成一个<code>b</code>”。
-文法：<code>G = ({S}, {a, b}, {S→aSb | ab}, S)</code>。
-推导验证：<code>n=1</code>时，<code>S⇒ab</code>；<code>n=2</code>时，<code>S⇒aSb⇒aabbb</code>，符合<code>aⁿbⁿ</code>。</p></li>
-<li><p>例2：构造“以字母开头，后跟字母或数字”的标识符文法。
-思路：用<code>I</code>表示“标识符”，<code>L</code>表示“字母”，<code>D</code>表示“数字”，通过产生式串联结构。
-文法：<code>G = ({I, L, D}, {a,...,z,0,...,9}, {I→LI | L, L→LI | LD | L | D}, I)</code>（<code>L</code>可推导为字母或数字，<code>I</code>以<code>L</code>开头，后跟<code>L</code>或<code>D</code>）。</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>例1：构造语言 <code>L = {aⁿbⁿ | n≥1}</code>（“n个<code>a</code>后跟n个<code>b</code>”的所有串）的文法。思路：用非终结符<code>S</code>同步<code>a</code>和<code>b</code>的数量，产生式需保证“每生成一个<code>a</code>，就对应生成一个<code>b</code>”。文法：<code>G = ({S}, {a, b}, {S→aSb | ab}, S)</code>。推导验证：<code>n=1</code>时，<code>S⇒ab</code>；<code>n=2</code>时，<code>S⇒aSb⇒aabbb</code>，符合<code>aⁿbⁿ</code>。</p>
+</li>
+<li class="lvl-2">
+<p>例2：构造“以字母开头，后跟字母或数字”的标识符文法。思路：用<code>I</code>表示“标识符”，<code>L</code>表示“字母”，<code>D</code>表示“数字”，通过产生式串联结构。文法：<code>G = ({I, L, D}, {a,...,z,0,...,9}, {I→LI | L, L→LI | LD | L | D}, I)</code>（<code>L</code>可推导为字母或数字，<code>I</code>以<code>L</code>开头，后跟<code>L</code>或<code>D</code>）。</p>
+</li>
 </ul>
-<h4 id="文法简化消除冗余便于分析">（2）文法简化：消除冗余，便于分析</h4>
+<h4 id="（2）文法简化：消除冗余，便于分析">（2）文法简化：消除冗余，便于分析</h4>
 <p>需消除<strong>无用符号、ε产生式、单产生式</strong>，使文法更简洁。</p>
-<ul>
-<li><strong>消除无用符号</strong>：
-无用符号包括“不可达符号”（从<code>S</code>推导不出的符号）和“不可终止符号”（无法推导出终结符串的符号）。
-例：文法<code>G = ({S, A, B, C}, {a, b}, {S→aA, A→bB, B→aA, C→aB}, S)</code>。
-<ul>
-<li>“不可达符号”：<code>C</code>（<code>S</code>无法推导出<code>C</code>），需删除含<code>C</code>的产生式；</li>
-<li>简化后文法：<code>G' = ({S, A, B}, {a, b}, {S→aA, A→bB, B→aA}, S)</code>。</li>
-</ul></li>
-<li><strong>消除ε产生式</strong>：
-若产生式含<code>A→ε</code>（<code>A</code>非开始符号），需将其他产生式中<code>A</code>的出现替换为<code>ε</code>的可能。
-例：文法<code>G = ({S, A}, {a, b}, {S→aA | ε, A→b | ε}, S)</code>。
-<ul>
-<li>因<code>A→ε</code>，<code>S→aA</code>可推导出<code>S→a</code>（当<code>A→ε</code>时）；</li>
-<li>简化后文法：<code>G' = ({S, A}, {a, b}, {S→aA | a | ε, A→b}, S)</code>。</li>
-</ul></li>
-<li><strong>消除单产生式</strong>（形如<code>A→B</code>，<code>A,B∈V_N</code>）：
-需将<code>A</code>的产生式替换为<code>B</code>的所有“<span
-title="右部不止含有一个非终结符的产生式"
-style="color:#1E90FF">非单产生式</span>”。
-例：文法<code>G = ({S, A, B}, {a, b}, {S→A, A→B | a, B→b | A}, S)</code>。
-<ul>
-<li><code>S→A</code>等价于<code>S→B | a</code>（因<code>A→B | a</code>）；</li>
-<li><code>A→B</code>等价于<code>A→b | a</code>（因<code>B→b | A</code>，但<code>A→A</code>是无用循环，最终保留<code>A→b | a</code>）；</li>
-<li>简化后文法：<code>G' = ({S, A, B}, {a, b}, {S→B | a, A→b | a, B→b | a}, S)</code>。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>消除无用符号</strong>：无用符号包括“不可达符号”（从<code>S</code>推导不出的符号）和“不可终止符号”（无法推导出终结符串的符号）。例：文法<code>G = ({S, A, B, C}, {a, b}, {S→aA, A→bB, B→aA, C→aB}, S)</code>。</p>
+<ul class="lvl-2">
+<li class="lvl-4">“不可达符号”：<code>C</code>（<code>S</code>无法推导出<code>C</code>），需删除含<code>C</code>的产生式；</li>
+<li class="lvl-4">简化后文法：<code>G' = ({S, A, B}, {a, b}, {S→aA, A→bB, B→aA}, S)</code>。</li>
 </ul>
-<h3 id="语法树推导的可视化表示">2.7 语法树（推导的“可视化表示”）</h3>
+</li>
+<li class="lvl-2">
+<p><strong>消除ε产生式</strong>：若产生式含<code>A→ε</code>（<code>A</code>非开始符号），需将其他产生式中<code>A</code>的出现替换为<code>ε</code>的可能。例：文法<code>G = ({S, A}, {a, b}, {S→aA | ε, A→b | ε}, S)</code>。</p>
+<ul class="lvl-2">
+<li class="lvl-4">因<code>A→ε</code>，<code>S→aA</code>可推导出<code>S→a</code>（当<code>A→ε</code>时）；</li>
+<li class="lvl-4">简化后文法：<code>G' = ({S, A}, {a, b}, {S→aA | a | ε, A→b}, S)</code>。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>消除单产生式</strong>（形如<code>A→B</code>，<code>A,B∈V_N</code>）：需将<code>A</code>的产生式替换为<code>B</code>的所有“<span title="右部不止含有一个非终结符的产生式" style="color:#1E90FF">非单产生式</span>”。例：文法<code>G = ({S, A, B}, {a, b}, {S→A, A→B | a, B→b | A}, S)</code>。</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>S→A</code>等价于<code>S→B | a</code>（因<code>A→B | a</code>）；</li>
+<li class="lvl-4"><code>A→B</code>等价于<code>A→b | a</code>（因<code>B→b | A</code>，但<code>A→A</code>是无用循环，最终保留<code>A→b | a</code>）；</li>
+<li class="lvl-4">简化后文法：<code>G' = ({S, A, B}, {a, b}, {S→B | a, A→b | a, B→b | a}, S)</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-7-语法树（推导的“可视化表示”）">2.7 语法树（推导的“可视化表示”）</h3>
 <p>语法树（推导树）是<strong>直观展示推导层次结构的树结构</strong>，各节点与文法组件一一对应：</p>
-<ul>
-<li>根节点：<strong>开始符号<code>S</code></strong>；</li>
-<li>内部节点：<strong>非终结符</strong>（对应产生式左部）；</li>
-<li>叶节点：<strong>终结符或空串<code>ε</code></strong>（对应产生式右部的符号）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>根节点：<strong>开始符号<code>S</code></strong>；</p>
+</li>
+<li class="lvl-2">
+<p>内部节点：<strong>非终结符</strong>（对应产生式左部）；</p>
+</li>
+<li class="lvl-2">
+<p>叶节点：<strong>终结符或空串<code>ε</code></strong>（对应产生式右部的符号）。</p>
+</li>
 </ul>
-<h4
-id="实例表达式ididid的语法树">实例：表达式<code>id+id*id</code>的语法树</h4>
+<h4 id="实例：表达式id-id-id的语法树">实例：表达式<code>id+id*id</code>的语法树</h4>
 <p>基于文法<code>E→E+T | T</code>；<code>T→T*F | F</code>；<code>F→(E) | id</code>，语法树结构为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    E --&gt; E1[E]</span><br><span class="line">    E --&gt; op_plus[+]</span><br><span class="line">    E --&gt; T1[T]</span><br><span class="line">    E1 --&gt; T2[T]</span><br><span class="line">    T2 --&gt; F1[F]</span><br><span class="line">    F1 --&gt; id1[id]</span><br><span class="line">    T1 --&gt; T3[T]</span><br><span class="line">    T1 --&gt; op_mul[*]</span><br><span class="line">    T1 --&gt; F2[F]</span><br><span class="line">    T3 --&gt; F3[F]</span><br><span class="line">    F3 --&gt; id2[id]</span><br><span class="line">    F2 --&gt; id3[id]</span><br></pre></td></tr></table></figure>
 <p>语法树的作用：</p>
-<ul>
-<li>直观展示“语法层次”（如“乘法先于加法”的结构）；</li>
-<li>判断<strong>文法二义性</strong>（若一个句子对应多棵语法树，文法是二义的）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>直观展示“语法层次”（如“乘法先于加法”的结构）；</p>
+</li>
+<li class="lvl-2">
+<p>判断<strong>文法二义性</strong>（若一个句子对应多棵语法树，文法是二义的）。</p>
+</li>
 </ul>
-<h3 id="文法的二义性关键问题与解决">2.8
-文法的二义性（关键问题与解决）</h3>
+<h3 id="2-8-文法的二义性（关键问题与解决）">2.8 文法的二义性（关键问题与解决）</h3>
 <p>若一个文法存在<strong>某个句子有“多棵语法树”或“多种最左/最右推导”</strong>，则称该文法是<strong>二义的</strong>。</p>
-<h4 id="二义性实例表达式文法">（1）二义性实例：表达式文法</h4>
+<h4 id="（1）二义性实例：表达式文法">（1）二义性实例：表达式文法</h4>
 <p>文法<code>G = ({E}, {id, +, *, (, )}, {E→E+E | E*E | (E) | id}, E)</code>对句子<code>id+id*id</code>存在<strong>两种最左推导</strong>：</p>
-<ul>
-<li><p>推导1（先加后乘）：
-<code>E ⇒ E+E ⇒ id+E ⇒ id+E*E ⇒ id+id*E ⇒ id+id*id</code>。</p></li>
-<li><p>推导2（先乘后加）：
-<code>E ⇒ E*E ⇒ E+E*E ⇒ id+E*E ⇒ id+id*E ⇒ id+id*id</code>。</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>推导1（先加后乘）：<code>E ⇒ E+E ⇒ id+E ⇒ id+E*E ⇒ id+id*E ⇒ id+id*id</code>。</p>
+</li>
+<li class="lvl-2">
+<p>推导2（先乘后加）：<code>E ⇒ E*E ⇒ E+E*E ⇒ id+E*E ⇒ id+id*E ⇒ id+id*id</code>。</p>
+</li>
 </ul>
 <p>对应的<strong>两棵语法树</strong>也不同，因此该文法是二义的。</p>
-<h4
-id="消除二义性改写文法规定优先级结合性">（2）消除二义性：改写文法（规定优先级/结合性）</h4>
+<h4 id="（2）消除二义性：改写文法（规定优先级-结合性）">（2）消除二义性：改写文法（规定优先级/结合性）</h4>
 <p>通过“分层产生式”让产生式<strong>隐含“运算符优先级/结合性”</strong>，从而消除歧义。</p>
 <p>例：规定“<code>*</code>优先级高于<code>+</code>，且均为左结合”，改写文法为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E → E+T | T       （`+`左结合，优先级低于`*`）</span><br><span class="line">T → T*F | F       （`*`左结合，优先级高于`+`）</span><br><span class="line">F → (E) | id      （最底层因子）</span><br></pre></td></tr></table></figure>
-<p>此时，句子<code>id+id*id</code>的<strong>最左推导唯一</strong>：
-<code>E ⇒ E+T ⇒ T+T ⇒ F+T ⇒ id+T ⇒ id+T*F ⇒ id+F*F ⇒ id+id*F ⇒ id+id*id</code>，
-且仅对应<strong>一棵语法树</strong>，消除了二义性。</p>
+<p>此时，句子<code>id+id*id</code>的<strong>最左推导唯一</strong>：<code>E ⇒ E+T ⇒ T+T ⇒ F+T ⇒ id+T ⇒ id+T*F ⇒ id+F*F ⇒ id+id*F ⇒ id+id*id</code>，且仅对应<strong>一棵语法树</strong>，消除了二义性。</p>
 
     </div>
 
@@ -575,13 +608,7 @@ id="消除二义性改写文法规定优先级结合性">（2）消除二义性�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E4%B8%8E%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">文法与语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%E6%96%87%E6%B3%95%E7%9A%84%E7%BC%96%E8%AF%91%E8%A7%92%E8%89%B2"><span class="nav-number">1.0.1.</span> <span class="nav-text">2.1 引言：文法的“编译角色”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%AF%8D%E8%A1%A8-%E7%AC%A6%E5%8F%B7%E4%B8%B2-%E8%BF%90%E7%AE%97%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.2
-字母表-符号串-运算（形式语言基础）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E6%AF%8D%E8%A1%A8%CF%83"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">（1）字母表（Σ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E4%B8%B2string"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">（2）符号串（String）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E4%B8%B2%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">（3）符号串的运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%9B%9B%E5%85%83%E7%BB%84"><span class="nav-number">1.0.3.</span> <span class="nav-text">2.3 文法模型★（形式化四元组）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6vnnon-terminal-symbols"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">（1）非终结符（VN：Non-terminal
-Symbols）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%BB%93%E7%AC%A6vtterminal-symbols"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">（2）终结符（VT：Terminal
-Symbols）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%BC%8Fpproductions"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">（3）产生式（P：Productions）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%AC%A6%E5%8F%B7sstart-symbol"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">（4）开始符号（S：Start
-Symbol）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC%E4%B8%8E%E5%8F%A5%E5%9E%8B%E6%96%87%E6%B3%95%E7%9A%84%E5%8A%A8%E6%80%81%E6%8E%A8%E5%AF%BC%E8%BF%87%E7%A8%8B"><span class="nav-number">1.0.4.</span> <span class="nav-text">2.4
-推导与句型（文法的“动态推导过程”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">（1）推导符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">（2）推导类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A5%E5%9E%8B%E4%B8%8E%E5%8F%A5%E5%AD%90"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">（3）句型与句子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E7%AE%97%E6%9C%AF%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%9C%80%E5%B7%A6%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">实例：算术表达式的最左推导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%B9%94%E5%A7%86%E6%96%AF%E5%9F%BA%E5%88%86%E7%B1%BB"><span class="nav-number">1.0.5.</span> <span class="nav-text">2.5 文法的类型（乔姆斯基分类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E7%AE%80%E5%8C%96"><span class="nav-number">1.0.6.</span> <span class="nav-text">2.6 文法的构造与简化★</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E4%BA%A7%E7%94%9F%E5%BC%8F%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">（1）文法构造：“自然语言→产生式”的转化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E7%AE%80%E5%8C%96%E6%B6%88%E9%99%A4%E5%86%97%E4%BD%99%E4%BE%BF%E4%BA%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">（2）文法简化：消除冗余，便于分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E6%A0%91%E6%8E%A8%E5%AF%BC%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.0.7.</span> <span class="nav-text">2.7 语法树（推导的“可视化表示”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%A1%A8%E8%BE%BE%E5%BC%8Fididid%E7%9A%84%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">实例：表达式id+id*id的语法树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E7%9A%84%E4%BA%8C%E4%B9%89%E6%80%A7%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3"><span class="nav-number">1.0.8.</span> <span class="nav-text">2.8
-文法的二义性（关键问题与解决）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E4%B9%89%E6%80%A7%E5%AE%9E%E4%BE%8B%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%96%87%E6%B3%95"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">（1）二义性实例：表达式文法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E9%99%A4%E4%BA%8C%E4%B9%89%E6%80%A7%E6%94%B9%E5%86%99%E6%96%87%E6%B3%95%E8%A7%84%E5%AE%9A%E4%BC%98%E5%85%88%E7%BA%A7%E7%BB%93%E5%90%88%E6%80%A7"><span class="nav-number">1.0.8.2.</span> <span class="nav-text">（2）消除二义性：改写文法（规定优先级&#x2F;结合性）</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">文法与语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%BC%95%E8%A8%80%EF%BC%9A%E6%96%87%E6%B3%95%E7%9A%84%E2%80%9C%E7%BC%96%E8%AF%91%E8%A7%92%E8%89%B2%E2%80%9D"><span class="nav-number">1.0.1.</span> <span class="nav-text">2.1 引言：文法的“编译角色”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%AD%97%E6%AF%8D%E8%A1%A8-%E7%AC%A6%E5%8F%B7%E4%B8%B2-%E8%BF%90%E7%AE%97%EF%BC%88%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.2 字母表-符号串-运算（形式语言基础）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%AD%97%E6%AF%8D%E8%A1%A8%EF%BC%88%CE%A3%EF%BC%89"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">（1）字母表（Σ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E7%AC%A6%E5%8F%B7%E4%B8%B2%EF%BC%88String%EF%BC%89"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">（2）符号串（String）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E7%AC%A6%E5%8F%B7%E4%B8%B2%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">（3）符号串的运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%96%87%E6%B3%95%E6%A8%A1%E5%9E%8B%E2%98%85%EF%BC%88%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%9B%9B%E5%85%83%E7%BB%84%EF%BC%89"><span class="nav-number">1.0.3.</span> <span class="nav-text">2.3 文法模型★（形式化四元组）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6%EF%BC%88VN%EF%BC%9ANon-terminal-Symbols%EF%BC%89"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">（1）非终结符（VN：Non-terminal Symbols）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E7%BB%88%E7%BB%93%E7%AC%A6%EF%BC%88VT%EF%BC%9ATerminal-Symbols%EF%BC%89"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">（2）终结符（VT：Terminal Symbols）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E4%BA%A7%E7%94%9F%E5%BC%8F%EF%BC%88P%EF%BC%9AProductions%EF%BC%89"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">（3）产生式（P：Productions）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E5%BC%80%E5%A7%8B%E7%AC%A6%E5%8F%B7%EF%BC%88S%EF%BC%9AStart-Symbol%EF%BC%89"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">（4）开始符号（S：Start Symbol）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%8E%A8%E5%AF%BC%E4%B8%8E%E5%8F%A5%E5%9E%8B%EF%BC%88%E6%96%87%E6%B3%95%E7%9A%84%E2%80%9C%E5%8A%A8%E6%80%81%E6%8E%A8%E5%AF%BC%E8%BF%87%E7%A8%8B%E2%80%9D%EF%BC%89"><span class="nav-number">1.0.4.</span> <span class="nav-text">2.4 推导与句型（文法的“动态推导过程”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%8E%A8%E5%AF%BC%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">（1）推导符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%8E%A8%E5%AF%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">（2）推导类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%8F%A5%E5%9E%8B%E4%B8%8E%E5%8F%A5%E5%AD%90"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">（3）句型与句子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E7%AE%97%E6%9C%AF%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%9C%80%E5%B7%A6%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">实例：算术表达式的最左推导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E6%96%87%E6%B3%95%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B9%94%E5%A7%86%E6%96%AF%E5%9F%BA%E5%88%86%E7%B1%BB%EF%BC%89"><span class="nav-number">1.0.5.</span> <span class="nav-text">2.5 文法的类型（乔姆斯基分类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E6%96%87%E6%B3%95%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E7%AE%80%E5%8C%96%E2%98%85"><span class="nav-number">1.0.6.</span> <span class="nav-text">2.6 文法的构造与简化★</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0%EF%BC%9A%E2%80%9C%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E2%86%92%E4%BA%A7%E7%94%9F%E5%BC%8F%E2%80%9D%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">（1）文法构造：“自然语言→产生式”的转化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%96%87%E6%B3%95%E7%AE%80%E5%8C%96%EF%BC%9A%E6%B6%88%E9%99%A4%E5%86%97%E4%BD%99%EF%BC%8C%E4%BE%BF%E4%BA%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">（2）文法简化：消除冗余，便于分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-%E8%AF%AD%E6%B3%95%E6%A0%91%EF%BC%88%E6%8E%A8%E5%AF%BC%E7%9A%84%E2%80%9C%E5%8F%AF%E8%A7%86%E5%8C%96%E8%A1%A8%E7%A4%BA%E2%80%9D%EF%BC%89"><span class="nav-number">1.0.7.</span> <span class="nav-text">2.7 语法树（推导的“可视化表示”）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E8%A1%A8%E8%BE%BE%E5%BC%8Fid-id-id%E7%9A%84%E8%AF%AD%E6%B3%95%E6%A0%91"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">实例：表达式id+id*id的语法树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E6%96%87%E6%B3%95%E7%9A%84%E4%BA%8C%E4%B9%89%E6%80%A7%EF%BC%88%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%EF%BC%89"><span class="nav-number">1.0.8.</span> <span class="nav-text">2.8 文法的二义性（关键问题与解决）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%BA%8C%E4%B9%89%E6%80%A7%E5%AE%9E%E4%BE%8B%EF%BC%9A%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%96%87%E6%B3%95"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">（1）二义性实例：表达式文法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%B6%88%E9%99%A4%E4%BA%8C%E4%B9%89%E6%80%A7%EF%BC%9A%E6%94%B9%E5%86%99%E6%96%87%E6%B3%95%EF%BC%88%E8%A7%84%E5%AE%9A%E4%BC%98%E5%85%88%E7%BA%A7-%E7%BB%93%E5%90%88%E6%80%A7%EF%BC%89"><span class="nav-number">1.0.8.2.</span> <span class="nav-text">（2）消除二义性：改写文法（规定优先级&#x2F;结合性）</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -597,14 +624,14 @@ Symbol）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="na
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -658,7 +685,7 @@ Symbol）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="na
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

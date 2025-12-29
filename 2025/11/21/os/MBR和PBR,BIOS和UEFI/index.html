@@ -230,89 +230,116 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h1 id="mbrpbrbios与uefi详解">MBR、PBR、BIOS与UEFI详解</h1>
-<h2
-id="一mbr主引导记录与pbr分区引导记录">一、MBR(主引导记录)与PBR(分区引导记录)</h2>
-<h3 id="mbr-master-boot-record">1. MBR (Master Boot Record)</h3>
-<ul>
-<li><strong>位置</strong>：硬盘第一个扇区(LBA 0)，512字节</li>
-<li><strong>结构</strong>：
-<ul>
-<li>446字节：引导代码(负责加载操作系统)</li>
-<li>64字节：分区表(DPT，最多记录4个主分区)</li>
-<li>2字节：魔数(0x55AA，用于验证有效性)</li>
-</ul></li>
-<li><strong>作用</strong>：
-<ul>
-<li>系统启动时首个被读取的扇区</li>
-<li>检查分区表，定位活动分区</li>
-<li>将控制权交给活动分区的PBR</li>
-</ul></li>
-<li><strong>限制</strong>：最大支持2TB硬盘，最多4个主分区</li>
+<h1>MBR、PBR、BIOS与UEFI详解</h1>
+<h2 id="一、MBR-主引导记录-与PBR-分区引导记录">一、MBR(主引导记录)与PBR(分区引导记录)</h2>
+<h3 id="1-MBR-Master-Boot-Record">1. MBR (Master Boot Record)</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>位置</strong>：硬盘第一个扇区(LBA 0)，512字节</p>
+</li>
+<li class="lvl-2">
+<p><strong>结构</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">446字节：引导代码(负责加载操作系统)</li>
+<li class="lvl-4">64字节：分区表(DPT，最多记录4个主分区)</li>
+<li class="lvl-4">2字节：魔数(0x55AA，用于验证有效性)</li>
 </ul>
-<h3 id="pbr-partition-boot-record">2. PBR (Partition Boot Record)</h3>
-<ul>
-<li><strong>位置</strong>：每个分区的第一个扇区</li>
-<li><strong>特点</strong>：
-<ul>
-<li>由高级格式化(FORMAT)写入</li>
-<li>与文件系统相关(如FAT32、NTFS不同)</li>
-</ul></li>
-<li><strong>作用</strong>：
-<ul>
-<li>加载分区对应的文件系统驱动</li>
-<li>启动分区上的操作系统引导程序</li>
-<li>对Windows：XP及更早版本引导NTLDR；Vista及以上引导bootmgr</li>
-</ul></li>
+</li>
+<li class="lvl-2">
+<p><strong>作用</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">系统启动时首个被读取的扇区</li>
+<li class="lvl-4">检查分区表，定位活动分区</li>
+<li class="lvl-4">将控制权交给活动分区的PBR</li>
 </ul>
-<h3 id="mbr与pbr的关系">3. MBR与PBR的关系</h3>
-<ul>
-<li>MBR是硬盘全局引导记录，PBR是分区局部引导记录</li>
-<li>启动流程：BIOS→MBR→(选择活动分区)→PBR→操作系统</li>
+</li>
+<li class="lvl-2">
+<p><strong>限制</strong>：最大支持2TB硬盘，最多4个主分区</p>
+</li>
 </ul>
-<h2 id="二bios与uefi">二、BIOS与UEFI</h2>
-<h3 id="bios-basic-inputoutput-system">1. BIOS (Basic Input/Output
-System)</h3>
-<ul>
-<li><strong>定义</strong>：主板ROM中的固件，计算机启动后首个运行的程序</li>
-<li><strong>工作模式</strong>：16位实模式，依赖中断机制</li>
-<li><strong>启动流程</strong>：
-<ol type="1">
-<li>执行POST(开机自检)</li>
-<li>读取MBR到内存并执行</li>
-<li>MBR引导代码加载PBR</li>
-<li>PBR启动操作系统</li>
-</ol></li>
-<li><strong>局限</strong>：
-<ul>
-<li>仅支持MBR分区，最大2TB硬盘</li>
-<li>仅文本界面，操作繁琐</li>
-<li>启动较慢，扩展性差</li>
-</ul></li>
+<h3 id="2-PBR-Partition-Boot-Record">2. PBR (Partition Boot Record)</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>位置</strong>：每个分区的第一个扇区</p>
+</li>
+<li class="lvl-2">
+<p><strong>特点</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">由高级格式化(FORMAT)写入</li>
+<li class="lvl-4">与文件系统相关(如FAT32、NTFS不同)</li>
 </ul>
-<h3 id="uefi-unified-extensible-firmware-interface">2. UEFI (Unified
-Extensible Firmware Interface)</h3>
-<ul>
-<li><strong>定义</strong>：BIOS的现代替代品，2007年由Intel推出</li>
-<li><strong>核心优势</strong>：
-<ul>
-<li>支持32/64位执行环境</li>
-<li>图形化界面，支持鼠标操作</li>
-<li>模块化设计，可扩展性强</li>
-<li>并行初始化硬件，启动速度提升30%+</li>
-</ul></li>
-<li><strong>启动方式</strong>：
-<ul>
-<li>直接读取EFI系统分区(ESP)中的.efi文件</li>
-<li>支持GPT分区表(最大9.4ZB，128个分区)</li>
-<li>内置安全启动(Secure Boot)，防止未授权系统加载</li>
-</ul></li>
+</li>
+<li class="lvl-2">
+<p><strong>作用</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">加载分区对应的文件系统驱动</li>
+<li class="lvl-4">启动分区上的操作系统引导程序</li>
+<li class="lvl-4">对Windows：XP及更早版本引导NTLDR；Vista及以上引导bootmgr</li>
 </ul>
-<h3 id="bios与uefi对比">3. BIOS与UEFI对比</h3>
+</li>
+</ul>
+<h3 id="3-MBR与PBR的关系">3. MBR与PBR的关系</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>MBR是硬盘全局引导记录，PBR是分区局部引导记录</p>
+</li>
+<li class="lvl-2">
+<p>启动流程：BIOS→MBR→(选择活动分区)→PBR→操作系统</p>
+</li>
+</ul>
+<h2 id="二、BIOS与UEFI">二、BIOS与UEFI</h2>
+<h3 id="1-BIOS-Basic-Input-Output-System">1. BIOS (Basic Input/Output System)</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：主板ROM中的固件，计算机启动后首个运行的程序</p>
+</li>
+<li class="lvl-2">
+<p><strong>工作模式</strong>：16位实模式，依赖中断机制</p>
+</li>
+<li class="lvl-2">
+<p><strong>启动流程</strong>：</p>
+<ol>
+<li class="lvl-5">执行POST(开机自检)</li>
+<li class="lvl-5">读取MBR到内存并执行</li>
+<li class="lvl-5">MBR引导代码加载PBR</li>
+<li class="lvl-5">PBR启动操作系统</li>
+</ol>
+</li>
+<li class="lvl-2">
+<p><strong>局限</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">仅支持MBR分区，最大2TB硬盘</li>
+<li class="lvl-4">仅文本界面，操作繁琐</li>
+<li class="lvl-4">启动较慢，扩展性差</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-UEFI-Unified-Extensible-Firmware-Interface">2. UEFI (Unified Extensible Firmware Interface)</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>定义</strong>：BIOS的现代替代品，2007年由Intel推出</p>
+</li>
+<li class="lvl-2">
+<p><strong>核心优势</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">支持32/64位执行环境</li>
+<li class="lvl-4">图形化界面，支持鼠标操作</li>
+<li class="lvl-4">模块化设计，可扩展性强</li>
+<li class="lvl-4">并行初始化硬件，启动速度提升30%+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>启动方式</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">直接读取EFI系统分区(ESP)中的.efi文件</li>
+<li class="lvl-4">支持GPT分区表(最大9.4ZB，128个分区)</li>
+<li class="lvl-4">内置安全启动(Secure Boot)，防止未授权系统加载</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-BIOS与UEFI对比">3. BIOS与UEFI对比</h3>
 <table>
 <thead>
 <tr>
@@ -354,40 +381,64 @@ Extensible Firmware Interface)</h3>
 </tr>
 </tbody>
 </table>
-<h2 id="三系统启动全流程">三、系统启动全流程</h2>
-<h3 id="biosmbr启动流程">BIOS+MBR启动流程：</h3>
-<ol type="1">
-<li>开机→BIOS自检</li>
-<li>BIOS读取硬盘MBR</li>
-<li>MBR检查分区表，找到活动分区</li>
-<li>MBR将控制权交给活动分区的PBR</li>
-<li>PBR加载分区文件系统和引导程序(如Windows的bootmgr)</li>
-<li>引导程序加载操作系统内核</li>
+<h2 id="三、系统启动全流程">三、系统启动全流程</h2>
+<h3 id="BIOS-MBR启动流程：">BIOS+MBR启动流程：</h3>
+<ol>
+<li class="lvl-3">
+<p>开机→BIOS自检</p>
+</li>
+<li class="lvl-3">
+<p>BIOS读取硬盘MBR</p>
+</li>
+<li class="lvl-3">
+<p>MBR检查分区表，找到活动分区</p>
+</li>
+<li class="lvl-3">
+<p>MBR将控制权交给活动分区的PBR</p>
+</li>
+<li class="lvl-3">
+<p>PBR加载分区文件系统和引导程序(如Windows的bootmgr)</p>
+</li>
+<li class="lvl-3">
+<p>引导程序加载操作系统内核</p>
+</li>
 </ol>
-<h3 id="uefigpt启动流程">UEFI+GPT启动流程：</h3>
-<ol type="1">
-<li>开机→UEFI初始化</li>
-<li>UEFI直接访问ESP分区( FAT32格式)</li>
-<li>读取并执行分区中的.efi引导文件</li>
-<li>引导程序加载操作系统</li>
+<h3 id="UEFI-GPT启动流程：">UEFI+GPT启动流程：</h3>
+<ol>
+<li class="lvl-3">
+<p>开机→UEFI初始化</p>
+</li>
+<li class="lvl-3">
+<p>UEFI直接访问ESP分区( FAT32格式)</p>
+</li>
+<li class="lvl-3">
+<p>读取并执行分区中的.efi引导文件</p>
+</li>
+<li class="lvl-3">
+<p>引导程序加载操作系统</p>
+</li>
 </ol>
-<h2 id="四选择建议">四、选择建议</h2>
-<ul>
-<li><strong>使用BIOS+MBR</strong>：
-<ul>
-<li>硬盘&lt;2TB且分区数≤4</li>
-<li>兼容老旧系统</li>
-<li>主板不支持UEFI</li>
-</ul></li>
-<li><strong>使用UEFI+GPT</strong>：
-<ul>
-<li>硬盘&gt;2TB</li>
-<li>需要更多分区(最多128个)</li>
-<li>Windows 11等现代系统(强制要求)</li>
-<li>追求更快启动速度和更好安全性</li>
-</ul></li>
+<h2 id="四、选择建议">四、选择建议</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>使用BIOS+MBR</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">硬盘&lt;2TB且分区数≤4</li>
+<li class="lvl-4">兼容老旧系统</li>
+<li class="lvl-4">主板不支持UEFI</li>
 </ul>
-<p><strong>总结</strong>：MBR和PBR是硬盘引导的”基础设施”，BIOS和UEFI则是决定如何使用这些设施的”交通规则”。随着硬件发展，UEFI+GPT已成为主流，提供更大存储支持、更快启动和更强安全性，而BIOS+MBR则逐渐退居兼容模式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>使用UEFI+GPT</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">硬盘&gt;2TB</li>
+<li class="lvl-4">需要更多分区(最多128个)</li>
+<li class="lvl-4">Windows 11等现代系统(强制要求)</li>
+<li class="lvl-4">追求更快启动速度和更好安全性</li>
+</ul>
+</li>
+</ul>
+<p><strong>总结</strong>：MBR和PBR是硬盘引导的&quot;基础设施&quot;，BIOS和UEFI则是决定如何使用这些设施的&quot;交通规则&quot;。随着硬件发展，UEFI+GPT已成为主流，提供更大存储支持、更快启动和更强安全性，而BIOS+MBR则逐渐退居兼容模式。</p>
 
     </div>
 
@@ -474,9 +525,7 @@ Extensible Firmware Interface)</h3>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mbrpbrbios%E4%B8%8Euefi%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">MBR、PBR、BIOS与UEFI详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80mbr%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95%E4%B8%8Epbr%E5%88%86%E5%8C%BA%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">一、MBR(主引导记录)与PBR(分区引导记录)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mbr-master-boot-record"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. MBR (Master Boot Record)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pbr-partition-boot-record"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. PBR (Partition Boot Record)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mbr%E4%B8%8Epbr%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. MBR与PBR的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cbios%E4%B8%8Euefi"><span class="nav-number">1.2.</span> <span class="nav-text">二、BIOS与UEFI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bios-basic-inputoutput-system"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. BIOS (Basic Input&#x2F;Output
-System)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uefi-unified-extensible-firmware-interface"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. UEFI (Unified
-Extensible Firmware Interface)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bios%E4%B8%8Euefi%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. BIOS与UEFI对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E5%85%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">三、系统启动全流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#biosmbr%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">BIOS+MBR启动流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uefigpt%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">UEFI+GPT启动流程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.4.</span> <span class="nav-text">四、选择建议</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">MBR、PBR、BIOS与UEFI详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81MBR-%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95-%E4%B8%8EPBR-%E5%88%86%E5%8C%BA%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">一、MBR(主引导记录)与PBR(分区引导记录)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MBR-Master-Boot-Record"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. MBR (Master Boot Record)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PBR-Partition-Boot-Record"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. PBR (Partition Boot Record)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-MBR%E4%B8%8EPBR%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. MBR与PBR的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81BIOS%E4%B8%8EUEFI"><span class="nav-number">1.2.</span> <span class="nav-text">二、BIOS与UEFI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BIOS-Basic-Input-Output-System"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. BIOS (Basic Input&#x2F;Output System)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-UEFI-Unified-Extensible-Firmware-Interface"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. UEFI (Unified Extensible Firmware Interface)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BIOS%E4%B8%8EUEFI%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. BIOS与UEFI对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E5%85%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">三、系统启动全流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BIOS-MBR%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">BIOS+MBR启动流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UEFI-GPT%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">UEFI+GPT启动流程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.4.</span> <span class="nav-text">四、选择建议</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -492,14 +541,14 @@ Extensible Firmware Interface)</span></a></li><li class="nav-item nav-level-3"><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -553,7 +602,7 @@ Extensible Firmware Interface)</span></a></li><li class="nav-item nav-level-3"><
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

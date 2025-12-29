@@ -323,14 +323,14 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>2.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -342,154 +342,167 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
 <h2 id="解不等式">解不等式</h2>
-<h3 id="一基本性质法通用基础">一、基本性质法（通用基础）</h3>
-<h4 id="适用范围所有不等式尤其一元一次不等式">适用范围：所有不等式（尤其一元一次不等式）</h4>
-<h4 id="核心原理利用不等式的3-条基本性质注意变号规则将不等式逐步化简为-x-a-或-x-a-的形式">核心原理：利用不等式的<strong>3
-条基本性质</strong>（注意变号规则），将不等式逐步化简为 “(x &gt; a)” 或
-“(x &lt; a)” 的形式。</h4>
+<h3 id="一、基本性质法（通用基础）">一、基本性质法（通用基础）</h3>
+<h4 id="适用范围：所有不等式（尤其一元一次不等式）">适用范围：所有不等式（尤其一元一次不等式）</h4>
+<h4 id="核心原理：利用不等式的3-条基本性质（注意变号规则），将不等式逐步化简为-“-x-a-”-或-“-x-a-”-的形式。">核心原理：利用不等式的<strong>3 条基本性质</strong>（注意变号规则），将不等式逐步化简为 “(x &gt; a)” 或 “(x &lt; a)” 的形式。</h4>
 <p>不等式基本性质（关键）：</p>
-<ol type="1">
-<li>不等式两边加 /
-减同一个数（或整式），不等号方向<strong>不变</strong>；</li>
-<li>不等式两边乘 /
-除同一个<strong>正数</strong>，不等号方向<strong>不变</strong>；</li>
-<li>不等式两边乘 /
-除同一个<strong>负数</strong>，不等号方向<strong>必须反转</strong>（易出错点）。</li>
+<ol>
+<li class="lvl-3">
+<p>不等式两边加 / 减同一个数（或整式），不等号方向<strong>不变</strong>；</p>
+</li>
+<li class="lvl-3">
+<p>不等式两边乘 / 除同一个<strong>正数</strong>，不等号方向<strong>不变</strong>；</p>
+</li>
+<li class="lvl-3">
+<p>不等式两边乘 / 除同一个<strong>负数</strong>，不等号方向<strong>必须反转</strong>（易出错点）。</p>
+</li>
 </ol>
-<h4 id="示例解-2x---5-3x-1">示例：解 (2x - 5 &gt; 3x + 1)</h4>
-<ol type="1">
-<li>移项（性质 1）：(2x - 3x &gt; 1 + 5)；</li>
-<li>合并同类项：(-x &gt; 6)；</li>
-<li>两边除以(-1)（性质 3，变号）：(x &lt; -6)。</li>
+<h4 id="示例：解-2x-5-3x-1">示例：解 (2x - 5 &gt; 3x + 1)</h4>
+<ol>
+<li class="lvl-3">
+<p>移项（性质 1）：(2x - 3x &gt; 1 + 5)；</p>
+</li>
+<li class="lvl-3">
+<p>合并同类项：(-x &gt; 6)；</p>
+</li>
+<li class="lvl-3">
+<p>两边除以(-1)（性质 3，变号）：(x &lt; -6)。</p>
+</li>
 </ol>
-<h3 id="二因式分解法一元二次-高次不等式">二、因式分解法（一元二次 /
-高次不等式）</h3>
-<h4 id="适用范围可因式分解的一元二次不等式如ax2-bx-c-0可分解为-一次因式乘积-的高次不等式">适用范围：可因式分解的一元二次不等式（如(ax^2
-+ bx + c &gt; 0)）、可分解为 “一次因式乘积” 的高次不等式。</h4>
-<h4 id="核心原理将不等式左边分解为若干个-一次因式-的乘积通过分析每个因式的正负性确定整个乘积的正负或零进而得到解集">核心原理：将不等式左边分解为若干个
-“一次因式”
-的乘积，通过分析每个因式的正负性，确定整个乘积的正负（或零），进而得到解集。</h4>
-<h4 id="示例解-x2---3x---4-0">示例：解 (x^2 - 3x - 4 &lt; 0)</h4>
-<ol type="1">
-<li>因式分解：((x - 4)(x + 1) &lt; 0)；</li>
-<li>找 “零点”（使因式为 0 的 x 值）：(x = -1)、(x = 4)（将数轴分为 3
-段：(x &lt; -1)、(-1 &lt; x &lt; 4)、(x &gt; 4)）；</li>
-<li>分析每段正负：
-<ul>
-<li>(x &lt; -1)：(x - 4 &lt; 0)，(x + 1 &lt; 0)，乘积为正（不满足
-“&lt;0”）；</li>
-<li>(-1 &lt; x &lt; 4)：(x - 4 &lt; 0)，(x + 1 &gt;
-0)，乘积为负（满足）；</li>
-<li>(x &gt; 4)：两因式均正，乘积为正（不满足）；</li>
-</ul></li>
-<li>结合 “不等号不含等号”，解集为：(-1 &lt; x &lt; 4)。</li>
-</ol>
-<h3 id="三穿针引线法高次-分式不等式">三、穿针引线法（高次 /
-分式不等式）</h3>
-<h4 id="适用范围">适用范围：</h4>
-<ul>
-<li>高次不等式（如((x - 1)(x + 2)(x - 3) &gt; 0)）；</li>
-<li>可转化为 “整式乘积” 的分式不等式（如( )）。</li>
+<h3 id="二、因式分解法（一元二次-高次不等式）">二、因式分解法（一元二次 / 高次不等式）</h3>
+<h4 id="适用范围：可因式分解的一元二次不等式（如-ax-2-bx-c-0-）、可分解为-“一次因式乘积”-的高次不等式。">适用范围：可因式分解的一元二次不等式（如(ax^2 + bx + c &gt; 0)）、可分解为 “一次因式乘积” 的高次不等式。</h4>
+<h4 id="核心原理：将不等式左边分解为若干个-“一次因式”-的乘积，通过分析每个因式的正负性，确定整个乘积的正负（或零），进而得到解集。">核心原理：将不等式左边分解为若干个 “一次因式” 的乘积，通过分析每个因式的正负性，确定整个乘积的正负（或零），进而得到解集。</h4>
+<h4 id="示例：解-x-2-3x-4-0">示例：解 (x^2 - 3x - 4 &lt; 0)</h4>
+<ol>
+<li class="lvl-3">
+<p>因式分解：((x - 4)(x + 1) &lt; 0)；</p>
+</li>
+<li class="lvl-3">
+<p>找 “零点”（使因式为 0 的 x 值）：(x = -1)、(x = 4)（将数轴分为 3 段：(x &lt; -1)、(-1 &lt; x &lt; 4)、(x &gt; 4)）；</p>
+</li>
+<li class="lvl-3">
+<p>分析每段正负：</p>
+<ul class="lvl-2">
+<li class="lvl-5">(x &lt; -1)：(x - 4 &lt; 0)，(x + 1 &lt; 0)，乘积为正（不满足 “&lt;0”）；</li>
+<li class="lvl-5">(-1 &lt; x &lt; 4)：(x - 4 &lt; 0)，(x + 1 &gt; 0)，乘积为负（满足）；</li>
+<li class="lvl-5">(x &gt; 4)：两因式均正，乘积为正（不满足）；</li>
 </ul>
-<h4 id="核心原理通过-零点分区间结合-从右到左从上到下奇穿偶不穿-的规则快速判断多项式或分式在不同区间的正负性">核心原理：通过
-“零点分区间”，结合 “从右到左、从上到下，奇穿偶不穿”
-的规则，快速判断多项式（或分式）在不同区间的正负性。</h4>
-<h4 id="关键步骤以高次不等式为例">关键步骤（以高次不等式为例）：</h4>
-<ol type="1">
-<li><strong>整理因式</strong>：将多项式分解为 “((x - a_1)(x - a_2)…(x -
-a_n))” 的形式，确保每个一次项的系数为正（若为负，先变形，如((-x + 2) =
--(x - 2))）；</li>
-<li><strong>找零点排序</strong>：找出所有 “零点”（使因式为 0 的 x
-值），并在数轴上从小到大排列；</li>
-<li><strong>穿线规则</strong>：
-<ul>
-<li>从数轴<strong>最右侧上方</strong>开始，向左穿线；</li>
-<li>遇到 “零点” 时，若该零点对应的因式是<strong>奇次幂</strong>（如((x -
-1)^1)），则线穿过数轴；若为<strong>偶次幂</strong>（如((x -
-2)^2)），则线 “不穿过”（即与数轴相切后继续向左）；</li>
-</ul></li>
-<li><strong>定解集</strong>：根据不等式的 “&gt;0”（取数轴上方区间）或
-“&lt;0”（取数轴下方区间），结合
-“是否含等号”（含等号则包含零点，分式不等式需排除使分母为 0
-的零点）确定解集。</li>
+</li>
+<li class="lvl-3">
+<p>结合 “不等号不含等号”，解集为：(-1 &lt; x &lt; 4)。</p>
+</li>
 </ol>
-<h4 id="示例解">示例：解 ( )</h4>
-<ol type="1">
-<li>整理：分式≥0 等价于 “分子分母同号，且分子可等于 0”，即((x - 2)(x +
-1)(x - 3) )且(x )；</li>
-<li>零点排序：(-1, 2, 3)（均为 1 次幂，全穿）；</li>
-<li>穿线：从右侧上方穿，依次穿过 3、2、-1；</li>
-<li>定解集：取 “≥0” 的区间（上方区间），排除 x=3，得(-1 x )或(x &gt;
-3)。</li>
+<h3 id="三、穿针引线法（高次-分式不等式）">三、穿针引线法（高次 / 分式不等式）</h3>
+<h4 id="适用范围：">适用范围：</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>高次不等式（如((x - 1)(x + 2)(x - 3) &gt; 0)）；</p>
+</li>
+<li class="lvl-2">
+<p>可转化为 “整式乘积” 的分式不等式（如(\frac{(x - 2)}{(x + 1)} \leq 0)）。</p>
+</li>
+</ul>
+<h4 id="核心原理：通过-“零点分区间”，结合-“从右到左、从上到下，奇穿偶不穿”-的规则，快速判断多项式（或分式）在不同区间的正负性。">核心原理：通过 “零点分区间”，结合 “从右到左、从上到下，奇穿偶不穿” 的规则，快速判断多项式（或分式）在不同区间的正负性。</h4>
+<h4 id="关键步骤（以高次不等式为例）：">关键步骤（以高次不等式为例）：</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>整理因式</strong>：将多项式分解为 “((x - a_1)(x - a_2)…(x - a_n))” 的形式，确保每个一次项的系数为正（若为负，先变形，如((-x + 2) = -(x - 2))）；</p>
+</li>
+<li class="lvl-3">
+<p><strong>找零点排序</strong>：找出所有 “零点”（使因式为 0 的 x 值），并在数轴上从小到大排列；</p>
+</li>
+<li class="lvl-3">
+<p><strong>穿线规则</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">从数轴<strong>最右侧上方</strong>开始，向左穿线；</li>
+<li class="lvl-5">遇到 “零点” 时，若该零点对应的因式是<strong>奇次幂</strong>（如((x - 1)^1)），则线穿过数轴；若为<strong>偶次幂</strong>（如((x - 2)^2)），则线 “不穿过”（即与数轴相切后继续向左）；</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>定解集</strong>：根据不等式的 “&gt;0”（取数轴上方区间）或 “&lt;0”（取数轴下方区间），结合 “是否含等号”（含等号则包含零点，分式不等式需排除使分母为 0 的零点）确定解集。</p>
+</li>
 </ol>
-<h3 id="四配方法一元二次不等式">四、配方法（一元二次不等式）</h3>
-<h4 id="适用范围不易因式分解的一元二次不等式如x2---4x-1-0或需结合二次函数顶点分析的场景">适用范围：不易因式分解的一元二次不等式（如(x^2
-- 4x + 1 &gt; 0)），或需结合二次函数顶点分析的场景。</h4>
-<h4 id="核心原理将一元二次式ax2-bx-c通过-配方-转化为-ax---h2-k-的形式利用-平方数非负-的性质简化不等式">核心原理：将一元二次式(ax^2
-+ bx + c)通过 “配方” 转化为 “(a(x - h)^2 + k)” 的形式，利用 “平方数非负”
-的性质，简化不等式。</h4>
-<h4 id="示例解-x2---4x-1-0">示例：解 (x^2 - 4x + 1 &gt; 0)</h4>
-<ol type="1">
-<li>配方：(x^2 - 4x + 4 - 4 + 1 &gt; 0)，即((x - 2)^2 - 3 &gt; 0)；</li>
-<li>变形：((x - 2)^2 &gt; 3)；</li>
-<li>利用平方不等式性质：若(A^2 &gt; B)（B&gt;0），则(A &gt; )或(A &lt;
--)；</li>
-<li>求解：(x - 2 &gt; )或(x - 2 &lt; -)，即(x &gt; 2 + )或(x &lt; 2 -
-)。</li>
+<h4 id="示例：解-frac-x-2-x-1-x-3-geq-0">示例：解 (\frac{(x - 2)(x + 1)}{(x - 3)} \geq 0)</h4>
+<ol>
+<li class="lvl-3">
+<p>整理：分式≥0 等价于 “分子分母同号，且分子可等于 0”，即((x - 2)(x + 1)(x - 3) \geq 0)且(x \neq 3)；</p>
+</li>
+<li class="lvl-3">
+<p>零点排序：(-1, 2, 3)（均为 1 次幂，全穿）；</p>
+</li>
+<li class="lvl-3">
+<p>穿线：从右侧上方穿，依次穿过 3、2、-1；</p>
+</li>
+<li class="lvl-3">
+<p>定解集：取 “≥0” 的区间（上方区间），排除 x=3，得(-1 \leq x \leq 2)或(x &gt; 3)。</p>
+</li>
 </ol>
-<h3 id="五图像法结合函数图像直观">五、图像法（结合函数图像，直观）</h3>
-<h4 id="适用范围一元二次不等式分式不等式高次不等式本质是分析函数y-fx的图像与-x-轴的位置关系">适用范围：一元二次不等式、分式不等式、高次不等式（本质是分析函数(y
-= f(x))的图像与 x 轴的位置关系）。</h4>
-<h4 id="核心原理不等式fx-0的解集对应函数y-fx图像在-x-轴上方的-x-取值fx-0对应在-x-轴下方的-x-取值含等号则包含图像与-x-轴的交点">核心原理：不等式(f(x)
-&gt; 0)的解集对应函数(y = f(x))图像<strong>在 x 轴上方</strong>的 x
-取值；(f(x) &lt; 0)对应<strong>在 x 轴下方</strong>的 x
-取值（含等号则包含图像与 x 轴的交点）。</h4>
-<h4 id="示例解-2x2---5x---3">示例：解 (2x^2 - 5x - 3 )</h4>
-<ol type="1">
-<li>设函数(y = 2x^2 - 5x -
-3)，这是一个开口向上的抛物线（a=2&gt;0）；</li>
-<li>求与 x 轴的交点（解方程(2x^2 - 5x - 3 = 0)）：因式分解得((2x + 1)(x
-- 3) = 0)，零点为(x = -)、(x = 3)；</li>
-<li>分析图像：开口向上的抛物线，在两个零点之间（(- x )）时，图像在 x
-轴下方或与 x 轴相交；</li>
-<li>解集：(- x )。</li>
+<h3 id="四、配方法（一元二次不等式）">四、配方法（一元二次不等式）</h3>
+<h4 id="适用范围：不易因式分解的一元二次不等式（如-x-2-4x-1-0-），或需结合二次函数顶点分析的场景。">适用范围：不易因式分解的一元二次不等式（如(x^2 - 4x + 1 &gt; 0)），或需结合二次函数顶点分析的场景。</h4>
+<h4 id="核心原理：将一元二次式-ax-2-bx-c-通过-“配方”-转化为-“-a-x-h-2-k-”-的形式，利用-“平方数非负”-的性质，简化不等式。">核心原理：将一元二次式(ax^2 + bx + c)通过 “配方” 转化为 “(a(x - h)^2 + k)” 的形式，利用 “平方数非负” 的性质，简化不等式。</h4>
+<h4 id="示例：解-x-2-4x-1-0">示例：解 (x^2 - 4x + 1 &gt; 0)</h4>
+<ol>
+<li class="lvl-3">
+<p>配方：(x^2 - 4x + 4 - 4 + 1 &gt; 0)，即((x - 2)^2 - 3 &gt; 0)；</p>
+</li>
+<li class="lvl-3">
+<p>变形：((x - 2)^2 &gt; 3)；</p>
+</li>
+<li class="lvl-3">
+<p>利用平方不等式性质：若(A^2 &gt; B)（B&gt;0），则(A &gt; \sqrt{B})或(A &lt; -\sqrt{B})；</p>
+</li>
+<li class="lvl-3">
+<p>求解：(x - 2 &gt; \sqrt{3})或(x - 2 &lt; -\sqrt{3})，即(x &gt; 2 + \sqrt{3})或(x &lt; 2 - \sqrt{3})。</p>
+</li>
 </ol>
-<h3 id="六换元法复杂不等式简化">六、换元法（复杂不等式简化）</h3>
-<h4 id="适用范围含-重复复杂表达式-的不等式如-根号型---x-0指数型22x---5-x-4-0分式型x2---3x-4">适用范围：含
-“重复复杂表达式” 的不等式，如 “根号型”（( - x &lt;
-0)）、“指数型”（(2^{2x} - 5 ^x + 4 &gt; 0)）、“分式型”（(x^2 + - 3(x + )
-+ 4 )）。</h4>
-<h4 id="核心原理用一个新变量如-t代替不等式中-重复出现的复杂部分将原不等式转化为关于-t-的-一元一次-二次不等式求解后再代回原变量得到最终解集注意新变量的取值范围">核心原理：用一个新变量（如
-t）代替不等式中 “重复出现的复杂部分”，将原不等式转化为关于 t 的
-“一元一次 /
-二次不等式”，求解后再代回原变量，得到最终解集（注意新变量的取值范围）。</h4>
-<h4 id="示例解-22x---5-x-4-0">示例：解 (2^{2x} - 5 ^x + 4 &gt; 0)</h4>
-<ol type="1">
-<li>观察到(2^{2x} = (2<sup>x)</sup>2)，设(t = 2<sup>x)（因(2</sup>x &gt;
-0)，故(t &gt; 0)）；</li>
-<li>原不等式转化为：(t^2 - 5t + 4 &gt; 0)；</li>
-<li>解关于 t 的二次不等式：因式分解得((t - 1)(t - 4) &gt; 0)，结合(t
-&gt; 0)，得(0 &lt; t &lt; 1)或(t &gt; 4)；</li>
-<li>代回原变量：
-<ul>
-<li>(0 &lt; 2^x &lt; 1 = 2<sup>0)：因(2</sup>x)单调递增，得(x &lt;
-0)；</li>
-<li>(2^x &gt; 4 = 2^2)：得(x &gt; 2)；</li>
-</ul></li>
-<li>最终解集：(x &lt; 0)或(x &gt; 2)。</li>
+<h3 id="五、图像法（结合函数图像，直观）">五、图像法（结合函数图像，直观）</h3>
+<h4 id="适用范围：一元二次不等式、分式不等式、高次不等式（本质是分析函数-y-f-x-的图像与-x-轴的位置关系）。">适用范围：一元二次不等式、分式不等式、高次不等式（本质是分析函数(y = f(x))的图像与 x 轴的位置关系）。</h4>
+<h4 id="核心原理：不等式-f-x-0-的解集对应函数-y-f-x-图像在-x-轴上方的-x-取值；-f-x-0-对应在-x-轴下方的-x-取值（含等号则包含图像与-x-轴的交点）。">核心原理：不等式(f(x) &gt; 0)的解集对应函数(y = f(x))图像<strong>在 x 轴上方</strong>的 x 取值；(f(x) &lt; 0)对应<strong>在 x 轴下方</strong>的 x 取值（含等号则包含图像与 x 轴的交点）。</h4>
+<h4 id="示例：解-2x-2-5x-3-leq-0">示例：解 (2x^2 - 5x - 3 \leq 0)</h4>
+<ol>
+<li class="lvl-3">
+<p>设函数(y = 2x^2 - 5x - 3)，这是一个开口向上的抛物线（a=2&gt;0）；</p>
+</li>
+<li class="lvl-3">
+<p>求与 x 轴的交点（解方程(2x^2 - 5x - 3 = 0)）：因式分解得((2x + 1)(x - 3) = 0)，零点为(x = -\frac{1}{2})、(x = 3)；</p>
+</li>
+<li class="lvl-3">
+<p>分析图像：开口向上的抛物线，在两个零点之间（(-\frac{1}{2} \leq x \leq 3)）时，图像在 x 轴下方或与 x 轴相交；</p>
+</li>
+<li class="lvl-3">
+<p>解集：(-\frac{1}{2} \leq x \leq 3)。</p>
+</li>
 </ol>
-<h3 id="总结不同不等式类型的优先解法选择">总结：不同不等式类型的优先解法选择</h3>
+<h3 id="六、换元法（复杂不等式简化）">六、换元法（复杂不等式简化）</h3>
+<h4 id="适用范围：含-“重复复杂表达式”-的不等式，如-“根号型”（-sqrt-x-1-x-0-）、“指数型”（-2-2x-5-cdot-2-x-4-0-）、“分式型”（-x-2-frac-1-x-2-3-x-frac-1-x-4-leq-0-）。">适用范围：含 “重复复杂表达式” 的不等式，如 “根号型”（(\sqrt{x + 1} - x &lt; 0)）、“指数型”（(2^{2x} - 5 \cdot 2^x + 4 &gt; 0)）、“分式型”（(x^2 + \frac{1}{x^2} - 3(x + \frac{1}{x}) + 4 \leq 0)）。</h4>
+<h4 id="核心原理：用一个新变量（如-t）代替不等式中-“重复出现的复杂部分”，将原不等式转化为关于-t-的-“一元一次-二次不等式”，求解后再代回原变量，得到最终解集（注意新变量的取值范围）。">核心原理：用一个新变量（如 t）代替不等式中 “重复出现的复杂部分”，将原不等式转化为关于 t 的 “一元一次 / 二次不等式”，求解后再代回原变量，得到最终解集（注意新变量的取值范围）。</h4>
+<h4 id="示例：解-2-2x-5-cdot-2-x-4-0">示例：解 (2^{2x} - 5 \cdot 2^x + 4 &gt; 0)</h4>
+<ol>
+<li class="lvl-3">
+<p>观察到(2^{2x} = (2<sup>x)</sup>2)，设(t = 2<sup>x)（因(2</sup>x &gt; 0)，故(t &gt; 0)）；</p>
+</li>
+<li class="lvl-3">
+<p>原不等式转化为：(t^2 - 5t + 4 &gt; 0)；</p>
+</li>
+<li class="lvl-3">
+<p>解关于 t 的二次不等式：因式分解得((t - 1)(t - 4) &gt; 0)，结合(t &gt; 0)，得(0 &lt; t &lt; 1)或(t &gt; 4)；</p>
+</li>
+<li class="lvl-3">
+<p>代回原变量：</p>
+<ul class="lvl-2">
+<li class="lvl-5">(0 &lt; 2^x &lt; 1 = 2<sup>0)：因(2</sup>x)单调递增，得(x &lt; 0)；</li>
+<li class="lvl-5">(2^x &gt; 4 = 2^2)：得(x &gt; 2)；</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>最终解集：(x &lt; 0)或(x &gt; 2)。</p>
+</li>
+</ol>
+<h3 id="总结：不同不等式类型的优先解法选择">总结：不同不等式类型的优先解法选择</h3>
 <table>
-<colgroup>
-<col style="width: 29%">
-<col style="width: 33%">
-<col style="width: 37%">
-</colgroup>
 <thead>
 <tr>
 <th>不等式类型</th>
@@ -531,12 +544,7 @@ t）代替不等式中 “重复出现的复杂部分”，将原不等式转化
 </tbody>
 </table>
 <p>掌握上述方法后，解不等式的核心思路是：<strong>先判断类型→选择对应方法→逐步转化为简单形式→验证解集（尤其分式、根号类需注意定义域）</strong></p>
-<details>
-<summary>
-<span style="background-color:yellow">注意事项</span>
-</summary>
-如果分子或分母恒为负数或者正数，可以只看另一个<br>分式不等式需要先移项，使得等号右边为零
-</details>
+<details>  <summary><span style="background-color:yellow">注意事项</span></summary>如果分子或分母恒为负数或者正数，可以只看另一个<br>分式不等式需要先移项，使得等号右边为零</details>
 
     </div>
 
@@ -623,29 +631,7 @@ t）代替不等式中 “重复出现的复杂部分”，将原不等式转化
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">解不等式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E6%B3%95%E9%80%9A%E7%94%A8%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.</span> <span class="nav-text">一、基本性质法（通用基础）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E6%89%80%E6%9C%89%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%B0%A4%E5%85%B6%E4%B8%80%E5%85%83%E4%B8%80%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">适用范围：所有不等式（尤其一元一次不等式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%88%A9%E7%94%A8%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%843-%E6%9D%A1%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E6%B3%A8%E6%84%8F%E5%8F%98%E5%8F%B7%E8%A7%84%E5%88%99%E5%B0%86%E4%B8%8D%E7%AD%89%E5%BC%8F%E9%80%90%E6%AD%A5%E5%8C%96%E7%AE%80%E4%B8%BA-x-a-%E6%88%96-x-a-%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">核心原理：利用不等式的3
-条基本性质（注意变号规则），将不等式逐步化简为 “(x &gt; a)” 或
-“(x &lt; a)” 的形式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3-2x---5-3x-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">示例：解 (2x - 5 &gt; 3x + 1)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E6%B3%95%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1-%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、因式分解法（一元二次 &#x2F;
-高次不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E5%8F%AF%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E7%9A%84%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%A6%82ax2-bx-c-0%E5%8F%AF%E5%88%86%E8%A7%A3%E4%B8%BA-%E4%B8%80%E6%AC%A1%E5%9B%A0%E5%BC%8F%E4%B9%98%E7%A7%AF-%E7%9A%84%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">适用范围：可因式分解的一元二次不等式（如(ax^2
-+ bx + c &gt; 0)）、可分解为 “一次因式乘积” 的高次不等式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%B0%86%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%B7%A6%E8%BE%B9%E5%88%86%E8%A7%A3%E4%B8%BA%E8%8B%A5%E5%B9%B2%E4%B8%AA-%E4%B8%80%E6%AC%A1%E5%9B%A0%E5%BC%8F-%E7%9A%84%E4%B9%98%E7%A7%AF%E9%80%9A%E8%BF%87%E5%88%86%E6%9E%90%E6%AF%8F%E4%B8%AA%E5%9B%A0%E5%BC%8F%E7%9A%84%E6%AD%A3%E8%B4%9F%E6%80%A7%E7%A1%AE%E5%AE%9A%E6%95%B4%E4%B8%AA%E4%B9%98%E7%A7%AF%E7%9A%84%E6%AD%A3%E8%B4%9F%E6%88%96%E9%9B%B6%E8%BF%9B%E8%80%8C%E5%BE%97%E5%88%B0%E8%A7%A3%E9%9B%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">核心原理：将不等式左边分解为若干个
-“一次因式”
-的乘积，通过分析每个因式的正负性，确定整个乘积的正负（或零），进而得到解集。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3-x2---3x---4-0"><span class="nav-number">1.2.3.</span> <span class="nav-text">示例：解 (x^2 - 3x - 4 &lt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A9%BF%E9%92%88%E5%BC%95%E7%BA%BF%E6%B3%95%E9%AB%98%E6%AC%A1-%E5%88%86%E5%BC%8F%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">三、穿针引线法（高次 &#x2F;
-分式不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4"><span class="nav-number">1.3.1.</span> <span class="nav-text">适用范围：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E9%80%9A%E8%BF%87-%E9%9B%B6%E7%82%B9%E5%88%86%E5%8C%BA%E9%97%B4%E7%BB%93%E5%90%88-%E4%BB%8E%E5%8F%B3%E5%88%B0%E5%B7%A6%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E5%A5%87%E7%A9%BF%E5%81%B6%E4%B8%8D%E7%A9%BF-%E7%9A%84%E8%A7%84%E5%88%99%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%88%96%E5%88%86%E5%BC%8F%E5%9C%A8%E4%B8%8D%E5%90%8C%E5%8C%BA%E9%97%B4%E7%9A%84%E6%AD%A3%E8%B4%9F%E6%80%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">核心原理：通过
-“零点分区间”，结合 “从右到左、从上到下，奇穿偶不穿”
-的规则，快速判断多项式（或分式）在不同区间的正负性。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%AD%A5%E9%AA%A4%E4%BB%A5%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.3.3.</span> <span class="nav-text">关键步骤（以高次不等式为例）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3"><span class="nav-number">1.3.4.</span> <span class="nav-text">示例：解 ( )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E9%85%8D%E6%96%B9%E6%B3%95%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">四、配方法（一元二次不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E4%B8%8D%E6%98%93%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E7%9A%84%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%A6%82x2---4x-1-0%E6%88%96%E9%9C%80%E7%BB%93%E5%90%88%E4%BA%8C%E6%AC%A1%E5%87%BD%E6%95%B0%E9%A1%B6%E7%82%B9%E5%88%86%E6%9E%90%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">适用范围：不易因式分解的一元二次不等式（如(x^2
-- 4x + 1 &gt; 0)），或需结合二次函数顶点分析的场景。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%B0%86%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E5%BC%8Fax2-bx-c%E9%80%9A%E8%BF%87-%E9%85%8D%E6%96%B9-%E8%BD%AC%E5%8C%96%E4%B8%BA-ax---h2-k-%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%88%A9%E7%94%A8-%E5%B9%B3%E6%96%B9%E6%95%B0%E9%9D%9E%E8%B4%9F-%E7%9A%84%E6%80%A7%E8%B4%A8%E7%AE%80%E5%8C%96%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">核心原理：将一元二次式(ax^2
-+ bx + c)通过 “配方” 转化为 “(a(x - h)^2 + k)” 的形式，利用 “平方数非负”
-的性质，简化不等式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3-x2---4x-1-0"><span class="nav-number">1.4.3.</span> <span class="nav-text">示例：解 (x^2 - 4x + 1 &gt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E5%9B%BE%E5%83%8F%E6%B3%95%E7%BB%93%E5%90%88%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F%E7%9B%B4%E8%A7%82"><span class="nav-number">1.5.</span> <span class="nav-text">五、图像法（结合函数图像，直观）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%88%86%E5%BC%8F%E4%B8%8D%E7%AD%89%E5%BC%8F%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E6%9C%AC%E8%B4%A8%E6%98%AF%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0y-fx%E7%9A%84%E5%9B%BE%E5%83%8F%E4%B8%8E-x-%E8%BD%B4%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB"><span class="nav-number">1.5.1.</span> <span class="nav-text">适用范围：一元二次不等式、分式不等式、高次不等式（本质是分析函数(y
-&#x3D; f(x))的图像与 x 轴的位置关系）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8D%E7%AD%89%E5%BC%8Ffx-0%E7%9A%84%E8%A7%A3%E9%9B%86%E5%AF%B9%E5%BA%94%E5%87%BD%E6%95%B0y-fx%E5%9B%BE%E5%83%8F%E5%9C%A8-x-%E8%BD%B4%E4%B8%8A%E6%96%B9%E7%9A%84-x-%E5%8F%96%E5%80%BCfx-0%E5%AF%B9%E5%BA%94%E5%9C%A8-x-%E8%BD%B4%E4%B8%8B%E6%96%B9%E7%9A%84-x-%E5%8F%96%E5%80%BC%E5%90%AB%E7%AD%89%E5%8F%B7%E5%88%99%E5%8C%85%E5%90%AB%E5%9B%BE%E5%83%8F%E4%B8%8E-x-%E8%BD%B4%E7%9A%84%E4%BA%A4%E7%82%B9"><span class="nav-number">1.5.2.</span> <span class="nav-text">核心原理：不等式(f(x)
-&gt; 0)的解集对应函数(y &#x3D; f(x))图像在 x 轴上方的 x
-取值；(f(x) &lt; 0)对应在 x 轴下方的 x
-取值（含等号则包含图像与 x 轴的交点）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3-2x2---5x---3"><span class="nav-number">1.5.3.</span> <span class="nav-text">示例：解 (2x^2 - 5x - 3 )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E6%8D%A2%E5%85%83%E6%B3%95%E5%A4%8D%E6%9D%82%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%AE%80%E5%8C%96"><span class="nav-number">1.6.</span> <span class="nav-text">六、换元法（复杂不等式简化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E5%90%AB-%E9%87%8D%E5%A4%8D%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E7%9A%84%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%A6%82-%E6%A0%B9%E5%8F%B7%E5%9E%8B---x-0%E6%8C%87%E6%95%B0%E5%9E%8B22x---5-x-4-0%E5%88%86%E5%BC%8F%E5%9E%8Bx2---3x-4"><span class="nav-number">1.6.1.</span> <span class="nav-text">适用范围：含
-“重复复杂表达式” 的不等式，如 “根号型”（( - x &lt;
-0)）、“指数型”（(2^{2x} - 5 ^x + 4 &gt; 0)）、“分式型”（(x^2 + - 3(x + )
-+ 4 )）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%94%A8%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8F%98%E9%87%8F%E5%A6%82-t%E4%BB%A3%E6%9B%BF%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%B8%AD-%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E5%A4%8D%E6%9D%82%E9%83%A8%E5%88%86%E5%B0%86%E5%8E%9F%E4%B8%8D%E7%AD%89%E5%BC%8F%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%85%B3%E4%BA%8E-t-%E7%9A%84-%E4%B8%80%E5%85%83%E4%B8%80%E6%AC%A1-%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E6%B1%82%E8%A7%A3%E5%90%8E%E5%86%8D%E4%BB%A3%E5%9B%9E%E5%8E%9F%E5%8F%98%E9%87%8F%E5%BE%97%E5%88%B0%E6%9C%80%E7%BB%88%E8%A7%A3%E9%9B%86%E6%B3%A8%E6%84%8F%E6%96%B0%E5%8F%98%E9%87%8F%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4"><span class="nav-number">1.6.2.</span> <span class="nav-text">核心原理：用一个新变量（如
-t）代替不等式中 “重复出现的复杂部分”，将原不等式转化为关于 t 的
-“一元一次 &#x2F;
-二次不等式”，求解后再代回原变量，得到最终解集（注意新变量的取值范围）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3-22x---5-x-4-0"><span class="nav-number">1.6.3.</span> <span class="nav-text">示例：解 (2^{2x} - 5 ^x + 4 &gt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8D%E5%90%8C%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BC%98%E5%85%88%E8%A7%A3%E6%B3%95%E9%80%89%E6%8B%A9"><span class="nav-number">1.7.</span> <span class="nav-text">总结：不同不等式类型的优先解法选择</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">解不等式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E6%B3%95%EF%BC%88%E9%80%9A%E7%94%A8%E5%9F%BA%E7%A1%80%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、基本性质法（通用基础）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A%E6%89%80%E6%9C%89%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%88%E5%B0%A4%E5%85%B6%E4%B8%80%E5%85%83%E4%B8%80%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">适用范围：所有不等式（尤其一元一次不等式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E5%88%A9%E7%94%A8%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%9A%843-%E6%9D%A1%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%EF%BC%88%E6%B3%A8%E6%84%8F%E5%8F%98%E5%8F%B7%E8%A7%84%E5%88%99%EF%BC%89%EF%BC%8C%E5%B0%86%E4%B8%8D%E7%AD%89%E5%BC%8F%E9%80%90%E6%AD%A5%E5%8C%96%E7%AE%80%E4%B8%BA-%E2%80%9C-x-a-%E2%80%9D-%E6%88%96-%E2%80%9C-x-a-%E2%80%9D-%E7%9A%84%E5%BD%A2%E5%BC%8F%E3%80%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">核心原理：利用不等式的3 条基本性质（注意变号规则），将不等式逐步化简为 “(x &gt; a)” 或 “(x &lt; a)” 的形式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-2x-5-3x-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">示例：解 (2x - 5 &gt; 3x + 1)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E6%B3%95%EF%BC%88%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1-%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、因式分解法（一元二次 &#x2F; 高次不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A%E5%8F%AF%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E7%9A%84%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%88%E5%A6%82-ax-2-bx-c-0-%EF%BC%89%E3%80%81%E5%8F%AF%E5%88%86%E8%A7%A3%E4%B8%BA-%E2%80%9C%E4%B8%80%E6%AC%A1%E5%9B%A0%E5%BC%8F%E4%B9%98%E7%A7%AF%E2%80%9D-%E7%9A%84%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">适用范围：可因式分解的一元二次不等式（如(ax^2 + bx + c &gt; 0)）、可分解为 “一次因式乘积” 的高次不等式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E5%B0%86%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%B7%A6%E8%BE%B9%E5%88%86%E8%A7%A3%E4%B8%BA%E8%8B%A5%E5%B9%B2%E4%B8%AA-%E2%80%9C%E4%B8%80%E6%AC%A1%E5%9B%A0%E5%BC%8F%E2%80%9D-%E7%9A%84%E4%B9%98%E7%A7%AF%EF%BC%8C%E9%80%9A%E8%BF%87%E5%88%86%E6%9E%90%E6%AF%8F%E4%B8%AA%E5%9B%A0%E5%BC%8F%E7%9A%84%E6%AD%A3%E8%B4%9F%E6%80%A7%EF%BC%8C%E7%A1%AE%E5%AE%9A%E6%95%B4%E4%B8%AA%E4%B9%98%E7%A7%AF%E7%9A%84%E6%AD%A3%E8%B4%9F%EF%BC%88%E6%88%96%E9%9B%B6%EF%BC%89%EF%BC%8C%E8%BF%9B%E8%80%8C%E5%BE%97%E5%88%B0%E8%A7%A3%E9%9B%86%E3%80%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">核心原理：将不等式左边分解为若干个 “一次因式” 的乘积，通过分析每个因式的正负性，确定整个乘积的正负（或零），进而得到解集。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-x-2-3x-4-0"><span class="nav-number">1.2.3.</span> <span class="nav-text">示例：解 (x^2 - 3x - 4 &lt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%A9%BF%E9%92%88%E5%BC%95%E7%BA%BF%E6%B3%95%EF%BC%88%E9%AB%98%E6%AC%A1-%E5%88%86%E5%BC%8F%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、穿针引线法（高次 &#x2F; 分式不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">适用范围：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E9%80%9A%E8%BF%87-%E2%80%9C%E9%9B%B6%E7%82%B9%E5%88%86%E5%8C%BA%E9%97%B4%E2%80%9D%EF%BC%8C%E7%BB%93%E5%90%88-%E2%80%9C%E4%BB%8E%E5%8F%B3%E5%88%B0%E5%B7%A6%E3%80%81%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%EF%BC%8C%E5%A5%87%E7%A9%BF%E5%81%B6%E4%B8%8D%E7%A9%BF%E2%80%9D-%E7%9A%84%E8%A7%84%E5%88%99%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD%E5%A4%9A%E9%A1%B9%E5%BC%8F%EF%BC%88%E6%88%96%E5%88%86%E5%BC%8F%EF%BC%89%E5%9C%A8%E4%B8%8D%E5%90%8C%E5%8C%BA%E9%97%B4%E7%9A%84%E6%AD%A3%E8%B4%9F%E6%80%A7%E3%80%82"><span class="nav-number">1.3.2.</span> <span class="nav-text">核心原理：通过 “零点分区间”，结合 “从右到左、从上到下，奇穿偶不穿” 的规则，快速判断多项式（或分式）在不同区间的正负性。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%AD%A5%E9%AA%A4%EF%BC%88%E4%BB%A5%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%B8%BA%E4%BE%8B%EF%BC%89%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">关键步骤（以高次不等式为例）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-frac-x-2-x-1-x-3-geq-0"><span class="nav-number">1.3.4.</span> <span class="nav-text">示例：解 (\frac{(x - 2)(x + 1)}{(x - 3)} \geq 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%85%8D%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">四、配方法（一元二次不等式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A%E4%B8%8D%E6%98%93%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%E7%9A%84%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%88%E5%A6%82-x-2-4x-1-0-%EF%BC%89%EF%BC%8C%E6%88%96%E9%9C%80%E7%BB%93%E5%90%88%E4%BA%8C%E6%AC%A1%E5%87%BD%E6%95%B0%E9%A1%B6%E7%82%B9%E5%88%86%E6%9E%90%E7%9A%84%E5%9C%BA%E6%99%AF%E3%80%82"><span class="nav-number">1.4.1.</span> <span class="nav-text">适用范围：不易因式分解的一元二次不等式（如(x^2 - 4x + 1 &gt; 0)），或需结合二次函数顶点分析的场景。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E5%B0%86%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E5%BC%8F-ax-2-bx-c-%E9%80%9A%E8%BF%87-%E2%80%9C%E9%85%8D%E6%96%B9%E2%80%9D-%E8%BD%AC%E5%8C%96%E4%B8%BA-%E2%80%9C-a-x-h-2-k-%E2%80%9D-%E7%9A%84%E5%BD%A2%E5%BC%8F%EF%BC%8C%E5%88%A9%E7%94%A8-%E2%80%9C%E5%B9%B3%E6%96%B9%E6%95%B0%E9%9D%9E%E8%B4%9F%E2%80%9D-%E7%9A%84%E6%80%A7%E8%B4%A8%EF%BC%8C%E7%AE%80%E5%8C%96%E4%B8%8D%E7%AD%89%E5%BC%8F%E3%80%82"><span class="nav-number">1.4.2.</span> <span class="nav-text">核心原理：将一元二次式(ax^2 + bx + c)通过 “配方” 转化为 “(a(x - h)^2 + k)” 的形式，利用 “平方数非负” 的性质，简化不等式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-x-2-4x-1-0"><span class="nav-number">1.4.3.</span> <span class="nav-text">示例：解 (x^2 - 4x + 1 &gt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%9B%BE%E5%83%8F%E6%B3%95%EF%BC%88%E7%BB%93%E5%90%88%E5%87%BD%E6%95%B0%E5%9B%BE%E5%83%8F%EF%BC%8C%E7%9B%B4%E8%A7%82%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">五、图像法（结合函数图像，直观）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E3%80%81%E5%88%86%E5%BC%8F%E4%B8%8D%E7%AD%89%E5%BC%8F%E3%80%81%E9%AB%98%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%88%E6%9C%AC%E8%B4%A8%E6%98%AF%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0-y-f-x-%E7%9A%84%E5%9B%BE%E5%83%8F%E4%B8%8E-x-%E8%BD%B4%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB%EF%BC%89%E3%80%82"><span class="nav-number">1.5.1.</span> <span class="nav-text">适用范围：一元二次不等式、分式不等式、高次不等式（本质是分析函数(y &#x3D; f(x))的图像与 x 轴的位置关系）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E4%B8%8D%E7%AD%89%E5%BC%8F-f-x-0-%E7%9A%84%E8%A7%A3%E9%9B%86%E5%AF%B9%E5%BA%94%E5%87%BD%E6%95%B0-y-f-x-%E5%9B%BE%E5%83%8F%E5%9C%A8-x-%E8%BD%B4%E4%B8%8A%E6%96%B9%E7%9A%84-x-%E5%8F%96%E5%80%BC%EF%BC%9B-f-x-0-%E5%AF%B9%E5%BA%94%E5%9C%A8-x-%E8%BD%B4%E4%B8%8B%E6%96%B9%E7%9A%84-x-%E5%8F%96%E5%80%BC%EF%BC%88%E5%90%AB%E7%AD%89%E5%8F%B7%E5%88%99%E5%8C%85%E5%90%AB%E5%9B%BE%E5%83%8F%E4%B8%8E-x-%E8%BD%B4%E7%9A%84%E4%BA%A4%E7%82%B9%EF%BC%89%E3%80%82"><span class="nav-number">1.5.2.</span> <span class="nav-text">核心原理：不等式(f(x) &gt; 0)的解集对应函数(y &#x3D; f(x))图像在 x 轴上方的 x 取值；(f(x) &lt; 0)对应在 x 轴下方的 x 取值（含等号则包含图像与 x 轴的交点）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-2x-2-5x-3-leq-0"><span class="nav-number">1.5.3.</span> <span class="nav-text">示例：解 (2x^2 - 5x - 3 \leq 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%8D%A2%E5%85%83%E6%B3%95%EF%BC%88%E5%A4%8D%E6%9D%82%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%AE%80%E5%8C%96%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">六、换元法（复杂不等式简化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%EF%BC%9A%E5%90%AB-%E2%80%9C%E9%87%8D%E5%A4%8D%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%9D-%E7%9A%84%E4%B8%8D%E7%AD%89%E5%BC%8F%EF%BC%8C%E5%A6%82-%E2%80%9C%E6%A0%B9%E5%8F%B7%E5%9E%8B%E2%80%9D%EF%BC%88-sqrt-x-1-x-0-%EF%BC%89%E3%80%81%E2%80%9C%E6%8C%87%E6%95%B0%E5%9E%8B%E2%80%9D%EF%BC%88-2-2x-5-cdot-2-x-4-0-%EF%BC%89%E3%80%81%E2%80%9C%E5%88%86%E5%BC%8F%E5%9E%8B%E2%80%9D%EF%BC%88-x-2-frac-1-x-2-3-x-frac-1-x-4-leq-0-%EF%BC%89%E3%80%82"><span class="nav-number">1.6.1.</span> <span class="nav-text">适用范围：含 “重复复杂表达式” 的不等式，如 “根号型”（(\sqrt{x + 1} - x &lt; 0)）、“指数型”（(2^{2x} - 5 \cdot 2^x + 4 &gt; 0)）、“分式型”（(x^2 + \frac{1}{x^2} - 3(x + \frac{1}{x}) + 4 \leq 0)）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E7%94%A8%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8F%98%E9%87%8F%EF%BC%88%E5%A6%82-t%EF%BC%89%E4%BB%A3%E6%9B%BF%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%B8%AD-%E2%80%9C%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E5%A4%8D%E6%9D%82%E9%83%A8%E5%88%86%E2%80%9D%EF%BC%8C%E5%B0%86%E5%8E%9F%E4%B8%8D%E7%AD%89%E5%BC%8F%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%85%B3%E4%BA%8E-t-%E7%9A%84-%E2%80%9C%E4%B8%80%E5%85%83%E4%B8%80%E6%AC%A1-%E4%BA%8C%E6%AC%A1%E4%B8%8D%E7%AD%89%E5%BC%8F%E2%80%9D%EF%BC%8C%E6%B1%82%E8%A7%A3%E5%90%8E%E5%86%8D%E4%BB%A3%E5%9B%9E%E5%8E%9F%E5%8F%98%E9%87%8F%EF%BC%8C%E5%BE%97%E5%88%B0%E6%9C%80%E7%BB%88%E8%A7%A3%E9%9B%86%EF%BC%88%E6%B3%A8%E6%84%8F%E6%96%B0%E5%8F%98%E9%87%8F%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4%EF%BC%89%E3%80%82"><span class="nav-number">1.6.2.</span> <span class="nav-text">核心原理：用一个新变量（如 t）代替不等式中 “重复出现的复杂部分”，将原不等式转化为关于 t 的 “一元一次 &#x2F; 二次不等式”，求解后再代回原变量，得到最终解集（注意新变量的取值范围）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%A7%A3-2-2x-5-cdot-2-x-4-0"><span class="nav-number">1.6.3.</span> <span class="nav-text">示例：解 (2^{2x} - 5 \cdot 2^x + 4 &gt; 0)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E4%B8%8D%E5%90%8C%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BC%98%E5%85%88%E8%A7%A3%E6%B3%95%E9%80%89%E6%8B%A9"><span class="nav-number">1.7.</span> <span class="nav-text">总结：不同不等式类型的优先解法选择</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -661,14 +647,14 @@ t）代替不等式中 “重复出现的复杂部分”，将原不等式转化
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -722,7 +708,7 @@ t）代替不等式中 “重复出现的复杂部分”，将原不等式转化
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

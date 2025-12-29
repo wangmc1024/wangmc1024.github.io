@@ -239,171 +239,236 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>AI生成，未完全消化…… <span id="more"></span></p>
-<h3 id="一reactor-模式反应器模式">一、Reactor 模式（反应器模式）</h3>
-<p><strong>核心思想</strong>：基于
-“事件驱动”，通过一个集中式的事件循环等待事件发生，再将事件分发给对应的处理器处理。其核心是
-“等待事件→分发处理” 的同步触发机制。</p>
-<h4 id="核心组件">1. 核心组件</h4>
-<ul>
-<li><strong>事件源（Event
-Source）</strong>：产生事件的实体，如网络套接字（socket）、文件描述符（fd）等。</li>
-<li><strong>事件多路分发器（Event
-Multiplexer）</strong>：监听事件源，当事件就绪时通知反应器（如 Linux
-的<code>epoll</code>、<code>poll</code>，Windows
-的<code>select</code>）。</li>
-<li><strong>事件处理器（EventHandler）</strong>：定义事件处理接口（如<code>handleRead()</code>、<code>handleWrite()</code>），由具体业务逻辑实现。</li>
-<li><strong>反应器（Reactor）</strong>：协调事件多路分发器和事件处理器，负责注册
-/ 注销事件、分发就绪事件。</li>
+        <p>AI生成，未完全消化……</p>
+ <span id="more"></span>
+<h3 id="一、Reactor-模式（反应器模式）">一、Reactor 模式（反应器模式）</h3>
+<p><strong>核心思想</strong>：基于 “事件驱动”，通过一个集中式的事件循环等待事件发生，再将事件分发给对应的处理器处理。其核心是 “等待事件→分发处理” 的同步触发机制。</p>
+<h4 id="1-核心组件">1. 核心组件</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>事件源（Event Source）</strong>：产生事件的实体，如网络套接字（socket）、文件描述符（fd）等。</p>
+</li>
+<li class="lvl-2">
+<p><strong>事件多路分发器（Event Multiplexer）</strong>：监听事件源，当事件就绪时通知反应器（如 Linux 的<code>epoll</code>、<code>poll</code>，Windows 的<code>select</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>事件处理器（EventHandler）</strong>：定义事件处理接口（如<code>handleRead()</code>、<code>handleWrite()</code>），由具体业务逻辑实现。</p>
+</li>
+<li class="lvl-2">
+<p><strong>反应器（Reactor）</strong>：协调事件多路分发器和事件处理器，负责注册 / 注销事件、分发就绪事件。</p>
+</li>
 </ul>
-<h4 id="工作流程">2. 工作流程</h4>
-<ol type="1">
-<li>应用程序向 Reactor 注册事件（如 “读就绪”）及对应的处理器；</li>
-<li>Reactor 通过事件多路分发器阻塞等待事件就绪；</li>
-<li>当事件就绪（如 socket 可读），事件多路分发器通知 Reactor；</li>
-<li>Reactor
-根据事件类型调用对应处理器的处理方法（如<code>handleRead()</code>）；</li>
-<li>处理器完成业务逻辑（如读取数据、解析协议）。</li>
+<h4 id="2-工作流程">2. 工作流程</h4>
+<ol>
+<li class="lvl-3">
+<p>应用程序向 Reactor 注册事件（如 “读就绪”）及对应的处理器；</p>
+</li>
+<li class="lvl-3">
+<p>Reactor 通过事件多路分发器阻塞等待事件就绪；</p>
+</li>
+<li class="lvl-3">
+<p>当事件就绪（如 socket 可读），事件多路分发器通知 Reactor；</p>
+</li>
+<li class="lvl-3">
+<p>Reactor 根据事件类型调用对应处理器的处理方法（如<code>handleRead()</code>）；</p>
+</li>
+<li class="lvl-3">
+<p>处理器完成业务逻辑（如读取数据、解析协议）。</p>
+</li>
 </ol>
-<h4 id="关键特性">3. 关键特性</h4>
-<ul>
-<li><strong>同步 I/O 模型</strong>：I/O
-操作（如<code>read()</code>/<code>write()</code>）由应用程序主动发起，Reactor
-仅负责 “通知事件就绪”，不参与实际 I/O。</li>
-<li><strong>优势</strong>：实现简单，无操作系统异步 I/O 依赖，适合 I/O
-密集型场景（如高并发网络服务器）。</li>
-<li><strong>劣势</strong>：若处理器处理耗时任务（如复杂计算），会阻塞事件循环，导致其他事件延迟处理。</li>
+<h4 id="3-关键特性">3. 关键特性</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>同步 I/O 模型</strong>：I/O 操作（如<code>read()</code>/<code>write()</code>）由应用程序主动发起，Reactor 仅负责 “通知事件就绪”，不参与实际 I/O。</p>
+</li>
+<li class="lvl-2">
+<p><strong>优势</strong>：实现简单，无操作系统异步 I/O 依赖，适合 I/O 密集型场景（如高并发网络服务器）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>劣势</strong>：若处理器处理耗时任务（如复杂计算），会阻塞事件循环，导致其他事件延迟处理。</p>
+</li>
 </ul>
-<h4 id="c-应用示例">4. C++ 应用示例</h4>
-<ul>
-<li><p>知名网络库<code>muduo</code>（陈硕实现）基于 Reactor
-模式，用<code>epoll</code>作为事件多路分发器，配合线程池处理耗时任务。</p></li>
-<li><p>代码框架示意：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 事件处理器接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EventHandler</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleRead</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleWrite</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">int</span> <span class="title">getFd</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">// 获取事件源fd</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reactor核心</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Reactor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">registerHandler</span><span class="params">(EventHandler* handler, <span class="type">int</span> events)</span></span>; <span class="comment">// 注册事件</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeHandler</span><span class="params">(EventHandler* handler)</span></span>; <span class="comment">// 注销事件</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123; <span class="comment">// 事件循环</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 调用epoll_wait等待事件就绪</span></span><br><span class="line">            <span class="type">int</span> n = <span class="built_in">epoll_wait</span>(epfd, events, MAX_EVENTS, <span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">                EventHandler* handler = (EventHandler*)events[i].data.ptr;</span><br><span class="line">                <span class="keyword">if</span> (events[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">                    handler-&gt;<span class="built_in">handleRead</span>(); <span class="comment">// 分发读事件</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (events[i].events &amp; EPOLLOUT) &#123;</span><br><span class="line">                    handler-&gt;<span class="built_in">handleWrite</span>(); <span class="comment">// 分发写事件</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<h4 id="4-C-应用示例">4. C++ 应用示例</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>知名网络库<code>muduo</code>（陈硕实现）基于 Reactor 模式，用<code>epoll</code>作为事件多路分发器，配合线程池处理耗时任务。</p>
+</li>
+<li class="lvl-2">
+<p>代码框架示意：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 事件处理器接口</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EventHandler</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleRead</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleWrite</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">int</span> <span class="title">getFd</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">// 获取事件源fd</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Reactor核心</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Reactor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">registerHandler</span><span class="params">(EventHandler* handler, <span class="type">int</span> events)</span></span>; <span class="comment">// 注册事件</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeHandler</span><span class="params">(EventHandler* handler)</span></span>; <span class="comment">// 注销事件</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123; <span class="comment">// 事件循环</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 调用epoll_wait等待事件就绪</span></span><br><span class="line">            <span class="type">int</span> n = <span class="built_in">epoll_wait</span>(epfd, events, MAX_EVENTS, <span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">                EventHandler* handler = (EventHandler*)events[i].data.ptr;</span><br><span class="line">                <span class="keyword">if</span> (events[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">                    handler-&gt;<span class="built_in">handleRead</span>(); <span class="comment">// 分发读事件</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (events[i].events &amp; EPOLLOUT) &#123;</span><br><span class="line">                    handler-&gt;<span class="built_in">handleWrite</span>(); <span class="comment">// 分发写事件</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="二proactor-模式前摄器模式">二、Proactor 模式（前摄器模式）</h3>
-<p><strong>核心思想</strong>：基于 “异步 I/O”，由操作系统完成实际 I/O
-操作后，通知应用程序处理 I/O 结果。其核心是 “发起异步
-I/O→等待完成→处理结果”。</p>
-<h4 id="核心组件-1">1. 核心组件</h4>
-<ul>
-<li><strong>异步操作处理器（Async Operation
-Processor）</strong>：由操作系统提供，负责执行异步
-I/O（如读取数据到缓冲区）。</li>
-<li><strong>完成事件队列（Completion Queue）</strong>：存储 I/O
-操作完成的结果（如数据、错误码）。</li>
-<li><strong>完成事件多路分发器</strong>：监听完成事件队列，通知 Proactor
-有 I/O 完成。</li>
-<li><strong>Proactor</strong>：协调异步操作和结果处理，将完成事件分发给处理器。</li>
-<li><strong>完成处理器（Completion Handler）</strong>：处理 I/O
-完成后的业务逻辑（如解析数据）。</li>
+<h3 id="二、Proactor-模式（前摄器模式）">二、Proactor 模式（前摄器模式）</h3>
+<p><strong>核心思想</strong>：基于 “异步 I/O”，由操作系统完成实际 I/O 操作后，通知应用程序处理 I/O 结果。其核心是 “发起异步 I/O→等待完成→处理结果”。</p>
+<h4 id="1-核心组件-2">1. 核心组件</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>异步操作处理器（Async Operation Processor）</strong>：由操作系统提供，负责执行异步 I/O（如读取数据到缓冲区）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>完成事件队列（Completion Queue）</strong>：存储 I/O 操作完成的结果（如数据、错误码）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>完成事件多路分发器</strong>：监听完成事件队列，通知 Proactor 有 I/O 完成。</p>
+</li>
+<li class="lvl-2">
+<p><strong>Proactor</strong>：协调异步操作和结果处理，将完成事件分发给处理器。</p>
+</li>
+<li class="lvl-2">
+<p><strong>完成处理器（Completion Handler）</strong>：处理 I/O 完成后的业务逻辑（如解析数据）。</p>
+</li>
 </ul>
-<h4 id="工作流程-1">2. 工作流程</h4>
-<ol type="1">
-<li>应用程序发起异步 I/O
-请求（如<code>aio_read</code>），指定缓冲区、回调处理器，并注册到
-Proactor；</li>
-<li>操作系统的异步操作处理器执行 I/O（如从 socket
-读取数据到缓冲区）；</li>
-<li>I/O 完成后，操作系统将结果放入完成事件队列；</li>
-<li>Proactor
-通过完成事件多路分发器检测到完成事件，调用对应完成处理器；</li>
-<li>处理器处理 I/O 结果（如解析缓冲区数据）。</li>
+<h4 id="2-工作流程-2">2. 工作流程</h4>
+<ol>
+<li class="lvl-3">
+<p>应用程序发起异步 I/O 请求（如<code>aio_read</code>），指定缓冲区、回调处理器，并注册到 Proactor；</p>
+</li>
+<li class="lvl-3">
+<p>操作系统的异步操作处理器执行 I/O（如从 socket 读取数据到缓冲区）；</p>
+</li>
+<li class="lvl-3">
+<p>I/O 完成后，操作系统将结果放入完成事件队列；</p>
+</li>
+<li class="lvl-3">
+<p>Proactor 通过完成事件多路分发器检测到完成事件，调用对应完成处理器；</p>
+</li>
+<li class="lvl-3">
+<p>处理器处理 I/O 结果（如解析缓冲区数据）。</p>
+</li>
 </ol>
-<h4 id="关键特性-1">3. 关键特性</h4>
-<ul>
-<li><strong>异步 I/O 模型</strong>：I/O
-操作由操作系统完成，应用程序仅处理结果，避免 I/O 阻塞。</li>
-<li><strong>优势</strong>：适合高并发场景，I/O
-效率高（无应用程序轮询或阻塞等待）。</li>
-<li><strong>劣势</strong>：依赖操作系统异步 I/O 支持（如 Windows 的
-IOCP、Linux 的<code>io_uring</code>），实现复杂，移植性差。</li>
+<h4 id="3-关键特性-2">3. 关键特性</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>异步 I/O 模型</strong>：I/O 操作由操作系统完成，应用程序仅处理结果，避免 I/O 阻塞。</p>
+</li>
+<li class="lvl-2">
+<p><strong>优势</strong>：适合高并发场景，I/O 效率高（无应用程序轮询或阻塞等待）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>劣势</strong>：依赖操作系统异步 I/O 支持（如 Windows 的 IOCP、Linux 的<code>io_uring</code>），实现复杂，移植性差。</p>
+</li>
 </ul>
-<h4 id="c-应用示例-1">4. C++ 应用示例</h4>
-<ul>
-<li><p>Linux 下可基于<code>io_uring</code>实现 Proactor，Windows 可基于
-IOCP。</p></li>
-<li><p>代码框架示意（简化io_uring用法）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 完成处理器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CompletionHandler</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleCompletion</span><span class="params">(<span class="type">ssize_t</span> res)</span> </span>= <span class="number">0</span>; <span class="comment">// 处理I/O结果</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Proactor核心</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Proactor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 发起异步读</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">asyncRead</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span>* buf, <span class="type">size_t</span> len, CompletionHandler* handler)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 提交io_uring异步读请求</span></span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">io_uring_sqe</span>* sqe = <span class="built_in">io_uring_get_sqe</span>(&amp;ring);</span><br><span class="line">        <span class="built_in">io_uring_prep_read</span>(sqe, fd, buf, len, <span class="number">0</span>);</span><br><span class="line">        sqe-&gt;user_data = (<span class="type">uint64_t</span>)handler; <span class="comment">// 绑定处理器</span></span><br><span class="line">        <span class="built_in">io_uring_submit</span>(&amp;ring);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123; <span class="comment">// 事件循环</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">io_uring_cqe</span>* cqe;</span><br><span class="line">            <span class="built_in">io_uring_wait_cqe</span>(&amp;ring, &amp;cqe); <span class="comment">// 等待I/O完成</span></span><br><span class="line">            CompletionHandler* handler = (CompletionHandler*)cqe-&gt;user_data;</span><br><span class="line">            handler-&gt;<span class="built_in">handleCompletion</span>(cqe-&gt;res); <span class="comment">// 处理结果</span></span><br><span class="line">            <span class="built_in">io_uring_cqe_seen</span>(&amp;ring, cqe);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<h4 id="4-C-应用示例-2">4. C++ 应用示例</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Linux 下可基于<code>io_uring</code>实现 Proactor，Windows 可基于 IOCP。</p>
+</li>
+<li class="lvl-2">
+<p>代码框架示意（简化io_uring用法）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 完成处理器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CompletionHandler</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">handleCompletion</span><span class="params">(<span class="type">ssize_t</span> res)</span> </span>= <span class="number">0</span>; <span class="comment">// 处理I/O结果</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Proactor核心</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Proactor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 发起异步读</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">asyncRead</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span>* buf, <span class="type">size_t</span> len, CompletionHandler* handler)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 提交io_uring异步读请求</span></span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">io_uring_sqe</span>* sqe = <span class="built_in">io_uring_get_sqe</span>(&amp;ring);</span><br><span class="line">        <span class="built_in">io_uring_prep_read</span>(sqe, fd, buf, len, <span class="number">0</span>);</span><br><span class="line">        sqe-&gt;user_data = (<span class="type">uint64_t</span>)handler; <span class="comment">// 绑定处理器</span></span><br><span class="line">        <span class="built_in">io_uring_submit</span>(&amp;ring);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123; <span class="comment">// 事件循环</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">io_uring_cqe</span>* cqe;</span><br><span class="line">            <span class="built_in">io_uring_wait_cqe</span>(&amp;ring, &amp;cqe); <span class="comment">// 等待I/O完成</span></span><br><span class="line">            CompletionHandler* handler = (CompletionHandler*)cqe-&gt;user_data;</span><br><span class="line">            handler-&gt;<span class="built_in">handleCompletion</span>(cqe-&gt;res); <span class="comment">// 处理结果</span></span><br><span class="line">            <span class="built_in">io_uring_cqe_seen</span>(&amp;ring, cqe);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h2 id="并发编程模式">并发编程模式</h2>
-<h3 id="一半同步-半异步模式half-synchalf-async">一、半同步 /
-半异步模式（Half-Sync/Half-Async）</h3>
-<p><strong>核心思想</strong>：将系统分为 “异步层” 和
-“同步层”，异步层处理 I/O
-事件，同步层处理业务逻辑，通过队列连接两层，平衡效率与复杂度。</p>
-<h4 id="三层结构">1. 三层结构</h4>
-<ul>
-<li><strong>异步层</strong>：采用 Reactor 模式处理 I/O
-事件（如接收连接、读写数据），不阻塞，高效响应事件。</li>
-<li><strong>同步层</strong>：由线程池组成，同步执行业务逻辑（如协议解析、事务处理），避免异步层被耗时任务阻塞。</li>
-<li><strong>任务队列</strong>：异步层将待处理的任务（如
-“解析请求”）放入队列，同步层线程从队列取任务执行。</li>
+<h3 id="一、半同步-半异步模式（Half-Sync-Half-Async）">一、半同步 / 半异步模式（Half-Sync/Half-Async）</h3>
+<p><strong>核心思想</strong>：将系统分为 “异步层” 和 “同步层”，异步层处理 I/O 事件，同步层处理业务逻辑，通过队列连接两层，平衡效率与复杂度。</p>
+<h4 id="1-三层结构">1. 三层结构</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>异步层</strong>：采用 Reactor 模式处理 I/O 事件（如接收连接、读写数据），不阻塞，高效响应事件。</p>
+</li>
+<li class="lvl-2">
+<p><strong>同步层</strong>：由线程池组成，同步执行业务逻辑（如协议解析、事务处理），避免异步层被耗时任务阻塞。</p>
+</li>
+<li class="lvl-2">
+<p><strong>任务队列</strong>：异步层将待处理的任务（如 “解析请求”）放入队列，同步层线程从队列取任务执行。</p>
+</li>
 </ul>
-<h4 id="工作流程-2">2. 工作流程</h4>
-<ol type="1">
-<li>异步层（Reactor）接收网络事件（如客户端请求），将请求封装为任务；</li>
-<li>异步层将任务放入任务队列；</li>
-<li>同步层的线程池从队列中取任务，同步执行业务逻辑（如数据库操作）；</li>
-<li>业务处理完成后，结果通过队列返回给异步层，由异步层发送响应。</li>
+<h4 id="2-工作流程-3">2. 工作流程</h4>
+<ol>
+<li class="lvl-3">
+<p>异步层（Reactor）接收网络事件（如客户端请求），将请求封装为任务；</p>
+</li>
+<li class="lvl-3">
+<p>异步层将任务放入任务队列；</p>
+</li>
+<li class="lvl-3">
+<p>同步层的线程池从队列中取任务，同步执行业务逻辑（如数据库操作）；</p>
+</li>
+<li class="lvl-3">
+<p>业务处理完成后，结果通过队列返回给异步层，由异步层发送响应。</p>
+</li>
 </ol>
-<h4 id="关键特性-2">3. 关键特性</h4>
-<ul>
-<li><strong>分离 I/O 与业务</strong>：异步层专注高效
-I/O，同步层专注复杂业务，降低耦合。</li>
-<li><strong>优势</strong>：兼顾高并发 I/O
-和复杂业务处理，避免单一线程阻塞整个系统。</li>
-<li><strong>劣势</strong>：任务队列可能成为瓶颈（需考虑线程安全和队列长度）；线程池管理增加复杂度。</li>
+<h4 id="3-关键特性-3">3. 关键特性</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>分离 I/O 与业务</strong>：异步层专注高效 I/O，同步层专注复杂业务，降低耦合。</p>
+</li>
+<li class="lvl-2">
+<p><strong>优势</strong>：兼顾高并发 I/O 和复杂业务处理，避免单一线程阻塞整个系统。</p>
+</li>
+<li class="lvl-2">
+<p><strong>劣势</strong>：任务队列可能成为瓶颈（需考虑线程安全和队列长度）；线程池管理增加复杂度。</p>
+</li>
 </ul>
-<h4 id="c-应用示例-2">4. C++ 应用示例</h4>
-<ul>
-<li><p>多数商业服务器框架采用此模式，如
-Nginx（异步层处理连接，同步进程处理请求）。</p></li>
-<li><p>代码框架示意：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步层（Reactor）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AsyncLayer</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">onRequest</span><span class="params">(Request* req)</span> </span>&#123;</span><br><span class="line">        taskQueue.<span class="built_in">push</span>(req); <span class="comment">// 请求放入队列</span></span><br><span class="line">        cond.<span class="built_in">notify_one</span>(); <span class="comment">// 唤醒同步层线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 同步层（线程池）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncLayer</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">SyncLayer</span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123; <span class="comment">// 4个工作线程</span></span><br><span class="line">            threads.<span class="built_in">emplace_back</span>([<span class="keyword">this</span>]() &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                    std::unique_lock&lt;std::mutex&gt; <span class="built_in">lock</span>(mtx);</span><br><span class="line">                    cond.<span class="built_in">wait</span>(lock, []&#123; <span class="keyword">return</span> !taskQueue.<span class="built_in">empty</span>(); &#125;);</span><br><span class="line">                    Request* req = taskQueue.<span class="built_in">front</span>();</span><br><span class="line">                    taskQueue.<span class="built_in">pop</span>();</span><br><span class="line">                    lock.<span class="built_in">unlock</span>();</span><br><span class="line"></span><br><span class="line">                    <span class="built_in">processRequest</span>(req); <span class="comment">// 同步处理业务</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<h4 id="4-C-应用示例-3">4. C++ 应用示例</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>多数商业服务器框架采用此模式，如 Nginx（异步层处理连接，同步进程处理请求）。</p>
+</li>
+<li class="lvl-2">
+<p>代码框架示意：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步层（Reactor）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AsyncLayer</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">onRequest</span><span class="params">(Request* req)</span> </span>&#123;</span><br><span class="line">        taskQueue.<span class="built_in">push</span>(req); <span class="comment">// 请求放入队列</span></span><br><span class="line">        cond.<span class="built_in">notify_one</span>(); <span class="comment">// 唤醒同步层线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 同步层（线程池）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncLayer</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">SyncLayer</span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123; <span class="comment">// 4个工作线程</span></span><br><span class="line">            threads.<span class="built_in">emplace_back</span>([<span class="keyword">this</span>]() &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                    std::unique_lock&lt;std::mutex&gt; <span class="built_in">lock</span>(mtx);</span><br><span class="line">                    cond.<span class="built_in">wait</span>(lock, []&#123; <span class="keyword">return</span> !taskQueue.<span class="built_in">empty</span>(); &#125;);</span><br><span class="line">                    Request* req = taskQueue.<span class="built_in">front</span>();</span><br><span class="line">                    taskQueue.<span class="built_in">pop</span>();</span><br><span class="line">                    lock.<span class="built_in">unlock</span>();</span><br><span class="line"></span><br><span class="line">                    <span class="built_in">processRequest</span>(req); <span class="comment">// 同步处理业务</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="二领导-追随者模式leaderfollower">二、领导 /
-追随者模式（Leader/Follower）</h3>
-<p><strong>核心思想</strong>：线程池中的线程轮流担任
-“领导者”，领导者负责等待事件；事件到来后，领导者指定一个 “追随者”
-成为新领导者，自己转为 “处理者” 处理事件；处理完成后回归追随者队列。</p>
-<h4 id="核心组件-2">1. 核心组件</h4>
-<ul>
-<li><strong>线程池</strong>：包含多个相同角色的线程（领导者 / 追随者 /
-处理者）。</li>
-<li><strong>事件多路分发器</strong>：仅由当前领导者持有，用于等待事件。</li>
-<li><strong>事件队列</strong>：暂存待处理事件（可选，用于批量处理）。</li>
-<li><strong>线程屏障（Barrier）</strong>：协调线程角色切换（如领导者选举）。</li>
+<h3 id="二、领导-追随者模式（Leader-Follower）">二、领导 / 追随者模式（Leader/Follower）</h3>
+<p><strong>核心思想</strong>：线程池中的线程轮流担任 “领导者”，领导者负责等待事件；事件到来后，领导者指定一个 “追随者” 成为新领导者，自己转为 “处理者” 处理事件；处理完成后回归追随者队列。</p>
+<h4 id="1-核心组件-3">1. 核心组件</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>线程池</strong>：包含多个相同角色的线程（领导者 / 追随者 / 处理者）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>事件多路分发器</strong>：仅由当前领导者持有，用于等待事件。</p>
+</li>
+<li class="lvl-2">
+<p><strong>事件队列</strong>：暂存待处理事件（可选，用于批量处理）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>线程屏障（Barrier）</strong>：协调线程角色切换（如领导者选举）。</p>
+</li>
 </ul>
-<h4 id="工作流程-3">2. 工作流程</h4>
-<ol type="1">
-<li>初始时，一个线程成为领导者，其他为追随者；</li>
-<li>领导者通过事件多路分发器等待事件；</li>
-<li>事件到来后，领导者从追随者中选一个线程作为新领导者（接管事件多路分发器）；</li>
-<li>原领导者转为处理者，处理当前事件；</li>
-<li>处理完成后，处理者变回追随者，等待下次选举。</li>
+<h4 id="2-工作流程-4">2. 工作流程</h4>
+<ol>
+<li class="lvl-3">
+<p>初始时，一个线程成为领导者，其他为追随者；</p>
+</li>
+<li class="lvl-3">
+<p>领导者通过事件多路分发器等待事件；</p>
+</li>
+<li class="lvl-3">
+<p>事件到来后，领导者从追随者中选一个线程作为新领导者（接管事件多路分发器）；</p>
+</li>
+<li class="lvl-3">
+<p>原领导者转为处理者，处理当前事件；</p>
+</li>
+<li class="lvl-3">
+<p>处理完成后，处理者变回追随者，等待下次选举。</p>
+</li>
 </ol>
-<h4 id="关键特性-3">3. 关键特性</h4>
-<ul>
-<li><strong>无锁设计</strong>：线程角色切换通过屏障协调，避免锁竞争，减少开销。</li>
-<li><strong>优势</strong>：适合短任务处理（如事件分发），线程切换效率高，适合高并发场景。</li>
-<li><strong>劣势</strong>：不适合长任务（会阻塞领导者选举，导致事件处理延迟）；实现复杂（需精细控制线程状态）。</li>
+<h4 id="3-关键特性-4">3. 关键特性</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>无锁设计</strong>：线程角色切换通过屏障协调，避免锁竞争，减少开销。</p>
+</li>
+<li class="lvl-2">
+<p><strong>优势</strong>：适合短任务处理（如事件分发），线程切换效率高，适合高并发场景。</p>
+</li>
+<li class="lvl-2">
+<p><strong>劣势</strong>：不适合长任务（会阻塞领导者选举，导致事件处理延迟）；实现复杂（需精细控制线程状态）。</p>
+</li>
 </ul>
-<h4 id="c-应用示例-3">4. C++ 应用示例</h4>
-<ul>
-<li><p>常用于高性能事件驱动框架（如 ACE
-库的<code>ACE_Leader_Follower</code>）。</p></li>
-<li><p>核心逻辑示意：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LeaderFollower</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isLeader</span>()) &#123;</span><br><span class="line">                <span class="comment">// 领导者等待事件</span></span><br><span class="line">                Event* event = eventDemux.<span class="built_in">wait</span>();</span><br><span class="line">                <span class="comment">// 选新领导者</span></span><br><span class="line">                Thread* newLeader = <span class="built_in">selectFollower</span>();</span><br><span class="line">                newLeader-&gt;<span class="built_in">becomeLeader</span>();</span><br><span class="line">                <span class="comment">// 处理事件</span></span><br><span class="line">                <span class="built_in">processEvent</span>(event);</span><br><span class="line">                <span class="comment">// 变回追随者</span></span><br><span class="line">                <span class="built_in">becomeFollower</span>();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 追随者等待成为领导者</span></span><br><span class="line">                barrier.<span class="built_in">wait</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<h4 id="4-C-应用示例-4">4. C++ 应用示例</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>常用于高性能事件驱动框架（如 ACE 库的<code>ACE_Leader_Follower</code>）。</p>
+</li>
+<li class="lvl-2">
+<p>核心逻辑示意：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LeaderFollower</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isLeader</span>()) &#123;</span><br><span class="line">                <span class="comment">// 领导者等待事件</span></span><br><span class="line">                Event* event = eventDemux.<span class="built_in">wait</span>();</span><br><span class="line">                <span class="comment">// 选新领导者</span></span><br><span class="line">                Thread* newLeader = <span class="built_in">selectFollower</span>();</span><br><span class="line">                newLeader-&gt;<span class="built_in">becomeLeader</span>();</span><br><span class="line">                <span class="comment">// 处理事件</span></span><br><span class="line">                <span class="built_in">processEvent</span>(event);</span><br><span class="line">                <span class="comment">// 变回追随者</span></span><br><span class="line">                <span class="built_in">becomeFollower</span>();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 追随者等待成为领导者</span></span><br><span class="line">                barrier.<span class="built_in">wait</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h3 id="总结与对比">总结与对比</h3>
 <table>
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 32%" />
-<col style="width: 29%" />
-<col style="width: 21%" />
-</colgroup>
 <thead>
 <tr>
 <th>模式</th>
@@ -439,11 +504,7 @@ Nginx（异步层处理连接，同步进程处理请求）。</p></li>
 </tr>
 </tbody>
 </table>
-<p>在 C++ 网络编程中，Reactor
-模式因实现简单且兼容性好，是最常用的基础模式；Proactor
-适合对性能要求极高且依赖特定 OS 的场景；半同步 /
-半异步是架构级设计，平衡了效率与业务复杂度；领导 /
-追随者则适合追求极致性能的短任务处理场景</p>
+<p>在 C++ 网络编程中，Reactor 模式因实现简单且兼容性好，是最常用的基础模式；Proactor 适合对性能要求极高且依赖特定 OS 的场景；半同步 / 半异步是架构级设计，平衡了效率与业务复杂度；领导 / 追随者则适合追求极致性能的短任务处理场景</p>
 
     </div>
 
@@ -531,9 +592,7 @@ Nginx（异步层处理连接，同步进程处理请求）。</p></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80reactor-%E6%A8%A1%E5%BC%8F%E5%8F%8D%E5%BA%94%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、Reactor 模式（反应器模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cproactor-%E6%A8%A1%E5%BC%8F%E5%89%8D%E6%91%84%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">二、Proactor 模式（前摄器模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-1"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-1"><span class="nav-number">2.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">2.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">并发编程模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%8D%8A%E5%90%8C%E6%AD%A5-%E5%8D%8A%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8Fhalf-synchalf-async"><span class="nav-number">1.</span> <span class="nav-text">一、半同步 &#x2F;
-半异步模式（Half-Sync&#x2F;Half-Async）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1. 三层结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-2"><span class="nav-number">1.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-2"><span class="nav-number">1.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E9%A2%86%E5%AF%BC-%E8%BF%BD%E9%9A%8F%E8%80%85%E6%A8%A1%E5%BC%8Fleaderfollower"><span class="nav-number">2.</span> <span class="nav-text">二、领导 &#x2F;
-追随者模式（Leader&#x2F;Follower）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-2"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-3"><span class="nav-number">2.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-3"><span class="nav-number">2.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">2.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">总结与对比</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Reactor-%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%8F%8D%E5%BA%94%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、Reactor 模式（反应器模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-C-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Proactor-%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%89%8D%E6%91%84%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、Proactor 模式（前摄器模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-2"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-2"><span class="nav-number">2.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-2"><span class="nav-number">2.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-C-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">2.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">并发编程模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8D%8A%E5%90%8C%E6%AD%A5-%E5%8D%8A%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%EF%BC%88Half-Sync-Half-Async%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、半同步 &#x2F; 半异步模式（Half-Sync&#x2F;Half-Async）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%89%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1. 三层结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-3"><span class="nav-number">1.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-3"><span class="nav-number">1.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-C-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%A2%86%E5%AF%BC-%E8%BF%BD%E9%9A%8F%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88Leader-Follower%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、领导 &#x2F; 追随者模式（Leader&#x2F;Follower）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-3"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-4"><span class="nav-number">2.2.</span> <span class="nav-text">2. 工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7-4"><span class="nav-number">2.3.</span> <span class="nav-text">3. 关键特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-C-%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">2.4.</span> <span class="nav-text">4. C++ 应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">总结与对比</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -549,14 +608,14 @@ Nginx（异步层处理连接，同步进程处理请求）。</p></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -610,7 +669,7 @@ Nginx（异步层处理连接，同步进程处理请求）。</p></li>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

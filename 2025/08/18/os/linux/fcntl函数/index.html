@@ -240,108 +240,132 @@
 
       
         <p>使用场景和相关用法</p>
-<p><span id="more"></span></p>
-<h1 id="fcntl函数">fcntl函数</h1>
-<h3 id="一fcntl-函数基础">一、<code>fcntl</code> 函数基础</h3>
+ <span id="more"></span>
+<h1>fcntl函数</h1>
+<h3 id="一、fcntl-函数基础">一、<code>fcntl</code> 函数基础</h3>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fcntl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> cmd, ... <span class="comment">/* 可选参数 arg */</span> )</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>返回值</strong>：成功时返回与 <code>cmd</code>
-相关的值（如标志、文件描述符），失败返回 <code>-1</code> 并设置
-<code>errno</code>。</li>
-<li><strong>核心作用</strong>：通过 <code>cmd</code> 命令对
-<code>fd</code>（文件描述符）执行控制操作，涵盖文件状态、I/O
-模式、锁机制等。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>返回值</strong>：成功时返回与 <code>cmd</code> 相关的值（如标志、文件描述符），失败返回 <code>-1</code> 并设置 <code>errno</code>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>核心作用</strong>：通过 <code>cmd</code> 命令对 <code>fd</code>（文件描述符）执行控制操作，涵盖文件状态、I/O 模式、锁机制等。</p>
+</li>
 </ul>
-<h3 id="二与-o_nonblock-相关的操作文件状态标志">二、与
-<code>O_NONBLOCK</code> 相关的操作（文件状态标志）</h3>
-<p><code>O_NONBLOCK</code> 是
-<strong>非阻塞模式标志</strong>，用于设置文件描述符的 I/O 行为：</p>
-<ul>
-<li><strong>阻塞模式（默认）</strong>：当执行
-<code>read</code>/<code>write</code>
-等操作时，若暂时无法完成（如无数据可读、缓冲区满），进程会进入睡眠等待。</li>
-<li><strong>非阻塞模式（<code>O_NONBLOCK</code>）</strong>：操作无法立即完成时，函数会立即返回
-<code>-1</code> 并设置 <code>errno</code> 为 <code>EAGAIN</code> 或
-<code>EWOULDBLOCK</code>，不阻塞进程。</li>
+<h3 id="二、与-O-NONBLOCK-相关的操作（文件状态标志）">二、与 <code>O_NONBLOCK</code> 相关的操作（文件状态标志）</h3>
+<p><code>O_NONBLOCK</code> 是 <strong>非阻塞模式标志</strong>，用于设置文件描述符的 I/O 行为：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>阻塞模式（默认）</strong>：当执行 <code>read</code>/<code>write</code> 等操作时，若暂时无法完成（如无数据可读、缓冲区满），进程会进入睡眠等待。</p>
+</li>
+<li class="lvl-2">
+<p><strong>非阻塞模式（<code>O_NONBLOCK</code>）</strong>：操作无法立即完成时，函数会立即返回 <code>-1</code> 并设置 <code>errno</code> 为 <code>EAGAIN</code> 或 <code>EWOULDBLOCK</code>，不阻塞进程。</p>
+</li>
 </ul>
-<h4 id="相关-cmd-命令">相关 <code>cmd</code> 命令：</h4>
-<ol type="1">
-<li><p><strong><code>F_GETFL</code></strong>：获取当前文件状态标志（包含是否设置
-<code>O_NONBLOCK</code>）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL, <span class="number">0</span>);  <span class="comment">// 0 表示无额外参数</span></span><br><span class="line"><span class="keyword">if</span> (flags == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_SETFL</code></strong>：设置文件状态标志（用于开启
-/ 关闭 <code>O_NONBLOCK</code>）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启非阻塞模式（保留原有标志，添加 O_NONBLOCK）</span></span><br><span class="line"><span class="type">int</span> new_flags = flags | O_NONBLOCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETFL, new_flags) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭非阻塞模式（清除 O_NONBLOCK 标志）</span></span><br><span class="line">new_flags = flags &amp; ~O_NONBLOCK;</span><br><span class="line">fcntl(fd, F_SETFL, new_flags);</span><br></pre></td></tr></table></figure></li>
+<h4 id="相关-cmd-命令：">相关 <code>cmd</code> 命令：</h4>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_GETFL</code></strong>：获取当前文件状态标志（包含是否设置 <code>O_NONBLOCK</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL, <span class="number">0</span>);  <span class="comment">// 0 表示无额外参数</span></span><br><span class="line"><span class="keyword">if</span> (flags == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETFL</code></strong>：设置文件状态标志（用于开启 / 关闭 <code>O_NONBLOCK</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启非阻塞模式（保留原有标志，添加 O_NONBLOCK）</span></span><br><span class="line"><span class="type">int</span> new_flags = flags | O_NONBLOCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETFL, new_flags) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETFL failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭非阻塞模式（清除 O_NONBLOCK 标志）</span></span><br><span class="line">new_flags = flags &amp; ~O_NONBLOCK;</span><br><span class="line">fcntl(fd, F_SETFL, new_flags);</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h4 id="适用场景">适用场景：</h4>
-<ul>
-<li>网络套接字（<code>socket</code>）：避免
-<code>recv</code>/<code>send</code> 阻塞导致进程卡死。</li>
-<li>管道（<code>pipe</code>）、FIFO：处理读写端不同步的情况。</li>
-<li>设备文件（如终端、串口）：实时响应 I/O 状态变化。</li>
+<h4 id="适用场景：">适用场景：</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>网络套接字（<code>socket</code>）：避免 <code>recv</code>/<code>send</code> 阻塞导致进程卡死。</p>
+</li>
+<li class="lvl-2">
+<p>管道（<code>pipe</code>）、FIFO：处理读写端不同步的情况。</p>
+</li>
+<li class="lvl-2">
+<p>设备文件（如终端、串口）：实时响应 I/O 状态变化。</p>
+</li>
 </ul>
-<h3 id="三文件锁操作进程间同步">三、文件锁操作（进程间同步）</h3>
-<p><code>fcntl</code>
-支持对文件的部分或全部内容加锁，避免多进程竞争。相关 <code>cmd</code>
-命令需配合 <code>struct flock</code> 结构体使用：</p>
+<h3 id="三、文件锁操作（进程间同步）">三、文件锁操作（进程间同步）</h3>
+<p><code>fcntl</code> 支持对文件的部分或全部内容加锁，避免多进程竞争。相关 <code>cmd</code> 命令需配合 <code>struct flock</code> 结构体使用：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">flock</span> &#123;</span></span><br><span class="line">    <span class="type">short</span> l_type;   <span class="comment">// 锁类型：F_RDLCK（读锁）、F_WRLCK（写锁）、F_UNLCK（解锁）</span></span><br><span class="line">    <span class="type">short</span> l_whence; <span class="comment">// 偏移基准：SEEK_SET（文件头）、SEEK_CUR（当前位置）、SEEK_END（文件尾）</span></span><br><span class="line">    <span class="type">off_t</span> l_start;  <span class="comment">// 锁的起始偏移量</span></span><br><span class="line">    <span class="type">off_t</span> l_len;    <span class="comment">// 锁的长度（0 表示至文件末尾）</span></span><br><span class="line">    <span class="type">pid_t</span> l_pid;    <span class="comment">// 持有锁的进程 ID（仅 F_GETLK 时有效）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><p><strong><code>F_GETLK</code></strong>：检查锁冲突（获取当前阻塞当前锁请求的锁信息）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">flock</span> <span class="title">lock</span>;</span></span><br><span class="line">lock.l_type = F_WRLCK;  <span class="comment">// 尝试获取写锁</span></span><br><span class="line">lock.l_whence = SEEK_SET;</span><br><span class="line">lock.l_start = <span class="number">0</span>;</span><br><span class="line">lock.l_len = <span class="number">0</span>;         <span class="comment">// 锁整个文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_GETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETLK failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (lock.l_type != F_UNLCK) &#123;</span><br><span class="line">    <span class="comment">// 存在冲突的锁，lock.l_pid 为持有锁的进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_SETLK</code></strong>：设置或释放锁（非阻塞模式，失败立即返回）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加写锁</span></span><br><span class="line">lock.l_type = F_WRLCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (errno == EAGAIN || errno == EACCES) &#123;</span><br><span class="line">        <span class="comment">// 锁被占用，无法获取</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解锁</span></span><br><span class="line">lock.l_type = F_UNLCK;</span><br><span class="line">fcntl(fd, F_SETLK, &amp;lock);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_SETLKW</code></strong>：设置或释放锁（阻塞模式，若无法获取则等待）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等待获取锁，直到成功或被信号中断</span></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLKW, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETLKW failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_GETLK</code></strong>：检查锁冲突（获取当前阻塞当前锁请求的锁信息）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">flock</span> <span class="title">lock</span>;</span></span><br><span class="line">lock.l_type = F_WRLCK;  <span class="comment">// 尝试获取写锁</span></span><br><span class="line">lock.l_whence = SEEK_SET;</span><br><span class="line">lock.l_start = <span class="number">0</span>;</span><br><span class="line">lock.l_len = <span class="number">0</span>;         <span class="comment">// 锁整个文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_GETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_GETLK failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (lock.l_type != F_UNLCK) &#123;</span><br><span class="line">    <span class="comment">// 存在冲突的锁，lock.l_pid 为持有锁的进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETLK</code></strong>：设置或释放锁（非阻塞模式，失败立即返回）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加写锁</span></span><br><span class="line">lock.l_type = F_WRLCK;</span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLK, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (errno == EAGAIN || errno == EACCES) &#123;</span><br><span class="line">        <span class="comment">// 锁被占用，无法获取</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解锁</span></span><br><span class="line">lock.l_type = F_UNLCK;</span><br><span class="line">fcntl(fd, F_SETLK, &amp;lock);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETLKW</code></strong>：设置或释放锁（阻塞模式，若无法获取则等待）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等待获取锁，直到成功或被信号中断</span></span><br><span class="line"><span class="keyword">if</span> (fcntl(fd, F_SETLKW, &amp;lock) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;fcntl F_SETLKW failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="四文件描述符管理">四、文件描述符管理</h3>
-<ol type="1">
-<li><p><strong><code>F_DUPFD</code></strong>：复制文件描述符（类似
-<code>dup</code>）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成一个 &gt;= min_fd 的新描述符，与原 fd 指向同一文件</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD, min_fd);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_DUPFD_CLOEXEC</code></strong>：复制描述符并设置
-<code>FD_CLOEXEC</code> 标志</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新描述符在进程执行 exec 时自动关闭，避免资源泄漏</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD_CLOEXEC, min_fd);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_GETFD</code>/<code>F_SETFD</code></strong>：获取
-/ 设置文件描述符标志（仅 <code>FD_CLOEXEC</code> 有效）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取标志</span></span><br><span class="line"><span class="type">int</span> fd_flags = fcntl(fd, F_GETFD);</span><br><span class="line"><span class="comment">// 设置 FD_CLOEXEC（exec 时关闭）</span></span><br><span class="line">fcntl(fd, F_SETFD, fd_flags | FD_CLOEXEC);</span><br></pre></td></tr></table></figure></li>
+<h3 id="四、文件描述符管理">四、文件描述符管理</h3>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_DUPFD</code></strong>：复制文件描述符（类似 <code>dup</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成一个 &gt;= min_fd 的新描述符，与原 fd 指向同一文件</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD, min_fd);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_DUPFD_CLOEXEC</code></strong>：复制描述符并设置 <code>FD_CLOEXEC</code> 标志</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新描述符在进程执行 exec 时自动关闭，避免资源泄漏</span></span><br><span class="line"><span class="type">int</span> new_fd = fcntl(old_fd, F_DUPFD_CLOEXEC, min_fd);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_GETFD</code>/<code>F_SETFD</code></strong>：获取 / 设置文件描述符标志（仅 <code>FD_CLOEXEC</code> 有效）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取标志</span></span><br><span class="line"><span class="type">int</span> fd_flags = fcntl(fd, F_GETFD);</span><br><span class="line"><span class="comment">// 设置 FD_CLOEXEC（exec 时关闭）</span></span><br><span class="line">fcntl(fd, F_SETFD, fd_flags | FD_CLOEXEC);</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="五异步-io-与信号通知">五、异步 I/O 与信号通知</h3>
-<ol type="1">
-<li><p><strong><code>F_SETOWN</code></strong>：设置接收
-<code>SIGIO</code> 和 <code>SIGURG</code> 信号的进程 / 进程组</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定进程 ID 接收信号（负数表示进程组 ID）</span></span><br><span class="line">fcntl(fd, F_SETOWN, pid);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_GETOWN</code></strong>：获取当前接收信号的进程 /
-进程组 ID</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pid_t</span> owner = fcntl(fd, F_GETOWN);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_SETFL</code> 配合
-<code>O_ASYNC</code></strong>：开启异步 I/O 通知（数据可读 / 可写时触发
-<code>SIGIO</code>）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL);</span><br><span class="line">fcntl(fd, F_SETFL, flags | O_ASYNC | O_NONBLOCK);  <span class="comment">// 同时开启异步和非阻塞</span></span><br></pre></td></tr></table></figure></li>
+<h3 id="五、异步-I-O-与信号通知">五、异步 I/O 与信号通知</h3>
+<ol>
+<li class="lvl-3">
+<p><strong><code>F_SETOWN</code></strong>：设置接收 <code>SIGIO</code> 和 <code>SIGURG</code> 信号的进程 / 进程组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定进程 ID 接收信号（负数表示进程组 ID）</span></span><br><span class="line">fcntl(fd, F_SETOWN, pid);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_GETOWN</code></strong>：获取当前接收信号的进程 / 进程组 ID</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pid_t</span> owner = fcntl(fd, F_GETOWN);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p><strong><code>F_SETFL</code> 配合 <code>O_ASYNC</code></strong>：开启异步 I/O 通知（数据可读 / 可写时触发 <code>SIGIO</code>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flags = fcntl(fd, F_GETFL);</span><br><span class="line">fcntl(fd, F_SETFL, flags | O_ASYNC | O_NONBLOCK);  <span class="comment">// 同时开启异步和非阻塞</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="六其他系统相关命令">六、其他系统相关命令</h3>
-<ul>
-<li><p><strong><code>F_GETPIPE_SZ</code>/<code>F_SETPIPE_SZ</code></strong>：获取
-/ 设置管道（pipe）的缓冲区大小</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pipe_size = fcntl(fd, F_GETPIPE_SZ);  <span class="comment">// 获取大小</span></span><br><span class="line">fcntl(fd, F_SETPIPE_SZ, new_size);        <span class="comment">// 设置大小（需权限）</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_ADD_SEALS</code>/<code>F_GET_SEALS</code></strong>：为文件添加
-/ 查询 “密封” 标志（限制修改）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加写密封（禁止后续写入）</span></span><br><span class="line">fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE);</span><br><span class="line"><span class="comment">// 查询当前密封标志</span></span><br><span class="line"><span class="type">int</span> seals = fcntl(fd, F_GET_SEALS);</span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>F_GETLEASE</code>/<code>F_SETLEASE</code></strong>：获取
-/ 设置文件租约（协调进程间文件访问）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置读租约（其他进程写操作会触发通知）</span></span><br><span class="line">fcntl(fd, F_SETLEASE, F_RDLEASE);</span><br></pre></td></tr></table></figure></li>
+<h3 id="六、其他系统相关命令">六、其他系统相关命令</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong><code>F_GETPIPE_SZ</code>/<code>F_SETPIPE_SZ</code></strong>：获取 / 设置管道（pipe）的缓冲区大小</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pipe_size = fcntl(fd, F_GETPIPE_SZ);  <span class="comment">// 获取大小</span></span><br><span class="line">fcntl(fd, F_SETPIPE_SZ, new_size);        <span class="comment">// 设置大小（需权限）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong><code>F_ADD_SEALS</code>/<code>F_GET_SEALS</code></strong>：为文件添加 / 查询 “密封” 标志（限制修改）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加写密封（禁止后续写入）</span></span><br><span class="line">fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE);</span><br><span class="line"><span class="comment">// 查询当前密封标志</span></span><br><span class="line"><span class="type">int</span> seals = fcntl(fd, F_GET_SEALS);</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p><strong><code>F_GETLEASE</code>/<code>F_SETLEASE</code></strong>：获取 / 设置文件租约（协调进程间文件访问）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置读租约（其他进程写操作会触发通知）</span></span><br><span class="line">fcntl(fd, F_SETLEASE, F_RDLEASE);</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <p><code>fcntl</code> 是一个功能强大的多用途函数，核心能力包括：</p>
-<ol type="1">
-<li>控制 I/O 模式（如 <code>O_NONBLOCK</code> 非阻塞）；</li>
-<li>进程间文件锁（读锁、写锁）；</li>
-<li>文件描述符管理（复制、标志设置）；</li>
-<li>异步 I/O 信号通知；</li>
-<li>系统特定扩展功能（管道大小、文件密封等）。</li>
+<ol>
+<li class="lvl-3">
+<p>控制 I/O 模式（如 <code>O_NONBLOCK</code> 非阻塞）；</p>
+</li>
+<li class="lvl-3">
+<p>进程间文件锁（读锁、写锁）；</p>
+</li>
+<li class="lvl-3">
+<p>文件描述符管理（复制、标志设置）；</p>
+</li>
+<li class="lvl-3">
+<p>异步 I/O 信号通知；</p>
+</li>
+<li class="lvl-3">
+<p>系统特定扩展功能（管道大小、文件密封等）。</p>
+</li>
 </ol>
-<p>使用时需注意：不同 Unix/Linux 系统对命令的支持可能有差异，建议通过
-<code>man 2 fcntl</code>
-查看本地系统的详细文档。非阻塞模式（<code>O_NONBLOCK</code>）常与 I/O
-多路复用（<code>select</code>/<code>poll</code>/<code>epoll</code>）结合，是高性能网络编程的基础。</p>
+<p>使用时需注意：不同 Unix/Linux 系统对命令的支持可能有差异，建议通过 <code>man 2 fcntl</code> 查看本地系统的详细文档。非阻塞模式（<code>O_NONBLOCK</code>）常与 I/O 多路复用（<code>select</code>/<code>poll</code>/<code>epoll</code>）结合，是高性能网络编程的基础。</p>
 
     </div>
 
@@ -429,8 +453,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fcntl%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">fcntl函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80fcntl-%E5%87%BD%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、fcntl 函数基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E4%B8%8E-o_nonblock-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、与
-O_NONBLOCK 相关的操作（文件状态标志）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3-cmd-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">相关 cmd 命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">适用场景：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%96%87%E4%BB%B6%E9%94%81%E6%93%8D%E4%BD%9C%E8%BF%9B%E7%A8%8B%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、文件锁操作（进程间同步）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%AE%A1%E7%90%86"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、文件描述符管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E5%BC%82%E6%AD%A5-io-%E4%B8%8E%E4%BF%A1%E5%8F%B7%E9%80%9A%E7%9F%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、异步 I&#x2F;O 与信号通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">六、其他系统相关命令</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">fcntl函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81fcntl-%E5%87%BD%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、fcntl 函数基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8E-O-NONBLOCK-%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%88%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、与 O_NONBLOCK 相关的操作（文件状态标志）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3-cmd-%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">相关 cmd 命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">适用场景：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E9%94%81%E6%93%8D%E4%BD%9C%EF%BC%88%E8%BF%9B%E7%A8%8B%E9%97%B4%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、文件锁操作（进程间同步）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%AE%A1%E7%90%86"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、文件描述符管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BC%82%E6%AD%A5-I-O-%E4%B8%8E%E4%BF%A1%E5%8F%B7%E9%80%9A%E7%9F%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、异步 I&#x2F;O 与信号通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">六、其他系统相关命令</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -446,14 +469,14 @@ O_NONBLOCK 相关的操作（文件状态标志）</span></a><ol class="nav-chil
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -507,7 +530,7 @@ O_NONBLOCK 相关的操作（文件状态标志）</span></a><ol class="nav-chil
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">806k</span>
+    <span title="站点总字数">852k</span>
 </div>
 
         

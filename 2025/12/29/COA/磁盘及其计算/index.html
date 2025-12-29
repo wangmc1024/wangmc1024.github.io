@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="磁盘及其计算">
+<meta property="og:url" content="https://wangmc1024.github.io/2025/12/29/COA/%E7%A3%81%E7%9B%98%E5%8F%8A%E5%85%B6%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-29T14:50:41.000Z">
+<meta property="article:modified_time" content="2025-12-29T14:56:57.437Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2025/12/29/COA/%E7%A3%81%E7%9B%98%E5%8F%8A%E5%85%B6%E8%AE%A1%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>磁盘及其计算 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2025/12/29/COA/%E7%A3%81%E7%9B%98%E5%8F%8A%E5%85%B6%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          磁盘及其计算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-29 22:50:41 / 修改时间：22:56:57" itemprop="dateCreated datePublished" datetime="2025-12-29T22:50:41+08:00">2025-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>磁盘存储及计算</h1>
+<blockquote>
+<p>核心定位：磁盘是典型的<strong>磁表面存储器</strong>，属于随机存取+顺序存取结合的设备，所有计算、概念都围绕「磁道、扇区、柱面」的物理结构展开，逻辑简单，无复杂考点。</p>
+</blockquote>
+<hr>
+<h2 id="一、磁盘存储-核心知识点（分模块，必背-考频标注-易错点，★-选择，★★-高频，★★★-大题必考）">一、磁盘存储 核心知识点（分模块，必背+考频标注+易错点，★=选择，★★=高频，★★★=大题必考）</h2>
+<h3 id="✅-模块1：磁盘的基本结构与概念（★★选择必考，填空，无计算，根基知识点，背熟不丢分）">✅ 模块1：磁盘的基本结构与概念（★★选择必考，填空，无计算，根基知识点，背熟不丢分）</h3>
+<p>所有概念<strong>成体系关联</strong>，选择题考「概念判断/对应关系」，无偏题，全部是送分点，按物理层级记忆即可。</p>
+<h4 id="1-磁盘的物理结构（必考，磁盘计算的基础，所有公式的前提）">1. 磁盘的物理结构（必考，磁盘计算的基础，所有公式的前提）</h4>
+<p>磁盘分为<strong>硬盘(HD)</strong> 和<strong>软盘</strong>，考题均以硬盘为核心，结构统一：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>盘片</strong>：磁盘的核心存储介质，一个磁盘有<strong>多个盘片</strong>，盘片有<strong>上下两个盘面</strong>（磁面），每个盘面都能存储数据；<strong>盘面数 = 盘片数 × 2</strong>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>磁道</strong>：每个盘面被划分为多个<strong>同心圆的磁道</strong>，从外到内编号（0道为最外圈），同一盘面的所有磁道<strong>周长不同，存储容量相同</strong>（必考结论）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>扇区</strong>：每个磁道被划分为多个<strong>扇区</strong>（扇段），扇区是磁盘的<strong>最小读写单位</strong>（★★★必考），<strong>每个扇区的存储容量固定</strong>（考题默认 $\boldsymbol{512Byte=0.5KB}$，必背！），扇区从0开始编号。</p>
+</li>
+<li class="lvl-2">
+<p><strong>柱面</strong>：所有盘面中，<strong>半径相同的磁道构成一个柱面</strong>，柱面数 = 单个盘面的磁道数（★★★必考）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>磁头</strong>：每个盘面对应一个独立的<strong>读/写磁头</strong>，磁头数 = 盘面数，磁头可以沿半径方向移动，用于选择磁道。</p>
+</li>
+</ul>
+<h4 id="2-核心基础结论（★★选择必考，判断题高频，记牢直接秒杀）">2. 核心基础结论（★★选择必考，判断题高频，记牢直接秒杀）</h4>
+<ol>
+<li class="lvl-3">
+<p>磁盘的最小读写单位：<strong>扇区</strong>；CPU访问磁盘的最小单位：<strong>块（一个块对应一个/多个扇区）</strong>。</p>
+</li>
+<li class="lvl-3">
+<p>同一盘面，外圈磁道的<strong>位密度低、道密度高</strong>，内圈磁道的<strong>位密度高、道密度低</strong>，所有磁道的<strong>存储容量相同</strong>。</p>
+</li>
+<li class="lvl-3">
+<p>磁盘的地址格式（★★必考，填空）：$\boldsymbol{柱面号(磁道号) + 盘面号(磁头号) + 扇区号}$，寻址顺序：先找柱面→再找盘面→最后找扇区。</p>
+</li>
+<li class="lvl-3">
+<p>磁盘的存取特性：对<strong>磁道</strong>是<strong>随机存取</strong>（磁头移动到指定磁道），对<strong>扇区</strong>是<strong>顺序存取</strong>（磁道旋转到指定扇区）。</p>
+</li>
+</ol>
+<h3 id="✅-模块2：磁盘的两类核心容量计算（★★★大题必考计算，公式固定，送分题）">✅ 模块2：磁盘的两类核心容量计算（★★★大题必考计算，公式固定，送分题）</h3>
+<p>磁盘的容量分<strong>两种</strong>，考题<strong>必考区分+计算</strong>，公式简单，无灵活考点，背熟即可，是每年的送分计算，<strong>零失误</strong>。</p>
+<blockquote>
+<p>通用约定：所有容量单位换算必背（考题必考）：$\boldsymbol{1Byte=8bit，1KB=1024B，1MB=1024KB，1GB=1024MB}$；扇区大小<strong>固定512B</strong>。</p>
+</blockquote>
+<h4 id="1-格式化容量（★★★必考，实际可用容量）">1. 格式化容量（★★★必考，实际可用容量）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁盘<strong>格式化后</strong>的实际存储容量（划分了磁道、扇区，包含校验位、间隙，是用户真正能使用的容量）。</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（唯一，必背）：<br>
+$\boldsymbol{格式化容量 = 盘面数 × 磁道数(柱面数) × 每道扇区数 × 每扇区字节数}$<br>
+✔ 变式：盘面数 = 磁头数，柱面数=磁道数 → 也可写为：容量 = 磁头数 × 柱面数 × 每道扇区数 × 512B。</p>
+</li>
+</ul>
+<h4 id="2-非格式化容量（★选择考点，物理最大容量）">2. 非格式化容量（★选择考点，物理最大容量）</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁盘<strong>未格式化</strong>的物理总容量（仅考虑磁道的位密度，无校验、无间隙，是磁盘的理论最大容量）。</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（唯一，必背）：<br>
+$\boldsymbol{非格式化容量 = 盘面数 × 磁道数 × 磁道周长 × 位密度}$<br>
+✔ 补充：位密度的单位是 <strong>bit/mm</strong>，周长单位是mm，计算结果要转换为Byte（÷8）。</p>
+</li>
+</ul>
+<h4 id="✔-核心区别（★★选择必考）">✔ 核心区别（★★选择必考）</h4>
+<p>格式化容量 <strong>&lt;</strong> 非格式化容量，考题常考「磁盘的实际可用容量是？」→ 答案是格式化容量。</p>
+<h3 id="✅-模块3：磁盘的核心性能指标-计算公式（★★★-重中之重，大题压轴必考，分值最高，全计算，无例外）">✅ 模块3：磁盘的核心性能指标+计算公式（★★★ 重中之重，大题压轴必考，分值最高，全计算，无例外）</h3>
+<blockquote>
+<p>本模块是磁盘的<strong>绝对核心考点</strong>，408每年必考<strong>磁盘性能指标计算大题（5~8分）</strong>，所有公式<strong>必须背熟、记准</strong>，无灵活考点，所有计算都是套公式；同时也是选择题的高频考点，考「指标含义/公式判断」。核心前提：磁盘的<strong>一次完整读写过程</strong>，分为3个阶段，这是所有公式的根源，<strong>必背逻辑链</strong>：<br>
+$\boldsymbol{磁盘一次读写的总时间 = 寻道时间 + 旋转延迟时间 + 数据传输时间}$<br>
+✅ 所有性能指标，都是围绕这三个时间展开，记牢这个逻辑链，公式永远不会记混！</p>
+</blockquote>
+<h4 id="【前置必背：转速的单位换算（必考易错点，90-丢分在这里）】">【前置必背：转速的单位换算（必考易错点，90%丢分在这里）】</h4>
+<p>磁盘的转速是核心已知条件，单位是 <strong>r/min（转/分钟）</strong>，必须转换为 <strong>r/ms（转/毫秒）</strong> 或 <strong>ms/r（毫秒/转）</strong>，公式唯一：<br>
+$\boldsymbol{磁盘旋转一周的时间 = 60000ms ÷ 转速(r/min)}$<br>
+例：转速为7200r/min → 旋转一周时间 = 60000/7200 ≈ 8.33ms；转速为5400r/min → 一周≈11.11ms。</p>
+<h4 id="1-寻道时间-boldsymbol-T-s">1. 寻道时间 ($\boldsymbol{T_s}$)</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：<strong>磁头从当前磁道移动到目标磁道所需的时间</strong>，是磁盘读写的<strong>主要耗时</strong>（占比最大）。</p>
+</li>
+<li class="lvl-2">
+<p>分类：</p>
+<ul class="lvl-2">
+<li class="lvl-4">平均寻道时间：磁头移动<strong>半程磁道数</strong>的平均时间，考题<strong>默认给出已知条件</strong>（如平均寻道时间为8ms），无需计算，直接用！</li>
+<li class="lvl-4">最大寻道时间：磁头从最外圈到最内圈的时间，考题极少考。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>考点：寻道时间<strong>只和磁道的距离有关</strong>，和扇区、盘面无关（★★选择必考）。</p>
+</li>
+</ul>
+<h4 id="2-旋转延迟时间-boldsymbol-T-r-【必考计算，核心易错点】">2. 旋转延迟时间 ($\boldsymbol{T_r}$) 【必考计算，核心易错点】</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁头到达目标磁道后，<strong>目标扇区旋转到磁头下方所需的时间</strong>。</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（★★★必考，唯一，背熟）：<br>
+$\boldsymbol{平均旋转延迟时间 = 磁盘旋转一周的时间 ÷ 2}$<br>
+✅ 致命易错点：<strong>必须除以2</strong>！因为扇区在磁道上均匀分布，平均旋转半周就能到达目标扇区，考题如果忘记÷2，整道题零分！<br>
+✔ 补充：最大旋转延迟时间 = 磁盘旋转一周的时间，考题极少考。</p>
+</li>
+</ul>
+<h4 id="3-数据传输时间-boldsymbol-T-t-【必考计算，核心】">3. 数据传输时间 ($\boldsymbol{T_t}$) 【必考计算，核心】</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁头找到目标扇区后，<strong>读写扇区中数据的时间</strong>。</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（★★★必考，2个通用公式，全部背熟，考题二选一）：公式①（按扇区数计算，<strong>考题99%用这个</strong>，最常用）：<br>
+$\boldsymbol{传输时间 = (读写的扇区数 ÷ 每道扇区数) × 磁盘旋转一周的时间}$<br>
+公式②（按数据量计算）：<br>
+$\boldsymbol{传输时间 = 读写的数据量 ÷ 磁盘的数据传输率}$</p>
+</li>
+<li class="lvl-2">
+<p>考点：传输时间<strong>和磁道的扇区数、旋转速度有关</strong>，和寻道无关。</p>
+</li>
+</ul>
+<h4 id="4-平均存取时间-boldsymbol-T-a-【★★★大题必考，压轴核心，公式唯一】">4. 平均存取时间 ($\boldsymbol{T_a}$) 【★★★大题必考，压轴核心，公式唯一】</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁盘完成<strong>一次平均读写操作的总时间</strong>，是磁盘的核心性能指标，<strong>必考计算</strong>！</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（唯一，必背，无例外，所有考题通用）：<br>
+$\boldsymbol{平均存取时间 = 平均寻道时间 + 平均旋转延迟时间 + 平均传输时间}$<br>
+✅ 易错点补充：<br>
+① 选择题中，若题目<strong>忽略传输时间</strong>（如只问“磁盘的平均存取时间”，无数据量），公式简化为：$\boldsymbol{T_a = 平均寻道时间 + 平均旋转延迟时间}$；<br>
+② 大题中<strong>必须加传输时间</strong>，否则丢分，这是评分的采分点！</p>
+</li>
+</ul>
+<h4 id="5-磁盘带宽-boldsymbol-B-【★★计算考点，选择-大题】">5. 磁盘带宽 ($\boldsymbol{B}$) 【★★计算考点，选择+大题】</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：磁盘<strong>单位时间内能够传输的数据量</strong>，单位是 <strong>Byte/s 或 MB/s</strong>，是磁盘的另一个核心性能指标。</p>
+</li>
+<li class="lvl-2">
+<p>核心公式（2个，等价，全部背熟）：公式①：$\boldsymbol{带宽 = 每道扇区数 × 每扇区字节数 ÷ 旋转一周的时间}$<br>
+公式②：$\boldsymbol{带宽 = 读写的数据量 ÷ 传输时间}$</p>
+</li>
+<li class="lvl-2">
+<p>考点：带宽越大，磁盘的读写速度越快，带宽和转速成正比（转速越快，带宽越大）。</p>
+</li>
+</ul>
+<h3 id="✅-模块4：磁盘调度算法（★★★-大题-选择必考，计算-概念双考点，分值高，无难点）">✅ 模块4：磁盘调度算法（★★★ 大题+选择必考，计算+概念双考点，分值高，无难点）</h3>
+<blockquote>
+<p>核心背景：磁盘的<strong>寻道时间是读写的主要耗时</strong>，磁盘调度算法的本质是：<strong>通过合理的磁头移动顺序，减少磁头的平均寻道时间，从而提升磁盘的整体性能</strong>（★★选择必考结论）。核心定义：磁盘调度算法也叫<strong>移臂调度算法</strong>，调度的是<strong>磁道（柱面）</strong>，只改变磁头的移动顺序，不影响旋转延迟和传输时间（必考）。通用已知条件（所有算法通用）：给出<strong>当前磁头所在的磁道号</strong> + <strong>待访问的磁道号序列</strong> + <strong>磁头的移动方向</strong>（向内/向外，即磁道号减小/增大），要求：① 计算<strong>磁头移动的总磁道数</strong>；② 计算<strong>平均寻道长度</strong>（总磁道数÷请求数）。核心评分点：大题中，<strong>必须写出磁头的移动顺序</strong>，再计算总磁道数，只写结果会丢步骤分！</p>
+</blockquote>
+<h4 id="必考的4种调度算法（按考频排序，★★★必考前3种，第4种低频），全部有固定解题步骤，零失误">必考的4种调度算法（按考频排序，★★★必考前3种，第4种低频），全部有固定解题步骤，零失误</h4>
+<h5 id="✔-算法1：先来先服务（FCFS）【★★选择-计算，基础】">✔ 算法1：先来先服务（FCFS）【★★选择+计算，基础】</h5>
+<ol>
+<li class="lvl-3">
+<p>规则：按<strong>请求访问磁道的先后顺序</strong>，依次为各请求服务，无优先级，公平无歧视。</p>
+</li>
+<li class="lvl-3">
+<p>解题步骤：① 按请求顺序列出磁道移动路径；② 计算相邻磁道的差值之和（总磁道数）；③ 平均寻道长度=总磁道数/请求数。</p>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>算法简单、公平</strong>；缺点是<strong>磁头移动轨迹杂乱，平均寻道时间长，效率低</strong>，不适合负载大的场景。</p>
+</li>
+<li class="lvl-3">
+<p>核心结论（选择必考）：FCFS的平均寻道长度<strong>最长</strong>，效率<strong>最低</strong>。</p>
+</li>
+</ol>
+<h5 id="✔-算法2：最短寻道时间优先（SSTF）【★★★大题必考，高频核心】">✔ 算法2：最短寻道时间优先（SSTF）【★★★大题必考，高频核心】</h5>
+<ol>
+<li class="lvl-3">
+<p>规则：每次选择<strong>与当前磁头所在磁道距离最近</strong>的请求，优先服务，贪心策略。</p>
+</li>
+<li class="lvl-3">
+<p>解题步骤（万能模板）：① 确定当前磁道号；② 找出所有未服务的请求中，与当前磁道号差值最小的磁道；③ 移动磁头到该磁道，累加移动的磁道数；④ 以新磁道为当前磁道，重复②③，直到所有请求服务完毕。</p>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>平均寻道时间短，效率高</strong>；缺点是<strong>可能出现饥饿现象</strong>（距离远的请求长期得不到服务），无全局最优。</p>
+</li>
+<li class="lvl-3">
+<p>核心结论（选择必考）：SSTF的平均寻道长度远小于FCFS，但存在饥饿。</p>
+</li>
+</ol>
+<h5 id="✔-算法3：扫描算法（SCAN）【★★★大题必考，压轴核心，也叫「电梯调度算法」】">✔ 算法3：扫描算法（SCAN）【★★★大题必考，压轴核心，也叫「电梯调度算法」】</h5>
+<ol>
+<li class="lvl-3">
+<p>规则：磁头<strong>沿一个固定方向</strong>（向内/向外）移动，依次服务所有经过的磁道请求，直到到达该方向的最末端磁道；然后<strong>反转方向</strong>，沿反方向移动，继续服务剩余请求，完全模拟电梯的运行规则（必考名称）。</p>
+</li>
+<li class="lvl-3">
+<p>解题步骤（万能模板，大题采分点）：① 确定当前磁道号+磁头移动方向；② 按移动方向，从小到大/从大到小列出所有未服务的磁道；③ 依次移动磁头，累加移动的磁道数；④ 到达末端后反转方向，处理剩余磁道，累加磁道数；⑤ 计算总磁道数和平均寻道长度。</p>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>无饥饿现象，平均寻道时间短，效率高</strong>，是实际中最常用的算法；缺点是<strong>对两端的磁道请求服务延迟稍大</strong>。</p>
+</li>
+<li class="lvl-3">
+<p>核心结论（选择必考）：SCAN算法<strong>无饥饿、全局最优</strong>，效率优于SSTF和FCFS。</p>
+</li>
+</ol>
+<h5 id="✔-算法4：循环扫描算法（C-SCAN）【★选择考点，低频计算】">✔ 算法4：循环扫描算法（C-SCAN）【★选择考点，低频计算】</h5>
+<ol>
+<li class="lvl-3">
+<p>规则：是SCAN的改进版，磁头<strong>沿一个固定方向</strong>移动，服务所有经过的磁道请求，到达末端后，<strong>直接跳回起始磁道（最外圈/最内圈）</strong>，不反转方向，继续沿原方向服务剩余请求。</p>
+</li>
+<li class="lvl-3">
+<p>特点：优点是<strong>所有磁道的请求被服务的平均延迟相同</strong>；缺点是<strong>磁头移动的总磁道数比SCAN多</strong>，效率略低。</p>
+</li>
+</ol>
+<h4 id="✔-4种算法的核心对比（★★选择必考，表格速记，一目了然）">✔ 4种算法的核心对比（★★选择必考，表格速记，一目了然）</h4>
+<table>
+<thead>
+<tr>
+<th>调度算法</th>
+<th>核心规则</th>
+<th>平均寻道长度</th>
+<th>饥饿现象</th>
+<th>效率</th>
+<th>实际应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FCFS</td>
+<td>按请求顺序</td>
+<td>最长</td>
+<td>无</td>
+<td>最低</td>
+<td>轻负载</td>
+</tr>
+<tr>
+<td>SSTF</td>
+<td>最短距离优先</td>
+<td>较短</td>
+<td>有</td>
+<td>较高</td>
+<td>中负载</td>
+</tr>
+<tr>
+<td>SCAN</td>
+<td>电梯调度，双向移动</td>
+<td>短</td>
+<td>无</td>
+<td>最高</td>
+<td>主流，重负载</td>
+</tr>
+<tr>
+<td>C-SCAN</td>
+<td>单向移动，跳回起点</td>
+<td>中等</td>
+<td>无</td>
+<td>较高</td>
+<td>对延迟敏感的场景</td>
+</tr>
+</tbody>
+</table>
+<h3 id="✅-模块5：磁盘的易错点-避坑指南（选择题-计算题高频丢分点，必看，避坑-提分）">✅ 模块5：磁盘的易错点+避坑指南（选择题/计算题高频丢分点，必看，避坑=提分）</h3>
+<p>这部分是磁盘模块<strong>唯一的丢分点</strong>，全部是细节问题，记牢这些规则，能避免99%的错误，<strong>重中之重</strong>！</p>
+<ol>
+<li class="lvl-3">
+<p><strong>扇区大小固定为512B</strong>：考题中无论是否说明，都按512B计算，无需额外推导；</p>
+</li>
+<li class="lvl-3">
+<p><strong>旋转延迟必须÷2</strong>：平均旋转延迟是半周时间，大题忘记÷2直接零分；</p>
+</li>
+<li class="lvl-3">
+<p><strong>存取时间的公式</strong>：大题必须加传输时间，选择题可忽略，看题目要求；</p>
+</li>
+<li class="lvl-3">
+<p><strong>转速的单位换算</strong>：转速是r/min，旋转一周的时间是ms，必须用60000÷转速，不是60÷转速；</p>
+</li>
+<li class="lvl-3">
+<p><strong>磁盘调度调度的是磁道</strong>：不是扇区、不是盘面，只影响寻道时间，不影响旋转和传输时间；</p>
+</li>
+<li class="lvl-3">
+<p><strong>格式化容量的公式</strong>：盘面数=磁头数，柱面数=磁道数，不要漏乘盘面数；</p>
+</li>
+<li class="lvl-3">
+<p><strong>单位换算</strong>：1KB=1024B，1MB=1024KB，不要和1000混淆（计组中所有存储单位都是2的幂次）。</p>
+</li>
+</ol>
+<hr>
+<h2 id="二、磁盘存储-三大核心题型（解题模板-例题-答案，408必考，全覆盖所有考点，无偏题）">二、磁盘存储 三大核心题型（解题模板+例题+答案，408必考，全覆盖所有考点，无偏题）</h2>
+<blockquote>
+<p>题型标注：★★★=大题必考（5~8分），★★=选择必考（2分），★=低频填空；所有题目均为408真题改编，贴合考试难度，解题步骤固定，模板化答题零失误。</p>
+</blockquote>
+<h3 id="✅-题型1：磁盘容量-性能指标计算题（★★★-大题必考，核心计算，分值最高，送分题）">✅ 题型1：磁盘容量+性能指标计算题（★★★ 大题必考，核心计算，分值最高，送分题）</h3>
+<h4 id="题型特征">题型特征</h4>
+<p>已知：磁盘的盘面数、磁道数、每道扇区数、转速、平均寻道时间，要求：① 计算格式化容量；② 计算旋转一周的时间、平均旋转延迟；③ 计算平均存取时间；④ 计算磁盘带宽。</p>
+<h4 id="万能解题步骤（死记，按顺序写，采分点齐全）">万能解题步骤（死记，按顺序写，采分点齐全）</h4>
+<ol>
+<li class="lvl-3">
+<p>计算格式化容量：套公式 → 盘面数×磁道数×每道扇区数×512B；</p>
+</li>
+<li class="lvl-3">
+<p>计算旋转一周的时间：60000ms ÷ 转速；</p>
+</li>
+<li class="lvl-3">
+<p>计算平均旋转延迟：旋转一周的时间 ÷ 2；</p>
+</li>
+<li class="lvl-3">
+<p>计算传输时间：(读写扇区数/每道扇区数) × 旋转一周的时间；</p>
+</li>
+<li class="lvl-3">
+<p>计算平均存取时间：平均寻道时间 + 平均旋转延迟 + 传输时间；</p>
+</li>
+<li class="lvl-3">
+<p>计算带宽：(每道扇区数×512B) ÷ 旋转一周的时间。</p>
+</li>
+</ol>
+<h4 id="经典例题（408真题高频，必考大题，8分）">经典例题（408真题高频，必考大题，8分）</h4>
+<p>已知某磁盘有4个盘片，转速为7200r/min，平均寻道时间为8ms，每个盘面有2048个磁道，每个磁道有128个扇区，扇区大小为512B。求：<br>
+(1) 该磁盘的格式化容量（单位：GB）；<br>
+(2) 磁盘旋转一周的时间和平均旋转延迟时间；<br>
+(3) 读取一个扇区的平均存取时间；<br>
+(4) 该磁盘的数据传输率（单位：MB/s）。</p>
+<h4 id="标准答案-步骤">标准答案+步骤</h4>
+<p>(1) 盘面数=4×2=8；格式化容量=8×2048×128×512B = 8×2048×128×0.5KB = 8×2048×64KB = 8192MB = <strong>8GB</strong>；<br>
+(2) 旋转一周时间=60000/7200 ≈8.33ms；平均旋转延迟=8.33/2≈<strong>4.17ms</strong>；<br>
+(3) 读取1个扇区，传输时间=(1/128)×8.33≈0.065ms；平均存取时间=8+4.17+0.065≈<strong>12.235ms</strong>；<br>
+(4) 传输率=(128×512B)/8.33ms = 65536B/8.33ms ≈7.87MB/s。</p>
+<h3 id="✅-题型2：磁盘调度算法计算题（★★★-大题必考，核心计算，分值高）">✅ 题型2：磁盘调度算法计算题（★★★ 大题必考，核心计算，分值高）</h3>
+<h4 id="题型特征-2">题型特征</h4>
+<p>已知：当前磁头所在磁道号、待访问的磁道序列、磁头移动方向，要求：① 写出磁头的移动顺序；② 计算磁头移动的总磁道数；③ 计算平均寻道长度。</p>
+<h4 id="万能解题步骤（核心模板，所有算法通用，大题采分点）">万能解题步骤（核心模板，所有算法通用，大题采分点）</h4>
+<ol>
+<li class="lvl-3">
+<p>明确调度算法+当前磁道+移动方向；</p>
+</li>
+<li class="lvl-3">
+<p>按算法规则，列出磁头的<strong>完整移动顺序</strong>（大题必写，采分点）；</p>
+</li>
+<li class="lvl-3">
+<p>计算相邻磁道的差值，累加得到<strong>总磁道数</strong>；</p>
+</li>
+<li class="lvl-3">
+<p>平均寻道长度 = 总磁道数 ÷ 待访问的请求数。</p>
+</li>
+</ol>
+<h4 id="经典例题（408真题改编，压轴大题，7分）">经典例题（408真题改编，压轴大题，7分）</h4>
+<p>已知磁盘的磁道号为0~199，当前磁头位于100号磁道，磁头正在向<strong>磁道号增大的方向</strong>移动，待访问的磁道序列为：55、90、150、30、180、120。分别用：① SSTF算法；② SCAN算法，计算磁头移动的总磁道数和平均寻道长度。</p>
+<h4 id="标准答案-步骤-2">标准答案+步骤</h4>
+<p>① SSTF算法（最短距离优先）：移动顺序：100 →90 →120 →150 →180 →55 →30；总磁道数：|100-90|+|90-120|+|120-150|+|150-180|+|180-55|+|55-30| =10+30+30+30+125+25 = <strong>250</strong>；平均寻道长度=250/6≈<strong>41.67</strong>。</p>
+<p>② SCAN算法（电梯调度，向外移动）：移动顺序：100 →120 →150 →180 →90 →55 →30；总磁道数：20+30+30+90+35+25 = <strong>230</strong>；平均寻道长度=230/6≈<strong>38.33</strong>。</p>
+<h3 id="✅-题型3：概念选择-简答辨析题（★★-必考，送分题，背熟即拿分）">✅ 题型3：概念选择+简答辨析题（★★ 必考，送分题，背熟即拿分）</h3>
+<h4 id="题型特征-3">题型特征</h4>
+<p>选择题：考磁盘结构、容量、性能指标、调度算法的概念判断；简答题：考磁盘调度算法的优缺点、磁盘的存取过程、性能指标的含义。</p>
+<h4 id="解题技巧">解题技巧</h4>
+<ol>
+<li class="lvl-3">
+<p>选择题：抓住核心结论（如扇区是最小读写单位、SCAN无饥饿、存取时间的公式），直接秒杀；</p>
+</li>
+<li class="lvl-3">
+<p>简答题：按采分点答题，分点罗列，条理清晰，无需展开，答出核心要点即可满分。</p>
+</li>
+</ol>
+<h4 id="经典简答真题（必考，6分）">经典简答真题（必考，6分）</h4>
+<p>简述磁盘调度算法的设计目的，并对比FCFS、SSTF、SCAN三种算法的优缺点。</p>
+<h4 id="标准答案（采分点清晰，答出要点即可满分）">标准答案（采分点清晰，答出要点即可满分）</h4>
+<ol>
+<li class="lvl-3">
+<p>设计目的：减少磁头的平均寻道时间，提升磁盘的读写效率。</p>
+</li>
+<li class="lvl-3">
+<p>优缺点：</p>
+<ul class="lvl-2">
+<li class="lvl-5">FCFS：优点是算法简单、公平；缺点是平均寻道时间长，效率低。</li>
+<li class="lvl-5">SSTF：优点是平均寻道时间短，效率高；缺点是存在饥饿现象。</li>
+<li class="lvl-5">SCAN：优点是无饥饿现象，平均寻道时间短，效率最高；缺点是两端请求的服务延迟稍大。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三、磁盘存储-全套必考题目（含答案-详细解析，适配408，分题型，全覆盖所有考点，可直接刷题）">三、磁盘存储 全套必考题目（含答案+详细解析，适配408，分题型，全覆盖所有考点，可直接刷题）</h2>
+<h3 id="✅-第一部分-概念选择题（共15题，每题2分，总计30分，选择必考，全覆盖所有概念考点）">✅ 第一部分 概念选择题（共15题，每题2分，总计30分，选择必考，全覆盖所有概念考点）</h3>
+<ol>
+<li class="lvl-3">
+<p>磁盘的最小读写单位是（）<br>
+A. 位  B. 字节  C. 扇区  D. 磁道</p>
+</li>
+<li class="lvl-3">
+<p>磁盘的地址格式依次为（）<br>
+A. 扇区号+盘面号+柱面号  B. 柱面号+盘面号+扇区号  C. 盘面号+柱面号+扇区号  D. 柱面号+扇区号+盘面号</p>
+</li>
+<li class="lvl-3">
+<p>同一盘面的不同磁道，其存储容量的关系是（）<br>
+A. 外圈磁道容量大  B. 内圈磁道容量大  C. 所有磁道容量相同  D. 不确定</p>
+</li>
+<li class="lvl-3">
+<p>磁盘的平均存取时间不包括（）<br>
+A. 寻道时间  B. 旋转延迟时间  C. 传输时间  D. 缓存访问时间</p>
+</li>
+<li class="lvl-3">
+<p>磁盘调度算法的核心目的是减少（）<br>
+A. 旋转延迟时间  B. 寻道时间  C. 传输时间  D. 存取时间</p>
+</li>
+<li class="lvl-3">
+<p>下列磁盘调度算法中，存在饥饿现象的是（）<br>
+A. FCFS  B. SSTF  C. SCAN  D. C-SCAN</p>
+</li>
+<li class="lvl-3">
+<p>磁盘的格式化容量与非格式化容量的关系是（）<br>
+A. 格式化容量更大  B. 非格式化容量更大  C. 二者相等  D. 无关</p>
+</li>
+<li class="lvl-3">
+<p>电梯调度算法指的是（）<br>
+A. FCFS  B. SSTF  C. SCAN  D. C-SCAN</p>
+</li>
+<li class="lvl-3">
+<p>已知磁盘转速为5400r/min，则旋转一周的时间约为（）<br>
+A. 8.33ms  B. 11.11ms  C. 5400ms  D. 60ms</p>
+</li>
+<li class="lvl-4">
+<p>磁盘的带宽是指（）<br>
+A. 单位时间内传输的数据量  B. 磁盘的存储容量  C. 磁盘的转速  D. 平均寻道时间</p>
+</li>
+<li class="lvl-4">
+<p>下列关于磁盘的描述，错误的是（）<br>
+A. 柱面数等于单个盘面的磁道数  B. 磁头数等于盘面数  C. 扇区是最小寻址单位  D. 磁盘是纯随机存取设备</p>
+</li>
+<li class="lvl-4">
+<p>平均旋转延迟时间的计算公式是（）<br>
+A. 转速÷2  B. 旋转一周的时间÷2  C. 60÷转速  D. 旋转一周的时间×2</p>
+</li>
+<li class="lvl-4">
+<p>磁盘的寻道时间与下列哪个因素无关（）<br>
+A. 磁道的距离  B. 磁头的移动速度  C. 扇区号  D. 磁道号</p>
+</li>
+<li class="lvl-4">
+<p>下列调度算法中，平均寻道长度最短的是（）<br>
+A. FCFS  B. SSTF  C. SCAN  D. C-SCAN</p>
+</li>
+<li class="lvl-4">
+<p>磁盘的实际可用容量是（）<br>
+A. 非格式化容量  B. 格式化容量  C. 磁道容量  D. 扇区容量</p>
+</li>
+</ol>
+<h3 id="✅-第二部分-计算题（共5题，每题7分，总计35分，大题必考计算，全覆盖容量-性能-调度）">✅ 第二部分 计算题（共5题，每题7分，总计35分，大题必考计算，全覆盖容量+性能+调度）</h3>
+<h4 id="通用约定：扇区大小固定512B，1KB-1024B，1MB-1024KB">通用约定：扇区大小固定512B，1KB=1024B，1MB=1024KB</h4>
+<ol>
+<li class="lvl-3">
+<p>已知某磁盘有2个盘片，每个盘面有1024个磁道，每个磁道有64个扇区，转速为7200r/min，平均寻道时间为6ms。求：① 格式化容量（MB）；② 平均旋转延迟时间；③ 读取一个磁道的平均存取时间。</p>
+</li>
+<li class="lvl-3">
+<p>已知磁盘转速为10000r/min，平均寻道时间为5ms，每个磁道有256个扇区。求：① 旋转一周的时间；② 读取一个扇区的传输时间；③ 读取一个扇区的平均存取时间。</p>
+</li>
+<li class="lvl-3">
+<p>已知磁盘格式化容量为16GB，有8个盘面，每个磁道有256个扇区，扇区大小512B。求：该磁盘的柱面数（磁道数）。</p>
+</li>
+<li class="lvl-3">
+<p>磁盘磁道号0~299，当前磁头在150号磁道，向磁道号减小的方向移动，请求序列：200、100、180、50、250、80。用SCAN算法计算：① 磁头移动顺序；② 总磁道数；③ 平均寻道长度。</p>
+</li>
+<li class="lvl-3">
+<p>磁盘磁道号0~199，当前磁头在80号磁道，请求序列：10、100、50、150、30、120。用SSTF算法计算：① 移动顺序；② 总磁道数；③ 平均寻道长度。</p>
+</li>
+</ol>
+<h3 id="✅-第三部分-简答大题（共3题，每题6分，总计18分，必考简答，全覆盖核心考点）">✅ 第三部分 简答大题（共3题，每题6分，总计18分，必考简答，全覆盖核心考点）</h3>
+<ol>
+<li class="lvl-3">
+<p>简述磁盘一次完整的读写过程，并说明各阶段的时间组成。</p>
+</li>
+<li class="lvl-3">
+<p>简述4种磁盘调度算法的核心规则及优缺点。</p>
+</li>
+<li class="lvl-3">
+<p>为什么说磁盘的寻道时间是影响磁盘性能的主要因素？磁盘调度算法是如何解决该问题的？</p>
+</li>
+</ol>
+<hr>
+<h2 id="全套题目-标准答案-详细解析（完整版，无删减，直接对照批改，满分参考）">全套题目 标准答案+详细解析（完整版，无删减，直接对照批改，满分参考）</h2>
+<h3 id="✅-选择题答案（每题2分）">✅ 选择题答案（每题2分）</h3>
+<p>1.C  2.B  3.C  4.D  5.B  6.B  7.B  8.C  9.B 10.A 11.D 12.B 13.C 14.C 15.B</p>
+<h3 id="✅-计算题答案（每题7分，步骤完整，采分点清晰）">✅ 计算题答案（每题7分，步骤完整，采分点清晰）</h3>
+<ol>
+<li class="lvl-3">
+<p>① 盘面数=4，格式化容量=4×1024×64×512B=4×1024×32KB=128MB；② 旋转一周=60000/7200≈8.33ms，平均旋转延迟≈4.17ms；③ 读取1个磁道，传输时间=8.33ms，存取时间=6+4.17+8.33=18.5ms。</p>
+</li>
+<li class="lvl-3">
+<p>① 旋转一周=60000/10000=6ms；② 传输时间=6/256≈0.023ms；③ 存取时间=5+3+0.023=8.023ms。</p>
+</li>
+<li class="lvl-3">
+<p>16GB=16×1024MB=16×1024×1024KB，柱面数=16×1024×1024×1024B ÷ (8×256×512B) = 16384。</p>
+</li>
+<li class="lvl-3">
+<p>SCAN算法（向内移动）：移动顺序150→100→80→50→200→180→250；总磁道数=50+20+30+150+20+70=340；平均寻道长度=340/6≈56.67。</p>
+</li>
+<li class="lvl-3">
+<p>SSTF算法：移动顺序80→100→120→50→30→10→150；总磁道数=20+20+70+20+20+140=290；平均寻道长度=290/6≈48.33。</p>
+</li>
+</ol>
+<h3 id="✅-简答大题答案（满分标准答案，采分点清晰，背熟直接默写）">✅ 简答大题答案（满分标准答案，采分点清晰，背熟直接默写）</h3>
+<ol>
+<li class="lvl-3">
+<p>磁盘读写过程：① 磁头移动到目标磁道（寻道时间）；② 目标扇区旋转到磁头下方（旋转延迟时间）；③ 读写扇区数据（传输时间）。总时间=寻道时间+旋转延迟+传输时间。</p>
+</li>
+<li class="lvl-3">
+<p>磁盘调度算法：① FCFS：按请求顺序，公平但效率低；② SSTF：最短距离优先，效率高但有饥饿；③ SCAN：电梯调度，双向移动，无饥饿、效率最高；④ C-SCAN：单向移动，跳回起点，无饥饿、延迟均匀。</p>
+</li>
+<li class="lvl-3">
+<p>原因：寻道时间占磁盘总存取时间的比例最大，是主要耗时。解决方式：通过合理的磁头移动顺序，减少磁头的平均移动距离，从而降低平均寻道时间。</p>
+</li>
+</ol>
+<hr>
+<h2 id="额外附赠：磁盘存储-必考速记公式（共9个，全部背熟，计算题秒解，无遗漏）">额外附赠：磁盘存储 必考速记公式（共9个，全部背熟，计算题秒解，无遗漏）</h2>
+<h3 id="★-容量公式">★ 容量公式</h3>
+<ol>
+<li class="lvl-3">
+<p>格式化容量 = 盘面数 × 磁道数 × 每道扇区数 × 512B</p>
+</li>
+<li class="lvl-3">
+<p>非格式化容量 = 盘面数 × 磁道数 × 周长 × 位密度 ÷8</p>
+</li>
+</ol>
+<h3 id="★-性能指标公式">★ 性能指标公式</h3>
+<ol start="3">
+<li class="lvl-3">
+<p>旋转一周的时间 = 60000ms ÷ 转速(r/min)</p>
+</li>
+<li class="lvl-3">
+<p>平均旋转延迟 = 旋转一周的时间 ÷ 2</p>
+</li>
+<li class="lvl-3">
+<p>传输时间 = (读写扇区数/每道扇区数) × 旋转一周的时间</p>
+</li>
+<li class="lvl-3">
+<p>平均存取时间 = 平均寻道时间 + 平均旋转延迟 + 传输时间</p>
+</li>
+<li class="lvl-3">
+<p>磁盘带宽 = (每道扇区数×512B) ÷ 旋转一周的时间</p>
+</li>
+</ol>
+<h3 id="★-调度算法公式">★ 调度算法公式</h3>
+<ol start="8">
+<li class="lvl-3">
+<p>总磁道数 = Σ|当前磁道 - 下一个磁道|</p>
+</li>
+<li class="lvl-3">
+<p>平均寻道长度 = 总磁道数 ÷ 待访问的请求数</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 计算机组成原理</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/29/COA/%E5%BE%AE%E6%8C%87%E4%BB%A4%E5%92%8C%E5%BE%AE%E7%A8%8B%E5%BA%8F/" rel="prev" title="微指令和微程序">
+      <i class="fa fa-chevron-left"></i> 微指令和微程序
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">磁盘存储及计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%88%E5%88%86%E6%A8%A1%E5%9D%97%EF%BC%8C%E5%BF%85%E8%83%8C-%E8%80%83%E9%A2%91%E6%A0%87%E6%B3%A8-%E6%98%93%E9%94%99%E7%82%B9%EF%BC%8C%E2%98%85-%E9%80%89%E6%8B%A9%EF%BC%8C%E2%98%85%E2%98%85-%E9%AB%98%E9%A2%91%EF%BC%8C%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、磁盘存储 核心知识点（分模块，必背+考频标注+易错点，★&#x3D;选择，★★&#x3D;高频，★★★&#x3D;大题必考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%971%EF%BC%9A%E7%A3%81%E7%9B%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E4%B8%8E%E6%A6%82%E5%BF%B5%EF%BC%88%E2%98%85%E2%98%85%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E5%A1%AB%E7%A9%BA%EF%BC%8C%E6%97%A0%E8%AE%A1%E7%AE%97%EF%BC%8C%E6%A0%B9%E5%9F%BA%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%8C%E8%83%8C%E7%86%9F%E4%B8%8D%E4%B8%A2%E5%88%86%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">✅ 模块1：磁盘的基本结构与概念（★★选择必考，填空，无计算，根基知识点，背熟不丢分）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A3%81%E7%9B%98%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84%EF%BC%88%E5%BF%85%E8%80%83%EF%BC%8C%E7%A3%81%E7%9B%98%E8%AE%A1%E7%AE%97%E7%9A%84%E5%9F%BA%E7%A1%80%EF%BC%8C%E6%89%80%E6%9C%89%E5%85%AC%E5%BC%8F%E7%9A%84%E5%89%8D%E6%8F%90%EF%BC%89"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1. 磁盘的物理结构（必考，磁盘计算的基础，所有公式的前提）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E7%BB%93%E8%AE%BA%EF%BC%88%E2%98%85%E2%98%85%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E5%88%A4%E6%96%AD%E9%A2%98%E9%AB%98%E9%A2%91%EF%BC%8C%E8%AE%B0%E7%89%A2%E7%9B%B4%E6%8E%A5%E7%A7%92%E6%9D%80%EF%BC%89"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2. 核心基础结论（★★选择必考，判断题高频，记牢直接秒杀）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%972%EF%BC%9A%E7%A3%81%E7%9B%98%E7%9A%84%E4%B8%A4%E7%B1%BB%E6%A0%B8%E5%BF%83%E5%AE%B9%E9%87%8F%E8%AE%A1%E7%AE%97%EF%BC%88%E2%98%85%E2%98%85%E2%98%85%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E5%85%AC%E5%BC%8F%E5%9B%BA%E5%AE%9A%EF%BC%8C%E9%80%81%E5%88%86%E9%A2%98%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">✅ 模块2：磁盘的两类核心容量计算（★★★大题必考计算，公式固定，送分题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AE%B9%E9%87%8F%EF%BC%88%E2%98%85%E2%98%85%E2%98%85%E5%BF%85%E8%80%83%EF%BC%8C%E5%AE%9E%E9%99%85%E5%8F%AF%E7%94%A8%E5%AE%B9%E9%87%8F%EF%BC%89"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 格式化容量（★★★必考，实际可用容量）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%9D%9E%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AE%B9%E9%87%8F%EF%BC%88%E2%98%85%E9%80%89%E6%8B%A9%E8%80%83%E7%82%B9%EF%BC%8C%E7%89%A9%E7%90%86%E6%9C%80%E5%A4%A7%E5%AE%B9%E9%87%8F%EF%BC%89"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 非格式化容量（★选择考点，物理最大容量）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%94-%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%EF%BC%88%E2%98%85%E2%98%85%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">✔ 核心区别（★★选择必考）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%973%EF%BC%9A%E7%A3%81%E7%9B%98%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87-%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E9%87%8D%E4%B8%AD%E4%B9%8B%E9%87%8D%EF%BC%8C%E5%A4%A7%E9%A2%98%E5%8E%8B%E8%BD%B4%E5%BF%85%E8%80%83%EF%BC%8C%E5%88%86%E5%80%BC%E6%9C%80%E9%AB%98%EF%BC%8C%E5%85%A8%E8%AE%A1%E7%AE%97%EF%BC%8C%E6%97%A0%E4%BE%8B%E5%A4%96%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">✅ 模块3：磁盘的核心性能指标+计算公式（★★★ 重中之重，大题压轴必考，分值最高，全计算，无例外）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%90%E5%89%8D%E7%BD%AE%E5%BF%85%E8%83%8C%EF%BC%9A%E8%BD%AC%E9%80%9F%E7%9A%84%E5%8D%95%E4%BD%8D%E6%8D%A2%E7%AE%97%EF%BC%88%E5%BF%85%E8%80%83%E6%98%93%E9%94%99%E7%82%B9%EF%BC%8C90-%E4%B8%A2%E5%88%86%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%89%E3%80%91"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">【前置必背：转速的单位换算（必考易错点，90%丢分在这里）】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AF%BB%E9%81%93%E6%97%B6%E9%97%B4-boldsymbol-T-s"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">1. 寻道时间 ($\boldsymbol{T_s}$)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%97%8B%E8%BD%AC%E5%BB%B6%E8%BF%9F%E6%97%B6%E9%97%B4-boldsymbol-T-r-%E3%80%90%E5%BF%85%E8%80%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E6%A0%B8%E5%BF%83%E6%98%93%E9%94%99%E7%82%B9%E3%80%91"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">2. 旋转延迟时间 ($\boldsymbol{T_r}$) 【必考计算，核心易错点】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E6%97%B6%E9%97%B4-boldsymbol-T-t-%E3%80%90%E5%BF%85%E8%80%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E6%A0%B8%E5%BF%83%E3%80%91"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">3. 数据传输时间 ($\boldsymbol{T_t}$) 【必考计算，核心】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%B9%B3%E5%9D%87%E5%AD%98%E5%8F%96%E6%97%B6%E9%97%B4-boldsymbol-T-a-%E3%80%90%E2%98%85%E2%98%85%E2%98%85%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E5%8E%8B%E8%BD%B4%E6%A0%B8%E5%BF%83%EF%BC%8C%E5%85%AC%E5%BC%8F%E5%94%AF%E4%B8%80%E3%80%91"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">4. 平均存取时间 ($\boldsymbol{T_a}$) 【★★★大题必考，压轴核心，公式唯一】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%A3%81%E7%9B%98%E5%B8%A6%E5%AE%BD-boldsymbol-B-%E3%80%90%E2%98%85%E2%98%85%E8%AE%A1%E7%AE%97%E8%80%83%E7%82%B9%EF%BC%8C%E9%80%89%E6%8B%A9-%E5%A4%A7%E9%A2%98%E3%80%91"><span class="nav-number">1.1.3.6.</span> <span class="nav-text">5. 磁盘带宽 ($\boldsymbol{B}$) 【★★计算考点，选择+大题】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%974%EF%BC%9A%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98-%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E8%AE%A1%E7%AE%97-%E6%A6%82%E5%BF%B5%E5%8F%8C%E8%80%83%E7%82%B9%EF%BC%8C%E5%88%86%E5%80%BC%E9%AB%98%EF%BC%8C%E6%97%A0%E9%9A%BE%E7%82%B9%EF%BC%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">✅ 模块4：磁盘调度算法（★★★ 大题+选择必考，计算+概念双考点，分值高，无难点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%85%E8%80%83%E7%9A%844%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E6%8C%89%E8%80%83%E9%A2%91%E6%8E%92%E5%BA%8F%EF%BC%8C%E2%98%85%E2%98%85%E2%98%85%E5%BF%85%E8%80%83%E5%89%8D3%E7%A7%8D%EF%BC%8C%E7%AC%AC4%E7%A7%8D%E4%BD%8E%E9%A2%91%EF%BC%89%EF%BC%8C%E5%85%A8%E9%83%A8%E6%9C%89%E5%9B%BA%E5%AE%9A%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%EF%BC%8C%E9%9B%B6%E5%A4%B1%E8%AF%AF"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">必考的4种调度算法（按考频排序，★★★必考前3种，第4种低频），全部有固定解题步骤，零失误</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E7%AE%97%E6%B3%951%EF%BC%9A%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS%EF%BC%89%E3%80%90%E2%98%85%E2%98%85%E9%80%89%E6%8B%A9-%E8%AE%A1%E7%AE%97%EF%BC%8C%E5%9F%BA%E7%A1%80%E3%80%91"><span class="nav-number">1.1.4.1.1.</span> <span class="nav-text">✔ 算法1：先来先服务（FCFS）【★★选择+计算，基础】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E7%AE%97%E6%B3%952%EF%BC%9A%E6%9C%80%E7%9F%AD%E5%AF%BB%E9%81%93%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%EF%BC%88SSTF%EF%BC%89%E3%80%90%E2%98%85%E2%98%85%E2%98%85%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E9%AB%98%E9%A2%91%E6%A0%B8%E5%BF%83%E3%80%91"><span class="nav-number">1.1.4.1.2.</span> <span class="nav-text">✔ 算法2：最短寻道时间优先（SSTF）【★★★大题必考，高频核心】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E7%AE%97%E6%B3%953%EF%BC%9A%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95%EF%BC%88SCAN%EF%BC%89%E3%80%90%E2%98%85%E2%98%85%E2%98%85%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E5%8E%8B%E8%BD%B4%E6%A0%B8%E5%BF%83%EF%BC%8C%E4%B9%9F%E5%8F%AB%E3%80%8C%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E3%80%8D%E3%80%91"><span class="nav-number">1.1.4.1.3.</span> <span class="nav-text">✔ 算法3：扫描算法（SCAN）【★★★大题必考，压轴核心，也叫「电梯调度算法」】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9C%94-%E7%AE%97%E6%B3%954%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95%EF%BC%88C-SCAN%EF%BC%89%E3%80%90%E2%98%85%E9%80%89%E6%8B%A9%E8%80%83%E7%82%B9%EF%BC%8C%E4%BD%8E%E9%A2%91%E8%AE%A1%E7%AE%97%E3%80%91"><span class="nav-number">1.1.4.1.4.</span> <span class="nav-text">✔ 算法4：循环扫描算法（C-SCAN）【★选择考点，低频计算】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%94-4%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E6%A0%B8%E5%BF%83%E5%AF%B9%E6%AF%94%EF%BC%88%E2%98%85%E2%98%85%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E8%A1%A8%E6%A0%BC%E9%80%9F%E8%AE%B0%EF%BC%8C%E4%B8%80%E7%9B%AE%E4%BA%86%E7%84%B6%EF%BC%89"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">✔ 4种算法的核心对比（★★选择必考，表格速记，一目了然）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E6%A8%A1%E5%9D%975%EF%BC%9A%E7%A3%81%E7%9B%98%E7%9A%84%E6%98%93%E9%94%99%E7%82%B9-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%EF%BC%88%E9%80%89%E6%8B%A9%E9%A2%98-%E8%AE%A1%E7%AE%97%E9%A2%98%E9%AB%98%E9%A2%91%E4%B8%A2%E5%88%86%E7%82%B9%EF%BC%8C%E5%BF%85%E7%9C%8B%EF%BC%8C%E9%81%BF%E5%9D%91-%E6%8F%90%E5%88%86%EF%BC%89"><span class="nav-number">1.1.5.</span> <span class="nav-text">✅ 模块5：磁盘的易错点+避坑指南（选择题&#x2F;计算题高频丢分点，必看，避坑&#x3D;提分）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8-%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E9%A2%98%E5%9E%8B%EF%BC%88%E8%A7%A3%E9%A2%98%E6%A8%A1%E6%9D%BF-%E4%BE%8B%E9%A2%98-%E7%AD%94%E6%A1%88%EF%BC%8C408%E5%BF%85%E8%80%83%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E6%89%80%E6%9C%89%E8%80%83%E7%82%B9%EF%BC%8C%E6%97%A0%E5%81%8F%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、磁盘存储 三大核心题型（解题模板+例题+答案，408必考，全覆盖所有考点，无偏题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B1%EF%BC%9A%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AE%A1%E7%AE%97%E9%A2%98%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E6%A0%B8%E5%BF%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E5%88%86%E5%80%BC%E6%9C%80%E9%AB%98%EF%BC%8C%E9%80%81%E5%88%86%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">✅ 题型1：磁盘容量+性能指标计算题（★★★ 大题必考，核心计算，分值最高，送分题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">题型特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%87%E8%83%BD%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%AD%BB%E8%AE%B0%EF%BC%8C%E6%8C%89%E9%A1%BA%E5%BA%8F%E5%86%99%EF%BC%8C%E9%87%87%E5%88%86%E7%82%B9%E9%BD%90%E5%85%A8%EF%BC%89"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">万能解题步骤（死记，按顺序写，采分点齐全）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98%EF%BC%88408%E7%9C%9F%E9%A2%98%E9%AB%98%E9%A2%91%EF%BC%8C%E5%BF%85%E8%80%83%E5%A4%A7%E9%A2%98%EF%BC%8C8%E5%88%86%EF%BC%89"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">经典例题（408真题高频，必考大题，8分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%AD%94%E6%A1%88-%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">标准答案+步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B2%EF%BC%9A%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E8%AE%A1%E7%AE%97%E9%A2%98%EF%BC%88%E2%98%85%E2%98%85%E2%98%85-%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%EF%BC%8C%E6%A0%B8%E5%BF%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E5%88%86%E5%80%BC%E9%AB%98%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">✅ 题型2：磁盘调度算法计算题（★★★ 大题必考，核心计算，分值高）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81-2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题型特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%87%E8%83%BD%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%A0%B8%E5%BF%83%E6%A8%A1%E6%9D%BF%EF%BC%8C%E6%89%80%E6%9C%89%E7%AE%97%E6%B3%95%E9%80%9A%E7%94%A8%EF%BC%8C%E5%A4%A7%E9%A2%98%E9%87%87%E5%88%86%E7%82%B9%EF%BC%89"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">万能解题步骤（核心模板，所有算法通用，大题采分点）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98%EF%BC%88408%E7%9C%9F%E9%A2%98%E6%94%B9%E7%BC%96%EF%BC%8C%E5%8E%8B%E8%BD%B4%E5%A4%A7%E9%A2%98%EF%BC%8C7%E5%88%86%EF%BC%89"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">经典例题（408真题改编，压轴大题，7分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%AD%94%E6%A1%88-%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">标准答案+步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%A2%98%E5%9E%8B3%EF%BC%9A%E6%A6%82%E5%BF%B5%E9%80%89%E6%8B%A9-%E7%AE%80%E7%AD%94%E8%BE%A8%E6%9E%90%E9%A2%98%EF%BC%88%E2%98%85%E2%98%85-%E5%BF%85%E8%80%83%EF%BC%8C%E9%80%81%E5%88%86%E9%A2%98%EF%BC%8C%E8%83%8C%E7%86%9F%E5%8D%B3%E6%8B%BF%E5%88%86%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">✅ 题型3：概念选择+简答辨析题（★★ 必考，送分题，背熟即拿分）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E7%89%B9%E5%BE%81-3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">题型特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">解题技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%AE%80%E7%AD%94%E7%9C%9F%E9%A2%98%EF%BC%88%E5%BF%85%E8%80%83%EF%BC%8C6%E5%88%86%EF%BC%89"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">经典简答真题（必考，6分）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%AD%94%E6%A1%88%EF%BC%88%E9%87%87%E5%88%86%E7%82%B9%E6%B8%85%E6%99%B0%EF%BC%8C%E7%AD%94%E5%87%BA%E8%A6%81%E7%82%B9%E5%8D%B3%E5%8F%AF%E6%BB%A1%E5%88%86%EF%BC%89"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">标准答案（采分点清晰，答出要点即可满分）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8-%E5%85%A8%E5%A5%97%E5%BF%85%E8%80%83%E9%A2%98%E7%9B%AE%EF%BC%88%E5%90%AB%E7%AD%94%E6%A1%88-%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E9%80%82%E9%85%8D408%EF%BC%8C%E5%88%86%E9%A2%98%E5%9E%8B%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E6%89%80%E6%9C%89%E8%80%83%E7%82%B9%EF%BC%8C%E5%8F%AF%E7%9B%B4%E6%8E%A5%E5%88%B7%E9%A2%98%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、磁盘存储 全套必考题目（含答案+详细解析，适配408，分题型，全覆盖所有考点，可直接刷题）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-%E6%A6%82%E5%BF%B5%E9%80%89%E6%8B%A9%E9%A2%98%EF%BC%88%E5%85%B115%E9%A2%98%EF%BC%8C%E6%AF%8F%E9%A2%982%E5%88%86%EF%BC%8C%E6%80%BB%E8%AE%A130%E5%88%86%EF%BC%8C%E9%80%89%E6%8B%A9%E5%BF%85%E8%80%83%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E6%89%80%E6%9C%89%E6%A6%82%E5%BF%B5%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">✅ 第一部分 概念选择题（共15题，每题2分，总计30分，选择必考，全覆盖所有概念考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E8%AE%A1%E7%AE%97%E9%A2%98%EF%BC%88%E5%85%B15%E9%A2%98%EF%BC%8C%E6%AF%8F%E9%A2%987%E5%88%86%EF%BC%8C%E6%80%BB%E8%AE%A135%E5%88%86%EF%BC%8C%E5%A4%A7%E9%A2%98%E5%BF%85%E8%80%83%E8%AE%A1%E7%AE%97%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E5%AE%B9%E9%87%8F-%E6%80%A7%E8%83%BD-%E8%B0%83%E5%BA%A6%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">✅ 第二部分 计算题（共5题，每题7分，总计35分，大题必考计算，全覆盖容量+性能+调度）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A%EF%BC%9A%E6%89%87%E5%8C%BA%E5%A4%A7%E5%B0%8F%E5%9B%BA%E5%AE%9A512B%EF%BC%8C1KB-1024B%EF%BC%8C1MB-1024KB"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">通用约定：扇区大小固定512B，1KB&#x3D;1024B，1MB&#x3D;1024KB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86-%E7%AE%80%E7%AD%94%E5%A4%A7%E9%A2%98%EF%BC%88%E5%85%B13%E9%A2%98%EF%BC%8C%E6%AF%8F%E9%A2%986%E5%88%86%EF%BC%8C%E6%80%BB%E8%AE%A118%E5%88%86%EF%BC%8C%E5%BF%85%E8%80%83%E7%AE%80%E7%AD%94%EF%BC%8C%E5%85%A8%E8%A6%86%E7%9B%96%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">✅ 第三部分 简答大题（共3题，每题6分，总计18分，必考简答，全覆盖核心考点）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%A5%97%E9%A2%98%E7%9B%AE-%E6%A0%87%E5%87%86%E7%AD%94%E6%A1%88-%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%88%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%8C%E6%97%A0%E5%88%A0%E5%87%8F%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%AF%B9%E7%85%A7%E6%89%B9%E6%94%B9%EF%BC%8C%E6%BB%A1%E5%88%86%E5%8F%82%E8%80%83%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">全套题目 标准答案+详细解析（完整版，无删减，直接对照批改，满分参考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E9%80%89%E6%8B%A9%E9%A2%98%E7%AD%94%E6%A1%88%EF%BC%88%E6%AF%8F%E9%A2%982%E5%88%86%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">✅ 选择题答案（每题2分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E8%AE%A1%E7%AE%97%E9%A2%98%E7%AD%94%E6%A1%88%EF%BC%88%E6%AF%8F%E9%A2%987%E5%88%86%EF%BC%8C%E6%AD%A5%E9%AA%A4%E5%AE%8C%E6%95%B4%EF%BC%8C%E9%87%87%E5%88%86%E7%82%B9%E6%B8%85%E6%99%B0%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">✅ 计算题答案（每题7分，步骤完整，采分点清晰）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E7%AE%80%E7%AD%94%E5%A4%A7%E9%A2%98%E7%AD%94%E6%A1%88%EF%BC%88%E6%BB%A1%E5%88%86%E6%A0%87%E5%87%86%E7%AD%94%E6%A1%88%EF%BC%8C%E9%87%87%E5%88%86%E7%82%B9%E6%B8%85%E6%99%B0%EF%BC%8C%E8%83%8C%E7%86%9F%E7%9B%B4%E6%8E%A5%E9%BB%98%E5%86%99%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">✅ 简答大题答案（满分标准答案，采分点清晰，背熟直接默写）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E9%99%84%E8%B5%A0%EF%BC%9A%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8-%E5%BF%85%E8%80%83%E9%80%9F%E8%AE%B0%E5%85%AC%E5%BC%8F%EF%BC%88%E5%85%B19%E4%B8%AA%EF%BC%8C%E5%85%A8%E9%83%A8%E8%83%8C%E7%86%9F%EF%BC%8C%E8%AE%A1%E7%AE%97%E9%A2%98%E7%A7%92%E8%A7%A3%EF%BC%8C%E6%97%A0%E9%81%97%E6%BC%8F%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">额外附赠：磁盘存储 必考速记公式（共9个，全部背熟，计算题秒解，无遗漏）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%98%85-%E5%AE%B9%E9%87%8F%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">★ 容量公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%98%85-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">★ 性能指标公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%98%85-%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">★ 调度算法公式</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">852k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'b8047bca4b3452d2be12c24b23481295',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>
