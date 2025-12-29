@@ -216,7 +216,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -235,12 +235,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p>要判断一个文法是否为 <strong>LR(0) 文法</strong> 或 <strong>SLR(1) 文法</strong>，需遵循严格的形式化步骤，核心是通过构造<strong>LR(0) 项目集规范族</strong>和分析<strong>冲突（移进/归约、归约/归约）</strong> 的解决能力来区分。以下是详细判断流程，包含基础概念、LR(0) 判断步骤、SLR(1) 判断步骤及示例。</p>
-<h2 id="一、前置基础概念">一、前置基础概念</h2>
+<p>要判断一个文法是否为 <strong>LR(0) 文法</strong> 或 <strong>SLR(1)
+文法</strong>，需遵循严格的形式化步骤，核心是通过构造<strong>LR(0)
+项目集规范族</strong>和分析<strong>冲突（移进/归约、归约/归约）</strong>
+的解决能力来区分。以下是详细判断流程，包含基础概念、LR(0)
+判断步骤、SLR(1) 判断步骤及示例。</p>
+<h2 id="一前置基础概念">一、前置基础概念</h2>
 <p>在开始判断前，需明确以下核心术语，避免理解偏差：</p>
 <table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
 <thead>
 <tr>
 <th>术语</th>
@@ -250,180 +260,175 @@
 <tbody>
 <tr>
 <td><strong>LR(0) 项目</strong></td>
-<td>文法产生式的“中间状态”，形式为 <code>A→α·β</code>（<code>·</code> 表示当前分析位置）。例如 <code>S→·aAb</code> 表示待匹配 <code>a</code>，<code>S→a·Ab</code> 表示已匹配 <code>a</code>。</td>
+<td>文法产生式的“中间状态”，形式为 <code>A→α·β</code>（<code>·</code>
+表示当前分析位置）。例如 <code>S→·aAb</code> 表示待匹配
+<code>a</code>，<code>S→a·Ab</code> 表示已匹配 <code>a</code>。</td>
 </tr>
 <tr>
 <td><strong>项目集规范族</strong></td>
-<td>所有 LR(0) 项目通过“闭包（Closure）”和“转移（Goto）”操作生成的集合，是 LR 分析的核心数据结构。</td>
+<td>所有 LR(0)
+项目通过“闭包（Closure）”和“转移（Goto）”操作生成的集合，是 LR
+分析的核心数据结构。</td>
 </tr>
 <tr>
 <td><strong>移进/归约冲突</strong></td>
-<td>同一项目集中存在两个项目：一个是“移进项目”（<code>A→α·aβ</code>，<code>a</code> 为终结符），另一个是“归约项目”（<code>B→γ·</code>，无后续符号），此时分析器无法确定是移进 <code>a</code> 还是归约 <code>γ</code>。</td>
+<td>同一项目集中存在两个项目：一个是“移进项目”（<code>A→α·aβ</code>，<code>a</code>
+为终结符），另一个是“归约项目”（<code>B→γ·</code>，无后续符号），此时分析器无法确定是移进
+<code>a</code> 还是归约 <code>γ</code>。</td>
 </tr>
 <tr>
 <td><strong>归约/归约冲突</strong></td>
-<td>同一项目集中存在两个及以上“归约项目”（<code>A→γ·</code> 和 <code>B→δ·</code>），此时分析器无法确定用哪个产生式归约。</td>
+<td>同一项目集中存在两个及以上“归约项目”（<code>A→γ·</code> 和
+<code>B→δ·</code>），此时分析器无法确定用哪个产生式归约。</td>
 </tr>
 <tr>
 <td><strong>FOLLOW 集</strong></td>
-<td>对非终结符 <code>A</code>，<code>FOLLOW(A)</code> 是所有可能紧跟在 <code>A</code> 后的终结符集合（含 <code>#</code>，表示输入结束符），是 SLR(1) 解决冲突的关键。</td>
+<td>对非终结符 <code>A</code>，<code>FOLLOW(A)</code> 是所有可能紧跟在
+<code>A</code> 后的终结符集合（含 <code>#</code>，表示输入结束符），是
+SLR(1) 解决冲突的关键。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="二、判断文法是否为-LR-0-文法">二、判断文法是否为 LR(0) 文法</h2>
-<p>LR(0) 文法是<strong>无任何冲突的文法</strong>——其项目集规范族中，所有项目集均无“移进/归约冲突”和“归约/归约冲突”。判断步骤分为 4 步：</p>
-<h3 id="步骤-1：构造“增广文法”">步骤 1：构造“增广文法”</h3>
-<p>为确保文法有唯一的开始符号（避免多个开始符号导致的项目集混乱），需构造<strong>增广文法</strong> <code>G'</code>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>设原文法 <code>G</code> 的开始符号为 <code>S</code>，新增一个开始符号 <code>S'</code>，并添加产生式 <code>S'→S</code>（唯一新增产生式）。</p>
-</li>
-<li class="lvl-2">
-<p>示例：原文法 <code>G: S→aAb | b</code>，增广文法 <code>G': S'→S; S→aAb; S→b</code>。</p>
-</li>
-</ul>
-<h3 id="步骤-2：构造-LR-0-项目集规范族">步骤 2：构造 LR(0) 项目集规范族</h3>
-<p>通过 <strong>Closure（闭包）</strong> 和 <strong>Goto（转移）</strong> 两个操作，生成所有项目集：</p>
-<h4 id="操作-1：计算闭包（Closure-I-）">操作 1：计算闭包（Closure(I)）</h4>
-<p>对项目集 <code>I</code>，闭包是==“所有可直接或间接推导出的项目”<mark>的</mark>集合==，规则如下：</p>
-<ol>
-<li class="lvl-3">
-<p>初始时，<code>Closure(I) = I</code>（包含 <code>I</code> 中所有项目）。</p>
-</li>
-<li class="lvl-3">
-<p>若 <code>Closure(I)</code> 中存在项目 <code>A→α·Bβ</code>（<code>B</code> 为非终结符，<code>·</code> 后紧跟 <code>B</code>），且 <code>B</code> 的产生式 <code>B→γ</code> 未生成项目 <code>B→·γ</code>，则将 <code>B→·γ</code> 加入 <code>Closure(I)</code>。</p>
-</li>
-<li class="lvl-3">
-<p>重复步骤 2，直到无新项目可加入。</p>
-</li>
-</ol>
-<h4 id="操作-2：计算转移（Goto-I-X-）">操作 2：计算转移（Goto(I, X)）</h4>
-<p>对项目集 <code>I</code> 和符号 <code>X</code>（终结符或非终结符），<code>Goto(I, X)</code> 是“<code>I</code> 中所有 <code>·</code> 后紧跟 <code>X</code> 的项目，将 <code>·</code> 移到 <code>X</code> 右侧后形成的项目集的闭包”，规则如下：</p>
-<ol>
-<li class="lvl-3">
-<p>先收集 <code>I</code> 中满足 <code>A→α·Xβ</code> 的项目，将 <code>·</code> 右移一位，得到临时项目集 <code>J = { A→αX·β | A→α·Xβ ∈ I }</code>。</p>
-</li>
-<li class="lvl-3">
-<p>计算 <code>Closure(J)</code>，即为 <code>Goto(I, X)</code>。</p>
-</li>
-</ol>
+<h2 id="二判断文法是否为-lr0-文法">二、判断文法是否为 LR(0) 文法</h2>
+<p>LR(0)
+文法是<strong>无任何冲突的文法</strong>——其项目集规范族中，所有项目集均无“移进/归约冲突”和“归约/归约冲突”。判断步骤分为
+4 步：</p>
+<h3 id="步骤-1构造增广文法">步骤 1：构造“增广文法”</h3>
+<p>为确保文法有唯一的开始符号（避免多个开始符号导致的项目集混乱），需构造<strong>增广文法</strong>
+<code>G'</code>： - 设原文法 <code>G</code> 的开始符号为
+<code>S</code>，新增一个开始符号 <code>S'</code>，并添加产生式
+<code>S'→S</code>（唯一新增产生式）。 - 示例：原文法
+<code>G: S→aAb | b</code>，增广文法
+<code>G': S'→S; S→aAb; S→b</code>。</p>
+<h3 id="步骤-2构造-lr0-项目集规范族">步骤 2：构造 LR(0)
+项目集规范族</h3>
+<p>通过 <strong>Closure（闭包）</strong> 和
+<strong>Goto（转移）</strong> 两个操作，生成所有项目集：</p>
+<h4 id="操作-1计算闭包closurei">操作 1：计算闭包（Closure(I)）</h4>
+<p>对项目集
+<code>I</code>，闭包是==“所有可直接或间接推导出的项目”==的==集合==，规则如下：
+1. 初始时，<code>Closure(I) = I</code>（包含 <code>I</code>
+中所有项目）。 2. 若 <code>Closure(I)</code> 中存在项目
+<code>A→α·Bβ</code>（<code>B</code> 为非终结符，<code>·</code> 后紧跟
+<code>B</code>），且 <code>B</code> 的产生式 <code>B→γ</code> 未生成项目
+<code>B→·γ</code>，则将 <code>B→·γ</code> 加入 <code>Closure(I)</code>。
+3. 重复步骤 2，直到无新项目可加入。</p>
+<h4 id="操作-2计算转移gotoi-x">操作 2：计算转移（Goto(I, X)）</h4>
+<p>对项目集 <code>I</code> 和符号
+<code>X</code>（终结符或非终结符），<code>Goto(I, X)</code>
+是“<code>I</code> 中所有 <code>·</code> 后紧跟 <code>X</code> 的项目，将
+<code>·</code> 移到 <code>X</code> 右侧后形成的项目集的闭包”，规则如下：
+1. 先收集 <code>I</code> 中满足 <code>A→α·Xβ</code> 的项目，将
+<code>·</code> 右移一位，得到临时项目集
+<code>J = { A→αX·β | A→α·Xβ ∈ I }</code>。 2. 计算
+<code>Closure(J)</code>，即为 <code>Goto(I, X)</code>。</p>
 <h4 id="构造流程">构造流程</h4>
-<ol>
-<li class="lvl-3">
-<p>初始项目集 <code>I0 = Closure({ S'→·S })</code>（从增广文法的开始项目出发）。</p>
-</li>
-<li class="lvl-3">
-<p>对每个已生成的项目集 <code>I</code>，遍历所有可能的符号 <code>X</code>（终结符 + 非终结符），若 <code>Goto(I, X)</code> 非空且未加入规范族，则将其加入，并标记为新的项目集（如 <code>I1, I2, ...</code>）。</p>
-</li>
-<li class="lvl-3">
-<p>重复步骤 2，直到无新项目集可生成。</p>
-</li>
+<ol type="1">
+<li>初始项目集
+<code>I0 = Closure({ S'→·S })</code>（从增广文法的开始项目出发）。</li>
+<li>对每个已生成的项目集 <code>I</code>，遍历所有可能的符号
+<code>X</code>（终结符 + 非终结符），若 <code>Goto(I, X)</code>
+非空且未加入规范族，则将其加入，并标记为新的项目集（如
+<code>I1, I2, ...</code>）。</li>
+<li>重复步骤 2，直到无新项目集可生成。</li>
 </ol>
-<h3 id="步骤-3：检查项目集规范族的冲突">步骤 3：检查项目集规范族的冲突</h3>
-<p>遍历所有项目集，判断是否存在冲突：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>无冲突</strong>：所有项目集均无“移进/归约冲突”和“归约/归约冲突”→ 该文法是 <strong>LR(0) 文法</strong>。</p>
-</li>
-<li class="lvl-2">
-<p><strong>有冲突</strong>：存在任一冲突→ 不是 LR(0) 文法，需进一步判断是否为 SLR(1) 文法。</p>
-</li>
-</ul>
-<h3 id="示例：判断-LR-0-文法">示例：判断 LR(0) 文法</h3>
-<p>以文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>（增广文法 <code>G': S'→S</code>）为例：</p>
-<ol>
-<li class="lvl-3">
-<p>构造 <code>I0 = Closure({ S'→·S }) = { S'→·S, S→·aA, S→·bB }</code>（无冲突，均为移进项目）。</p>
-</li>
-<li class="lvl-3">
-<p>计算 <code>Goto(I0, S) = Closure({ S'→S· }) = { S'→S· }</code>（归约项目，无冲突，记为 <code>I1</code>）。</p>
-</li>
-<li class="lvl-3">
-<p>计算 <code>Goto(I0, a) = Closure({ S→a·A }) = { S→a·A, A→·aA, A→·ε }</code>（存在冲突：<code>A→·aA</code> 是移进项目，<code>A→·ε</code> 是归约项目）。</p>
-</li>
-</ol>
-<p>结论：因 <code>I</code> 存在“移进/归约冲突”，故该文法<strong>不是 LR(0) 文法</strong>。</p>
-<h2 id="三、判断文法是否为-SLR-1-文法">三、判断文法是否为 SLR(1) 文法</h2>
-<p>SLR(1) 文法是 <strong>LR(0) 冲突可通过 FOLLOW 集解决的文法</strong>——其核心思想是：对冲突项目，通过“归约项目的非终结符 FOLLOW 集”与“移进符号/其他归约项目的 FOLLOW 集”是否不相交，来判断冲突是否可解决。</p>
-<p>SLR(1) 的判断需在 <strong>LR(0) 项目集规范族</strong> 基础上，增加“计算 FOLLOW 集”和“冲突解决检查”两步：</p>
-<h3 id="步骤-1：计算所有非终结符的-FOLLOW-集">步骤 1：计算所有非终结符的 FOLLOW 集</h3>
-<p>FOLLOW 集的计算规则（设 <code>A</code> 为非终结符，<code>#</code> 为输入结束符）：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>初始规则</strong>：<code>FOLLOW(S') = { # }</code>（增广文法开始符号的 FOLLOW 集只有结束符）。</p>
-</li>
-<li class="lvl-3">
-<p><strong>推导规则</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">若有产生式 <code>A→αBβ</code>（<code>B</code> 后有符号 <code>β</code>），则 <code>FIRST(β)</code> 中所有终结符加入 <code>FOLLOW(B)</code>（<code>FIRST(β)</code> 是 <code>β</code> 能推导出的首个终结符集合）。</li>
-<li class="lvl-5">若有产生式 <code>A→αB</code> 或 <code>A→αBβ</code> 且 <code>β→ε</code>（<code>B</code> 在产生式末尾，或后续符号可空），则 <code>FOLLOW(A)</code> 中所有符号加入 <code>FOLLOW(B)</code>。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p>重复步骤 2，直到所有 FOLLOW 集不再变化。</p>
-</li>
-</ol>
-<h3 id="步骤-2：用-FOLLOW-集解决-LR-0-冲突">步骤 2：用 FOLLOW 集解决 LR(0) 冲突</h3>
+<h3 id="步骤-3检查项目集规范族的冲突">步骤
+3：检查项目集规范族的冲突</h3>
+<p>遍历所有项目集，判断是否存在冲突： -
+<strong>无冲突</strong>：所有项目集均无“移进/归约冲突”和“归约/归约冲突”→
+该文法是 <strong>LR(0) 文法</strong>。 -
+<strong>有冲突</strong>：存在任一冲突→ 不是 LR(0)
+文法，需进一步判断是否为 SLR(1) 文法。</p>
+<h3 id="示例判断-lr0-文法">示例：判断 LR(0) 文法</h3>
+<p>以文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>（增广文法
+<code>G': S'→S</code>）为例： 1. 构造
+<code>I0 = Closure({ S'→·S }) = { S'→·S, S→·aA, S→·bB }</code>（无冲突，均为移进项目）。
+2. 计算
+<code>Goto(I0, S) = Closure({ S'→S· }) = { S'→S· }</code>（归约项目，无冲突，记为
+<code>I1</code>）。 3. 计算
+<code>Goto(I0, a) = Closure({ S→a·A }) = { S→a·A, A→·aA, A→·ε }</code>（存在冲突：<code>A→·aA</code>
+是移进项目，<code>A→·ε</code> 是归约项目）。</p>
+<p>结论：因 <code>I</code> 存在“移进/归约冲突”，故该文法<strong>不是
+LR(0) 文法</strong>。</p>
+<h2 id="三判断文法是否为-slr1-文法">三、判断文法是否为 SLR(1) 文法</h2>
+<p>SLR(1) 文法是 <strong>LR(0) 冲突可通过 FOLLOW
+集解决的文法</strong>——其核心思想是：对冲突项目，通过“归约项目的非终结符
+FOLLOW 集”与“移进符号/其他归约项目的 FOLLOW
+集”是否不相交，来判断冲突是否可解决。</p>
+<p>SLR(1) 的判断需在 <strong>LR(0) 项目集规范族</strong>
+基础上，增加“计算 FOLLOW 集”和“冲突解决检查”两步：</p>
+<h3 id="步骤-1计算所有非终结符的-follow-集">步骤 1：计算所有非终结符的
+FOLLOW 集</h3>
+<p>FOLLOW 集的计算规则（设 <code>A</code> 为非终结符，<code>#</code>
+为输入结束符）： 1.
+<strong>初始规则</strong>：<code>FOLLOW(S') = { # }</code>（增广文法开始符号的
+FOLLOW 集只有结束符）。 2. <strong>推导规则</strong>： - 若有产生式
+<code>A→αBβ</code>（<code>B</code> 后有符号 <code>β</code>），则
+<code>FIRST(β)</code> 中所有终结符加入
+<code>FOLLOW(B)</code>（<code>FIRST(β)</code> 是 <code>β</code>
+能推导出的首个终结符集合）。 - 若有产生式 <code>A→αB</code> 或
+<code>A→αBβ</code> 且 <code>β→ε</code>（<code>B</code>
+在产生式末尾，或后续符号可空），则 <code>FOLLOW(A)</code> 中所有符号加入
+<code>FOLLOW(B)</code>。 3. 重复步骤 2，直到所有 FOLLOW 集不再变化。</p>
+<h3 id="步骤-2用-follow-集解决-lr0-冲突">步骤 2：用 FOLLOW 集解决 LR(0)
+冲突</h3>
 <p>针对 LR(0) 项目集规范族中的冲突，分两种情况检查：</p>
-<h4 id="情况-1：解决“移进-归约冲突”">情况 1：解决“移进/归约冲突”</h4>
-<p>若项目集 <code>I</code> 中存在：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>移进项目：<code>A→α·aβ</code>（移进符号为 <code>a</code>，终结符）。</p>
-</li>
-<li class="lvl-2">
-<p>归约项目：<code>B→γ·</code>（归约非终结符为 <code>B</code>）。</p>
-</li>
+<h4 id="情况-1解决移进归约冲突">情况 1：解决“移进/归约冲突”</h4>
+<p>若项目集 <code>I</code> 中存在： -
+移进项目：<code>A→α·aβ</code>（移进符号为 <code>a</code>，终结符）。 -
+归约项目：<code>B→γ·</code>（归约非终结符为 <code>B</code>）。</p>
+<p><strong>冲突可解决的条件</strong>：<code>a ∉ FOLLOW(B)</code>（移进符号
+<code>a</code> 不在 <code>B</code> 的 FOLLOW 集中）。<br />
+→ 分析时，若当前输入符号是 <code>a</code>，则移进；若当前输入符号在
+<code>FOLLOW(B)</code> 中，则归约；无重叠，冲突消除。</p>
+<h4 id="情况-2解决归约归约冲突">情况 2：解决“归约/归约冲突”</h4>
+<p>若项目集 <code>I</code> 中存在两个归约项目： - 归约项目
+1：<code>A→γ·</code>（归约非终结符 <code>A</code>）。 - 归约项目
+2：<code>B→δ·</code>（归约非终结符 <code>B</code>）。</p>
+<p><strong>冲突可解决的条件</strong>：<code>FOLLOW(A) ∩ FOLLOW(B) = ∅</code>（两个非终结符的
+FOLLOW 集无交集）。<br />
+→ 分析时，若当前输入符号在 <code>FOLLOW(A)</code> 中，用
+<code>A→γ</code> 归约；若在 <code>FOLLOW(B)</code> 中，用
+<code>B→δ</code> 归约；无重叠，冲突消除。</p>
+<h3 id="步骤-3判断是否为-slr1-文法">步骤 3：判断是否为 SLR(1) 文法</h3>
+<ul>
+<li>若 LR(0) 项目集规范族中的 <strong>所有冲突均可通过上述 FOLLOW
+集规则解决</strong> → 该文法是 <strong>SLR(1) 文法</strong>。</li>
+<li>若存在任一冲突无法解决（如移进符号在 FOLLOW 集中，或 FOLLOW
+集交集非空）→ 不是 SLR(1) 文法（需进一步判断 LALR(1) 或 LR(1)）。</li>
 </ul>
-<p><strong>冲突可解决的条件</strong>：<code>a ∉ FOLLOW(B)</code>（移进符号 <code>a</code> 不在 <code>B</code> 的 FOLLOW 集中）。<br>
-→ 分析时，若当前输入符号是 <code>a</code>，则移进；若当前输入符号在 <code>FOLLOW(B)</code> 中，则归约；无重叠，冲突消除。</p>
-<h4 id="情况-2：解决“归约-归约冲突”">情况 2：解决“归约/归约冲突”</h4>
-<p>若项目集 <code>I</code> 中存在两个归约项目：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>归约项目 1：<code>A→γ·</code>（归约非终结符 <code>A</code>）。</p>
-</li>
-<li class="lvl-2">
-<p>归约项目 2：<code>B→δ·</code>（归约非终结符 <code>B</code>）。</p>
-</li>
-</ul>
-<p><strong>冲突可解决的条件</strong>：<code>FOLLOW(A) ∩ FOLLOW(B) = ∅</code>（两个非终结符的 FOLLOW 集无交集）。<br>
-→ 分析时，若当前输入符号在 <code>FOLLOW(A)</code> 中，用 <code>A→γ</code> 归约；若在 <code>FOLLOW(B)</code> 中，用 <code>B→δ</code> 归约；无重叠，冲突消除。</p>
-<h3 id="步骤-3：判断是否为-SLR-1-文法">步骤 3：判断是否为 SLR(1) 文法</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>若 LR(0) 项目集规范族中的 <strong>所有冲突均可通过上述 FOLLOW 集规则解决</strong> → 该文法是 <strong>SLR(1) 文法</strong>。</p>
-</li>
-<li class="lvl-2">
-<p>若存在任一冲突无法解决（如移进符号在 FOLLOW 集中，或 FOLLOW 集交集非空）→ 不是 SLR(1) 文法（需进一步判断 LALR(1) 或 LR(1)）。</p>
-</li>
-</ul>
-<h3 id="示例：判断-SLR-1-文法">示例：判断 SLR(1) 文法</h3>
-<p>延续上文示例（文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>）：</p>
-<ol>
-<li class="lvl-3">
-<p><strong>计算 FOLLOW 集</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5"><code>FOLLOW(S') = { # }</code>。</li>
-<li class="lvl-5"><code>FOLLOW(S)</code>：由 <code>S'→S</code>，得 <code>FOLLOW(S) = FOLLOW(S') = { # }</code>。</li>
-<li class="lvl-5"><code>FOLLOW(A)</code>：由 <code>S→aA</code>（<code>A</code> 在末尾），得 <code>FOLLOW(A) = FOLLOW(S) = { # }</code>；由 <code>A→aA</code>（<code>A</code> 在末尾），无新增，最终 <code>FOLLOW(A) = { # }</code>。</li>
-<li class="lvl-5"><code>FOLLOW(B)</code>：同理，<code>FOLLOW(B) = { # }</code>。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>检查冲突项目集 <code>I</code></strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">项目集 <code>I = { S→a·A, A→·aA, A→·ε }</code> 中，冲突为“移进项目 <code>A→·aA</code>（移进符号 <code>a</code>）”和“归约项目 <code>A→·ε</code>（归约非终结符 <code>A</code>，<code>FOLLOW(A)={#}</code>）”。</li>
-<li class="lvl-5">检查条件：<code>a ∉ FOLLOW(A)</code>（<code>a</code> 不是 <code>#</code>）→ 冲突可解决。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p>其他项目集（如 <code>Goto(I, b)</code> 生成的项目集）冲突同理可解决。</p>
-</li>
+<h3 id="示例判断-slr1-文法">示例：判断 SLR(1) 文法</h3>
+<p>延续上文示例（文法 <code>G: S→aA | bB; A→aA | ε; B→bB | ε</code>）：
+1. <strong>计算 FOLLOW 集</strong>： - <code>FOLLOW(S') = { # }</code>。
+- <code>FOLLOW(S)</code>：由 <code>S'→S</code>，得
+<code>FOLLOW(S) = FOLLOW(S') = { # }</code>。 -
+<code>FOLLOW(A)</code>：由 <code>S→aA</code>（<code>A</code>
+在末尾），得 <code>FOLLOW(A) = FOLLOW(S) = { # }</code>；由
+<code>A→aA</code>（<code>A</code> 在末尾），无新增，最终
+<code>FOLLOW(A) = { # }</code>。 -
+<code>FOLLOW(B)</code>：同理，<code>FOLLOW(B) = { # }</code>。</p>
+<ol start="2" type="1">
+<li><strong>检查冲突项目集 <code>I</code></strong>：
+<ul>
+<li>项目集 <code>I = { S→a·A, A→·aA, A→·ε }</code> 中，冲突为“移进项目
+<code>A→·aA</code>（移进符号 <code>a</code>）”和“归约项目
+<code>A→·ε</code>（归约非终结符
+<code>A</code>，<code>FOLLOW(A)={#}</code>）”。</li>
+<li>检查条件：<code>a ∉ FOLLOW(A)</code>（<code>a</code> 不是
+<code>#</code>）→ 冲突可解决。</li>
+</ul></li>
+<li>其他项目集（如 <code>Goto(I, b)</code>
+生成的项目集）冲突同理可解决。</li>
 </ol>
 <p>结论：该文法<strong>是 SLR(1) 文法</strong>。</p>
-<h2 id="四、LR-0-与-SLR-1-文法的核心区别">四、LR(0) 与 SLR(1) 文法的核心区别</h2>
+<h2 id="四lr0-与-slr1-文法的核心区别">四、LR(0) 与 SLR(1)
+文法的核心区别</h2>
 <table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 41%" />
+<col style="width: 42%" />
+</colgroup>
 <thead>
 <tr>
 <th>对比维度</th>
@@ -454,34 +459,25 @@
 </tr>
 </tbody>
 </table>
-<h2 id="五、判断流程">五、判断流程</h2>
-<ol>
-<li class="lvl-3">
-<p><strong>输入文法</strong>：确定文法的非终结符、终结符、产生式和开始符号。</p>
-</li>
-<li class="lvl-3">
-<p><strong>构造增广文法</strong>：新增 <code>S'→S</code>，确保唯一开始符号。</p>
-</li>
-<li class="lvl-3">
-<p><strong>生成 LR(0) 项目集规范族</strong>：通过 Closure 和 Goto 操作生成所有项目集。</p>
-</li>
-<li class="lvl-3">
-<p><strong>判断 LR(0) 文法</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">若所有项目集无冲突 → 是 LR(0) 文法（同时也是 SLR(1) 文法）。</li>
-<li class="lvl-5">若存在冲突 → 不是 LR(0) 文法，进入下一步。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>计算所有非终结符的 FOLLOW 集</strong>：按 FOLLOW 规则推导。</p>
-</li>
-<li class="lvl-3">
-<p><strong>判断 SLR(1) 文法</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">若所有冲突均可通过 FOLLOW 集解决 → 是 SLR(1) 文法。</li>
-<li class="lvl-5">若存在无法解决的冲突 → 不是 SLR(1) 文法。</li>
-</ul>
-</li>
+<h2 id="五判断流程">五、判断流程</h2>
+<ol type="1">
+<li><strong>输入文法</strong>：确定文法的非终结符、终结符、产生式和开始符号。</li>
+<li><strong>构造增广文法</strong>：新增
+<code>S'→S</code>，确保唯一开始符号。</li>
+<li><strong>生成 LR(0) 项目集规范族</strong>：通过 Closure 和 Goto
+操作生成所有项目集。</li>
+<li><strong>判断 LR(0) 文法</strong>：
+<ul>
+<li>若所有项目集无冲突 → 是 LR(0) 文法（同时也是 SLR(1) 文法）。</li>
+<li>若存在冲突 → 不是 LR(0) 文法，进入下一步。</li>
+</ul></li>
+<li><strong>计算所有非终结符的 FOLLOW 集</strong>：按 FOLLOW
+规则推导。</li>
+<li><strong>判断 SLR(1) 文法</strong>：
+<ul>
+<li>若所有冲突均可通过 FOLLOW 集解决 → 是 SLR(1) 文法。</li>
+<li>若存在无法解决的冲突 → 不是 SLR(1) 文法。</li>
+</ul></li>
 </ol>
 
     </div>
@@ -565,7 +561,12 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、前置基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%A4%E6%96%AD%E6%96%87%E6%B3%95%E6%98%AF%E5%90%A6%E4%B8%BA-LR-0-%E6%96%87%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、判断文法是否为 LR(0) 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E6%9E%84%E9%80%A0%E2%80%9C%E5%A2%9E%E5%B9%BF%E6%96%87%E6%B3%95%E2%80%9D"><span class="nav-number">2.1.</span> <span class="nav-text">步骤 1：构造“增广文法”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E6%9E%84%E9%80%A0-LR-0-%E9%A1%B9%E7%9B%AE%E9%9B%86%E8%A7%84%E8%8C%83%E6%97%8F"><span class="nav-number">2.2.</span> <span class="nav-text">步骤 2：构造 LR(0) 项目集规范族</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C-1%EF%BC%9A%E8%AE%A1%E7%AE%97%E9%97%AD%E5%8C%85%EF%BC%88Closure-I-%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">操作 1：计算闭包（Closure(I)）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C-2%EF%BC%9A%E8%AE%A1%E7%AE%97%E8%BD%AC%E7%A7%BB%EF%BC%88Goto-I-X-%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">操作 2：计算转移（Goto(I, X)）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">构造流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E6%A3%80%E6%9F%A5%E9%A1%B9%E7%9B%AE%E9%9B%86%E8%A7%84%E8%8C%83%E6%97%8F%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">2.3.</span> <span class="nav-text">步骤 3：检查项目集规范族的冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%88%A4%E6%96%AD-LR-0-%E6%96%87%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">示例：判断 LR(0) 文法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%88%A4%E6%96%AD%E6%96%87%E6%B3%95%E6%98%AF%E5%90%A6%E4%B8%BA-SLR-1-%E6%96%87%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、判断文法是否为 SLR(1) 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%89%80%E6%9C%89%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6%E7%9A%84-FOLLOW-%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">步骤 1：计算所有非终结符的 FOLLOW 集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E7%94%A8-FOLLOW-%E9%9B%86%E8%A7%A3%E5%86%B3-LR-0-%E5%86%B2%E7%AA%81"><span class="nav-number">3.2.</span> <span class="nav-text">步骤 2：用 FOLLOW 集解决 LR(0) 冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B5-1%EF%BC%9A%E8%A7%A3%E5%86%B3%E2%80%9C%E7%A7%BB%E8%BF%9B-%E5%BD%92%E7%BA%A6%E5%86%B2%E7%AA%81%E2%80%9D"><span class="nav-number">3.2.1.</span> <span class="nav-text">情况 1：解决“移进&#x2F;归约冲突”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B5-2%EF%BC%9A%E8%A7%A3%E5%86%B3%E2%80%9C%E5%BD%92%E7%BA%A6-%E5%BD%92%E7%BA%A6%E5%86%B2%E7%AA%81%E2%80%9D"><span class="nav-number">3.2.2.</span> <span class="nav-text">情况 2：解决“归约&#x2F;归约冲突”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA-SLR-1-%E6%96%87%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">步骤 3：判断是否为 SLR(1) 文法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%88%A4%E6%96%AD-SLR-1-%E6%96%87%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">示例：判断 SLR(1) 文法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81LR-0-%E4%B8%8E-SLR-1-%E6%96%87%E6%B3%95%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">四、LR(0) 与 SLR(1) 文法的核心区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">五、判断流程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、前置基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%A4%E6%96%AD%E6%96%87%E6%B3%95%E6%98%AF%E5%90%A6%E4%B8%BA-lr0-%E6%96%87%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、判断文法是否为 LR(0) 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1%E6%9E%84%E9%80%A0%E5%A2%9E%E5%B9%BF%E6%96%87%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">步骤 1：构造“增广文法”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2%E6%9E%84%E9%80%A0-lr0-%E9%A1%B9%E7%9B%AE%E9%9B%86%E8%A7%84%E8%8C%83%E6%97%8F"><span class="nav-number">2.2.</span> <span class="nav-text">步骤 2：构造 LR(0)
+项目集规范族</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C-1%E8%AE%A1%E7%AE%97%E9%97%AD%E5%8C%85closurei"><span class="nav-number">2.2.1.</span> <span class="nav-text">操作 1：计算闭包（Closure(I)）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C-2%E8%AE%A1%E7%AE%97%E8%BD%AC%E7%A7%BBgotoi-x"><span class="nav-number">2.2.2.</span> <span class="nav-text">操作 2：计算转移（Goto(I, X)）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">构造流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3%E6%A3%80%E6%9F%A5%E9%A1%B9%E7%9B%AE%E9%9B%86%E8%A7%84%E8%8C%83%E6%97%8F%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">2.3.</span> <span class="nav-text">步骤
+3：检查项目集规范族的冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E5%88%A4%E6%96%AD-lr0-%E6%96%87%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">示例：判断 LR(0) 文法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%88%A4%E6%96%AD%E6%96%87%E6%B3%95%E6%98%AF%E5%90%A6%E4%B8%BA-slr1-%E6%96%87%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、判断文法是否为 SLR(1) 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1%E8%AE%A1%E7%AE%97%E6%89%80%E6%9C%89%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6%E7%9A%84-follow-%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">步骤 1：计算所有非终结符的
+FOLLOW 集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2%E7%94%A8-follow-%E9%9B%86%E8%A7%A3%E5%86%B3-lr0-%E5%86%B2%E7%AA%81"><span class="nav-number">3.2.</span> <span class="nav-text">步骤 2：用 FOLLOW 集解决 LR(0)
+冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B5-1%E8%A7%A3%E5%86%B3%E7%A7%BB%E8%BF%9B%E5%BD%92%E7%BA%A6%E5%86%B2%E7%AA%81"><span class="nav-number">3.2.1.</span> <span class="nav-text">情况 1：解决“移进&#x2F;归约冲突”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%86%B5-2%E8%A7%A3%E5%86%B3%E5%BD%92%E7%BA%A6%E5%BD%92%E7%BA%A6%E5%86%B2%E7%AA%81"><span class="nav-number">3.2.2.</span> <span class="nav-text">情况 2：解决“归约&#x2F;归约冲突”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA-slr1-%E6%96%87%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">步骤 3：判断是否为 SLR(1) 文法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E5%88%A4%E6%96%AD-slr1-%E6%96%87%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">示例：判断 SLR(1) 文法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9Blr0-%E4%B8%8E-slr1-%E6%96%87%E6%B3%95%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">四、LR(0) 与 SLR(1)
+文法的核心区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">五、判断流程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -642,7 +643,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

@@ -229,136 +229,173 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p><strong>综合属性 (Synthesized Attributes)</strong> 和 <strong>继承属性 (Inherited Attributes)</strong> 是<strong>语法制导翻译 (Syntax-Directed Translation, SDT)</strong> 的两个核心概念。</p>
-<p>简单来说，它们是附着在<strong>语法树</strong>节点上的“信息”或“值”，是编译器用来实现<strong>语义分析</strong>（就是您第 6 章的那些内容，如类型检查、生成中间代码）的具体<strong>技术手段</strong>。</p>
-<hr>
-<h3 id="💡-核心思想：信息如何在语法树上传递？">💡 核心思想：信息如何在语法树上传递？</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>综合属性</strong>：信息<strong>自底向上</strong>传递。</p>
+<p><strong>综合属性 (Synthesized Attributes)</strong> 和
+<strong>继承属性 (Inherited Attributes)</strong> 是<strong>语法制导翻译
+(Syntax-Directed Translation, SDT)</strong> 的两个核心概念。</p>
+<p>简单来说，它们是附着在<strong>语法树</strong>节点上的“信息”或“值”，是编译器用来实现<strong>语义分析</strong>（就是您第
+6
+章的那些内容，如类型检查、生成中间代码）的具体<strong>技术手段</strong>。</p>
+<hr />
+<h3 id="核心思想信息如何在语法树上传递">💡
+核心思想：信息如何在语法树上传递？</h3>
+<ul>
+<li><p><strong>综合属性</strong>：信息<strong>自底向上</strong>传递。</p>
 <blockquote>
 <p>子节点（孩子）计算出自己的值，然后父节点（父亲）<strong>综合</strong>这些值来计算出自己的值。</p>
-</blockquote>
-</li>
-<li class="lvl-4">
-<p><strong>继承属性</strong>：信息<strong>自顶向下</strong>传递。</p>
+</blockquote></li>
+<li><p><strong>继承属性</strong>：信息<strong>自顶向下</strong>传递。</p>
 <blockquote>
 <p>父节点（父亲）将自己的某个值，<strong>传递</strong>给子节点（孩子），让孩子<strong>继承</strong>这个值来辅助计算。</p>
-</blockquote>
-</li>
+</blockquote></li>
 </ul>
-<hr>
-<h3 id="1-综合属性-Synthesized-Attributes">1. 综合属性 (Synthesized Attributes)</h3>
-<p><strong>定义：</strong> 语法树中某个节点（非终结符）的属性值，是由它的<strong>子节点</strong>的属性值计算得到的。</p>
-<p><strong>信息流向：</strong> <strong>自底向上 (Bottom-up)</strong>。</p>
-<p><strong>经典例子：</strong> <strong>表达式求值</strong> 或 <strong>表达式翻译</strong>（对应您的 6.4 节）。</p>
-<p>假设我们有文法 <code>E -&gt; E1 + T</code> (表达式 E 由 表达式 E1 加上 项 T 构成)。</p>
+<hr />
+<h3 id="综合属性-synthesized-attributes">1. 综合属性 (Synthesized
+Attributes)</h3>
+<p><strong>定义：</strong>
+语法树中某个节点（非终结符）的属性值，是由它的<strong>子节点</strong>的属性值计算得到的。</p>
+<p><strong>信息流向：</strong> <strong>自底向上
+(Bottom-up)</strong>。</p>
+<p><strong>经典例子：</strong> <strong>表达式求值</strong> 或
+<strong>表达式翻译</strong>（对应您的 6.4 节）。</p>
+<p>假设我们有文法 <code>E -&gt; E1 + T</code> (表达式 E 由 表达式 E1
+加上 项 T 构成)。</p>
 <p>我们要计算表达式的值（<code>val</code>）或翻译成三地址码（<code>code</code>）。</p>
 <p><strong>语法树节点：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   E</span><br><span class="line">  /|\</span><br><span class="line"> / | \</span><br><span class="line">E1 + T</span><br></pre></td></tr></table></figure>
 <p><strong>语义规则（综合属性）：</strong></p>
-<ol>
-<li class="lvl-4">
-<p><strong><code>E.val = E1.val + T.val</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>含义：</strong> 父亲 <code>E</code> 的值，是通过<em>综合</em>其孩子 <code>E1</code> 的值和 <code>T</code> 的值（相加）得到的。</li>
-<li class="lvl-8"><code>E1</code> 和 <code>T</code> 必须先计算出自己的 <code>val</code>，然后 <code>E</code> 才能计算。信息从 <code>E1</code> 和 <code>T</code> 流向 <code>E</code>。</li>
-</ul>
-</li>
-<li class="lvl-4">
-<p><strong><code>E.code = E1.code + T.code + &quot;ADD&quot;</code></strong> (简化的三地址码)</p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>含义：</strong> 父亲 <code>E</code> 的中间代码，是通过<em>综合</em>（拼接）其孩子 <code>E1</code> 的代码、<code>T</code> 的代码，再加上一条 “ADD” 指令得到的。</li>
-</ul>
-</li>
+<ol type="1">
+<li><p><strong><code>E.val = E1.val + T.val</code></strong></p>
+<ul>
+<li><strong>含义：</strong> 父亲 <code>E</code>
+的值，是通过<em>综合</em>其孩子 <code>E1</code> 的值和 <code>T</code>
+的值（相加）得到的。</li>
+<li><code>E1</code> 和 <code>T</code> 必须先计算出自己的
+<code>val</code>，然后 <code>E</code> 才能计算。信息从 <code>E1</code>
+和 <code>T</code> 流向 <code>E</code>。</li>
+</ul></li>
+<li><p><strong><code>E.code = E1.code + T.code + "ADD"</code></strong>
+(简化的三地址码)</p>
+<ul>
+<li><strong>含义：</strong> 父亲 <code>E</code>
+的中间代码，是通过<em>综合</em>（拼接）其孩子 <code>E1</code>
+的代码、<code>T</code> 的代码，再加上一条 “ADD” 指令得到的。</li>
+</ul></li>
 </ol>
-<p><strong>总结：</strong> 综合属性非常适合**“自底向上”**的任务。你必须先知道子表达式的值，才能计算整个表达式的值。<strong>S-属性定义</strong> (S-Attributed Definition) 是一个只使用综合属性的 SDT。</p>
-<hr>
-<h3 id="2-继承属性-Inherited-Attributes">2. 继承属性 (Inherited Attributes)</h3>
-<p><strong>定义：</strong> 语法树中某个节点的属性值，是由它的<strong>父节点</strong>或<strong>兄弟节点</strong>的属性值计算得到的。</p>
-<p><strong>信息流向：</strong> <strong>自顶向下 (Top-down)</strong> 或 <strong>横向 (Sideways)</strong>。</p>
-<p><strong>经典例子：</strong> <strong>变量声明翻译</strong>（对应您的 6.2 节）。</p>
-<p>假设我们有文法 <code>D -&gt; T L</code> (声明 D 由 类型 T 和 变量列表 L 构成)，例如 <code>int a, b;</code>。</p>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><code>T</code> 对应 <code>int</code></p>
-</li>
-<li class="lvl-4">
-<p><code>L</code> 对应 <code>a, b</code></p>
-</li>
+<p><strong>总结：</strong>
+综合属性非常适合<strong>“自底向上”</strong>的任务。你必须先知道子表达式的值，才能计算整个表达式的值。<strong>S-属性定义</strong>
+(S-Attributed Definition) 是一个只使用综合属性的 SDT。</p>
+<hr />
+<h3 id="继承属性-inherited-attributes">2. 继承属性 (Inherited
+Attributes)</h3>
+<p><strong>定义：</strong>
+语法树中某个节点的属性值，是由它的<strong>父节点</strong>或<strong>兄弟节点</strong>的属性值计算得到的。</p>
+<p><strong>信息流向：</strong> <strong>自顶向下 (Top-down)</strong> 或
+<strong>横向 (Sideways)</strong>。</p>
+<p><strong>经典例子：</strong> <strong>变量声明翻译</strong>（对应您的
+6.2 节）。</p>
+<p>假设我们有文法 <code>D -&gt; T L</code> (声明 D 由 类型 T 和 变量列表
+L 构成)，例如 <code>int a, b;</code>。</p>
+<ul>
+<li><code>T</code> 对应 <code>int</code></li>
+<li><code>L</code> 对应 <code>a, b</code></li>
 </ul>
-<p><strong>问题：</strong> 在语法树中，<code>a</code> 和 <code>b</code> 这两个节点（在 <code>L</code> 的子树中）怎么知道自己的类型是 <code>int</code> 呢？ <code>int</code> 这个信息在它们的<strong>兄弟节点</strong> <code>T</code> 那里。</p>
+<p><strong>问题：</strong> 在语法树中，<code>a</code> 和 <code>b</code>
+这两个节点（在 <code>L</code> 的子树中）怎么知道自己的类型是
+<code>int</code> 呢？ <code>int</code>
+这个信息在它们的<strong>兄弟节点</strong> <code>T</code> 那里。</p>
 <p><strong>语法树节点：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">      D</span><br><span class="line">     / \</span><br><span class="line">    /   \</span><br><span class="line">   T     L</span><br><span class="line">(int)  / \</span><br><span class="line">      /   \</span><br><span class="line">     a     b</span><br></pre></td></tr></table></figure>
 <p><strong>语义规则（继承属性）：</strong></p>
-<ol>
-<li class="lvl-4">
-<p><strong><code>L.in_type = T.type</code></strong> (in_type 是 “inherited type” 的缩写)</p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>含义：</strong> 这是一个<strong>横向</strong>传递。在父节点 <code>D</code> 的层面，它把孩子 <code>T</code> 的属性（<code>T.type</code>，比如 “int”）拿过来，<strong>传递</strong>（赋值）给另一个孩子 <code>L</code> 的属性（<code>L.in_type</code>）。</li>
-</ul>
-</li>
-<li class="lvl-4">
-<p><strong><code>L</code> 的子节点（比如 <code>a</code> 和 <code>b</code>）会继续<em>继承</em> <code>L.in_type</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-8">当 <code>L</code> 展开时（例如 <code>L -&gt; id, L1</code> 或 <code>L -&gt; id</code>），<code>id</code> 节点就可以从 <code>L</code> 那里拿到 <code>in_type</code>。</li>
-<li class="lvl-8"><code>id.type = L.in_type</code></li>
-<li class="lvl-8"><strong>含义：</strong> 孩子 <code>id</code>（例如 <code>a</code>）的类型，是<em>继承</em>自其父亲 <code>L</code> 的 <code>in_type</code> 属性。</li>
-</ul>
-</li>
+<ol type="1">
+<li><strong><code>L.in_type = T.type</code></strong> (in_type 是
+“inherited type” 的缩写)
+<ul>
+<li><strong>含义：</strong> 这是一个<strong>横向</strong>传递。在父节点
+<code>D</code> 的层面，它把孩子 <code>T</code>
+的属性（<code>T.type</code>，比如
+“int”）拿过来，<strong>传递</strong>（赋值）给另一个孩子 <code>L</code>
+的属性（<code>L.in_type</code>）。</li>
+</ul></li>
+<li><strong><code>L</code> 的子节点（比如 <code>a</code> 和
+<code>b</code>）会继续<em>继承</em> <code>L.in_type</code></strong>
+<ul>
+<li>当 <code>L</code> 展开时（例如 <code>L -&gt; id, L1</code> 或
+<code>L -&gt; id</code>），<code>id</code> 节点就可以从 <code>L</code>
+那里拿到 <code>in_type</code>。</li>
+<li><code>id.type = L.in_type</code></li>
+<li><strong>含义：</strong> 孩子 <code>id</code>（例如
+<code>a</code>）的类型，是<em>继承</em>自其父亲 <code>L</code> 的
+<code>in_type</code> 属性。</li>
+</ul></li>
 </ol>
-<p><strong>总结：</strong> 继承属性非常适合**“自顶向下”**传递“上下文信息”（Context）。<code>int</code> 就是 <code>a</code> 和 <code>b</code> 的上下文。<strong>L-属性定义</strong> (L-Attributed Definition) 是可以使用综合属性和特定继承属性的 SDT。</p>
-<hr>
+<p><strong>总结：</strong>
+继承属性非常适合**“自顶向下”**传递“上下文信息”（Context）。<code>int</code>
+就是 <code>a</code> 和 <code>b</code>
+的上下文。<strong>L-属性定义</strong> (L-Attributed Definition)
+是可以使用综合属性和特定继承属性的 SDT。</p>
+<hr />
 <h3 id="总结对比">总结对比</h3>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr>
-<th style="text-align:left">特性</th>
-<th style="text-align:left">综合属性 (Synthesized)</th>
-<th style="text-align:left">继承属性 (Inherited)</th>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">综合属性 (Synthesized)</th>
+<th style="text-align: left;">继承属性 (Inherited)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>计算依赖</strong></td>
-<td style="text-align:left">仅依赖<strong>子节点</strong></td>
-<td style="text-align:left">依赖<strong>父节点</strong>或<strong>兄弟节点</strong></td>
+<td style="text-align: left;"><strong>计算依赖</strong></td>
+<td style="text-align: left;">仅依赖<strong>子节点</strong></td>
+<td
+style="text-align: left;">依赖<strong>父节点</strong>或<strong>兄弟节点</strong></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>信息流向</strong></td>
-<td style="text-align:left"><strong>自底向上</strong> (Bottom-up)</td>
-<td style="text-align:left"><strong>自顶向下</strong> (Top-down) 或 <strong>横向</strong></td>
+<td style="text-align: left;"><strong>信息流向</strong></td>
+<td style="text-align: left;"><strong>自底向上</strong> (Bottom-up)</td>
+<td style="text-align: left;"><strong>自顶向下</strong> (Top-down) 或
+<strong>横向</strong></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>经典用例</strong></td>
-<td style="text-align:left">表达式求值 (6.4 节)</td>
-<td style="text-align:left">变量声明 (6.2 节)</td>
+<td style="text-align: left;"><strong>经典用例</strong></td>
+<td style="text-align: left;">表达式求值 (6.4 节)</td>
+<td style="text-align: left;">变量声明 (6.2 节)</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>形象比喻</strong></td>
-<td style="text-align:left">孩子们向父母汇报工作，父母汇总</td>
-<td style="text-align:left">父母给孩子们下达指令或传递信息</td>
+<td style="text-align: left;"><strong>形象比喻</strong></td>
+<td style="text-align: left;">孩子们向父母汇报工作，父母汇总</td>
+<td style="text-align: left;">父母给孩子们下达指令或传递信息</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>分析器关联</strong></td>
-<td style="text-align:left">易于在<strong>自底向上</strong>分析器 (如 YACC) 中实现</td>
-<td style="text-align:left">易于在<strong>自顶向下</strong>分析器 (如 <strong>递归下降法</strong>) 中实现</td>
+<td style="text-align: left;"><strong>分析器关联</strong></td>
+<td style="text-align: left;">易于在<strong>自底向上</strong>分析器 (如
+YACC) 中实现</td>
+<td style="text-align: left;">易于在<strong>自顶向下</strong>分析器 (如
+<strong>递归下降法</strong>) 中实现</td>
 </tr>
 </tbody>
 </table>
-<h3 id="它们如何与您的补充知识点关联？">它们如何与您的补充知识点关联？</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>递归下降法</strong>（自顶向下分析）天然适合实现<strong>L-属性定义</strong>（即包含继承属性的定义）。</p>
-</li>
-<li class="lvl-4">
-<p><strong>为什么？</strong> 当你（在 <code>parse_D</code> 函数中）刚解析完 <code>T</code>（调用 <code>parse_T</code>），你立刻就得到了 <code>T.type</code>。然后你马上去调用 <code>parse_L</code>，此时你就可以<strong>把 <code>T.type</code> 作为一个参数传递给 <code>parse_L</code> 函数</strong>。</p>
-</li>
-<li class="lvl-4">
-<p><code>parse_L(T.type)</code> —— 这个<strong>函数参数</strong>，就是<strong>继承属性</strong>的最直观实现！</p>
-</li>
+<h3
+id="它们如何与您的补充知识点关联">它们如何与您的补充知识点关联？</h3>
+<ul>
+<li><strong>递归下降法</strong>（自顶向下分析）天然适合实现<strong>L-属性定义</strong>（即包含继承属性的定义）。</li>
+<li><strong>为什么？</strong> 当你（在 <code>parse_D</code>
+函数中）刚解析完 <code>T</code>（调用
+<code>parse_T</code>），你立刻就得到了
+<code>T.type</code>。然后你马上去调用
+<code>parse_L</code>，此时你就可以<strong>把 <code>T.type</code>
+作为一个参数传递给 <code>parse_L</code> 函数</strong>。</li>
+<li><code>parse_L(T.type)</code> ——
+这个<strong>函数参数</strong>，就是<strong>继承属性</strong>的最直观实现！</li>
 </ul>
 
     </div>
@@ -442,7 +479,10 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%92%A1-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9A%E4%BF%A1%E6%81%AF%E5%A6%82%E4%BD%95%E5%9C%A8%E8%AF%AD%E6%B3%95%E6%A0%91%E4%B8%8A%E4%BC%A0%E9%80%92%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">💡 核心思想：信息如何在语法树上传递？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BB%BC%E5%90%88%E5%B1%9E%E6%80%A7-Synthesized-Attributes"><span class="nav-number">2.</span> <span class="nav-text">1. 综合属性 (Synthesized Attributes)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BB%A7%E6%89%BF%E5%B1%9E%E6%80%A7-Inherited-Attributes"><span class="nav-number">3.</span> <span class="nav-text">2. 继承属性 (Inherited Attributes)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">总结对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%83%E4%BB%AC%E5%A6%82%E4%BD%95%E4%B8%8E%E6%82%A8%E7%9A%84%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9%E5%85%B3%E8%81%94%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">它们如何与您的补充知识点关联？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E4%BF%A1%E6%81%AF%E5%A6%82%E4%BD%95%E5%9C%A8%E8%AF%AD%E6%B3%95%E6%A0%91%E4%B8%8A%E4%BC%A0%E9%80%92"><span class="nav-number">1.</span> <span class="nav-text">💡
+核心思想：信息如何在语法树上传递？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%B1%9E%E6%80%A7-synthesized-attributes"><span class="nav-number">2.</span> <span class="nav-text">1. 综合属性 (Synthesized
+Attributes)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%B1%9E%E6%80%A7-inherited-attributes"><span class="nav-number">3.</span> <span class="nav-text">2. 继承属性 (Inherited
+Attributes)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">总结对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%83%E4%BB%AC%E5%A6%82%E4%BD%95%E4%B8%8E%E6%82%A8%E7%9A%84%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9%E5%85%B3%E8%81%94"><span class="nav-number">5.</span> <span class="nav-text">它们如何与您的补充知识点关联？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -519,7 +559,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

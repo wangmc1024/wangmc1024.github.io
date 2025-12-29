@@ -210,7 +210,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6k</span>
+              <span>5.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -229,266 +229,319 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
 <p>这使得“参数传递”（属性流动）的讨论更加丰富。我们现在有两种清晰的“参数”流：</p>
-<ol>
-<li class="lvl-4">
-<p><strong>综合属性 (Synthesized Attribute) [自底向上]</strong></p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>是什么：</strong> 这就是您函数返回的 <code>node</code> 对象。</li>
-<li class="lvl-8"><strong>目的：</strong> <strong>构建AST</strong>。子节点（如 <code>translateASTFactor</code>）构建一个小树，并通过 <code>return</code> 语句将其“传递”给父节点（如 <code>translateASTTerm</code>），父节点再将其组合成一个更大的树。</li>
-<li class="lvl-8"><strong>方向：</strong> <strong>Bottom-Up (自底向上)</strong>。</li>
-</ul>
-</li>
-<li class="lvl-4">
-<p><strong>继承属性 (Inherited Attribute) [自顶向下]</strong></p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>是什么：</strong> 这就是您通过<strong>函数参数</strong>（如 <code>const std::string&amp; type</code>）传递的信息。</li>
-<li class="lvl-8"><strong>目的：</strong> <strong>提供上下文</strong>。父节点（如 <code>translateASTDeclareStatement</code>）将上下文信息（“我们正在声明的变量是 <code>int</code> 类型”）<em>传递下去</em>，子节点（如 <code>translateASTVarList</code>）使用这个信息来执行语义动作（如更新符号表 <code>idenTable</code>）。</li>
-<li class="lvl-8"><strong>方向：</strong> <strong>Top-Down (自顶向下)</strong>。</li>
-</ul>
-</li>
+<ol type="1">
+<li><p><strong>综合属性 (Synthesized Attribute) [自底向上]</strong></p>
+<ul>
+<li><strong>是什么：</strong> 这就是您函数返回的 <code>node</code>
+对象。</li>
+<li><strong>目的：</strong> <strong>构建AST</strong>。子节点（如
+<code>translateASTFactor</code>）构建一个小树，并通过
+<code>return</code> 语句将其“传递”给父节点（如
+<code>translateASTTerm</code>），父节点再将其组合成一个更大的树。</li>
+<li><strong>方向：</strong> <strong>Bottom-Up (自底向上)</strong>。</li>
+</ul></li>
+<li><p><strong>继承属性 (Inherited Attribute) [自顶向下]</strong></p>
+<ul>
+<li><strong>是什么：</strong> 这就是您通过<strong>函数参数</strong>（如
+<code>const std::string&amp; type</code>）传递的信息。</li>
+<li><strong>目的：</strong> <strong>提供上下文</strong>。父节点（如
+<code>translateASTDeclareStatement</code>）将上下文信息（“我们正在声明的变量是
+<code>int</code> 类型”）<em>传递下去</em>，子节点（如
+<code>translateASTVarList</code>）使用这个信息来执行语义动作（如更新符号表
+<code>idenTable</code>）。</li>
+<li><strong>方向：</strong> <strong>Top-Down (自顶向下)</strong>。</li>
+</ul></li>
 </ol>
-<p>下面，我们使用您 C++ 代码中的文法，重新详细讲解这五种语句的属性流动。</p>
-<hr>
-<h3 id="1-声明语句-Declaration-Statement">1. 声明语句 (Declaration Statement)</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>C++ 代码:</strong> <code>translateASTDeclareStatement</code>, <code>translateASTVarList(type)</code>, <code>translateASTB(type)</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>文法:</strong> <code>&lt;变量说明语句&gt; -&gt; 变量说明 &lt;标识符列表&gt;</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>AST 目标:</strong> <code>(declare [Type] (varList [ID1] (linkVarList [ID2] ...)))</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>属性流 (最完整的例子):</strong></p>
+<p>下面，我们使用您 C++
+代码中的文法，重新详细讲解这五种语句的属性流动。</p>
+<hr />
+<h3 id="声明语句-declaration-statement">1. 声明语句 (Declaration
+Statement)</h3>
+<ul>
+<li><p><strong>C++ 代码:</strong>
+<code>translateASTDeclareStatement</code>,
+<code>translateASTVarList(type)</code>,
+<code>translateASTB(type)</code></p></li>
+<li><p><strong>文法:</strong>
+<code>&lt;变量说明语句&gt; -&gt; 变量说明 &lt;标识符列表&gt;</code></p></li>
+<li><p><strong>AST 目标:</strong>
+<code>(declare [Type] (varList [ID1] (linkVarList [ID2] ...)))</code></p></li>
+<li><p><strong>属性流 (最完整的例子):</strong></p>
 <p>这是一个同时展现了<strong>继承</strong>和<strong>综合</strong>属性的完美例子。</p>
-<ol>
-<li class="lvl-8">
-<p><strong>Top-Down (继承属性):</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12"><code>translateASTDeclareStatement</code> 首先读取 “变量说明” (例如 <code>int</code>)，并将其存储在 <code>std::string type</code> 中。</li>
-<li class="lvl-12">它<strong>向下调用</strong> <code>translateASTVarList(type)</code>，将 <code>type</code> 字符串作为<strong>继承属性</strong>传递下去。</li>
-<li class="lvl-12"><code>translateASTVarList</code> 接着<strong>向下调用</strong> <code>translateASTB(type)</code>，继续将这个 <code>type</code> 属性传递下去。</li>
+<ol type="1">
+<li><p><strong>Top-Down (继承属性):</strong></p>
+<ul>
+<li><code>translateASTDeclareStatement</code> 首先读取 “变量说明” (例如
+<code>int</code>)，并将其存储在 <code>std::string type</code> 中。</li>
+<li>它<strong>向下调用</strong>
+<code>translateASTVarList(type)</code>，将 <code>type</code>
+字符串作为<strong>继承属性</strong>传递下去。</li>
+<li><code>translateASTVarList</code> 接着<strong>向下调用</strong>
+<code>translateASTB(type)</code>，继续将这个 <code>type</code>
+属性传递下去。</li>
+</ul></li>
+<li><p><strong>语义动作 (使用继承属性):</strong></p>
+<ul>
+<li>在 <code>translateASTVarList</code> 和 <code>translateASTB</code>
+内部，当它们 <code>match("标识符")</code> (例如 <code>a</code>)
+时，它们会立即使用这个<strong>继承</strong>来的 <code>type</code>
+属性来更新<strong>符号表 (Context)</strong>：
+<ul>
+<li><code>idenTable.Add(name)</code></li>
+<li><code>idenTable.UpdateTypeByName(name, type)</code></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Bottom-Up (综合属性):</strong></p>
+<ul>
+<li><code>translateASTB</code> 构建并<strong>返回</strong>
+<code>(linkVarList ...)</code> 节点 (作为 <code>B.ast</code>)。</li>
+<li><code>translateASTVarList</code> 接收这个 <code>B.ast</code>，将它和
+<code>idNode.ast</code> 组合成 <code>(varList ...)</code>
+节点，并<strong>返回</strong>这个节点 (作为
+<code>varList.ast</code>)。</li>
+<li><code>translateASTDeclareStatement</code> 接收这个
+<code>varList.ast</code> (存入 <code>node varList</code>)，将它和
+<code>typeNode.ast</code> 组合成 <code>(declare ...)</code>
+节点，并<strong>返回</strong>这个最终的AST子树 (作为
+<code>&lt;变量说明语句&gt;.ast</code>)。</li>
+</ul></li>
+</ol></li>
+<li><p><strong>代码中的“综合”与“继承”:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// P.S. 这是对您代码的简化伪代码，以突出属性流</span></span><br><span class="line"><span class="function">node <span class="title">translateASTDeclareStatement</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node root = <span class="keyword">new</span> <span class="built_in">node</span>(<span class="string">&quot;declare&quot;</span>);</span><br><span class="line">    string type = currentToken.value;     <span class="comment">// 1. 获取上下文</span></span><br><span class="line">    <span class="function">node <span class="title">typeNode</span><span class="params">(type)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 将 &#x27;type&#x27; 作为继承属性(inh)向下传递</span></span><br><span class="line">    node c2 = <span class="built_in">translateASTVarList</span>(type); </span><br><span class="line">    <span class="comment">// c2 是 translateASTVarList 返回的综合属性(ast)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 组合 (Synthesize)</span></span><br><span class="line">    root.<span class="built_in">addChild</span>(typeNode); <span class="comment">// c1.ast</span></span><br><span class="line">    root.<span class="built_in">addChild</span>(c2);       <span class="comment">// c2.ast</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 将组合后的新树作为自己的综合属性(ast)返回</span></span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li class="lvl-8">
-<p><strong>语义动作 (使用继承属性):</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12">在 <code>translateASTVarList</code> 和 <code>translateASTB</code> 内部，当它们 <code>match(&quot;标识符&quot;)</code> (例如 <code>a</code>) 时，它们会立即使用这个<strong>继承</strong>来的 <code>type</code> 属性来更新<strong>符号表 (Context)</strong>：
-<ul class="lvl-6">
-<li class="lvl-16"><code>idenTable.Add(name)</code></li>
-<li class="lvl-16"><code>idenTable.UpdateTypeByName(name, type)</code></li>
+<hr />
+<h3 id="赋值语句-assignment-statement">2. 赋值语句 (Assignment
+Statement)</h3>
+<ul>
+<li><p><strong>C++ 代码:</strong>
+<code>translateASTAssignmentStatement()</code></p></li>
+<li><p><strong>文法:</strong>
+<code>&lt;赋值语句&gt; -&gt; 标识符 赋值号 &lt;表达式&gt;</code></p></li>
+<li><p><strong>AST 目标:</strong>
+<code>(assign [ID] [Expression])</code></p></li>
+<li><p><strong>属性流 (自底向上 + 语义检查):</strong></p>
+<ol type="1">
+<li><p><strong>Bottom-Up (综合属性):</strong></p>
+<ul>
+<li>这是 “结构化映射” 的经典例子。</li>
+<li><code>translateASTAssignmentStatement</code> 被调用。</li>
+<li>它创建 <code>idNode</code> (例如 <code>a</code>)。</li>
+<li>它<strong>向下调用</strong>
+<code>translateASTExpression()</code>。</li>
+<li><code>translateASTExpression</code>
+经过一系列复杂的递归，最终<strong>返回</strong>一个完整的表达式子树（例如
+<code>(add b c)</code>）。这就是 <code>&lt;表达式&gt;.ast</code>
+综合属性。</li>
+<li><code>translateASTAssignmentStatement</code>
+<strong>接收</strong>这个子树 (存入 <code>node expression</code>)。</li>
+<li><strong>综合：</strong> 它将 <code>idNode</code> 和
+<code>expression</code> 挂在一个新根 <code>root</code> (“assign”)
+下。</li>
+<li><strong>返回：</strong> <code>root</code> (即
+<code>&lt;赋值语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
+</ul></li>
+<li><p><strong>语义动作 (使用Context):</strong></p>
+<ul>
+<li>在<strong>组合</strong> AST
+之前，它会检查上下文（<code>idenTable</code>）以验证语义：</li>
+<li><code>if (!idenTable.identifierExists(name))</code></li>
+<li>这是一个在AST构建时发生的<strong>即时语义检查</strong>，它利用
+<code>idenTable</code>（符号表）作为上下文，而不是通过参数传递。</li>
+</ul></li>
+</ol></li>
 </ul>
-</li>
+<hr />
+<h3 id="条件语句-conditional-statement">3. 条件语句 (Conditional
+Statement)</h3>
+<ul>
+<li><p><strong>C++ 代码:</strong>
+<code>translateASTConditionalStatement()</code></p></li>
+<li><p><strong>文法:</strong>
+<code>... if (&lt;表达式&gt;) &lt;嵌套语句&gt; else &lt;嵌套语句&gt;</code></p></li>
+<li><p><strong>AST 目标:</strong>
+<code>(ifThenElse [Condition] [Then-Branch] [Else-Branch])</code></p></li>
+<li><p><strong>属性流 (纯自底向上):</strong></p>
+<ol type="1">
+<li><strong>Bottom-Up (综合属性):</strong>
+<ul>
+<li>这是最纯粹的“填空”式<strong>综合</strong>。</li>
+<li>它创建 <code>condStmtNode("ifThenElse")</code>。</li>
+<li><strong>调用 1:</strong> <code>translateASTExpression()</code>
+被调用，它<strong>返回</strong> <code>&lt;表达式&gt;.ast</code> (存入
+<code>node expression</code>)。</li>
+<li><strong>调用 2:</strong> <code>translateASTNestedStatement()</code>
+被调用，它<strong>返回</strong> <code>&lt;嵌套语句&gt;_1.ast</code>
+(存入 <code>nestedStmt1</code>)。</li>
+<li><strong>调用 3:</strong> <code>translateASTNestedStatement()</code>
+被调用，它<strong>返回</strong> <code>&lt;嵌套语句&gt;_2.ast</code>
+(存入 <code>nestedStmt2</code>)。</li>
+<li><strong>综合：</strong> 它将这三个<strong>已完成的</strong>子树作为
+<code>ifThenElse</code> 节点的子节点。</li>
+<li><strong>返回：</strong> <code>condStmtNode</code> (即
+<code>&lt;条件语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
+</ul></li>
+</ol></li>
+<li><p><strong>特点：</strong>
+结构固定，没有歧义，只是简单地收集子节点返回的 <code>.ast</code>
+属性并组装。</p></li>
 </ul>
-</li>
-<li class="lvl-8">
-<p><strong>Bottom-Up (综合属性):</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12"><code>translateASTB</code> 构建并<strong>返回</strong> <code>(linkVarList ...)</code> 节点 (作为 <code>B.ast</code>)。</li>
-<li class="lvl-12"><code>translateASTVarList</code> 接收这个 <code>B.ast</code>，将它和 <code>idNode.ast</code> 组合成 <code>(varList ...)</code> 节点，并<strong>返回</strong>这个节点 (作为 <code>varList.ast</code>)。</li>
-<li class="lvl-12"><code>translateASTDeclareStatement</code> 接收这个 <code>varList.ast</code> (存入 <code>node varList</code>)，将它和 <code>typeNode.ast</code> 组合成 <code>(declare ...)</code> 节点，并<strong>返回</strong>这个最终的AST子树 (作为 <code>&lt;变量说明语句&gt;.ast</code>)。</li>
+<hr />
+<h3 id="循环语句-loop-statement">4. 循环语句 (Loop Statement)</h3>
+<ul>
+<li><p><strong>C++ 代码:</strong>
+<code>translateASTLoopStatement()</code></p></li>
+<li><p><strong>文法:</strong>
+<code>while (&lt;表达式&gt;) : &lt;嵌套语句&gt;</code></p></li>
+<li><p><strong>AST 目标:</strong>
+<code>(while [Condition] [Body])</code></p></li>
+<li><p><strong>属性流 (纯自底向上):</strong></p>
+<ul>
+<li><strong>与 <code>if</code>
+语句完全相同</strong>，只是子节点从三个变成了两个。</li>
+<li><strong>调用 1:</strong> <code>translateASTExpression()</code>
+被调用，<strong>返回</strong> <code>&lt;表达式&gt;.ast</code> (存入
+<code>node expression</code>)。</li>
+<li><strong>调用 2:</strong> <code>translateASTNestedStatement()</code>
+被调用，<strong>返回</strong> <code>&lt;嵌套语句&gt;.ast</code> (存入
+<code>nestedStmt</code>)。</li>
+<li><strong>综合：</strong> 将 <code>expression</code> 和
+<code>nestedStmt</code> 挂在新根 <code>root</code> (“while”) 下。</li>
+<li><strong>返回：</strong> <code>root</code> (即
+<code>&lt;循环语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
+</ul></li>
 </ul>
-</li>
-</ol>
-</li>
-<li class="lvl-4">
-<p><strong>代码中的“综合”与“继承”:</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// P.S. 这是对您代码的简化伪代码，以突出属性流</span></span><br><span class="line"><span class="function">node <span class="title">translateASTDeclareStatement</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node root = <span class="keyword">new</span> <span class="built_in">node</span>(<span class="string">&quot;declare&quot;</span>);</span><br><span class="line">    string type = currentToken.value;     <span class="comment">// 1. 获取上下文</span></span><br><span class="line">    <span class="function">node <span class="title">typeNode</span><span class="params">(type)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 将 &#x27;type&#x27; 作为继承属性(inh)向下传递</span></span><br><span class="line">    node c2 = <span class="built_in">translateASTVarList</span>(type); </span><br><span class="line">    <span class="comment">// c2 是 translateASTVarList 返回的综合属性(ast)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 组合 (Synthesize)</span></span><br><span class="line">    root.<span class="built_in">addChild</span>(typeNode); <span class="comment">// c1.ast</span></span><br><span class="line">    root.<span class="built_in">addChild</span>(c2);       <span class="comment">// c2.ast</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 将组合后的新树作为自己的综合属性(ast)返回</span></span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="2-赋值语句-Assignment-Statement">2. 赋值语句 (Assignment Statement)</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>C++ 代码:</strong> <code>translateASTAssignmentStatement()</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>文法:</strong> <code>&lt;赋值语句&gt; -&gt; 标识符 赋值号 &lt;表达式&gt;</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>AST 目标:</strong> <code>(assign [ID] [Expression])</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>属性流 (自底向上 + 语义检查):</strong></p>
-<ol>
-<li class="lvl-8">
-<p><strong>Bottom-Up (综合属性):</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12">这是 “结构化映射” 的经典例子。</li>
-<li class="lvl-12"><code>translateASTAssignmentStatement</code> 被调用。</li>
-<li class="lvl-12">它创建 <code>idNode</code> (例如 <code>a</code>)。</li>
-<li class="lvl-12">它<strong>向下调用</strong> <code>translateASTExpression()</code>。</li>
-<li class="lvl-12"><code>translateASTExpression</code> 经过一系列复杂的递归，最终<strong>返回</strong>一个完整的表达式子树（例如 <code>(add b c)</code>）。这就是 <code>&lt;表达式&gt;.ast</code> 综合属性。</li>
-<li class="lvl-12"><code>translateASTAssignmentStatement</code> <strong>接收</strong>这个子树 (存入 <code>node expression</code>)。</li>
-<li class="lvl-12"><strong>综合：</strong> 它将 <code>idNode</code> 和 <code>expression</code> 挂在一个新根 <code>root</code> (“assign”) 下。</li>
-<li class="lvl-12"><strong>返回：</strong> <code>root</code> (即 <code>&lt;赋值语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
-</ul>
-</li>
-<li class="lvl-8">
-<p><strong>语义动作 (使用Context):</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12">在<strong>组合</strong> AST 之前，它会检查上下文（<code>idenTable</code>）以验证语义：</li>
-<li class="lvl-12"><code>if (!idenTable.identifierExists(name))</code></li>
-<li class="lvl-12">这是一个在AST构建时发生的<strong>即时语义检查</strong>，它利用 <code>idenTable</code>（符号表）作为上下文，而不是通过参数传递。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h3 id="3-条件语句-Conditional-Statement">3. 条件语句 (Conditional Statement)</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>C++ 代码:</strong> <code>translateASTConditionalStatement()</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>文法:</strong> <code>... if (&lt;表达式&gt;) &lt;嵌套语句&gt; else &lt;嵌套语句&gt;</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>AST 目标:</strong> <code>(ifThenElse [Condition] [Then-Branch] [Else-Branch])</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>属性流 (纯自底向上):</strong></p>
-<ol>
-<li class="lvl-8"><strong>Bottom-Up (综合属性):</strong>
-<ul class="lvl-4">
-<li class="lvl-12">这是最纯粹的“填空”式<strong>综合</strong>。</li>
-<li class="lvl-12">它创建 <code>condStmtNode(&quot;ifThenElse&quot;)</code>。</li>
-<li class="lvl-12"><strong>调用 1:</strong> <code>translateASTExpression()</code> 被调用，它<strong>返回</strong> <code>&lt;表达式&gt;.ast</code> (存入 <code>node expression</code>)。</li>
-<li class="lvl-12"><strong>调用 2:</strong> <code>translateASTNestedStatement()</code> 被调用，它<strong>返回</strong> <code>&lt;嵌套语句&gt;_1.ast</code> (存入 <code>nestedStmt1</code>)。</li>
-<li class="lvl-12"><strong>调用 3:</strong> <code>translateASTNestedStatement()</code> 被调用，它<strong>返回</strong> <code>&lt;嵌套语句&gt;_2.ast</code> (存入 <code>nestedStmt2</code>)。</li>
-<li class="lvl-12"><strong>综合：</strong> 它将这三个<strong>已完成的</strong>子树作为 <code>ifThenElse</code> 节点的子节点。</li>
-<li class="lvl-12"><strong>返回：</strong> <code>condStmtNode</code> (即 <code>&lt;条件语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
-</ul>
-</li>
-</ol>
-</li>
-<li class="lvl-4">
-<p><strong>特点：</strong> 结构固定，没有歧义，只是简单地收集子节点返回的 <code>.ast</code> 属性并组装。</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-循环语句-Loop-Statement">4. 循环语句 (Loop Statement)</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>C++ 代码:</strong> <code>translateASTLoopStatement()</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>文法:</strong> <code>while (&lt;表达式&gt;) : &lt;嵌套语句&gt;</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>AST 目标:</strong> <code>(while [Condition] [Body])</code></p>
-</li>
-<li class="lvl-4">
-<p><strong>属性流 (纯自底向上):</strong></p>
-<ul class="lvl-2">
-<li class="lvl-8"><strong>与 <code>if</code> 语句完全相同</strong>，只是子节点从三个变成了两个。</li>
-<li class="lvl-8"><strong>调用 1:</strong> <code>translateASTExpression()</code> 被调用，<strong>返回</strong> <code>&lt;表达式&gt;.ast</code> (存入 <code>node expression</code>)。</li>
-<li class="lvl-8"><strong>调用 2:</strong> <code>translateASTNestedStatement()</code> 被调用，<strong>返回</strong> <code>&lt;嵌套语句&gt;.ast</code> (存入 <code>nestedStmt</code>)。</li>
-<li class="lvl-8"><strong>综合：</strong> 将 <code>expression</code> 和 <code>nestedStmt</code> 挂在新根 <code>root</code> (“while”) 下。</li>
-<li class="lvl-8"><strong>返回：</strong> <code>root</code> (即 <code>&lt;循环语句&gt;.ast</code>) 被<strong>返回</strong>。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="5-表达式-Expression">5. 表达式 (Expression)</h3>
-<ul class="lvl-0">
-<li class="lvl-4">
-<p><strong>C++ 代码:</strong> <code>translateASTExpression()</code>, <code>translateASTH()</code>, <code>translateASTI()</code>, <code>translateASTD()</code>, <code>translateASTG()</code>, <code>translateASTE()</code>, …</p>
-</li>
-<li class="lvl-4">
-<p><strong>文法:</strong> (一套处理 <code>or</code>, <code>and</code>, <code>not</code>, <code>rel</code>, <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> 的复杂文法)</p>
-</li>
-<li class="lvl-4">
-<p><strong>AST 目标:</strong> <code>(add (mul a b) c)</code> (对于 <code>a * b + c</code>，需要正确的优先级和左结合)</p>
-</li>
-<li class="lvl-4">
-<p><strong>属性流 (自底向上 + 重构):</strong></p>
+<hr />
+<h3 id="表达式-expression">5. 表达式 (Expression)</h3>
+<ul>
+<li><p><strong>C++ 代码:</strong> <code>translateASTExpression()</code>,
+<code>translateASTH()</code>, <code>translateASTI()</code>,
+<code>translateASTD()</code>, <code>translateASTG()</code>,
+<code>translateASTE()</code>, …</p></li>
+<li><p><strong>文法:</strong> (一套处理 <code>or</code>,
+<code>and</code>, <code>not</code>, <code>rel</code>, <code>+</code>,
+<code>-</code>, <code>*</code>, <code>/</code> 的复杂文法)</p></li>
+<li><p><strong>AST 目标:</strong> <code>(add (mul a b) c)</code> (对于
+<code>a * b + c</code>，需要正确的优先级和左结合)</p></li>
+<li><p><strong>属性流 (自底向上 + 重构):</strong></p>
 <p>您的 C++ 代码在处理表达式时，完美地结合了我们之前讨论的两个算法：</p>
-<ol>
-<li class="lvl-8">
-<p><strong>算法1：用函数调用栈处理“优先级” (综合流)</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12"><code>translateASTExpression</code> (处理 <code>or</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTConjunction</code> (处理 <code>and</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTInversion</code> (处理 <code>not</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTRelationExpression</code> (处理 <code>rel</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTMathExpression</code> (处理 <code>+</code>, <code>-</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTTerm</code> (处理 <code>*</code>, <code>/</code>)</li>
-<li class="lvl-12">-&gt; <code>translateASTFactor</code> (处理 <code>ID</code>, <code>整数</code>, <code>( )</code>)</li>
-<li class="lvl-12">这个<strong>调用链</strong>本身就<strong>编码</strong>了运算符的优先级。<code>Factor</code>（优先级最高）在栈的最深处被解析。它<strong>返回 (综合)</strong> 它的 <code>node.ast</code>，然后 <code>Term</code> 处理它，再<strong>返回</strong>，依此类推。</li>
-</ul>
-</li>
-<li class="lvl-8">
-<p><strong>算法2：用树重构处理“左结合性” (综合流)</strong></p>
-<ul class="lvl-4">
-<li class="lvl-12">这仍然是代码中最精妙的部分，它处理 <code>a + b + c</code> 这样的左结合链。</li>
-<li class="lvl-12"><code>translateASTH</code> (处理 <code>+</code>, <code>-</code>), <code>translateASTI</code> (处理 <code>*</code>, <code>/</code>), <code>translateASTD</code> (处理 <code>or</code>), <code>translateASTG</code> (处理 <code>and</code>) <strong>全都使用了这个算法</strong>。</li>
-<li class="lvl-12"><strong>追踪 <code>a + b + c</code> (在 <code>translateASTMathExpression</code> 中):</strong>
-<ol>
-<li class="lvl-16">它调用 <code>translateASTTerm()</code> 得到 <code>a</code> (返回 <code>c1 = (term a ...)</code> )。</li>
-<li class="lvl-16">它调用 <code>translateASTH()</code> 来处理 <code>+ b + c</code> (返回 <code>c2</code>)。</li>
-<li class="lvl-16"><strong>深入 <code>translateASTH()</code> (<code>+ b + c</code>)</strong>:
-<ul class="lvl-8">
-<li class="lvl-20"><code>op = &quot;add&quot;</code>, <code>c1_H = (term b ...)</code> (通过调用 <code>translateASTTerm</code> 获得)。</li>
-<li class="lvl-20"><strong>递归调用 <code>translateASTH()</code> (<code>+ c</code>)</strong>:
-<ul class="lvl-10">
-<li class="lvl-24"><code>op = &quot;add&quot;</code>, <code>c1_H_inner = (term c ...)</code>。</li>
-<li class="lvl-24"><strong>递归调用 <code>translateASTH()</code> (空)</strong> -&gt; <strong>返回 (综合)</strong> <code>(empty)</code>。</li>
-<li class="lvl-24"><code>c2</code> 是 <code>empty</code>。它创建并<strong>返回 (综合)</strong> <code>(add (term c ...))</code>。</li>
-</ul>
-</li>
-<li class="lvl-20"><code>c2_H</code> 现在是 <code>(add (term c ...))</code>。<code>c2_H.root != &quot;empty&quot;</code>。</li>
-<li class="lvl-20"><code>newFirstChild = (add (term b ...))</code>。</li>
-<li class="lvl-20"><code>c2_H.getFirstLeftNonLeafChild(insertPoint)</code> 返回 <code>false</code> (因为 <code>c</code> 是叶子)。</li>
-<li class="lvl-20"><code>c2_H.addNodeAsFirstChild(newFirstChild)</code>。<code>c2_H</code> 变为 <code>(add (add (term b ...)) (term c ...))</code>。</li>
-<li class="lvl-20"><code>translateASTH</code> <strong>返回 (综合)</strong> 这个 <code>(add (add ...))</code> 树。</li>
-</ul>
-</li>
-<li class="lvl-16"><strong>回到 <code>translateASTMathExpression</code></strong>:
-<ul class="lvl-8">
-<li class="lvl-20"><code>c1 = (term a ...)</code>。</li>
-<li class="lvl-20"><code>c2 = (add (add (term b ...)) (term c ...))</code>。</li>
-<li class="lvl-20"><code>c2.root != &quot;empty&quot;</code>。</li>
-<li class="lvl-20"><code>c2.getFirstLeftNonLeafChild(insertPoint)</code> <strong>返回 <code>true</code></strong>，<code>insertPoint</code> 现在指向 <code>(add (term b ...))</code> 节点。</li>
-<li class="lvl-20"><code>insertPoint.addNodeAsFirstChild(c1)</code>。</li>
-<li class="lvl-20"><code>c2</code> (完整的树) 变为 <code>(add (add (term a ...)) (term b ...)) (term c ...))</code> (这里假设 <code>add</code> 可以有多个孩子，或者 <code>getFirstLeft...</code> 找到了正确的 <code>add</code> 节点)。</li>
-<li class="lvl-20"><strong>等等，让我重读您的 <code>getFirstLeftNonLeafChild</code> C# 逻辑…</strong></li>
-<li class="lvl-20"><em>(<br>
-<code>pointer = children[0];</code><br>
-<code>while(pointer.children.Count != 0) { lastPointer = pointer; pointer = pointer.children[0]; }</code><br>
-<code>return lastPointer;</code><br>
-)</em></li>
-<li class="lvl-20"><strong>OK，C# 逻辑追踪：</strong></li>
-<li class="lvl-20"><code>c2 = (add (add (term b)) (term c))</code> (简化版)</li>
-<li class="lvl-20"><code>insertPoint = c2.getFirstLeft...()</code>:
-<ul class="lvl-10">
-<li class="lvl-24"><code>pointer = (add (term b))</code></li>
-<li class="lvl-24"><code>while</code>: <code>lastPointer = (add (term b))</code>, <code>pointer = (term b)</code></li>
-<li class="lvl-24"><code>while</code>: <code>pointer.children.Count == 0</code> -&gt; 循环终止</li>
-<li class="lvl-24"><strong>返回 <code>lastPointer</code></strong>，即 <code>(add (term b))</code> 节点。</li>
-</ul>
-</li>
-<li class="lvl-20"><code>insertPoint.addNodeAsFirstChild(c1)</code> (即 <code>(term a)</code>)</li>
-<li class="lvl-20"><code>insertPoint</code> 变为 <code>(add (term a) (term b))</code></li>
-<li class="lvl-20"><code>c2</code> (完整的树) 变为 <code>(add (add (term a) (term b)) (term c))</code>。</li>
-</ul>
-</li>
-<li class="lvl-16"><strong>结论：</strong> 您的 C++ 代码<strong>完美地复现</strong>了 C# 中的左结合树重构算法。它仍然是一个<strong>纯粹的综合属性 (Bottom-Up)</strong> 流，但父节点不是简单地<em>组合</em>子节点，而是<em>重构</em>子节点返回的树，以确保正确的结合性。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-</li>
+<ol type="1">
+<li><p><strong>算法1：用函数调用栈处理“优先级” (综合流)</strong></p>
+<ul>
+<li><code>translateASTExpression</code> (处理 <code>or</code>)</li>
+<li>-&gt; <code>translateASTConjunction</code> (处理
+<code>and</code>)</li>
+<li>-&gt; <code>translateASTInversion</code> (处理
+<code>not</code>)</li>
+<li>-&gt; <code>translateASTRelationExpression</code> (处理
+<code>rel</code>)</li>
+<li>-&gt; <code>translateASTMathExpression</code> (处理 <code>+</code>,
+<code>-</code>)</li>
+<li>-&gt; <code>translateASTTerm</code> (处理 <code>*</code>,
+<code>/</code>)</li>
+<li>-&gt; <code>translateASTFactor</code> (处理 <code>ID</code>,
+<code>整数</code>, <code>( )</code>)</li>
+<li>这个<strong>调用链</strong>本身就<strong>编码</strong>了运算符的优先级。<code>Factor</code>（优先级最高）在栈的最深处被解析。它<strong>返回
+(综合)</strong> 它的 <code>node.ast</code>，然后 <code>Term</code>
+处理它，再<strong>返回</strong>，依此类推。</li>
+</ul></li>
+<li><p><strong>算法2：用树重构处理“左结合性” (综合流)</strong></p>
+<ul>
+<li>这仍然是代码中最精妙的部分，它处理 <code>a + b + c</code>
+这样的左结合链。</li>
+<li><code>translateASTH</code> (处理 <code>+</code>, <code>-</code>),
+<code>translateASTI</code> (处理 <code>*</code>, <code>/</code>),
+<code>translateASTD</code> (处理 <code>or</code>),
+<code>translateASTG</code> (处理 <code>and</code>)
+<strong>全都使用了这个算法</strong>。</li>
+<li><strong>追踪 <code>a + b + c</code> (在
+<code>translateASTMathExpression</code> 中):</strong>
+<ol type="1">
+<li>它调用 <code>translateASTTerm()</code> 得到 <code>a</code> (返回
+<code>c1 = (term a ...)</code> )。</li>
+<li>它调用 <code>translateASTH()</code> 来处理 <code>+ b + c</code>
+(返回 <code>c2</code>)。</li>
+<li><strong>深入 <code>translateASTH()</code>
+(<code>+ b + c</code>)</strong>:
+<ul>
+<li><code>op = "add"</code>, <code>c1_H = (term b ...)</code> (通过调用
+<code>translateASTTerm</code> 获得)。</li>
+<li><strong>递归调用 <code>translateASTH()</code>
+(<code>+ c</code>)</strong>:
+<ul>
+<li><code>op = "add"</code>,
+<code>c1_H_inner = (term c ...)</code>。</li>
+<li><strong>递归调用 <code>translateASTH()</code> (空)</strong> -&gt;
+<strong>返回 (综合)</strong> <code>(empty)</code>。</li>
+<li><code>c2</code> 是 <code>empty</code>。它创建并<strong>返回
+(综合)</strong> <code>(add (term c ...))</code>。</li>
+</ul></li>
+<li><code>c2_H</code> 现在是
+<code>(add (term c ...))</code>。<code>c2_H.root != "empty"</code>。</li>
+<li><code>newFirstChild = (add (term b ...))</code>。</li>
+<li><code>c2_H.getFirstLeftNonLeafChild(insertPoint)</code> 返回
+<code>false</code> (因为 <code>c</code> 是叶子)。</li>
+<li><code>c2_H.addNodeAsFirstChild(newFirstChild)</code>。<code>c2_H</code>
+变为 <code>(add (add (term b ...)) (term c ...))</code>。</li>
+<li><code>translateASTH</code> <strong>返回 (综合)</strong> 这个
+<code>(add (add ...))</code> 树。</li>
+</ul></li>
+<li><strong>回到 <code>translateASTMathExpression</code></strong>:
+<ul>
+<li><code>c1 = (term a ...)</code>。</li>
+<li><code>c2 = (add (add (term b ...)) (term c ...))</code>。</li>
+<li><code>c2.root != "empty"</code>。</li>
+<li><code>c2.getFirstLeftNonLeafChild(insertPoint)</code> <strong>返回
+<code>true</code></strong>，<code>insertPoint</code> 现在指向
+<code>(add (term b ...))</code> 节点。</li>
+<li><code>insertPoint.addNodeAsFirstChild(c1)</code>。</li>
+<li><code>c2</code> (完整的树) 变为
+<code>(add (add (term a ...)) (term b ...)) (term c ...))</code>
+(这里假设 <code>add</code> 可以有多个孩子，或者
+<code>getFirstLeft...</code> 找到了正确的 <code>add</code> 节点)。</li>
+<li><strong>等等，让我重读您的 <code>getFirstLeftNonLeafChild</code> C#
+逻辑…</strong></li>
+<li><em>( <code>pointer = children[0];</code>
+<code>while(pointer.children.Count != 0) { lastPointer = pointer; pointer = pointer.children[0]; }</code>
+<code>return lastPointer;</code> )</em></li>
+<li><strong>OK，C# 逻辑追踪：</strong></li>
+<li><code>c2 = (add (add (term b)) (term c))</code> (简化版)</li>
+<li><code>insertPoint = c2.getFirstLeft...()</code>:
+<ul>
+<li><code>pointer = (add (term b))</code></li>
+<li><code>while</code>: <code>lastPointer = (add (term b))</code>,
+<code>pointer = (term b)</code></li>
+<li><code>while</code>: <code>pointer.children.Count == 0</code> -&gt;
+循环终止</li>
+<li><strong>返回 <code>lastPointer</code></strong>，即
+<code>(add (term b))</code> 节点。</li>
+</ul></li>
+<li><code>insertPoint.addNodeAsFirstChild(c1)</code> (即
+<code>(term a)</code>)</li>
+<li><code>insertPoint</code> 变为
+<code>(add (term a) (term b))</code></li>
+<li><code>c2</code> (完整的树) 变为
+<code>(add (add (term a) (term b)) (term c))</code>。</li>
+</ul></li>
+<li><strong>结论：</strong> 您的 C++ 代码<strong>完美地复现</strong>了
+C# 中的左结合树重构算法。它仍然是一个<strong>纯粹的综合属性
+(Bottom-Up)</strong>
+流，但父节点不是简单地<em>组合</em>子节点，而是<em>重构</em>子节点返回的树，以确保正确的结合性。</li>
+</ol></li>
+</ul></li>
+</ol></li>
 </ul>
 <h3 id="总结对比">总结对比</h3>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr>
 <th>语句类型</th>
@@ -500,27 +553,36 @@
 <tr>
 <td><strong>声明语句</strong></td>
 <td><code>translateASTDeclareStatement</code></td>
-<td><strong>(1) 继承 (Top-Down):</strong> <code>const string&amp; type</code> 被传递下去。<br><strong>(2) 综合 (Bottom-Up):</strong> <code>node</code> 对象被 <code>return</code> 回来。</td>
+<td><strong>(1) 继承 (Top-Down):</strong>
+<code>const string&amp; type</code> 被传递下去。<br><strong>(2) 综合
+(Bottom-Up):</strong> <code>node</code> 对象被 <code>return</code>
+回来。</td>
 </tr>
 <tr>
 <td><strong>赋值语句</strong></td>
 <td><code>translateASTAssignmentStatement</code></td>
-<td><strong>综合 (Bottom-Up):</strong> <code>node</code> 对象被 <code>return</code> 回来。</td>
+<td><strong>综合 (Bottom-Up):</strong> <code>node</code> 对象被
+<code>return</code> 回来。</td>
 </tr>
 <tr>
 <td><strong>条件语句</strong></td>
 <td><code>translateASTConditionalStatement</code></td>
-<td><strong>综合 (Bottom-Up):</strong> 纯粹的结构化组合。<code>if</code> 节点收集三个 <code>return</code> 回来的 <code>node</code>。</td>
+<td><strong>综合 (Bottom-Up):</strong> 纯粹的结构化组合。<code>if</code>
+节点收集三个 <code>return</code> 回来的 <code>node</code>。</td>
 </tr>
 <tr>
 <td><strong>循环语句</strong></td>
 <td><code>translateASTLoopStatement</code></td>
-<td><strong>综合 (Bottom-Up):</strong> 纯粹的结构化组合。<code>while</code> 节点收集两个 <code>return</code> 回来的 <code>node</code>。</td>
+<td><strong>综合 (Bottom-Up):</strong>
+纯粹的结构化组合。<code>while</code> 节点收集两个 <code>return</code>
+回来的 <code>node</code>。</td>
 </tr>
 <tr>
 <td><strong>表达式</strong></td>
 <td><code>translateASTH</code>, <code>translateASTI</code>, …</td>
-<td><strong>综合 (Bottom-Up) + 重构:</strong> <code>node</code> 对象被 <code>return</code>，但父节点会<em>修改</em>子树的结构 (使用 <code>getFirst...</code>) 来保证左结合性。</td>
+<td><strong>综合 (Bottom-Up) + 重构:</strong> <code>node</code> 对象被
+<code>return</code>，但父节点会<em>修改</em>子树的结构 (使用
+<code>getFirst...</code>) 来保证左结合性。</td>
 </tr>
 </tbody>
 </table>
@@ -606,7 +668,10 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A3%B0%E6%98%8E%E8%AF%AD%E5%8F%A5-Declaration-Statement"><span class="nav-number">1.</span> <span class="nav-text">1. 声明语句 (Declaration Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5-Assignment-Statement"><span class="nav-number">2.</span> <span class="nav-text">2. 赋值语句 (Assignment Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5-Conditional-Statement"><span class="nav-number">3.</span> <span class="nav-text">3. 条件语句 (Conditional Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5-Loop-Statement"><span class="nav-number">4.</span> <span class="nav-text">4. 循环语句 (Loop Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%A1%A8%E8%BE%BE%E5%BC%8F-Expression"><span class="nav-number">5.</span> <span class="nav-text">5. 表达式 (Expression)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">6.</span> <span class="nav-text">总结对比</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E8%AF%AD%E5%8F%A5-declaration-statement"><span class="nav-number">1.</span> <span class="nav-text">1. 声明语句 (Declaration
+Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5-assignment-statement"><span class="nav-number">2.</span> <span class="nav-text">2. 赋值语句 (Assignment
+Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5-conditional-statement"><span class="nav-number">3.</span> <span class="nav-text">3. 条件语句 (Conditional
+Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5-loop-statement"><span class="nav-number">4.</span> <span class="nav-text">4. 循环语句 (Loop Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F-expression"><span class="nav-number">5.</span> <span class="nav-text">5. 表达式 (Expression)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">6.</span> <span class="nav-text">总结对比</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -683,7 +748,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

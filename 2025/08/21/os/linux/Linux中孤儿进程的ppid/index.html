@@ -240,38 +240,46 @@
 
       
         <p>记录蒋炎炎老师OS课上的孤儿进程问题</p>
- <span id="more"></span>
-<ol>
-<li class="lvl-3">
-<p><strong>孤儿进程的内核处理逻辑</strong><br>
-当父进程终止时，内核会触发<code>do_exit()</code>系统调用，其中包含对其子进程的 “领养” 处理逻辑。具体来说，内核会遍历该父进程的所有子进程（通过进程描述符<code>task_struct</code>的<code>children</code>链表），并为每个子进程重新设置父进程 ID（PPID）。这一过程由内核函数<code>reparent_children()</code>完成，其核心目标是确保每个进程始终有一个有效的父进程，以避免资源泄漏。</p>
-</li>
-<li class="lvl-3">
-<p><strong>为何通常指向 1 号进程？</strong><br>
-1 号进程（传统上是<code>init</code>，现代系统中多为<code>systemd</code>）是 Linux 用户态的第一个进程，由内核直接创建（<code>start_kernel()</code>阶段初始化）。其设计特性是：</p>
-<ul class="lvl-2">
-<li class="lvl-5">常驻内存（生命周期与系统一致）</li>
-<li class="lvl-5">会主动调用<code>wait()</code>系列系统调用回收所有子进程资源因此，内核默认将孤儿进程的 PPID 重置为 1 号进程，利用其特性保证孤儿进程终止后能被及时回收，避免成为僵尸进程（<code>Z</code>状态）。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>非1号进程的特殊场景</strong><br>
-非 1 号进程成为领养者，本质上与 Linux 的<strong>进程命名空间（process namespace）</strong> 机制相关：</p>
-<ul class="lvl-2">
-<li class="lvl-5">每个命名空间（如容器环境、用户会话）都有独立的进程 ID 空间，其中也会存在一个 “命名空间内的 1 号进程”（即该命名空间的初始化进程）。</li>
-<li class="lvl-5">当孤儿进程位于非初始命名空间时，内核会将其 PPID 重置为<strong>该命名空间内的 1 号进程</strong>，而非全局 1 号进程。例如：</li>
-<li class="lvl-5">容器环境中，容器内的 1 号进程（如<code>containerd-shim</code>或容器内的<code>init</code>）会领养容器内的孤儿进程。</li>
-<li class="lvl-5">用户会话中，<code>systemd --user</code>进程（可能是 1867 号）作为用户会话命名空间的初始化进程，会领养该会话内的孤儿进程。</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>是否会指向其他进程？</strong><br>
-理论上，内核只会选择<strong>命名空间内的 1 号进程</strong>作为领养者，而非任意进程。这是因为：</p>
-<ul class="lvl-2">
-<li class="lvl-5">领养者必须具备 “不会主动退出” 且 “会处理子进程回收” 的特性，普通用户进程不满足这一要求。</li>
-<li class="lvl-5">内核通过<code>find_new_reaper()</code>函数确定领养者，该函数的逻辑是：在当前命名空间中寻找 “最顶层” 的 init 类进程（即命名空间内的 1 号进程）。</li>
-</ul>
-</li>
+<p><span id="more"></span></p>
+<ol type="1">
+<li><strong>孤儿进程的内核处理逻辑</strong>
+当父进程终止时，内核会触发<code>do_exit()</code>系统调用，其中包含对其子进程的
+“领养”
+处理逻辑。具体来说，内核会遍历该父进程的所有子进程（通过进程描述符<code>task_struct</code>的<code>children</code>链表），并为每个子进程重新设置父进程
+ID（PPID）。这一过程由内核函数<code>reparent_children()</code>完成，其核心目标是确保每个进程始终有一个有效的父进程，以避免资源泄漏。</li>
+<li><strong>为何通常指向 1 号进程？</strong> 1
+号进程（传统上是<code>init</code>，现代系统中多为<code>systemd</code>）是
+Linux
+用户态的第一个进程，由内核直接创建（<code>start_kernel()</code>阶段初始化）。其设计特性是：
+<ul>
+<li>常驻内存（生命周期与系统一致）</li>
+<li>会主动调用<code>wait()</code>系列系统调用回收所有子进程资源
+因此，内核默认将孤儿进程的 PPID 重置为 1
+号进程，利用其特性保证孤儿进程终止后能被及时回收，避免成为僵尸进程（<code>Z</code>状态）。</li>
+</ul></li>
+<li><strong>非1号进程的特殊场景</strong> 非 1 号进程成为领养者，本质上与
+Linux 的<strong>进程命名空间（process namespace）</strong> 机制相关：
+<ul>
+<li>每个命名空间（如容器环境、用户会话）都有独立的进程 ID
+空间，其中也会存在一个 “命名空间内的 1
+号进程”（即该命名空间的初始化进程）。</li>
+<li>当孤儿进程位于非初始命名空间时，内核会将其 PPID
+重置为<strong>该命名空间内的 1 号进程</strong>，而非全局 1 号进程。
+例如：</li>
+<li>容器环境中，容器内的 1
+号进程（如<code>containerd-shim</code>或容器内的<code>init</code>）会领养容器内的孤儿进程。</li>
+<li>用户会话中，<code>systemd --user</code>进程（可能是 1867
+号）作为用户会话命名空间的初始化进程，会领养该会话内的孤儿进程。</li>
+</ul></li>
+<li><strong>是否会指向其他进程？</strong>
+理论上，内核只会选择<strong>命名空间内的 1
+号进程</strong>作为领养者，而非任意进程。这是因为：
+<ul>
+<li>领养者必须具备 “不会主动退出” 且 “会处理子进程回收”
+的特性，普通用户进程不满足这一要求。</li>
+<li>内核通过<code>find_new_reaper()</code>函数确定领养者，该函数的逻辑是：在当前命名空间中寻找
+“最顶层” 的 init 类进程（即命名空间内的 1 号进程）。</li>
+</ul></li>
 </ol>
 
     </div>
@@ -436,7 +444,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

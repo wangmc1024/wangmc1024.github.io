@@ -236,31 +236,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p>在 C++ 中，<code>new</code> 分配内存失败时的行为分两种情况，但<strong>不会返回 <code>std::bad_alloc</code></strong></p>
-<ol>
-<li class="lvl-3">
-<p><strong>默认 <code>new</code>（抛出异常版本）</strong><br>
-当内存分配失败时，会<strong>抛出 <code>std::bad_alloc</code> 异常</strong>（而非返回该异常对象）。此时不需要检查指针是否为空，而是通过 <code>try-catch</code> 捕获异常。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span>  <span class="comment">// 包含 std::bad_alloc 的定义</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 尝试分配超大内存，可能失败</span></span><br><span class="line">        <span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">1000000000000</span>];  <span class="comment">// 分配失败时抛出 std::bad_alloc</span></span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125; <span class="built_in">catch</span> (<span class="type">const</span> std::bad_alloc&amp; e) &#123;</span><br><span class="line">        <span class="comment">// 捕获异常并处理</span></span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败：&quot;</span> &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p><strong><code>nothrow</code> 版本的 <code>new</code></strong><br>
-使用 <code>new (std::nothrow)</code> 时，分配失败不会抛出异常，而是<strong>返回 <code>nullptr</code></strong>（空指针），需要手动检查指针有效性。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 不抛出异常的版本，失败返回 nullptr</span></span><br><span class="line">    <span class="type">int</span>* arr = <span class="built_in">new</span> (std::nothrow) <span class="type">int</span>[<span class="number">1000000000000</span>];</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<p>在 C++ 中，<code>new</code>
+分配内存失败时的行为分两种情况，但<strong>不会返回
+<code>std::bad_alloc</code></strong></p>
+<ol type="1">
+<li><p><strong>默认 <code>new</code>（抛出异常版本）</strong><br />
+当内存分配失败时，会<strong>抛出 <code>std::bad_alloc</code>
+异常</strong>（而非返回该异常对象）。此时不需要检查指针是否为空，而是通过
+<code>try-catch</code> 捕获异常。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span>  <span class="comment">// 包含 std::bad_alloc 的定义</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 尝试分配超大内存，可能失败</span></span><br><span class="line">        <span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">1000000000000</span>];  <span class="comment">// 分配失败时抛出 std::bad_alloc</span></span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125; <span class="built_in">catch</span> (<span class="type">const</span> std::bad_alloc&amp; e) &#123;</span><br><span class="line">        <span class="comment">// 捕获异常并处理</span></span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败：&quot;</span> &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong><code>nothrow</code> 版本的
+<code>new</code></strong><br />
+使用 <code>new (std::nothrow)</code>
+时，分配失败不会抛出异常，而是<strong>返回
+<code>nullptr</code></strong>（空指针），需要手动检查指针有效性。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;new&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 不抛出异常的版本，失败返回 nullptr</span></span><br><span class="line">    <span class="type">int</span>* arr = <span class="built_in">new</span> (std::nothrow) <span class="type">int</span>[<span class="number">1000000000000</span>];</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;分配失败&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>普通 <code>new</code> 失败时<strong>抛出 <code>std::bad_alloc</code> 异常</strong>，需用 <code>try-catch</code> 处理。</p>
+<ul>
+<li>普通 <code>new</code> 失败时<strong>抛出 <code>std::bad_alloc</code>
+异常</strong>，需用 <code>try-catch</code> 处理。<br />
 </li>
-<li class="lvl-2">
-<p><code>new (std::nothrow)</code> 失败时<strong>返回 <code>nullptr</code></strong>，需手动判断指针是否为空。</p>
+<li><code>new (std::nothrow)</code> 失败时<strong>返回
+<code>nullptr</code></strong>，需手动判断指针是否为空。<br />
 </li>
-<li class="lvl-2">
-<p>两种情况都不会“返回 <code>bad_alloc</code>”，<code>bad_alloc</code> 是异常类型，而非返回值。</p>
-</li>
+<li>两种情况都不会“返回 <code>bad_alloc</code>”，<code>bad_alloc</code>
+是异常类型，而非返回值。</li>
 </ul>
 
     </div>
@@ -424,7 +428,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

@@ -231,54 +231,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p>可以，在 <strong>Miniconda 基础环境 (base environment)</strong> 中安装 <code>uv</code> 是一个<strong>常见的、推荐的做法</strong></p>
-<p>这种做法实际上是利用 <code>uv</code> 的一个关键特性：<strong><code>uv</code> 是一个独立的、用 Rust 编写的可执行文件，它不需要依赖任何特定 Python 环境的库才能运行。</strong></p>
-<h4 id="1-为什么不会冲突？">1. 为什么不会冲突？</h4>
-<p><code>uv</code> 的设计使其可以作为整个系统或 Conda 生态的<strong>外部工具</strong>运行，它避免了与您创建的特定 Python 环境发生依赖冲突：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong><code>uv</code> 自身是独立的：</strong> 当您在 <code>base</code> 环境中安装 <code>uv</code> 时，它只是将 <code>uv</code> 这个可执行程序（在 Windows 上是 <code>.exe</code> 文件，在 Linux/macOS 上是二进制文件）放在了 <code>base</code> 环境的 <code>bin/</code>（或 <code>Scripts/</code>）目录下。</p>
-</li>
-<li class="lvl-2">
-<p><strong>Miniconda 的 PATH 机制：</strong> 由于 <code>base</code> 环境的路径通常在您系统的 <code>PATH</code> 环境变量中（或者在您启动 Conda Prompt 时被添加到 <code>PATH</code> 中），所以您可以在任何地方直接运行 <code>uv</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>目标环境隔离：</strong> 当您在<strong>其他</strong>已激活的虚拟环境 (<code>pyside_env</code> 等) 中运行 <code>uv pip install PySide6</code> 时，<code>uv</code> 会自动识别当前激活的环境，并将包安装到该环境的 <code>site-packages</code> 目录中，<strong>不会碰触</strong> <code>base</code> 环境中的任何包（除了 <code>uv</code> 本身）。</p>
-</li>
+<p>可以，在 <strong>Miniconda 基础环境 (base environment)</strong>
+中安装 <code>uv</code> 是一个<strong>常见的、推荐的做法</strong></p>
+<p>这种做法实际上是利用 <code>uv</code>
+的一个关键特性：<strong><code>uv</code> 是一个独立的、用 Rust
+编写的可执行文件，它不需要依赖任何特定 Python
+环境的库才能运行。</strong></p>
+<h4 id="为什么不会冲突">1. 为什么不会冲突？</h4>
+<p><code>uv</code> 的设计使其可以作为整个系统或 Conda
+生态的<strong>外部工具</strong>运行，它避免了与您创建的特定 Python
+环境发生依赖冲突：</p>
+<ul>
+<li><strong><code>uv</code> 自身是独立的：</strong> 当您在
+<code>base</code> 环境中安装 <code>uv</code> 时，它只是将
+<code>uv</code> 这个可执行程序（在 Windows 上是 <code>.exe</code>
+文件，在 Linux/macOS 上是二进制文件）放在了 <code>base</code> 环境的
+<code>bin/</code>（或 <code>Scripts/</code>）目录下。</li>
+<li><strong>Miniconda 的 PATH 机制：</strong> 由于 <code>base</code>
+环境的路径通常在您系统的 <code>PATH</code> 环境变量中（或者在您启动
+Conda Prompt 时被添加到 <code>PATH</code>
+中），所以您可以在任何地方直接运行 <code>uv</code> 命令。</li>
+<li><strong>目标环境隔离：</strong>
+当您在<strong>其他</strong>已激活的虚拟环境 (<code>pyside_env</code> 等)
+中运行 <code>uv pip install PySide6</code> 时，<code>uv</code>
+会自动识别当前激活的环境，并将包安装到该环境的
+<code>site-packages</code> 目录中，<strong>不会碰触</strong>
+<code>base</code> 环境中的任何包（除了 <code>uv</code> 本身）。</li>
 </ul>
-<ol start="2">
-<li class="lvl-3">
-<p>操作步骤</p>
-</li>
-<li class="lvl-3">
-<p><strong>切换到基础环境：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate base</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p><strong>安装 uv：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install uv</span><br><span class="line"><span class="comment"># 或者如果你偏爱 conda-forge:</span></span><br><span class="line"><span class="comment"># conda install -c conda-forge uv</span></span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-3">
-<p><strong>验证和使用：</strong></p>
-<ul class="lvl-2">
-<li class="lvl-5">
-<p><strong>停用基础环境：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-5">
-<p><strong>激活你的目标项目环境：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate pyside_env</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-5">
-<p><strong>在目标环境中运行 uv：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个 uv 命令实际上是在 base 环境中找到并运行的</span></span><br><span class="line">uv pip install requests</span><br><span class="line"><span class="comment"># requests 包会被安装到 pyside_env 的 site-packages 中</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<ol start="2" type="1">
+<li><p>操作步骤</p></li>
+<li><p><strong>切换到基础环境：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate base</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>安装 uv：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install uv</span><br><span class="line"><span class="comment"># 或者如果你偏爱 conda-forge:</span></span><br><span class="line"><span class="comment"># conda install -c conda-forge uv</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>验证和使用：</strong></p>
+<ul>
+<li><p><strong>停用基础环境：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>激活你的目标项目环境：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate pyside_env</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>在目标环境中运行 uv：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个 uv 命令实际上是在 base 环境中找到并运行的</span></span><br><span class="line">uv pip install requests</span><br><span class="line"><span class="comment"># requests 包会被安装到 pyside_env 的 site-packages 中</span></span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ol>
-<p>通过这种设置，您只需安装一次 <code>uv</code>，就可以在您所有的 Conda 虚拟环境中享受 <code>uv</code> 带来的高速包管理体验。</p>
+<p>通过这种设置，您只需安装一次 <code>uv</code>，就可以在您所有的 Conda
+虚拟环境中享受 <code>uv</code> 带来的高速包管理体验。</p>
 
     </div>
 
@@ -366,7 +367,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%BC%9A%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">1. 为什么不会冲突？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%BC%9A%E5%86%B2%E7%AA%81"><span class="nav-number">1.</span> <span class="nav-text">1. 为什么不会冲突？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -443,7 +444,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

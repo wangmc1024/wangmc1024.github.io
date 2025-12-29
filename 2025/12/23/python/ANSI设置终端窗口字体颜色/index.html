@@ -230,28 +230,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<h3 id="先明确：SGR的使用格式">先明确：SGR的使用格式</h3>
-<p>在终端中，SGR通过<strong>ANSI转义序列</strong>触发，格式是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\033[参数1;参数2;...m 要设置样式的文本 \033[0m</span><br></pre></td></tr></table></figure>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>\033[</code>：转义序列的起始标识（也可以写成<code>\x1b[</code>）</p>
-</li>
-<li class="lvl-2">
-<p><code>参数1;参数2;...</code>：多个SGR参数用分号分隔（比如同时设置“加粗+红色”就是<code>1;31</code>）</p>
-</li>
-<li class="lvl-2">
-<p><code>m</code>：转义序列的结束标识</p>
-</li>
-<li class="lvl-2">
-<p><code>\033[0m</code>：必须加，用于<strong>重置所有样式</strong>（否则后续文本会继承当前样式）</p>
-</li>
-</ul>
-<h3 id="分类型详细解释-用法示例">分类型详细解释+用法示例</h3>
-<h4 id="1-基础样式（重置-格式）">1. 基础样式（重置/格式）</h4>
+<h3 id="先明确sgr的使用格式">先明确：SGR的使用格式</h3>
+<p>在终端中，SGR通过<strong>ANSI转义序列</strong>触发，格式是：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\033[参数1;参数2;...m 要设置样式的文本 \033[0m</span><br></pre></td></tr></table></figure> -
+<code>\033[</code>：转义序列的起始标识（也可以写成<code>\x1b[</code>） -
+<code>参数1;参数2;...</code>：多个SGR参数用分号分隔（比如同时设置“加粗+红色”就是<code>1;31</code>）
+- <code>m</code>：转义序列的结束标识 -
+<code>\033[0m</code>：必须加，用于<strong>重置所有样式</strong>（否则后续文本会继承当前样式）</p>
+<h3 id="分类型详细解释用法示例">分类型详细解释+用法示例</h3>
+<h4 id="基础样式重置格式">1. 基础样式（重置/格式）</h4>
 <table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 44%" />
+<col style="width: 30%" />
+</colgroup>
 <thead>
 <tr>
 <th>value</th>
@@ -264,59 +262,52 @@
 <tr>
 <td>0</td>
 <td>重置所有样式</td>
-<td><code>print(&quot;\033[0m重置后的文本&quot;)</code></td>
+<td><code>print("\033[0m重置后的文本")</code></td>
 <td>恢复终端默认文字样式</td>
 </tr>
 <tr>
 <td>1</td>
 <td>加粗/高亮</td>
-<td><code>print(&quot;\033[1m这是加粗文本\033[0m&quot;)</code></td>
+<td><code>print("\033[1m这是加粗文本\033[0m")</code></td>
 <td>文字变粗（部分终端是高亮）</td>
 </tr>
 <tr>
 <td>3</td>
 <td>斜体</td>
-<td><code>print(&quot;\033[3m这是斜体文本\033[0m&quot;)</code></td>
+<td><code>print("\033[3m这是斜体文本\033[0m")</code></td>
 <td>文字倾斜（部分终端不支持）</td>
 </tr>
 <tr>
 <td>4</td>
 <td>下划线</td>
-<td><code>print(&quot;\033[4m这是下划线文本\033[0m&quot;)</code></td>
+<td><code>print("\033[4m这是下划线文本\033[0m")</code></td>
 <td>文字下方加横线</td>
 </tr>
 </tbody>
 </table>
-<h4 id="2-前景色（文字颜色）">2. 前景色（文字颜色）</h4>
-<h5 id="（1）基础8色（30-37）">（1）基础8色（30-37）</h5>
-<p>对应“黑、红、绿、黄、蓝、紫、青、白”，示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色文字（31）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[31m这是基础红色文字\033[0m&quot;</span>)</span><br><span class="line"><span class="comment"># 绿色文字（32）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[32m这是基础绿色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（2）高亮8色（90-97）">（2）高亮8色（90-97）</h5>
-<p>比基础色更明亮，示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色（91）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[91m这是高亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（3）256色（38-5-n）">（3）256色（38;5;n）</h5>
-<p>通过“38;5+数字n”调用256色调色板（n范围0-255），示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色中的第196号（亮红色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;5;196m这是256色的亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（4）RGB色（38-2-r-g-b）">（4）RGB色（38;2;r;g;b）</h5>
-<p>通过“38;2+r/g/b数值（0-255）”自定义颜色，示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RGB(255, 100, 100)：浅红色</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;2;255;100;100m这是自定义浅红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="3-背景色（文字底色）">3. 背景色（文字底色）</h4>
-<h5 id="（1）基础8色（40-47）">（1）基础8色（40-47）</h5>
-<p>对应基础色的背景，示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色背景（41）+ 白色文字（37）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[41;37m红底白字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（2）高亮8色（100-107）">（2）高亮8色（100-107）</h5>
-<p>更明亮的背景色，示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色背景（101）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[101;30m高亮红底黑字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（3）256色背景（48-5-n）">（3）256色背景（48;5;n）</h5>
-<p>示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色第200号背景（暗紫色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;5;200;37m256色背景+白色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="（4）RGB背景（48-2-r-g-b）">（4）RGB背景（48;2;r;g;b）</h5>
-<p>示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 背景RGB(100, 200, 255)（浅蓝色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;2;100;200;255;30mRGB背景+黑色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="4-多参数组合用法">4. 多参数组合用法</h4>
-<p>可以同时加多个SGR参数（用分号分隔），比如“加粗+红色+下划线”：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[1;31;4m加粗+红色+下划线的文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>SGR是终端控制文字样式的“指令集”，通过不同数值参数组合，能实现**文字颜色、背景色、格式（加粗/斜体等）**的自定义，而我们平时用Python打印彩色文字，本质就是调用这些SGR参数~</p>
+<h4 id="前景色文字颜色">2. 前景色（文字颜色）</h4>
+<h5 id="基础8色30-37">（1）基础8色（30-37）</h5>
+<p>对应“黑、红、绿、黄、蓝、紫、青、白”，示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色文字（31）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[31m这是基础红色文字\033[0m&quot;</span>)</span><br><span class="line"><span class="comment"># 绿色文字（32）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[32m这是基础绿色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="高亮8色90-97">（2）高亮8色（90-97）</h5>
+<p>比基础色更明亮，示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色（91）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[91m这是高亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="色385n">（3）256色（38;5;n）</h5>
+<p>通过“38;5+数字n”调用256色调色板（n范围0-255），示例：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色中的第196号（亮红色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;5;196m这是256色的亮红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="rgb色382rgb">（4）RGB色（38;2;r;g;b）</h5>
+<p>通过“38;2+r/g/b数值（0-255）”自定义颜色，示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RGB(255, 100, 100)：浅红色</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[38;2;255;100;100m这是自定义浅红色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="背景色文字底色">3. 背景色（文字底色）</h4>
+<h5 id="基础8色40-47">（1）基础8色（40-47）</h5>
+<p>对应基础色的背景，示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 红色背景（41）+ 白色文字（37）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[41;37m红底白字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="高亮8色100-107">（2）高亮8色（100-107）</h5>
+<p>更明亮的背景色，示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高亮红色背景（101）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[101;30m高亮红底黑字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="色背景485n">（3）256色背景（48;5;n）</h5>
+<p>示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 256色第200号背景（暗紫色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;5;200;37m256色背景+白色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="rgb背景482rgb">（4）RGB背景（48;2;r;g;b）</h5>
+<p>示例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 背景RGB(100, 200, 255)（浅蓝色）</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[48;2;100;200;255;30mRGB背景+黑色文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="多参数组合用法">4. 多参数组合用法</h4>
+<p>可以同时加多个SGR参数（用分号分隔），比如“加粗+红色+下划线”：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[1;31;4m加粗+红色+下划线的文字\033[0m&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>SGR是终端控制文字样式的“指令集”，通过不同数值参数组合，能实现<strong>文字颜色、背景色、格式（加粗/斜体等）</strong>的自定义，而我们平时用Python打印彩色文字，本质就是调用这些SGR参数~</p>
 
     </div>
 
@@ -403,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E6%98%8E%E7%A1%AE%EF%BC%9ASGR%E7%9A%84%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">先明确：SGR的使用格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%9E%8B%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A-%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">分类型详细解释+用法示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A0%B7%E5%BC%8F%EF%BC%88%E9%87%8D%E7%BD%AE-%E6%A0%BC%E5%BC%8F%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. 基础样式（重置&#x2F;格式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%89%8D%E6%99%AF%E8%89%B2%EF%BC%88%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 前景色（文字颜色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%808%E8%89%B2%EF%BC%8830-37%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）基础8色（30-37）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%AB%98%E4%BA%AE8%E8%89%B2%EF%BC%8890-97%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）高亮8色（90-97）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89256%E8%89%B2%EF%BC%8838-5-n%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）256色（38;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89RGB%E8%89%B2%EF%BC%8838-2-r-g-b%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）RGB色（38;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%83%8C%E6%99%AF%E8%89%B2%EF%BC%88%E6%96%87%E5%AD%97%E5%BA%95%E8%89%B2%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">3. 背景色（文字底色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%808%E8%89%B2%EF%BC%8840-47%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）基础8色（40-47）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%AB%98%E4%BA%AE8%E8%89%B2%EF%BC%88100-107%EF%BC%89"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）高亮8色（100-107）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89256%E8%89%B2%E8%83%8C%E6%99%AF%EF%BC%8848-5-n%EF%BC%89"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）256色背景（48;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89RGB%E8%83%8C%E6%99%AF%EF%BC%8848-2-r-g-b%EF%BC%89"><span class="nav-number">2.3.4.</span> <span class="nav-text">（4）RGB背景（48;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%A4%9A%E5%8F%82%E6%95%B0%E7%BB%84%E5%90%88%E7%94%A8%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4. 多参数组合用法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E6%98%8E%E7%A1%AEsgr%E7%9A%84%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">先明确：SGR的使用格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%9E%8B%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">分类型详细解释+用法示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A0%B7%E5%BC%8F%E9%87%8D%E7%BD%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">1. 基础样式（重置&#x2F;格式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E6%99%AF%E8%89%B2%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2"><span class="nav-number">2.2.</span> <span class="nav-text">2. 前景色（文字颜色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A1%808%E8%89%B230-37"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）基础8色（30-37）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E4%BA%AE8%E8%89%B290-97"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）高亮8色（90-97）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%89%B2385n"><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）256色（38;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rgb%E8%89%B2382rgb"><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）RGB色（38;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E8%89%B2%E6%96%87%E5%AD%97%E5%BA%95%E8%89%B2"><span class="nav-number">2.3.</span> <span class="nav-text">3. 背景色（文字底色）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A1%808%E8%89%B240-47"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）基础8色（40-47）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E4%BA%AE8%E8%89%B2100-107"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）高亮8色（100-107）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%89%B2%E8%83%8C%E6%99%AF485n"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）256色背景（48;5;n）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rgb%E8%83%8C%E6%99%AF482rgb"><span class="nav-number">2.3.4.</span> <span class="nav-text">（4）RGB背景（48;2;r;g;b）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%8F%82%E6%95%B0%E7%BB%84%E5%90%88%E7%94%A8%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4. 多参数组合用法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +471,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

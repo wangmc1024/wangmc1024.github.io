@@ -240,286 +240,212 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如何使用 C++ 进行 TCP 和 UDP 数据读写的基础知识</p>
- <span id="more"></span>
-<h3 id="一、通用数据读写基础（TCP-UDP-均需掌握）">一、通用数据读写基础（TCP/UDP 均需掌握）</h3>
+        <p>如何使用 C++ 进行 TCP 和 UDP 数据读写的基础知识 <span id="more"></span></p>
+<h3 id="一通用数据读写基础tcpudp-均需掌握">一、通用数据读写基础（TCP/UDP
+均需掌握）</h3>
 <p>无论使用何种协议，网络数据读写都需处理字节序转换、数据序列化和错误处理，这是跨平台通信的基础。</p>
-<h4 id="1-字节序转换（解决主机与网络字节序差异）">1. 字节序转换（解决主机与网络字节序差异）</h4>
-<p>网络协议规定使用<strong>大端字节序</strong>（网络字节序），主机字节序可能为大端或小端（如 x86 为小端），需通过以下函数转换：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>uint16_t htons(uint16_t hostshort)</code>：主机→网络字节序（16 位，如端口号）</p>
-</li>
-<li class="lvl-2">
-<p><code>uint32_t htonl(uint32_t hostlong)</code>：主机→网络字节序（32 位，如 IPv4 地址）</p>
-</li>
-<li class="lvl-2">
-<p><code>uint16_t ntohs(uint16_t netshort)</code>：网络→主机字节序（16 位）</p>
-</li>
-<li class="lvl-2">
-<p><code>uint32_t ntohl(uint32_t netlong)</code>：网络→主机字节序（32 位）</p>
-</li>
+<h4 id="字节序转换解决主机与网络字节序差异">1.
+字节序转换（解决主机与网络字节序差异）</h4>
+<p>网络协议规定使用<strong>大端字节序</strong>（网络字节序），主机字节序可能为大端或小端（如
+x86 为小端），需通过以下函数转换：</p>
+<ul>
+<li><code>uint16_t htons(uint16_t hostshort)</code>：主机→网络字节序（16
+位，如端口号）</li>
+<li><code>uint32_t htonl(uint32_t hostlong)</code>：主机→网络字节序（32
+位，如 IPv4 地址）</li>
+<li><code>uint16_t ntohs(uint16_t netshort)</code>：网络→主机字节序（16
+位）</li>
+<li><code>uint32_t ntohl(uint32_t netlong)</code>：网络→主机字节序（32
+位）</li>
 </ul>
 <p><strong>进阶场景</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>64 位数据：POSIX 提供<code>htobe64</code>/<code>be64toh</code>（大端）、<code>htole64</code>/<code>le64toh</code>（小端），Windows 需手动实现。</p>
-</li>
-<li class="lvl-2">
-<p>浮点数：无标准转换函数，需通过指针转换为字节数组传输（依赖 IEEE 754 兼容）。</p>
-</li>
+<ul>
+<li>64 位数据：POSIX
+提供<code>htobe64</code>/<code>be64toh</code>（大端）、<code>htole64</code>/<code>le64toh</code>（小端），Windows
+需手动实现。</li>
+<li>浮点数：无标准转换函数，需通过指针转换为字节数组传输（依赖 IEEE 754
+兼容）。</li>
 </ul>
 <p><strong>示例</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> port = <span class="number">8080</span>;</span><br><span class="line">sockaddr_in addr;</span><br><span class="line">addr.sin_port = <span class="built_in">htons</span>(port);  <span class="comment">// 端口必须用网络字节序</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-数据序列化与缓冲区管理">2. 数据序列化与缓冲区管理</h4>
+<h4 id="数据序列化与缓冲区管理">2. 数据序列化与缓冲区管理</h4>
 <p>网络传输的是字节流，需通过缓冲区处理，结构化数据需序列化以避免对齐和字节序问题。</p>
 <p><strong>核心函数</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>memcpy(void *dest, const void *src, size_t n)</code>：拷贝字节（用于序列化）</p>
-</li>
-<li class="lvl-2">
-<p><code>memset(void *s, int c, size_t n)</code>：初始化缓冲区（如清空接收缓冲区）</p>
-</li>
-<li class="lvl-2">
-<p><code>strlen(const char *s)</code>：计算字符串长度（用于发送字符串）</p>
-</li>
+<ul>
+<li><code>memcpy(void *dest, const void *src, size_t n)</code>：拷贝字节（用于序列化）</li>
+<li><code>memset(void *s, int c, size_t n)</code>：初始化缓冲区（如清空接收缓冲区）</li>
+<li><code>strlen(const char *s)</code>：计算字符串长度（用于发送字符串）</li>
 </ul>
 <p><strong>序列化方案</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>手动序列化：拆分结构体成员，转换字节序后写入缓冲区：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Msg</span> &#123; <span class="type">int</span> len; <span class="type">short</span> type; &#125;;</span><br><span class="line"><span class="type">char</span> buf[<span class="number">6</span>];</span><br><span class="line"><span class="type">int</span> net_len = <span class="built_in">htonl</span>(msg.len);</span><br><span class="line"><span class="type">short</span> net_type = <span class="built_in">htons</span>(msg.type);</span><br><span class="line"><span class="built_in">memcpy</span>(buf, &amp;net_len, <span class="number">4</span>);</span><br><span class="line"><span class="built_in">memcpy</span>(buf<span class="number">+4</span>, &amp;net_type, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p>协议库：Protobuf、FlatBuffers 等自动处理对齐和字节序。</p>
-</li>
+<ul>
+<li><p>手动序列化：拆分结构体成员，转换字节序后写入缓冲区：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Msg</span> &#123; <span class="type">int</span> len; <span class="type">short</span> type; &#125;;</span><br><span class="line"><span class="type">char</span> buf[<span class="number">6</span>];</span><br><span class="line"><span class="type">int</span> net_len = <span class="built_in">htonl</span>(msg.len);</span><br><span class="line"><span class="type">short</span> net_type = <span class="built_in">htons</span>(msg.type);</span><br><span class="line"><span class="built_in">memcpy</span>(buf, &amp;net_len, <span class="number">4</span>);</span><br><span class="line"><span class="built_in">memcpy</span>(buf<span class="number">+4</span>, &amp;net_type, <span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>协议库：Protobuf、FlatBuffers 等自动处理对齐和字节序。</p></li>
 </ul>
 <p><strong>缓冲区策略</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>动态缓冲区：使用<code>vector&lt;char&gt;</code>避免栈溢出，适合接收未知长度数据。</p>
-</li>
-<li class="lvl-2">
-<p>分散 - 聚集 IO：通过<code>iovec</code>和<code>sendmsg</code>/<code>recvmsg</code>减少内存拷贝：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">iovec</span> iov[<span class="number">2</span>];  <span class="comment">// 分散发送消息头和消息体</span></span><br><span class="line">iov[<span class="number">0</span>].iov_base = &amp;header;</span><br><span class="line">iov[<span class="number">0</span>].iov_len = <span class="built_in">sizeof</span>(header);</span><br><span class="line">iov[<span class="number">1</span>].iov_base = data;</span><br><span class="line">iov[<span class="number">1</span>].iov_len = data_len;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">msghdr</span> msg;</span><br><span class="line">msg.msg_iov = iov;</span><br><span class="line">msg.msg_iovlen = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">sendmsg</span>(sockfd, &amp;msg, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-</li>
+<ul>
+<li><p>动态缓冲区：使用<code>vector&lt;char&gt;</code>避免栈溢出，适合接收未知长度数据。</p></li>
+<li><p>分散 - 聚集
+IO：通过<code>iovec</code>和<code>sendmsg</code>/<code>recvmsg</code>减少内存拷贝：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">iovec</span> iov[<span class="number">2</span>];  <span class="comment">// 分散发送消息头和消息体</span></span><br><span class="line">iov[<span class="number">0</span>].iov_base = &amp;header;</span><br><span class="line">iov[<span class="number">0</span>].iov_len = <span class="built_in">sizeof</span>(header);</span><br><span class="line">iov[<span class="number">1</span>].iov_base = data;</span><br><span class="line">iov[<span class="number">1</span>].iov_len = data_len;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">msghdr</span> msg;</span><br><span class="line">msg.msg_iov = iov;</span><br><span class="line">msg.msg_iovlen = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">sendmsg</span>(sockfd, &amp;msg, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="3-通用错误处理">3. 通用错误处理</h4>
+<h4 id="通用错误处理">3. 通用错误处理</h4>
 <p>网络函数失败时返回 - 1，需通过错误码定位问题：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>Linux：<code>errno</code>（如<code>EINTR</code>、<code>ECONNRESET</code>）</p>
-</li>
-<li class="lvl-2">
-<p>Windows：<code>WSAGetLastError()</code>（如<code>WSAECONNRESET</code>）</p>
-</li>
+<ul>
+<li>Linux：<code>errno</code>（如<code>EINTR</code>、<code>ECONNRESET</code>）</li>
+<li>Windows：<code>WSAGetLastError()</code>（如<code>WSAECONNRESET</code>）</li>
 </ul>
 <p>常见错误：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>EINTR</code>：操作被信号中断（需重试）</p>
-</li>
-<li class="lvl-2">
-<p><code>EWOULDBLOCK</code>：非阻塞模式下无数据（需等待）</p>
-</li>
-<li class="lvl-2">
-<p><code>ECONNRESET</code>：连接被对方重置</p>
-</li>
-<li class="lvl-2">
-<p><code>ENOTCONN</code>：TCP 未连接或 UDP 未指定目标</p>
-</li>
+<ul>
+<li><code>EINTR</code>：操作被信号中断（需重试）</li>
+<li><code>EWOULDBLOCK</code>：非阻塞模式下无数据（需等待）</li>
+<li><code>ECONNRESET</code>：连接被对方重置</li>
+<li><code>ENOTCONN</code>：TCP 未连接或 UDP 未指定目标</li>
 </ul>
-<h3 id="二、TCP-数据读写（面向连接的字节流）">二、TCP 数据读写（面向连接的字节流）</h3>
-<p>TCP 是可靠的面向连接协议，数据无边界，需通过应用层协议界定消息边界。</p>
-<h4 id="1-核心读写函数">1. 核心读写函数</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>发送：<code>ssize_t send(int sockfd, const void *buf, size_t len, int flags)</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-4">参数：<code>sockfd</code>（已连接的 TCP socket）、缓冲区、长度、标志（通常 0）。</li>
-<li class="lvl-4">返回值：实际发送字节数（可能小于<code>len</code>）；失败返回 - 1。</li>
-<li class="lvl-4">标志：<code>MSG_NOSIGNAL</code>（Linux）：避免对方关闭时触发 SIGPIPE。</li>
-</ul>
-</li>
-<li class="lvl-2">
-<p><strong>接收：<code>ssize_t recv(int sockfd, void *buf, size_t len, int flags)</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-4">参数：<code>sockfd</code>、接收缓冲区、长度、标志（通常 0）。</li>
-<li class="lvl-4">返回值：实际接收字节数；0 表示对方正常关闭；-1 表示错误。</li>
-<li class="lvl-4">标志：<code>MSG_PEEK</code>（预览数据不移除）。</li>
-</ul>
-</li>
+<h3 id="二tcp-数据读写面向连接的字节流">二、TCP
+数据读写（面向连接的字节流）</h3>
+<p>TCP
+是可靠的面向连接协议，数据无边界，需通过应用层协议界定消息边界。</p>
+<h4 id="核心读写函数">1. 核心读写函数</h4>
+<ul>
+<li><strong>发送：<code>ssize_t send(int sockfd, const void *buf, size_t len, int flags)</code></strong>
+<ul>
+<li>参数：<code>sockfd</code>（已连接的 TCP
+socket）、缓冲区、长度、标志（通常 0）。</li>
+<li>返回值：实际发送字节数（可能小于<code>len</code>）；失败返回 -
+1。</li>
+<li>标志：<code>MSG_NOSIGNAL</code>（Linux）：避免对方关闭时触发
+SIGPIPE。</li>
+</ul></li>
+<li><strong>接收：<code>ssize_t recv(int sockfd, void *buf, size_t len, int flags)</code></strong>
+<ul>
+<li>参数：<code>sockfd</code>、接收缓冲区、长度、标志（通常 0）。</li>
+<li>返回值：实际接收字节数；0 表示对方正常关闭；-1 表示错误。</li>
+<li>标志：<code>MSG_PEEK</code>（预览数据不移除）。</li>
+</ul></li>
 </ul>
 <p><strong><code>MSG_OOB</code></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>发送 / 接收带外数据（Out-of-Band data），用于传输紧急数据。带外数据具有更高的优先级，可绕过常规数据流的排队机制。</p>
-</li>
+<ul>
+<li>发送 / 接收带外数据（Out-of-Band
+data），用于传输紧急数据。带外数据具有更高的优先级，可绕过常规数据流的排队机制。</li>
 </ul>
 <p><strong><code>MSG_PEEK</code></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>仅适用于 <code>recv()</code>：查看缓冲区中的数据，但不会将其从缓冲区中移除（即数据仍然可以被后续的 <code>recv()</code> 调用读取）。</p>
-</li>
-<li class="lvl-2">
-<p>对 <code>send()</code> 无效。</p>
-</li>
+<ul>
+<li>仅适用于
+<code>recv()</code>：查看缓冲区中的数据，但不会将其从缓冲区中移除（即数据仍然可以被后续的
+<code>recv()</code> 调用读取）。</li>
+<li>对 <code>send()</code> 无效。</li>
 </ul>
 <p><strong><code>MSG_WAITALL</code></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>仅适用于 <code>recv()</code>：要求函数阻塞直到接收到 <code>len</code> 参数指定的全部数据（除非发生错误或连接关闭）。</p>
-</li>
-<li class="lvl-2">
-<p>注意：即使设置了此标志，也可能因信号中断、连接关闭等原因导致实际接收的数据少于 <code>len</code>。</p>
-</li>
+<ul>
+<li>仅适用于 <code>recv()</code>：要求函数阻塞直到接收到
+<code>len</code> 参数指定的全部数据（除非发生错误或连接关闭）。</li>
+<li>注意：即使设置了此标志，也可能因信号中断、连接关闭等原因导致实际接收的数据少于
+<code>len</code>。</li>
 </ul>
 <p><strong>仅适用于 <code>send()</code> 的标志</strong></p>
 <p><strong><code>MSG_DONTROUTE</code></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>告知内核不使用路由表，直接将数据发送到本地网络上的主机（仅适用于 UDP 或原始套接字）。</p>
-</li>
+<ul>
+<li>告知内核不使用路由表，直接将数据发送到本地网络上的主机（仅适用于 UDP
+或原始套接字）。</li>
 </ul>
 <p><strong><code>MSG_NOSIGNAL</code></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>当连接已关闭时，发送数据不会产生 <code>SIGPIPE</code> 信号（默认情况下会产生该信号导致程序终止）。</p>
-</li>
+<ul>
+<li>当连接已关闭时，发送数据不会产生 <code>SIGPIPE</code>
+信号（默认情况下会产生该信号导致程序终止）。</li>
 </ul>
-<h4 id="2-关键特性与实现">2. 关键特性与实现</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>字节流无边界</strong>：需应用层定义消息格式，常见方案：</p>
-<ol>
-<li class="lvl-5">
-<p>**固定长度:**累计读取到指定长度后处理：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">recv_fixed</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">char</span> *buf, <span class="type">size_t</span> fixed_len)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> total = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (total &lt; fixed_len) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> n = <span class="built_in">recv</span>(sockfd, buf + total, fixed_len - total, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> n;  <span class="comment">// 错误或连接关闭</span></span><br><span class="line">        total += n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-5">
-<p>**长度前缀:**先读长度字段，再读对应数据：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">recv_with_header</span><span class="params">(<span class="type">int</span> sockfd)</span> </span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> net_len;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">recv_fixed</span>(sockfd, (<span class="type">char</span>*)&amp;net_len, <span class="number">4</span>) != <span class="number">4</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="type">size_t</span> len = <span class="built_in">ntohl</span>(net_len);</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">data</span><span class="params">(len)</span></span>;</span><br><span class="line">    <span class="built_in">recv_fixed</span>(sockfd, data.<span class="built_in">data</span>(), len);</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-5">
-<p><strong>分隔符</strong>：如<code>\r\n</code>（HTTP 头部方式）。</p>
-</li>
-</ol>
-</li>
-<li class="lvl-2">
-<p><strong>循环读写</strong>：<code>send</code>/<code>recv</code>可能不一次性处理全部数据，需循环调用：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">send_all</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> total_sent = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (total_sent &lt; len) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> sent = <span class="built_in">send</span>(sockfd, (<span class="type">char</span>*)buf + total_sent, len - total_sent, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (sent == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        total_sent += sent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total_sent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="关键特性与实现">2. 关键特性与实现</h4>
+<ul>
+<li><p><strong>字节流无边界</strong>：需应用层定义消息格式，常见方案：</p>
+<ol type="1">
+<li><p><strong>固定长度:</strong>累计读取到指定长度后处理：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">recv_fixed</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">char</span> *buf, <span class="type">size_t</span> fixed_len)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> total = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (total &lt; fixed_len) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> n = <span class="built_in">recv</span>(sockfd, buf + total, fixed_len - total, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> n;  <span class="comment">// 错误或连接关闭</span></span><br><span class="line">        total += n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>长度前缀:</strong>先读长度字段，再读对应数据：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">recv_with_header</span><span class="params">(<span class="type">int</span> sockfd)</span> </span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> net_len;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">recv_fixed</span>(sockfd, (<span class="type">char</span>*)&amp;net_len, <span class="number">4</span>) != <span class="number">4</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="type">size_t</span> len = <span class="built_in">ntohl</span>(net_len);</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">data</span><span class="params">(len)</span></span>;</span><br><span class="line">    <span class="built_in">recv_fixed</span>(sockfd, data.<span class="built_in">data</span>(), len);</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>分隔符</strong>：如<code>\r\n</code>（HTTP
+头部方式）。</p></li>
+</ol></li>
+<li><p><strong>循环读写</strong>：<code>send</code>/<code>recv</code>可能不一次性处理全部数据，需循环调用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">send_all</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> total_sent = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (total_sent &lt; len) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> sent = <span class="built_in">send</span>(sockfd, (<span class="type">char</span>*)buf + total_sent, len - total_sent, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (sent == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        total_sent += sent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total_sent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="3-连接异常处理">3. 连接异常处理</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>半关闭</strong>：对方<code>shutdown(SHUT_WR)</code>后，<code>recv</code>返回 0（可继续发送数据）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>重置连接</strong>：<code>recv</code>返回 - 1 且<code>errno=ECONNRESET</code>，需关闭 socket 并重连。</p>
-</li>
-<li class="lvl-2">
-<p><strong>超时设置:</strong>  通过<code>SO_RCVTIMEO</code>/<code>SO_SNDTIMEO</code>设置读写超时：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">timeval</span> timeout = &#123;<span class="number">5</span>, <span class="number">0</span>&#125;;  <span class="comment">// 5秒超时</span></span><br><span class="line"><span class="built_in">setsockopt</span>(sockfd, SOL_SOCKET, SO_RCVTIMEO, &amp;timeout, <span class="built_in">sizeof</span>(timeout));</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="连接异常处理">3. 连接异常处理</h4>
+<ul>
+<li><p><strong>半关闭</strong>：对方<code>shutdown(SHUT_WR)</code>后，<code>recv</code>返回
+0（可继续发送数据）。</p></li>
+<li><p><strong>重置连接</strong>：<code>recv</code>返回 - 1
+且<code>errno=ECONNRESET</code>，需关闭 socket 并重连。</p></li>
+<li><p><strong>超时设置:</strong>
+通过<code>SO_RCVTIMEO</code>/<code>SO_SNDTIMEO</code>设置读写超时：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">timeval</span> timeout = &#123;<span class="number">5</span>, <span class="number">0</span>&#125;;  <span class="comment">// 5秒超时</span></span><br><span class="line"><span class="built_in">setsockopt</span>(sockfd, SOL_SOCKET, SO_RCVTIMEO, &amp;timeout, <span class="built_in">sizeof</span>(timeout));</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="三、UDP-数据读写（无连接的数据包）">三、UDP 数据读写（无连接的数据包）</h3>
-<p>UDP 是不可靠的无连接协议，数据有边界（一次发送对应一次接收），无需建立连接。</p>
-<h4 id="1-核心读写函数-2">1. 核心读写函数</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>发送：<code>ssize_t sendto(int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen)</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-4">参数：<code>sockfd</code>（UDP socket）、缓冲区、长度、标志、目标地址及长度。</li>
-<li class="lvl-4">返回值：成功返回发送字节数（等于<code>len</code>）；失败返回 - 1。</li>
+<h3 id="三udp-数据读写无连接的数据包">三、UDP
+数据读写（无连接的数据包）</h3>
+<p>UDP
+是不可靠的无连接协议，数据有边界（一次发送对应一次接收），无需建立连接。</p>
+<h4 id="核心读写函数-1">1. 核心读写函数</h4>
+<ul>
+<li><strong>发送：<code>ssize_t sendto(int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen)</code></strong>
+<ul>
+<li>参数：<code>sockfd</code>（UDP
+socket）、缓冲区、长度、标志、目标地址及长度。</li>
+<li>返回值：成功返回发送字节数（等于<code>len</code>）；失败返回 -
+1。</li>
+</ul></li>
+<li><strong>接收：<code>ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen)</code></strong>
+<ul>
+<li>参数：<code>sockfd</code>、接收缓冲区、长度、标志、发送方地址（输出）及长度（输入输出）。</li>
+<li>返回值：接收字节数（≤<code>len</code>）；失败返回 - 1。</li>
+</ul></li>
 </ul>
-</li>
-<li class="lvl-2">
-<p><strong>接收：<code>ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen)</code></strong></p>
-<ul class="lvl-2">
-<li class="lvl-4">参数：<code>sockfd</code>、接收缓冲区、长度、标志、发送方地址（输出）及长度（输入输出）。</li>
-<li class="lvl-4">返回值：接收字节数（≤<code>len</code>）；失败返回 - 1。</li>
+<h4 id="关键特性与实现-1">2. 关键特性与实现</h4>
+<ul>
+<li><p><strong>数据报边界</strong>：一次<code>sendto</code>的数据可被<code>recvfrom</code>完整接收（缓冲区足够时）。</p></li>
+<li><p><strong>长度限制</strong>：超过 MTU（通常 1500
+字节）会分片，建议单包≤1472 字节（1500-20IP 头 - 8UDP 头）。</p></li>
+<li><p>截断检测：<code>MSG_TRUNC</code>标志可检测数据是否被截断：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">socklen_t</span> addrlen = <span class="built_in">sizeof</span>(addr);</span><br><span class="line"><span class="type">ssize_t</span> n = <span class="built_in">recvfrom</span>(sockfd, buf, len, MSG_TRUNC, &amp;addr, &amp;addrlen);</span><br><span class="line"><span class="keyword">if</span> (n == len &amp;&amp; (flags &amp; MSG_TRUNC)) &#123; <span class="comment">/* 数据被截断 */</span> &#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-</ul>
-<h4 id="2-关键特性与实现-2">2. 关键特性与实现</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>数据报边界</strong>：一次<code>sendto</code>的数据可被<code>recvfrom</code>完整接收（缓冲区足够时）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>长度限制</strong>：超过 MTU（通常 1500 字节）会分片，建议单包≤1472 字节（1500-20IP 头 - 8UDP 头）。</p>
-</li>
-<li class="lvl-2">
-<p>截断检测：<code>MSG_TRUNC</code>标志可检测数据是否被截断：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">socklen_t</span> addrlen = <span class="built_in">sizeof</span>(addr);</span><br><span class="line"><span class="type">ssize_t</span> n = <span class="built_in">recvfrom</span>(sockfd, buf, len, MSG_TRUNC, &amp;addr, &amp;addrlen);</span><br><span class="line"><span class="keyword">if</span> (n == len &amp;&amp; (flags &amp; MSG_TRUNC)) &#123; <span class="comment">/* 数据被截断 */</span> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="3-连接化-UDP（Connected-UDP）">3. 连接化 UDP（Connected UDP）</h4>
-<p>通过<code>connect</code>绑定固定目标地址后，可使用<code>send</code>/<code>recv</code>简化操作（仍为 UDP 特性）：</p>
+<h4 id="连接化-udpconnected-udp">3. 连接化 UDP（Connected UDP）</h4>
+<p>通过<code>connect</code>绑定固定目标地址后，可使用<code>send</code>/<code>recv</code>简化操作（仍为
+UDP 特性）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> dest_addr;</span><br><span class="line"><span class="comment">// 初始化目标地址...</span></span><br><span class="line"><span class="built_in">connect</span>(udp_sockfd, (<span class="keyword">struct</span> sockaddr*)&amp;dest_addr, <span class="built_in">sizeof</span>(dest_addr));</span><br><span class="line"><span class="built_in">send</span>(udp_sockfd, buf, len, <span class="number">0</span>);  <span class="comment">// 无需重复指定地址</span></span><br></pre></td></tr></table></figure>
-<h4 id="4-可靠性增强">4. 可靠性增强</h4>
+<h4 id="可靠性增强">4. 可靠性增强</h4>
 <p>UDP 本身不可靠，需应用层补充机制：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>序号与确认（重传超时未确认的包）</p>
-</li>
-<li class="lvl-2">
-<p>校验和（检测数据损坏）</p>
-</li>
-<li class="lvl-2">
-<p>流量控制（避免接收方溢出）</p>
-</li>
+<ul>
+<li>序号与确认（重传超时未确认的包）</li>
+<li>校验和（检测数据损坏）</li>
+<li>流量控制（避免接收方溢出）</li>
 </ul>
-<h3 id="四、高级函数与性能优化">四、高级函数与性能优化</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong><code>ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)</code></strong>：支持分散发送（多个缓冲区数据合并发送），适合发送复杂数据结构。</p>
-</li>
-<li class="lvl-2">
-<p><strong><code>ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags)</code></strong>：支持聚集接收（将数据分散到多个缓冲区），常用于接收带辅助数据（如控制信息）的数据包。</p>
-</li>
-<li class="lvl-2">
-<p><strong><code>ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count)</code></strong>（Linux）：零拷贝发送文件，直接从文件描述符<code>in_fd</code>发送到<code>socket</code>（<code>out_fd</code>），减少用户态与内核态拷贝，效率极高。</p>
-</li>
+<h3 id="四高级函数与性能优化">四、高级函数与性能优化</h3>
+<ul>
+<li><strong><code>ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags)</code></strong>：支持分散发送（多个缓冲区数据合并发送），适合发送复杂数据结构。</li>
+<li><strong><code>ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags)</code></strong>：支持聚集接收（将数据分散到多个缓冲区），常用于接收带辅助数据（如控制信息）的数据包。</li>
+<li><strong><code>ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count)</code></strong>（Linux）：零拷贝发送文件，直接从文件描述符<code>in_fd</code>发送到<code>socket</code>（<code>out_fd</code>），减少用户态与内核态拷贝，效率极高。</li>
 </ul>
 <p><strong>性能优化</strong>：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>TCP：禁用 Nagle 算法（<code>TCP_NODELAY</code>）减少延迟；增大缓冲区（<code>SO_SNDBUF</code>/<code>SO_RCVBUF</code>）提高吞吐量。</p>
-</li>
-<li class="lvl-2">
-<p>UDP：避免碎片化；批量发送减少系统调用。</p>
-</li>
-<li class="lvl-2">
-<p>IO 模型：高并发场景使用非阻塞 IO+<code>epoll</code>（Linux）/<code>kqueue</code>（BSD）。</p>
-</li>
+<ul>
+<li>TCP：禁用 Nagle
+算法（<code>TCP_NODELAY</code>）减少延迟；增大缓冲区（<code>SO_SNDBUF</code>/<code>SO_RCVBUF</code>）提高吞吐量。</li>
+<li>UDP：避免碎片化；批量发送减少系统调用。</li>
+<li>IO 模型：高并发场景使用非阻塞
+IO+<code>epoll</code>（Linux）/<code>kqueue</code>（BSD）。</li>
 </ul>
-<h3 id="五、跨平台兼容性">五、跨平台兼容性</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>Windows 需初始化套接字库（<code>WSAStartup</code>），Linux 无需。</p>
-</li>
-<li class="lvl-2">
-<p>错误处理：Windows 用<code>WSAGetLastError()</code>，Linux 用<code>errno</code>。</p>
-</li>
-<li class="lvl-2">
-<p>关闭 socket：Windows 用<code>closesocket</code>，Linux 用<code>close</code>。</p>
-</li>
+<h3 id="五跨平台兼容性">五、跨平台兼容性</h3>
+<ul>
+<li>Windows 需初始化套接字库（<code>WSAStartup</code>），Linux
+无需。</li>
+<li>错误处理：Windows 用<code>WSAGetLastError()</code>，Linux
+用<code>errno</code>。</li>
+<li>关闭 socket：Windows 用<code>closesocket</code>，Linux
+用<code>close</code>。</li>
 </ul>
 <p><strong>兼容代码示例</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN32</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;winsock2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> close closesocket</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_last_error</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN32</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">WSAGetLastError</span>();</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">return</span> errno;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>TCP</strong>：用<code>send</code>/<code>recv</code>，面向连接，需处理字节流无边界问题，适合可靠传输（如 HTTP）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>UDP</strong>：用<code>sendto</code>/<code>recvfrom</code>，无连接，保留数据报边界，适合实时场景（如视频流）。</p>
-</li>
-<li class="lvl-2">
-<p>通用基础：字节序转换、序列化、缓冲区管理和错误处理是核心前提。</p>
-</li>
+<ul>
+<li><strong>TCP</strong>：用<code>send</code>/<code>recv</code>，面向连接，需处理字节流无边界问题，适合可靠传输（如
+HTTP）。</li>
+<li><strong>UDP</strong>：用<code>sendto</code>/<code>recvfrom</code>，无连接，保留数据报边界，适合实时场景（如视频流）。</li>
+<li>通用基础：字节序转换、序列化、缓冲区管理和错误处理是核心前提。</li>
 </ul>
 
     </div>
@@ -609,7 +535,11 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%80%9A%E7%94%A8%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E5%9F%BA%E7%A1%80%EF%BC%88TCP-UDP-%E5%9D%87%E9%9C%80%E6%8E%8C%E6%8F%A1%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、通用数据读写基础（TCP&#x2F;UDP 均需掌握）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AD%97%E8%8A%82%E5%BA%8F%E8%BD%AC%E6%8D%A2%EF%BC%88%E8%A7%A3%E5%86%B3%E4%B8%BB%E6%9C%BA%E4%B8%8E%E7%BD%91%E7%BB%9C%E5%AD%97%E8%8A%82%E5%BA%8F%E5%B7%AE%E5%BC%82%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 字节序转换（解决主机与网络字节序差异）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">2. 数据序列化与缓冲区管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%80%9A%E7%94%A8%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">3. 通用错误处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81TCP-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%EF%BC%88%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%AD%97%E8%8A%82%E6%B5%81%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、TCP 数据读写（面向连接的字节流）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2. 关键特性与实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BF%9E%E6%8E%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">3. 连接异常处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81UDP-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%EF%BC%88%E6%97%A0%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、UDP 数据读写（无连接的数据包）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0-2"><span class="nav-number">3.1.</span> <span class="nav-text">1. 核心读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E5%AE%9E%E7%8E%B0-2"><span class="nav-number">3.2.</span> <span class="nav-text">2. 关键特性与实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BF%9E%E6%8E%A5%E5%8C%96-UDP%EF%BC%88Connected-UDP%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3. 连接化 UDP（Connected UDP）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%A2%9E%E5%BC%BA"><span class="nav-number">3.4.</span> <span class="nav-text">4. 可靠性增强</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">四、高级函数与性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">五、跨平台兼容性</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%80%9A%E7%94%A8%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E5%9F%BA%E7%A1%80tcpudp-%E5%9D%87%E9%9C%80%E6%8E%8C%E6%8F%A1"><span class="nav-number">1.</span> <span class="nav-text">一、通用数据读写基础（TCP&#x2F;UDP
+均需掌握）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F%E8%BD%AC%E6%8D%A2%E8%A7%A3%E5%86%B3%E4%B8%BB%E6%9C%BA%E4%B8%8E%E7%BD%91%E7%BB%9C%E5%AD%97%E8%8A%82%E5%BA%8F%E5%B7%AE%E5%BC%82"><span class="nav-number">1.1.</span> <span class="nav-text">1.
+字节序转换（解决主机与网络字节序差异）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">2. 数据序列化与缓冲区管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">3. 通用错误处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Ctcp-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%AD%97%E8%8A%82%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">二、TCP
+数据读写（面向连接的字节流）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1. 核心读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2. 关键特性与实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">3. 连接异常处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89udp-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E6%97%A0%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">三、UDP
+数据读写（无连接的数据包）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 核心读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 关键特性与实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%8C%96-udpconnected-udp"><span class="nav-number">3.3.</span> <span class="nav-text">3. 连接化 UDP（Connected UDP）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%A2%9E%E5%BC%BA"><span class="nav-number">3.4.</span> <span class="nav-text">4. 可靠性增强</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">四、高级函数与性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">五、跨平台兼容性</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -686,7 +616,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

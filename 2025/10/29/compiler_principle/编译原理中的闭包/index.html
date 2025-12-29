@@ -216,7 +216,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>973</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -235,47 +235,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote></blockquote>
+        <blockquote>
+
+</blockquote>
 <span id="more"></span>
-<p>在编译原理中，<strong>闭包（Closure）</strong> 是一个与语法分析、有限自动机（尤其是NFA）相关的重要概念，主要用于描述集合在特定操作下的“封闭性”或“完备性”。它与编程语言中的函数闭包概念不同，更侧重于集合论和状态转换的数学性质。</p>
+<p>在编译原理中，<strong>闭包（Closure）</strong>
+是一个与语法分析、有限自动机（尤其是NFA）相关的重要概念，主要用于描述集合在特定操作下的“封闭性”或“完备性”。它与编程语言中的函数闭包概念不同，更侧重于集合论和状态转换的数学性质。</p>
 <h3 id="编译原理中闭包的核心场景">编译原理中闭包的核心场景</h3>
-<h4 id="1-ε-闭包（Epsilon-Closure）">1. <strong>ε-闭包（Epsilon Closure）</strong></h4>
-<p>这是在<strong>非确定有限自动机（NFA）</strong> 中最常见的闭包概念。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>定义</strong>：对于NFA中的一个状态集合 ( S )，其ε-闭包是指从 ( S ) 中的任意状态出发，通过<strong>零个或多个ε转换（空转换，不消耗输入字符的转换）</strong> 所能到达的所有状态的集合。</p>
+<h4 id="ε-闭包epsilon-closure">1. <strong>ε-闭包（Epsilon
+Closure）</strong></h4>
+<p>这是在<strong>非确定有限自动机（NFA）</strong>
+中最常见的闭包概念。<br />
+- <strong>定义</strong>：对于NFA中的一个状态集合 ( S )，其ε-闭包是指从 (
+S )
+中的任意状态出发，通过<strong>零个或多个ε转换（空转换，不消耗输入字符的转换）</strong>
+所能到达的所有状态的集合。<br />
+-
+<strong>作用</strong>：在NFA转换为确定有限自动机（DFA）的过程中（子集构造法），ε-闭包用于确定“初始状态集”和“某个状态集在输入字符后的后继状态集”，是NFA到DFA转换的核心步骤。</p>
+<p><strong>示例</strong>：<br />
+若状态 ( q0 ) 可通过ε转换到$ q1 <span class="math inline">，</span> q1
+<span
+class="math inline"><em>可</em><em>通</em><em>过</em><em>ε</em><em>转</em><em>换</em><em>到</em></span>
+q2 <span class="math inline">，<em>则</em></span> q0 $ 的ε-闭包为 <span
+class="math inline">{<em>q</em>0, <em>q</em>1, <em>q</em>2}</span>。</p>
+<h4 id="项目集闭包item-set-closure">2. <strong>项目集闭包（Item Set
+Closure）</strong></h4>
+<p>在<strong>LR语法分析</strong>（自底向上的语法分析方法）中，闭包用于构建“项目集规范族”。<br />
+-
+<strong>定义</strong>：对于一个初始的LR项目集（项目是指带“·”的产生式，如
+<span
+class="math inline"><em>A</em> → <em>α</em> · <em>β</em></span>），其闭包是通过以下规则扩展得到的所有项目的集合：</p>
+<ol type="1">
+<li>初始项目集中的==所有项目==都属于闭包。<br />
 </li>
-<li class="lvl-2">
-<p><strong>作用</strong>：在NFA转换为确定有限自动机（DFA）的过程中（子集构造法），ε-闭包用于确定“初始状态集”和“某个状态集在输入字符后的后继状态集”，是NFA到DFA转换的核心步骤。</p>
-<p><strong>示例</strong>：<br>
-若状态 ( q0 ) 可通过ε转换到$ q1 $，$ q1 $可通过ε转换到$ q2 $，则$ q0 $ 的ε-闭包为 ${q0, q1, q2}$。</p>
-</li>
-</ul>
-<h4 id="2-项目集闭包（Item-Set-Closure）">2. <strong>项目集闭包（Item Set Closure）</strong></h4>
-<p>在<strong>LR语法分析</strong>（自底向上的语法分析方法）中，闭包用于构建“项目集规范族”。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>定义</strong>：对于一个初始的LR项目集（项目是指带“·”的产生式，如 $A \to \alpha·\beta$），其闭包是通过以下规则扩展得到的所有项目的集合：</p>
-<ol>
-<li class="lvl-5">初始项目集中的<mark>所有项目</mark>都属于闭包。</li>
-<li class="lvl-5">若项目 $A\to \alpha·B\beta$属于闭包，且 $B\to \gamma$ 是一条产生式，则项目 $B \to ·\gamma$ 也属于闭包(递归应用此规则)</li>
+<li>若项目 <span
+class="math inline"><em>A</em> → <em>α</em> · <em>B</em><em>β</em></span>属于闭包，且
+<span class="math inline"><em>B</em> → <em>γ</em></span>
+是一条产生式，则项目 <span
+class="math inline"><em>B</em> → ·<em>γ</em></span>
+也属于闭包(递归应用此规则)</li>
 </ol>
-<p>​      那么$A \to \alpha · B \beta $ 和 $B \to \gamma$ 在进行LR分析时<mark>同属于</mark>一个项目集</p>
-</li>
-<li class="lvl-2">
-<p><strong>作用</strong>：项目集闭包用于描述语法分析过程中“当前可能的分析状态”，是构建LR分析表的基础。</p>
-</li>
-</ul>
-<h4 id="3-集合的闭包（一般概念）">3. <strong>集合的闭包（一般概念）</strong></h4>
-<p>从更广泛的数学意义上，编译原理中的闭包指<strong>对集合反复应用某个操作，直到不再产生新元素为止所得到的最终集合</strong>。例如：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>对文法符号集应用“可推导”关系的闭包，得到所有可由该集合推导的符号。</p>
-</li>
-<li class="lvl-2">
-<p>对状态集应用“转换函数”的闭包，得到所有可达状态。</p>
-</li>
-</ul>
+<p>​ 那么$A · B $ 和 <span
+class="math inline"><em>B</em> → <em>γ</em></span>
+在进行LR分析时==同属于==一个项目集 -
+<strong>作用</strong>：项目集闭包用于描述语法分析过程中“当前可能的分析状态”，是构建LR分析表的基础。</p>
+<h4 id="集合的闭包一般概念">3.
+<strong>集合的闭包（一般概念）</strong></h4>
+<p>从更广泛的数学意义上，编译原理中的闭包指<strong>对集合反复应用某个操作，直到不再产生新元素为止所得到的最终集合</strong>。例如：<br />
+-
+对文法符号集应用“可推导”关系的闭包，得到所有可由该集合推导的符号。<br />
+- 对状态集应用“转换函数”的闭包，得到所有可达状态。</p>
 <h3 id="闭包的核心意义">闭包的核心意义</h3>
 <p>在编译原理中，闭包的本质是<strong>通过递归或迭代方式，将集合扩展到“在特定规则下不再变化”的完整状态</strong>。无论是NFA的ε-闭包还是LR分析的项目集闭包，其目的都是为了<strong>精确描述有限状态机的状态转换能力或语法分析的可能状态</strong>，是实现自动机转换和语法分析器的关键工具。</p>
 <p>简单来说，编译原理中的闭包是一种“完备化”操作——确保我们没有遗漏任何可能的状态或转换，从而保证分析过程的正确性。</p>
@@ -361,7 +370,10 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B8%AD%E9%97%AD%E5%8C%85%E7%9A%84%E6%A0%B8%E5%BF%83%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">编译原理中闭包的核心场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%CE%B5-%E9%97%AD%E5%8C%85%EF%BC%88Epsilon-Closure%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. ε-闭包（Epsilon Closure）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%A1%B9%E7%9B%AE%E9%9B%86%E9%97%AD%E5%8C%85%EF%BC%88Item-Set-Closure%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 项目集闭包（Item Set Closure）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%9B%86%E5%90%88%E7%9A%84%E9%97%AD%E5%8C%85%EF%BC%88%E4%B8%80%E8%88%AC%E6%A6%82%E5%BF%B5%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3. 集合的闭包（一般概念）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E6%A0%B8%E5%BF%83%E6%84%8F%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">闭包的核心意义</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E4%B8%AD%E9%97%AD%E5%8C%85%E7%9A%84%E6%A0%B8%E5%BF%83%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">编译原理中闭包的核心场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%CE%B5-%E9%97%AD%E5%8C%85epsilon-closure"><span class="nav-number">1.1.</span> <span class="nav-text">1. ε-闭包（Epsilon
+Closure）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%9B%86%E9%97%AD%E5%8C%85item-set-closure"><span class="nav-number">1.2.</span> <span class="nav-text">2. 项目集闭包（Item Set
+Closure）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E9%97%AD%E5%8C%85%E4%B8%80%E8%88%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">3.
+集合的闭包（一般概念）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E6%A0%B8%E5%BF%83%E6%84%8F%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">闭包的核心意义</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -438,7 +450,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

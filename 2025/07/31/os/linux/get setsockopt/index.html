@@ -241,110 +241,78 @@
       
         <p>如何使用 C++ 进行 TCP 和 UDP 数据读写的基础知识</p>
 <span id="more"></span>
-<h1>get/setsockopt</h1>
-<p><code>getsockopt</code> 和 <code>setsockopt</code> 是套接字编程中用于获取和设置套接字选项的两个重要系统调用，它们允许开发者配置和查询套接字的各种参数，以控制网络通信的行为。</p>
+<h1 id="getsetsockopt">get/setsockopt</h1>
+<p><code>getsockopt</code> 和 <code>setsockopt</code>
+是套接字编程中用于获取和设置套接字选项的两个重要系统调用，它们允许开发者配置和查询套接字的各种参数，以控制网络通信的行为。</p>
 <h3 id="函数原型">函数原型</h3>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取套接字选项</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, </span></span><br><span class="line"><span class="params">               <span class="type">void</span> *optval, <span class="type">socklen_t</span> *optlen)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置套接字选项</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, </span></span><br><span class="line"><span class="params">               <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="参数说明">参数说明</h3>
-<ol>
-<li class="lvl-3">
-<p><strong>sockfd</strong>：套接字描述符，标识要操作的套接字。</p>
-</li>
-<li class="lvl-3">
-<p><strong>level</strong>：选项所在的协议层级，常见值包括：</p>
-<ul class="lvl-2">
-<li class="lvl-5"><code>SOL_SOCKET</code>：通用套接字选项（适用于所有协议）</li>
-<li class="lvl-5"><code>IPPROTO_TCP</code>：TCP 协议特定选项</li>
-<li class="lvl-5"><code>IPPROTO_IP</code>：IP 协议特定选项</li>
-<li class="lvl-5">其他协议（如 <code>IPPROTO_UDP</code>、<code>IPPROTO_IPV6</code> 等）</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>optname</strong>：要获取或设置的具体选项名称（与 level 对应）。</p>
-</li>
-<li class="lvl-3">
-<p><strong>optval</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">对于 <code>setsockopt</code>：指向要设置的选项值的缓冲区</li>
-<li class="lvl-5">对于 <code>getsockopt</code>：指向存储获取结果的缓冲区</li>
-</ul>
-</li>
-<li class="lvl-3">
-<p><strong>optlen</strong>：</p>
-<ul class="lvl-2">
-<li class="lvl-5">对于 <code>setsockopt</code>：指定 optval 缓冲区的长度</li>
-<li class="lvl-5">对于 <code>getsockopt</code>：输入时指定缓冲区长度，输出时返回实际读取的长度</li>
-</ul>
-</li>
+<ol type="1">
+<li><strong>sockfd</strong>：套接字描述符，标识要操作的套接字。</li>
+<li><strong>level</strong>：选项所在的协议层级，常见值包括：
+<ul>
+<li><code>SOL_SOCKET</code>：通用套接字选项（适用于所有协议）</li>
+<li><code>IPPROTO_TCP</code>：TCP 协议特定选项</li>
+<li><code>IPPROTO_IP</code>：IP 协议特定选项</li>
+<li>其他协议（如 <code>IPPROTO_UDP</code>、<code>IPPROTO_IPV6</code>
+等）</li>
+</ul></li>
+<li><strong>optname</strong>：要获取或设置的具体选项名称（与 level
+对应）。</li>
+<li><strong>optval</strong>：
+<ul>
+<li>对于 <code>setsockopt</code>：指向要设置的选项值的缓冲区</li>
+<li>对于 <code>getsockopt</code>：指向存储获取结果的缓冲区</li>
+</ul></li>
+<li><strong>optlen</strong>：
+<ul>
+<li>对于 <code>setsockopt</code>：指定 optval 缓冲区的长度</li>
+<li>对于
+<code>getsockopt</code>：输入时指定缓冲区长度，输出时返回实际读取的长度</li>
+</ul></li>
 </ol>
 <h3 id="返回值">返回值</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>成功：返回 0</p>
-</li>
-<li class="lvl-2">
-<p>失败：返回 -1，并设置 <code>errno</code></p>
-</li>
+<ul>
+<li>成功：返回 0</li>
+<li>失败：返回 -1，并设置 <code>errno</code></li>
 </ul>
 <h3 id="常用选项示例">常用选项示例</h3>
-<h4 id="1-SOL-SOCKET-层级（通用选项）">1. SOL_SOCKET 层级（通用选项）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>SO_REUSEADDR</code>：允许重用本地地址和端口</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> reuse = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;reuse, <span class="keyword">sizeof</span>(reuse));</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><code>SO_RCVBUF</code> / <code>SO_SNDBUF</code>：获取 / 设置接收 / 发送缓冲区大小</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> bufsize;</span><br><span class="line"><span class="type">socklen_t</span> len = <span class="keyword">sizeof</span>(bufsize);</span><br><span class="line">getsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, &amp;bufsize, &amp;len);</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p><code>SO_KEEPALIVE</code>：启用 TCP 保活机制</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> keepalive = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &amp;keepalive, <span class="keyword">sizeof</span>(keepalive));</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="sol_socket-层级通用选项">1. SOL_SOCKET 层级（通用选项）</h4>
+<ul>
+<li><p><code>SO_REUSEADDR</code>：允许重用本地地址和端口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> reuse = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;reuse, <span class="keyword">sizeof</span>(reuse));</span><br></pre></td></tr></table></figure></li>
+<li><p><code>SO_RCVBUF</code> / <code>SO_SNDBUF</code>：获取 / 设置接收
+/ 发送缓冲区大小</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> bufsize;</span><br><span class="line"><span class="type">socklen_t</span> len = <span class="keyword">sizeof</span>(bufsize);</span><br><span class="line">getsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, &amp;bufsize, &amp;len);</span><br></pre></td></tr></table></figure></li>
+<li><p><code>SO_KEEPALIVE</code>：启用 TCP 保活机制</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> keepalive = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &amp;keepalive, <span class="keyword">sizeof</span>(keepalive));</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="2-IPPROTO-TCP-层级（TCP-选项）">2. IPPROTO_TCP 层级（TCP 选项）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>TCP_NODELAY</code>：禁用 Nagle 算法（减少延迟，可能增加带宽消耗）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> nodelay = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &amp;nodelay, <span class="keyword">sizeof</span>(nodelay));</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="ipproto_tcp-层级tcp-选项">2. IPPROTO_TCP 层级（TCP 选项）</h4>
+<ul>
+<li><p><code>TCP_NODELAY</code>：禁用 Nagle
+算法（减少延迟，可能增加带宽消耗）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> nodelay = <span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &amp;nodelay, <span class="keyword">sizeof</span>(nodelay));</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="3-IPPROTO-IP-层级（IP-选项）">3. IPPROTO_IP 层级（IP 选项）</h4>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>IP_TTL</code>：设置 IP 数据包的生存时间（TTL）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ttl = <span class="number">64</span>;</span><br><span class="line">setsockopt(sockfd, IPPROTO_IP, IP_TTL, &amp;ttl, <span class="keyword">sizeof</span>(ttl));</span><br></pre></td></tr></table></figure>
-</li>
+<h4 id="ipproto_ip-层级ip-选项">3. IPPROTO_IP 层级（IP 选项）</h4>
+<ul>
+<li><p><code>IP_TTL</code>：设置 IP 数据包的生存时间（TTL）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ttl = <span class="number">64</span>;</span><br><span class="line">setsockopt(sockfd, IPPROTO_IP, IP_TTL, &amp;ttl, <span class="keyword">sizeof</span>(ttl));</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="使用场景">使用场景</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>网络性能优化</strong>：调整缓冲区大小、启用 / 禁用特定算法</p>
-</li>
-<li class="lvl-2">
-<p><strong>连接管理</strong>：设置超时、控制地址重用</p>
-</li>
-<li class="lvl-2">
-<p><strong>协议行为定制</strong>：如 TCP 保活、Nagle 算法等</p>
-</li>
-<li class="lvl-2">
-<p><strong>调试与监控</strong>：获取套接字当前状态信息</p>
-</li>
+<ul>
+<li><strong>网络性能优化</strong>：调整缓冲区大小、启用 /
+禁用特定算法</li>
+<li><strong>连接管理</strong>：设置超时、控制地址重用</li>
+<li><strong>协议行为定制</strong>：如 TCP 保活、Nagle 算法等</li>
+<li><strong>调试与监控</strong>：获取套接字当前状态信息</li>
 </ul>
 <h3 id="注意事项">注意事项</h3>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>选项的可用性取决于系统和协议栈实现</p>
-</li>
-<li class="lvl-2">
-<p>某些选项只能在特定阶段设置（如 <code>SO_REUSEADDR</code> 通常在绑定前设置）</p>
-</li>
-<li class="lvl-2">
-<p>对于数值型选项，通常使用 <code>int</code> 类型存储值</p>
-</li>
-<li class="lvl-2">
-<p>错误处理很重要，需检查返回值并处理可能的错误</p>
-</li>
+<ul>
+<li>选项的可用性取决于系统和协议栈实现</li>
+<li>某些选项只能在特定阶段设置（如 <code>SO_REUSEADDR</code>
+通常在绑定前设置）</li>
+<li>对于数值型选项，通常使用 <code>int</code> 类型存储值</li>
+<li>错误处理很重要，需检查返回值并处理可能的错误</li>
 </ul>
 
     </div>
@@ -433,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">get&#x2F;setsockopt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.2.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.0.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.0.4.</span> <span class="nav-text">常用选项示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SOL-SOCKET-%E5%B1%82%E7%BA%A7%EF%BC%88%E9%80%9A%E7%94%A8%E9%80%89%E9%A1%B9%EF%BC%89"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">1. SOL_SOCKET 层级（通用选项）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-IPPROTO-TCP-%E5%B1%82%E7%BA%A7%EF%BC%88TCP-%E9%80%89%E9%A1%B9%EF%BC%89"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">2. IPPROTO_TCP 层级（TCP 选项）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-IPPROTO-IP-%E5%B1%82%E7%BA%A7%EF%BC%88IP-%E9%80%89%E9%A1%B9%EF%BC%89"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">3. IPPROTO_IP 层级（IP 选项）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.0.6.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#getsetsockopt"><span class="nav-number">1.</span> <span class="nav-text">get&#x2F;setsockopt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.0.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.2.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.0.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.0.4.</span> <span class="nav-text">常用选项示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sol_socket-%E5%B1%82%E7%BA%A7%E9%80%9A%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">1. SOL_SOCKET 层级（通用选项）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ipproto_tcp-%E5%B1%82%E7%BA%A7tcp-%E9%80%89%E9%A1%B9"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">2. IPPROTO_TCP 层级（TCP 选项）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ipproto_ip-%E5%B1%82%E7%BA%A7ip-%E9%80%89%E9%A1%B9"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">3. IPPROTO_IP 层级（IP 选项）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.0.6.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -510,7 +478,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         

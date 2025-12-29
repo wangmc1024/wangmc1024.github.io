@@ -27,15 +27,12 @@
 <meta property="og:site_name" content="Computer Science">
 <meta property="og:description" content="基础知识">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/portMapping.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/nvidiaGPU.png">
 <meta property="article:published_time" content="2024-09-13T13:29:16.000Z">
 <meta property="article:modified_time" content="2025-10-19T11:02:39.561Z">
 <meta property="article:author" content="三子曰">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/portMapping.png">
 
 <link rel="canonical" href="https://wangmc1024.github.io/2024/09/13/AI/%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%97%AF%E5%85%B3%E7%BB%83%E4%B9%A0-Lv0/">
 
@@ -223,7 +220,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
+              <span>4.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -243,312 +240,230 @@
 
       
         <blockquote>
-<p>基础知识</p>
+<p>基础知识 <span id="more"></span></p>
 </blockquote>
-<span id="more"></span>
-<h1>书生大模型闯关练习</h1>
-<h2 id="Lv0-Linux基础知识">Lv0-Linux基础知识</h2>
-<h3 id="1-SSH（Secure-Shell）"><strong>1. SSH（Secure Shell）</strong></h3>
-<p><strong><mark>1.1 概述</mark></strong></p>
+<h1 id="书生大模型闯关练习">书生大模型闯关练习</h1>
+<h2 id="lv0-linux基础知识">Lv0-Linux基础知识</h2>
+<h3 id="sshsecure-shell"><strong>1. SSH（Secure Shell）</strong></h3>
+<p><strong>==1.1 概述==</strong></p>
 <p>SSH是用于远程登录和其他网络服务之间的安全协议。它使用加密技术来确保数据的机密性和完整性。SSH的常见用途包括：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>远程服务器登录</strong>：无密码安全访问远程服务器。</p>
-</li>
-<li class="lvl-2">
-<p><strong>数据传输</strong>：通过安全通道传输文件（如<code>SCP</code>和<code>SFTP</code>）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>端口转发</strong>：通过SSH隧道转发TCP端口。</p>
-</li>
+<ul>
+<li><strong>远程服务器登录</strong>：无密码安全访问远程服务器。</li>
+<li><strong>数据传输</strong>：通过安全通道传输文件（如<code>SCP</code>和<code>SFTP</code>）。</li>
+<li><strong>端口转发</strong>：通过SSH隧道转发TCP端口。</li>
 </ul>
-<p><strong><mark>1.2 SSH密钥对</mark></strong></p>
+<p><strong>==1.2 SSH密钥对==</strong></p>
 <p>SSH使用公钥加密系统，密钥对由两部分组成：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>公钥</strong>：公开分发，存储在服务器上。</p>
-</li>
-<li class="lvl-2">
-<p><strong>私钥</strong>：保留在客户端，不能外泄。</p>
-</li>
+<ul>
+<li><strong>公钥</strong>：公开分发，存储在服务器上。</li>
+<li><strong>私钥</strong>：保留在客户端，不能外泄。</li>
 </ul>
 <p>客户端使用私钥与服务器的公钥进行匹配，从而验证身份，服务器无需存储任何敏感的凭据。</p>
-<p><strong><mark>1.3 SSH密钥的生成</mark></strong></p>
-<p>在ssh命令中我们可以使用<strong>ssh-keygen</strong>命令来生成密钥, <strong>ssh-keygen</strong>支持RSA和DSA两种认证密钥</p>
+<p><strong>==1.3 SSH密钥的生成==</strong></p>
+<p>在ssh命令中我们可以使用<strong>ssh-keygen</strong>命令来生成密钥,
+<strong>ssh-keygen</strong>支持RSA和DSA两种认证密钥</p>
 <p>常用参数包括：</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>-t：指定密钥类型，如dsa、ecdsa、ed25519、rsa。</p>
-</li>
-<li class="lvl-2">
-<p>-b：指定密钥长度。</p>
-</li>
-<li class="lvl-2">
-<p>-C：添加注释。</p>
-</li>
-<li class="lvl-2">
-<p>-f：指定保存密钥的文件名。</p>
-</li>
+<ul>
+<li>-t：指定密钥类型，如dsa、ecdsa、ed25519、rsa。</li>
+<li>-b：指定密钥长度。</li>
+<li>-C：添加注释。</li>
+<li>-f：指定保存密钥的文件名。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;youremail@example.com&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong><mark>1.4 为不同的服务生成各自的SSH密钥</mark></strong></p>
+<p><strong>==1.4 为不同的服务生成各自的SSH密钥==</strong></p>
 <blockquote>
-<p>使用上述命令生成密钥后, <strong>系统会提示你输入密钥文件的保存路径</strong>。为了生成多个密钥，确保每个密钥文件名不同</p>
+<p>使用上述命令生成密钥后,
+<strong>系统会提示你输入密钥文件的保存路径</strong>。为了生成多个密钥，确保每个密钥文件名不同</p>
 </blockquote>
 <p>如: 为GitHub生成一个密钥</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/home/username/.ssh/id_rsa): /home/username/.ssh/id_rsa_github</span><br><span class="line"><span class="comment">#如果是windows系统则是 C:\Users\your_userName\.ssh\id_rsa_github</span></span><br></pre></td></tr></table></figure>
 <p>在powerShell中可以使用<code>Get-Content</code>命令查看生成的密钥，如果是<strong>linux操作系统</strong>可以使用<code>cat</code>命令</p>
 <p>最后将公钥复制粘贴到目标服务的SSH设置中</p>
-<p><strong><mark>1.5 配置多个SSH密钥</mark></strong></p>
+<p><strong>==1.5 配置多个SSH密钥==</strong></p>
 <p>在<code>~/.ssh/config</code>文件可以方便地为不同的服务配置不同的SSH密钥</p>
-<ol>
-<li class="lvl-3">
-<p><strong>添加配置项</strong>： 为每个服务添加单独的配置项。</p>
+<ol type="1">
+<li><p><strong>添加配置项</strong>： 为每个服务添加单独的配置项。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">  HostName github.com</span><br><span class="line">  User git</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_github</span><br><span class="line"></span><br><span class="line">Host gitlab.com</span><br><span class="line">  HostName gitlab.com</span><br><span class="line">  User git</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_gitlab</span><br></pre></td></tr></table></figure>
 <p>解释：</p>
-<ul class="lvl-2">
-<li class="lvl-5">
-<p><strong>Host</strong>：自定义别名或远程主机名。</p>
-</li>
-<li class="lvl-5">
-<p><strong>HostName</strong>：实际的远程服务器主机名（<a target="_blank" rel="noopener" href="http://xn--github-hh4k.xn--comgitlab-267r.com">如github.com或gitlab.com</a>）。</p>
-</li>
-<li class="lvl-5">
-<p><strong>User</strong>：登录时使用的用户名（通常是<code>git</code>，用于代码托管平台）。</p>
-</li>
-<li class="lvl-5">
-<p><strong>IdentityFile</strong>：指定使用的SSH私钥。</p>
-</li>
-</ul>
-</li>
+<ul>
+<li><strong>Host</strong>：自定义别名或远程主机名。</li>
+<li><strong>HostName</strong>：实际的远程服务器主机名（如github.com或gitlab.com）。</li>
+<li><strong>User</strong>：登录时使用的用户名（通常是<code>git</code>，用于代码托管平台）。</li>
+<li><strong>IdentityFile</strong>：指定使用的SSH私钥。</li>
+</ul></li>
 </ol>
-<h3 id="2-端口映射">2. 端口映射</h3>
-<p><strong><mark>2.1 基础概念</mark></strong></p>
-<p>在计算机网络中，<strong>端口（Port）</strong> 是网络通信中的一个逻辑抽象概念，用于区分同一台计算机上不同网络服务或进程之间的通信通道。它与IP地址一起，用来标识网络中的不同通信终端和服务。<strong>端口映射</strong>是一种网络技术，它可以将外网中的任意端口映射到内网中的相应端口，实现内网与外网之间的通信。通过端口映射，可以在外网访问内网中的服务或应用，实现跨越网络的便捷通信</p>
-<p><strong><mark>2.2 如何工作</mark></strong></p>
+<h3 id="端口映射">2. 端口映射</h3>
+<p><strong>==2.1 基础概念==</strong></p>
+<p>在计算机网络中，<strong>端口（Port）</strong>
+是网络通信中的一个逻辑抽象概念，用于区分同一台计算机上不同网络服务或进程之间的通信通道。它与IP地址一起，用来标识网络中的不同通信终端和服务。<strong>端口映射</strong>是一种网络技术，它可以将外网中的任意端口映射到内网中的相应端口，实现内网与外网之间的通信。通过端口映射，可以在外网访问内网中的服务或应用，实现跨越网络的便捷通信</p>
+<p><strong>==2.2 如何工作==</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHostKeyChecking=no</span><br></pre></td></tr></table></figure>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>-p 37367</code>：是指定 SSH 连接的端口为 37367</p>
-</li>
-<li class="lvl-2">
-<p><code>root@ssh.intern-ai.org.cn</code>：表示要以 <code>root</code> 用户身份连接到 <code>ssh.intern-ai.org.cn</code> 这个主机。</p>
-</li>
-<li class="lvl-2">
-<p><code>CNg</code></p>
-<ul class="lvl-2">
-<li class="lvl-4"><code>-C</code> 启用压缩功能，这可以加快数据传输速度，尤其是在网络速度较慢的情况下。</li>
-<li class="lvl-4"><code>-N</code> 表示不执行远程命令，仅建立连接用于端口转发等。</li>
-<li class="lvl-4"><code>-g</code> 允许远程主机连接到本地转发的端口。这通常用于设置一个“网关”，允许其他计算机通过这个 SSH 会话访问转发端口</li>
+<ul>
+<li><code>-p 37367</code>：是指定 SSH 连接的端口为 37367</li>
+<li><code>root@ssh.intern-ai.org.cn</code>：表示要以 <code>root</code>
+用户身份连接到 <code>ssh.intern-ai.org.cn</code> 这个主机。</li>
+<li><code>CNg</code>
+<ul>
+<li><code>-C</code>
+启用压缩功能，这可以加快数据传输速度，尤其是在网络速度较慢的情况下。</li>
+<li><code>-N</code> 表示不执行远程命令，仅建立连接用于端口转发等。</li>
+<li><code>-g</code>
+允许远程主机连接到本地转发的端口。这通常用于设置一个“网关”，允许其他计算机通过这个
+SSH 会话访问转发端口</li>
+</ul></li>
+<li><code>-L {本地机器_PORT}:127.0.0.1:{开发机_PORT}</code>：这是设置本地端口转发，将本地机器的指定端口转发到远程主机的
+<code>127.0.0.1</code> （即本地回环地址）和指定的开发机端口。</li>
+<li><code>-o StrictHostKeyChecking=no</code>：关闭严格的主机密钥检查，这样可以避免第一次连接时因为未知主机密钥而产生的提示或错误。</li>
 </ul>
-</li>
-<li class="lvl-2">
-<p><code>-L {本地机器_PORT}:127.0.0.1:{开发机_PORT}</code>：这是设置本地端口转发，将本地机器的指定端口转发到远程主机的 <code>127.0.0.1</code> （即本地回环地址）和指定的开发机端口。</p>
-</li>
-<li class="lvl-2">
-<p><code>-o StrictHostKeyChecking=no</code>：关闭严格的主机密钥检查，这样可以避免第一次连接时因为未知主机密钥而产生的提示或错误。</p>
-</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/portMapping.png" alt="portMapping"></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/portMapping.png"
+alt="portMapping" />
+<figcaption aria-hidden="true">portMapping</figcaption>
+</figure>
 <p>使用<strong>VSCode</strong>可以使用其<strong>自动端口映射</strong>的功能,不需要自己手动配置</p>
-<p><strong><mark>2.3 常见端口和服务</mark></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>21</strong>：FTP（文件传输协议）</p>
-</li>
-<li class="lvl-2">
-<p><strong>22</strong>：SSH（远程登录）</p>
-</li>
-<li class="lvl-2">
-<p><strong>25</strong>：SMTP（邮件传输）</p>
-</li>
-<li class="lvl-2">
-<p><strong>53</strong>：DNS（域名解析）</p>
-</li>
-<li class="lvl-2">
-<p><strong>80</strong>：HTTP（网页浏览）</p>
-</li>
-<li class="lvl-2">
-<p><strong>443</strong>：HTTPS（安全网页浏览）</p>
-</li>
+<p><strong>==2.3 常见端口和服务==</strong></p>
+<ul>
+<li><p><strong>21</strong>：FTP（文件传输协议）</p></li>
+<li><p><strong>22</strong>：SSH（远程登录）</p></li>
+<li><p><strong>25</strong>：SMTP（邮件传输）</p></li>
+<li><p><strong>53</strong>：DNS（域名解析）</p></li>
+<li><p><strong>80</strong>：HTTP（网页浏览）</p></li>
+<li><p><strong>443</strong>：HTTPS（安全网页浏览）</p></li>
 </ul>
-<p><strong><mark>2.4 查看和管理端口</mark></strong></p>
+<p><strong>==2.4 查看和管理端口==</strong></p>
 <p>使用<code>netstat</code>命令</p>
-<h3 id="3-Linux基础命令">3. Linux基础命令</h3>
-<p><strong><mark>3.1 文件管理相关命令</mark></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>创建文件</strong>：可以使用 <code>touch</code> 命令创建空文件。</p>
-</li>
-<li class="lvl-2">
-<p><strong>创建目录</strong>：使用 <code>mkdir</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>目录切换</strong>：使用<code>cd</code>命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>显示所在目录</strong>：使用<code>pwd</code>命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>查看文件内容</strong>：如使用 <code>cat</code> 直接显示文件全部内容，<code>more</code> 和 <code>less</code> 可以分页查看。</p>
-</li>
-<li class="lvl-2">
-<p><strong>编辑文件</strong>：如 <code>vi</code> 或 <code>vim</code> 等编辑器。</p>
-</li>
-<li class="lvl-2">
-<p><strong>复制文件</strong>：用 <code>cp</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>创建文件链接</strong>：用<code>ln</code>命令。</p>
-<ul class="lvl-2">
-<li class="lvl-4">-s：创建软链接（符号链接）也是最常用的</li>
+<h3 id="linux基础命令">3. Linux基础命令</h3>
+<p><strong>==3.1 文件管理相关命令==</strong></p>
+<ul>
+<li><strong>创建文件</strong>：可以使用 <code>touch</code>
+命令创建空文件。</li>
+<li><strong>创建目录</strong>：使用 <code>mkdir</code> 命令。</li>
+<li><strong>目录切换</strong>：使用<code>cd</code>命令。</li>
+<li><strong>显示所在目录</strong>：使用<code>pwd</code>命令。</li>
+<li><strong>查看文件内容</strong>：如使用 <code>cat</code>
+直接显示文件全部内容，<code>more</code> 和 <code>less</code>
+可以分页查看。</li>
+<li><strong>编辑文件</strong>：如 <code>vi</code> 或 <code>vim</code>
+等编辑器。</li>
+<li><strong>复制文件</strong>：用 <code>cp</code> 命令。</li>
+<li><strong>创建文件链接</strong>：用<code>ln</code>命令。
+<ul>
+<li>-s：创建软链接（符号链接）也是最常用的</li>
+</ul></li>
+<li><strong>移动文件</strong>：通过 <code>mv</code> 命令。</li>
+<li><strong>删除文件</strong>：使用 <code>rm</code> 命令。</li>
+<li><strong>删除目录</strong>：<code>rmdir</code>（只能删除空目录）或
+<code>rm -r</code>（可删除非空目录）。</li>
+<li><strong>查找文件</strong>：可以用 <code>find</code> 命令。</li>
+<li><strong>查看文件或目录的详细信息</strong>：使用<code>ls</code>命令，如使用
+<code>ls -l</code>查看目录下文件的详细信息。</li>
+<li><strong>处理文件</strong>：进行复杂的文件操作，可以使用<code>sed</code>命令。</li>
 </ul>
-</li>
-<li class="lvl-2">
-<p><strong>移动文件</strong>：通过 <code>mv</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>删除文件</strong>：使用 <code>rm</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>删除目录</strong>：<code>rmdir</code>（只能删除空目录）或 <code>rm -r</code>（可删除非空目录）。</p>
-</li>
-<li class="lvl-2">
-<p><strong>查找文件</strong>：可以用 <code>find</code> 命令。</p>
-</li>
-<li class="lvl-2">
-<p><strong>查看文件或目录的详细信息</strong>：使用<code>ls</code>命令，如使用 <code>ls -l</code>查看目录下文件的详细信息。</p>
-</li>
-<li class="lvl-2">
-<p><strong>处理文件</strong>：进行复杂的文件操作，可以使用<code>sed</code>命令。</p>
-</li>
+<p><strong>==3.2 进程管理相关命令==</strong></p>
+<ul>
+<li><strong>ps</strong>：查看正在运行的进程</li>
+<li><strong>top</strong>：动态显示正在运行的进程</li>
+<li><strong>pstree</strong>：树状查看正在运行的进程</li>
+<li><strong>pgrep</strong>：用于查找进程</li>
+<li><strong>nice</strong>：更改进程的优先级</li>
+<li><strong>jobs</strong>：显示进程的相关信息</li>
+<li><strong>bg 和 fg</strong>：将进程调入后台</li>
+<li><strong>kill</strong>：杀死进程</li>
 </ul>
-<p><strong><mark>3.2 进程管理相关命令</mark></strong></p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><strong>ps</strong>：查看正在运行的进程</p>
-</li>
-<li class="lvl-2">
-<p><strong>top</strong>：动态显示正在运行的进程</p>
-</li>
-<li class="lvl-2">
-<p><strong>pstree</strong>：树状查看正在运行的进程</p>
-</li>
-<li class="lvl-2">
-<p><strong>pgrep</strong>：用于查找进程</p>
-</li>
-<li class="lvl-2">
-<p><strong>nice</strong>：更改进程的优先级</p>
-</li>
-<li class="lvl-2">
-<p><strong>jobs</strong>：显示进程的相关信息</p>
-</li>
-<li class="lvl-2">
-<p><strong>bg 和 fg</strong>：将进程调入后台</p>
-</li>
-<li class="lvl-2">
-<p><strong>kill</strong>：杀死进程</p>
-</li>
-</ul>
-<p><strong><mark>nvidia-smi命令</mark></strong></p>
-<p>是一个命令行工具，用于监控 NVIDIA GPU 的状态和性能，以及管理 GPU 相关的任务</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/nvidiaGPU.png" alt="nvidiaGPU"></p>
-<h3 id="4-Conda">4. Conda</h3>
+<p><strong>==nvidia-smi命令==</strong></p>
+<p>是一个命令行工具，用于监控 NVIDIA GPU 的状态和性能，以及管理 GPU
+相关的任务</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/nvidiaGPU.png"
+alt="nvidiaGPU" />
+<figcaption aria-hidden="true">nvidiaGPU</figcaption>
+</figure>
+<h3 id="conda">4. Conda</h3>
 <blockquote>
-<p>一个开源的包管理和环境管理工具, 主要用于简化软件包的安装、依赖管理和隔离虚拟环境。</p>
+<p>一个开源的包管理和环境管理工具,
+主要用于简化软件包的安装、依赖管理和隔离虚拟环境。</p>
 </blockquote>
-<h6 id="4-1-两个核心功能"><strong><mark>4.1 两个核心功能</mark></strong></h6>
-<p><strong>包管理</strong>：Conda 可以安装、更新、卸载软件包，并自动解决依赖问题。</p>
-<p><strong>环境管理</strong>：Conda 允许用户创建和管理多个独立的虚拟环境，每个环境可以有不同的包和工具。</p>
-<p><mark><strong>4.2 Conda 的基本操作</strong></mark></p>
-<ol>
-<li class="lvl-3">
-<p>检查 Conda 版本</p>
-</li>
+<h6 id="两个核心功能"><strong>==4.1 两个核心功能==</strong></h6>
+<p><strong>包管理</strong>：Conda
+可以安装、更新、卸载软件包，并自动解决依赖问题。</p>
+<p><strong>环境管理</strong>：Conda
+允许用户创建和管理多个独立的虚拟环境，每个环境可以有不同的包和工具。</p>
+<p>==<strong>4.2 Conda 的基本操作</strong>==</p>
+<ol type="1">
+<li>检查 Conda 版本</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li class="lvl-3">
-<p>创建虚拟环境</p>
-</li>
+<ol start="2" type="1">
+<li>创建虚拟环境</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name myenv python=3.9</span><br></pre></td></tr></table></figure>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p><code>myenv</code> 是虚拟环境的名称。</p>
-</li>
-<li class="lvl-2">
-<p><code>python=3.9</code> 指定了该环境将使用 Python 3.9。</p>
-</li>
+<ul>
+<li><code>myenv</code> 是虚拟环境的名称。</li>
+<li><code>python=3.9</code> 指定了该环境将使用 Python 3.9。</li>
 </ul>
-<ol start="3">
-<li class="lvl-3">
-<p>激活和退出环境</p>
-</li>
+<ol start="3" type="1">
+<li>激活和退出环境</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate myenv</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li class="lvl-3">
-<p>安装软件包</p>
-</li>
+<ol start="4" type="1">
+<li>安装软件包</li>
 </ol>
-<p>安装软件包时，Conda 会自动处理依赖问题。使用 <code>conda install</code> 安装包。</p>
+<p>安装软件包时，Conda 会自动处理依赖问题。使用
+<code>conda install</code> 安装包。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install numpy pandas</span><br></pre></td></tr></table></figure>
-<p>这会在当前激活的环境中安装 <code>numpy</code> 和 <code>pandas</code>。</p>
-<ol start="5">
-<li class="lvl-3">
-<p>更新软件包</p>
-</li>
+<p>这会在当前激活的环境中安装 <code>numpy</code> 和
+<code>pandas</code>。</p>
+<ol start="5" type="1">
+<li>更新软件包</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update numpy</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li class="lvl-3">
-<p>列出创建的所有虚拟环境</p>
-</li>
+<ol start="6" type="1">
+<li>列出创建的所有虚拟环境</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> list</span><br></pre></td></tr></table></figure>
-<ol start="7">
-<li class="lvl-3">
-<p>删除虚拟环境</p>
-</li>
+<ol start="7" type="1">
+<li>删除虚拟环境</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> remove --name myenv</span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li class="lvl-3">
-<p>导出和导入环境</p>
-</li>
+<ol start="8" type="1">
+<li>导出和导入环境</li>
 </ol>
-<p>Conda 允许你导出当前环境的所有包列表，以便于在其他系统上重建相同的环境。</p>
-<ul class="lvl-0">
-<li class="lvl-2">
-<p>导出环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> <span class="built_in">export</span> &gt; environment.yml</span><br></pre></td></tr></table></figure>
-</li>
-<li class="lvl-2">
-<p>从导出的 <code>.yml</code> 文件创建新环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> create -f environment.yml</span><br></pre></td></tr></table></figure>
-</li>
+<p>Conda
+允许你导出当前环境的所有包列表，以便于在其他系统上重建相同的环境。</p>
+<ul>
+<li>导出环境： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> <span class="built_in">export</span> &gt; environment.yml</span><br></pre></td></tr></table></figure></li>
+<li>从导出的 <code>.yml</code> 文件创建新环境： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> create -f environment.yml</span><br></pre></td></tr></table></figure></li>
 </ul>
-<ol start="9">
-<li class="lvl-3">
-<p>添加其他的源</p>
-</li>
+<ol start="9" type="1">
+<li>添加其他的源</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --add [url]</span><br></pre></td></tr></table></figure>
-<h2 id="Lv0-Python基础">Lv0-Python基础</h2>
-<h3 id="1-环境准备">1. 环境准备</h3>
-<p><strong><mark>1.1 下载miniconda</mark></strong></p>
+<h2 id="lv0-python基础">Lv0-Python基础</h2>
+<h3 id="环境准备">1. 环境准备</h3>
+<p><strong>==1.1 下载miniconda==</strong></p>
 <p>anaconda和miniconda都可以, 推荐后者</p>
-<p>清华源miniconda下载链接: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/">清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a>(建议选择python3.9以上的版本，比如Miniconda3-py310_24.5.0)</p>
-<p><strong><mark>1.2 换源</mark></strong></p>
-<p>进入命令行开始进行换源，Windows可以直接打开miniconda powershell promt。</p>
+<p>清华源miniconda下载链接: <a
+target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/">清华大学开源软件镜像站
+| Tsinghua Open Source
+Mirror</a>(建议选择python3.9以上的版本，比如Miniconda3-py310_24.5.0)</p>
+<p><strong>==1.2 换源==</strong></p>
+<p>进入命令行开始进行换源，Windows可以直接打开miniconda powershell
+promt。</p>
 <p>首先将pip替换为清华源，只需要一条命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-<p>接着我们来给conda替换成清华源。各系统都可以通过修改用户目录下的 <code>.condarc</code> 文件来修改镜像源。Windows 用户无法直接创建名为 <code>.condarc</code> 的文件，<strong>可先执行 <code>conda config --set show_channel_urls yes</code> 生成该文件之后再修改</strong>。在用户目录找到<code>.condarc</code> 文件后，使用文本编辑器打开，将下面的内容复制进去并保存。</p>
+<p>接着我们来给conda替换成清华源。各系统都可以通过修改用户目录下的
+<code>.condarc</code> 文件来修改镜像源。Windows 用户无法直接创建名为
+<code>.condarc</code> 的文件，<strong>可先执行
+<code>conda config --set show_channel_urls yes</code>
+生成该文件之后再修改</strong>。在用户目录找到<code>.condarc</code>
+文件后，使用文本编辑器打开，将下面的内容复制进去并保存。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">channels:   - defaults show_channel_urls: <span class="literal">true</span> default_channels:</span><br><span class="line">- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2 custom_channels:</span><br><span class="line">conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">deepmodeling: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/</span><br></pre></td></tr></table></figure>
-<p>接着在命令行中运行 <code>conda clean -i</code> 清除索引缓存，保证用的是镜像站提供的索引。</p>
-<h3 id="2-不断学习-使用python">2. 不断学习,使用python</h3>
+<p>接着在命令行中运行 <code>conda clean -i</code>
+清除索引缓存，保证用的是镜像站提供的索引。</p>
+<h3 id="不断学习使用python">2. 不断学习,使用python</h3>
 
     </div>
 
@@ -636,7 +551,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">书生大模型闯关练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lv0-Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">Lv0-Linux基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SSH%EF%BC%88Secure-Shell%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. SSH（Secure Shell）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. Linux基础命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Conda"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#4-1-%E4%B8%A4%E4%B8%AA%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.4.0.0.1.</span> <span class="nav-text">4.1 两个核心功能</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lv0-Python%E5%9F%BA%E7%A1%80"><span class="nav-number">1.2.</span> <span class="nav-text">Lv0-Python基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E6%96%AD%E5%AD%A6%E4%B9%A0-%E4%BD%BF%E7%94%A8python"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 不断学习,使用python</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%A6%E7%94%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%97%AF%E5%85%B3%E7%BB%83%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">书生大模型闯关练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lv0-linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">Lv0-Linux基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sshsecure-shell"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. SSH（Secure Shell）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. Linux基础命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conda"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.4.0.0.1.</span> <span class="nav-text">&#x3D;&#x3D;4.1 两个核心功能&#x3D;&#x3D;</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lv0-python%E5%9F%BA%E7%A1%80"><span class="nav-number">1.2.</span> <span class="nav-text">Lv0-Python基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%96%AD%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8python"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 不断学习,使用python</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -713,7 +628,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">852k</span>
+    <span title="站点总字数">836k</span>
 </div>
 
         
