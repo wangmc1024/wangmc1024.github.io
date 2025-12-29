@@ -212,14 +212,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -231,20 +231,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
 <p>以下是在Miniconda环境中为<code>pip</code>和<code>uv</code>（Python包管理器）更换国内镜像源的完整指南，涵盖<strong>临时换源</strong>（单次生效）、<strong>永久换源</strong>（全局生效）及验证方法，适配不同操作系统。</p>
 <h3 id="前置说明">前置说明</h3>
-<ul>
-<li><strong>环境隔离性</strong>：Miniconda的虚拟环境相互独立，<code>pip</code>和<code>uv</code>的换源配置<strong>对当前激活的环境生效</strong>（若需在其他环境使用，需重新配置或确保配置为用户级全局生效）。<br />
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>环境隔离性</strong>：Miniconda的虚拟环境相互独立，<code>pip</code>和<code>uv</code>的换源配置<strong>对当前激活的环境生效</strong>（若需在其他环境使用，需重新配置或确保配置为用户级全局生效）。</p>
 </li>
-<li><strong>国内源选择</strong>：优先推荐稳定源（清华、阿里云、腾讯云），避免使用长期未更新的源（如豆瓣源）。</li>
+<li class="lvl-2">
+<p><strong>国内源选择</strong>：优先推荐稳定源（清华、阿里云、腾讯云），避免使用长期未更新的源（如豆瓣源）。</p>
+</li>
 </ul>
-<h2
-id="一pip换源适用于pip-install命令">一、pip换源（适用于<code>pip install</code>命令）</h2>
-<h3 id="常用国内镜像源">1. 常用国内镜像源</h3>
+<h2 id="一、pip换源（适用于pip-install命令）">一、pip换源（适用于<code>pip install</code>命令）</h2>
+<h3 id="1-常用国内镜像源">1. 常用国内镜像源</h3>
 <table>
 <thead>
 <tr>
@@ -271,63 +271,68 @@ id="一pip换源适用于pip-install命令">一、pip换源（适用于<code>pip
 </tr>
 </tbody>
 </table>
-<h3 id="临时换源单次安装时使用">2. 临时换源（单次安装时使用）</h3>
-<p>通过<code>-i</code>参数指定源，仅对当前<code>pip install</code>命令生效，无需修改配置：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 激活目标Miniconda环境（如pyside6_env）</span></span><br><span class="line">conda activate pyside6_env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例：用清华源安装pyside6</span></span><br><span class="line">pip install pyside6 -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></p>
-<h3 id="永久换源全局默认生效">3. 永久换源（全局默认生效）</h3>
+<h3 id="2-临时换源（单次安装时使用）">2. 临时换源（单次安装时使用）</h3>
+<p>通过<code>-i</code>参数指定源，仅对当前<code>pip install</code>命令生效，无需修改配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 激活目标Miniconda环境（如pyside6_env）</span></span><br><span class="line">conda activate pyside6_env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例：用清华源安装pyside6</span></span><br><span class="line">pip install pyside6 -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+<h3 id="3-永久换源（全局默认生效）">3. 永久换源（全局默认生效）</h3>
 <p>通过配置文件指定默认源，一劳永逸。不同操作系统的配置文件路径不同，需手动创建/修改。</p>
-<h4 id="windows系统">（1）Windows系统</h4>
-<ul>
-<li><p><strong>配置文件路径</strong>：<code>C:\Users\你的用户名\AppData\Roaming\pip\pip.ini</code><br />
-（<code>AppData</code>为隐藏文件夹，需开启“显示隐藏文件”）</p></li>
-<li><p><strong>创建/修改步骤</strong>：</p>
-<ol type="1">
-<li>进入路径后，若不存在<code>pip</code>文件夹，手动新建；<br />
+<h4 id="（1）Windows系统">（1）Windows系统</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>配置文件路径</strong>：<code>C:\Users\你的用户名\AppData\Roaming\pip\pip.ini</code><br>
+（<code>AppData</code>为隐藏文件夹，需开启“显示隐藏文件”）</p>
 </li>
-<li>在<code>pip</code>文件夹内新建<code>pip.ini</code>文件（无<code>.txt</code>后缀）；<br />
+<li class="lvl-2">
+<p><strong>创建/修改步骤</strong>：</p>
+<ol>
+<li class="lvl-5">进入路径后，若不存在<code>pip</code>文件夹，手动新建；</li>
+<li class="lvl-5">在<code>pip</code>文件夹内新建<code>pip.ini</code>文件（无<code>.txt</code>后缀）；</li>
+<li class="lvl-5">写入以下内容（以清华源为例）：<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="comment"># 1. 主源：优先从清华源下载</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"><span class="comment"># 2. 额外源：主源找不到时，依次从阿里云、豆瓣源查找（可添加任意数量）</span></span><br><span class="line"><span class="attr">extra-index-url</span> = </span><br><span class="line">    https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">    https://pypi.doubanio.com/simple/</span><br><span class="line"><span class="comment"># 3. 信任所有源（避免 SSL 验证错误，每个源都要加）</span></span><br><span class="line"><span class="attr">trusted-host</span> = </span><br><span class="line">    pypi.tuna.tsinghua.edu.cn</span><br><span class="line">    mirrors.aliyun.com</span><br><span class="line">    pypi.doubanio.com</span><br><span class="line"></span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="comment"># 可选：安装时禁止缓存（避免旧包干扰，按需开启）</span></span><br><span class="line"><span class="attr">no-cache-dir</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>写入以下内容（以清华源为例）：<br />
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="comment"># 1. 主源：优先从清华源下载</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"><span class="comment"># 2. 额外源：主源找不到时，依次从阿里云、豆瓣源查找（可添加任意数量）</span></span><br><span class="line"><span class="attr">extra-index-url</span> = </span><br><span class="line">    https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">    https://pypi.doubanio.com/simple/</span><br><span class="line"><span class="comment"># 3. 信任所有源（避免 SSL 验证错误，每个源都要加）</span></span><br><span class="line"><span class="attr">trusted-host</span> = </span><br><span class="line">    pypi.tuna.tsinghua.edu.cn</span><br><span class="line">    mirrors.aliyun.com</span><br><span class="line">    pypi.doubanio.com</span><br><span class="line"></span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="comment"># 可选：安装时禁止缓存（避免旧包干扰，按需开启）</span></span><br><span class="line"><span class="attr">no-cache-dir</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
-</ol></li>
-</ul>
-<h4 id="linuxmacos系统">（2）Linux/macOS系统</h4>
-<ul>
-<li><p><strong>配置文件路径</strong>：<code>~/.pip/pip.conf</code>（<code>~</code>为用户主目录，如<code>/home/用户名</code>）</p></li>
-<li><p><strong>创建/修改步骤</strong>：</p>
-<ol type="1">
-<li>终端执行命令创建目录和文件：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.pip &amp;&amp; <span class="built_in">touch</span> ~/.pip/pip.conf</span><br></pre></td></tr></table></figure></li>
-<li>用编辑器（如<code>vim</code>）打开文件：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.pip/pip.conf</span><br></pre></td></tr></table></figure></li>
-<li>写入以下内容（以阿里云为例）：<br />
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">index-url</span> = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="attr">trusted-host</span> = mirrors.aliyun.com</span><br></pre></td></tr></table></figure></li>
-<li>保存退出（<code>vim</code>中按<code>ESC</code>后输入<code>:wq</code>）。</li>
-</ol></li>
-</ul>
-<h3 id="验证换源结果">4. 验证换源结果</h3>
-<p>执行以下命令查看当前<code>pip</code>配置，确认<code>index-url</code>为目标源：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config list</span><br></pre></td></tr></table></figure>
-输出类似<code>global.index-url='https://pypi.tuna.tsinghua.edu.cn/simple'</code>即成功。</p>
-<h2
-id="二uv换源适用于uv-install命令uv是快速包管理器">二、uv换源（适用于<code>uv install</code>命令，uv是快速包管理器）</h2>
-<h3 id="前置在miniconda环境中安装uv">1.
-前置：在Miniconda环境中安装uv</h3>
-<p>为确保UV可全局调用并适配Miniconda的环境机制，建议在Miniconda的基础环境（base）中安装UV：</p>
-<ol type="1">
-<li><p><strong>激活base环境</strong>：安装完成后默认激活，若已退出可执行以下命令：</p>
-<p>​ Windows：<code>conda activate base</code></p>
-<p>​
-Linux/macOS：<code>source ~/miniconda3/bin/activate</code>（路径需与安装时一致）</p></li>
-<li><p><strong>安装UV</strong>：根据系统执行对应命令：</p>
-<p>​
-Linux/macOS：<code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></p>
-<p>​
-Windows（PowerShell）：<code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></p></li>
-<li><p><strong>验证安装</strong>：执行<code>uv --version</code>，输出类似”uv
-0.1.30”即表示安装成功。</p></li>
 </ol>
-<h3 id="常用国内镜像源同pipuv兼容pypi格式源">2.
-常用国内镜像源（同pip，uv兼容PyPI格式源）</h3>
+</li>
+</ul>
+<h4 id="（2）Linux-macOS系统">（2）Linux/macOS系统</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>配置文件路径</strong>：<code>~/.pip/pip.conf</code>（<code>~</code>为用户主目录，如<code>/home/用户名</code>）</p>
+</li>
+<li class="lvl-2">
+<p><strong>创建/修改步骤</strong>：</p>
+<ol>
+<li class="lvl-5">终端执行命令创建目录和文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.pip &amp;&amp; <span class="built_in">touch</span> ~/.pip/pip.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-5">用编辑器（如<code>vim</code>）打开文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.pip/pip.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-5">写入以下内容（以阿里云为例）：<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">index-url</span> = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="attr">trusted-host</span> = mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-5">保存退出（<code>vim</code>中按<code>ESC</code>后输入<code>:wq</code>）。</li>
+</ol>
+</li>
+</ul>
+<h3 id="4-验证换源结果">4. 验证换源结果</h3>
+<p>执行以下命令查看当前<code>pip</code>配置，确认<code>index-url</code>为目标源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config list</span><br></pre></td></tr></table></figure>
+<p>输出类似<code>global.index-url='https://pypi.tuna.tsinghua.edu.cn/simple'</code>即成功。</p>
+<h2 id="二、uv换源（适用于uv-install命令，uv是快速包管理器）">二、uv换源（适用于<code>uv install</code>命令，uv是快速包管理器）</h2>
+<h3 id="1-前置：在Miniconda环境中安装uv">1. 前置：在Miniconda环境中安装uv</h3>
+<p>为确保UV可全局调用并适配Miniconda的环境机制，建议在Miniconda的基础环境（base）中安装UV：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>激活base环境</strong>：安装完成后默认激活，若已退出可执行以下命令：</p>
+<p>​	Windows：<code>conda activate base</code></p>
+<p>​	Linux/macOS：<code>source ~/miniconda3/bin/activate</code>（路径需与安装时一致）</p>
+</li>
+<li class="lvl-3">
+<p><strong>安装UV</strong>：根据系统执行对应命令：</p>
+<p>​	Linux/macOS：<code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></p>
+<p>​	Windows（PowerShell）：<code>powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;</code></p>
+</li>
+<li class="lvl-3">
+<p><strong>验证安装</strong>：执行<code>uv --version</code>，输出类似&quot;uv 0.1.30&quot;即表示安装成功。</p>
+</li>
+</ol>
+<h3 id="2-常用国内镜像源（同pip，uv兼容PyPI格式源）">2. 常用国内镜像源（同pip，uv兼容PyPI格式源）</h3>
 <table>
 <thead>
 <tr>
@@ -346,23 +351,17 @@ Windows（PowerShell）：<code>powershell -ExecutionPolicy ByPass -c "irm https
 </tr>
 </tbody>
 </table>
-<h3 id="临时换源单次安装时使用-1">3. 临时换源（单次安装时使用）</h3>
-<p>通过<code>--index-url</code>（简写<code>-i</code>）参数指定源，仅对当前<code>uv install</code>命令生效：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：用清华源安装pyside6</span></span><br><span class="line">uv install pyside6 --index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></p>
-<h3 id="永久换源全局默认生效-1">4. 永久换源（全局默认生效）</h3>
+<h3 id="3-临时换源（单次安装时使用）">3. 临时换源（单次安装时使用）</h3>
+<p>通过<code>--index-url</code>（简写<code>-i</code>）参数指定源，仅对当前<code>uv install</code>命令生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：用清华源安装pyside6</span></span><br><span class="line">uv install pyside6 --index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+<h3 id="4-永久换源（全局默认生效）">4. 永久换源（全局默认生效）</h3>
 <p>推荐用<code>uv</code>自带的<code>config</code>命令配置，或手动修改配置文件。</p>
-<h4
-id="通过uv-config命令配置推荐">（1）通过<code>uv config</code>命令配置（推荐）</h4>
-<p>在激活的环境中执行以下命令（以清华源为例）：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置默认索引源</span></span><br><span class="line">uv config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.aliyun.com/pypi/simple/ https://pypi.doubanio.com/simple/</span><br><span class="line"></span><br><span class="line"><span class="comment"># （可选）信任源主机，避免证书验证问题</span></span><br><span class="line">uv config <span class="built_in">set</span> global.trusted-host pypi.tuna.tsinghua.edu.cn mirrors.aliyun.com pypi.doubanio.com</span><br></pre></td></tr></table></figure></p>
-<h4
-id="手动修改配置文件适用于命令失效时">（2）手动修改配置文件（适用于命令失效时）</h4>
+<h4 id="（1）通过uv-config命令配置（推荐）">（1）通过<code>uv config</code>命令配置（推荐）</h4>
+<p>在激活的环境中执行以下命令（以清华源为例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置默认索引源</span></span><br><span class="line">uv config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple https://mirrors.aliyun.com/pypi/simple/ https://pypi.doubanio.com/simple/</span><br><span class="line"></span><br><span class="line"><span class="comment"># （可选）信任源主机，避免证书验证问题</span></span><br><span class="line">uv config <span class="built_in">set</span> global.trusted-host pypi.tuna.tsinghua.edu.cn mirrors.aliyun.com pypi.doubanio.com</span><br></pre></td></tr></table></figure>
+<h4 id="（2）手动修改配置文件（适用于命令失效时）">（2）手动修改配置文件（适用于命令失效时）</h4>
 <p>不同操作系统的<code>uv</code>配置文件路径：</p>
 <table>
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 88%" />
-</colgroup>
 <thead>
 <tr>
 <th>操作系统</th>
@@ -384,31 +383,35 @@ id="手动修改配置文件适用于命令失效时">（2）手动修改配置�
 </tr>
 </tbody>
 </table>
-<ul>
-<li><strong>操作步骤</strong>：
-<ol type="1">
-<li>按路径创建<code>uv</code>文件夹和<code>uv.toml</code>文件（若不存在）；<br />
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>操作步骤</strong>：</p>
+<ol>
+<li class="lvl-5">按路径创建<code>uv</code>文件夹和<code>uv.toml</code>文件（若不存在）；</li>
+<li class="lvl-5">写入以下内容（以阿里云为例）：<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># uv.toml - 用户级全局配置示例 (Windows: %APPDATA%\uv\uv.toml)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 阿里云作为主源 (default = true)</span></span><br><span class="line"><span class="comment"># uv 默认会从第一个 default = true 的源开始搜索</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://mirrors.aliyun.com/pypi/simple/&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span> <span class="comment"># 信任此主机，等同于 pip 的 trusted-host</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 清华镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 豆瓣镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.doubanio.com/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 中科大镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.mirrors.ustc.edu.cn/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>写入以下内容（以阿里云为例）：<br />
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># uv.toml - 用户级全局配置示例 (Windows: %APPDATA%\uv\uv.toml)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 阿里云作为主源 (default = true)</span></span><br><span class="line"><span class="comment"># uv 默认会从第一个 default = true 的源开始搜索</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://mirrors.aliyun.com/pypi/simple/&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span> <span class="comment"># 信任此主机，等同于 pip 的 trusted-host</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 清华镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 豆瓣镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.doubanio.com/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 中科大镜像作为额外源</span></span><br><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.mirrors.ustc.edu.cn/simple/&quot;</span></span><br><span class="line"><span class="attr">trust-host</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h3 id="验证换源结果-1">5. 验证换源结果</h3>
-<p>执行以下命令查看<code>uv</code>配置，确认<code>index-url</code>为目标源：<br />
+<h3 id="5-验证换源结果">5. 验证换源结果</h3>
+<p>执行以下命令查看<code>uv</code>配置，确认<code>index-url</code>为目标源：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv config list</span><br></pre></td></tr></table></figure>
-输出类似<code>global.index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"</code>即成功。</p>
-<h2 id="三注意事项">三、注意事项</h2>
-<ol type="1">
-<li><strong>环境隔离</strong>：<code>pip</code>和<code>uv</code>的换源配置默认是<strong>用户级全局生效</strong>（对所有Miniconda环境有效），若需为单个环境单独配置，需在该环境中重新执行配置命令。<br />
+<p>输出类似<code>global.index-url = &quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</code>即成功。</p>
+<h2 id="三、注意事项">三、注意事项</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>环境隔离</strong>：<code>pip</code>和<code>uv</code>的换源配置默认是<strong>用户级全局生效</strong>（对所有Miniconda环境有效），若需为单个环境单独配置，需在该环境中重新执行配置命令。</p>
 </li>
-<li><strong>源的稳定性</strong>：优先选择清华、阿里云（更新及时，稳定性高），避免频繁切换源。<br />
+<li class="lvl-3">
+<p><strong>源的稳定性</strong>：优先选择清华、阿里云（更新及时，稳定性高），避免频繁切换源。</p>
 </li>
-<li><strong>恢复默认源</strong>：
-<ul>
-<li>pip：删除<code>pip.ini</code>/<code>pip.conf</code>文件，或执行<code>pip config unset global.index-url</code>。<br />
+<li class="lvl-3">
+<p><strong>恢复默认源</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">pip：删除<code>pip.ini</code>/<code>pip.conf</code>文件，或执行<code>pip config unset global.index-url</code>。</li>
+<li class="lvl-5">uv：执行<code>uv config unset global.index-url</code>和<code>uv config unset global.trusted-host</code>。</li>
+</ul>
 </li>
-<li>uv：执行<code>uv config unset global.index-url</code>和<code>uv config unset global.trusted-host</code>。</li>
-</ul></li>
 </ol>
 <p>通过以上步骤，可在Miniconda环境中高效配置<code>pip</code>和<code>uv</code>的国内源，显著提升包下载速度。</p>
 
@@ -498,9 +501,7 @@ id="手动修改配置文件适用于命令失效时">（2）手动修改配置�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">前置说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80pip%E6%8D%A2%E6%BA%90%E9%80%82%E7%94%A8%E4%BA%8Epip-install%E5%91%BD%E4%BB%A4"><span class="nav-number"></span> <span class="nav-text">一、pip换源（适用于pip install命令）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">1. 常用国内镜像源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E6%8D%A2%E6%BA%90%E5%8D%95%E6%AC%A1%E5%AE%89%E8%A3%85%E6%97%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">2. 临时换源（单次安装时使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B8%E4%B9%85%E6%8D%A2%E6%BA%90%E5%85%A8%E5%B1%80%E9%BB%98%E8%AE%A4%E7%94%9F%E6%95%88"><span class="nav-number">3.</span> <span class="nav-text">3. 永久换源（全局默认生效）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.1.</span> <span class="nav-text">（1）Windows系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linuxmacos%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.</span> <span class="nav-text">（2）Linux&#x2F;macOS系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%8D%A2%E6%BA%90%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">4. 验证换源结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cuv%E6%8D%A2%E6%BA%90%E9%80%82%E7%94%A8%E4%BA%8Euv-install%E5%91%BD%E4%BB%A4uv%E6%98%AF%E5%BF%AB%E9%80%9F%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number"></span> <span class="nav-text">二、uv换源（适用于uv install命令，uv是快速包管理器）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E5%9C%A8miniconda%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%AE%89%E8%A3%85uv"><span class="nav-number">1.</span> <span class="nav-text">1.
-前置：在Miniconda环境中安装uv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E5%90%8Cpipuv%E5%85%BC%E5%AE%B9pypi%E6%A0%BC%E5%BC%8F%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">2.
-常用国内镜像源（同pip，uv兼容PyPI格式源）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E6%8D%A2%E6%BA%90%E5%8D%95%E6%AC%A1%E5%AE%89%E8%A3%85%E6%97%B6%E4%BD%BF%E7%94%A8-1"><span class="nav-number">3.</span> <span class="nav-text">3. 临时换源（单次安装时使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B8%E4%B9%85%E6%8D%A2%E6%BA%90%E5%85%A8%E5%B1%80%E9%BB%98%E8%AE%A4%E7%94%9F%E6%95%88-1"><span class="nav-number">4.</span> <span class="nav-text">4. 永久换源（全局默认生效）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87uv-config%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90"><span class="nav-number">4.1.</span> <span class="nav-text">（1）通过uv config命令配置（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%80%82%E7%94%A8%E4%BA%8E%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%E6%97%B6"><span class="nav-number">4.2.</span> <span class="nav-text">（2）手动修改配置文件（适用于命令失效时）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%8D%A2%E6%BA%90%E7%BB%93%E6%9E%9C-1"><span class="nav-number">5.</span> <span class="nav-text">5. 验证换源结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">三、注意事项</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">前置说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81pip%E6%8D%A2%E6%BA%90%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8Epip-install%E5%91%BD%E4%BB%A4%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">一、pip换源（适用于pip install命令）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">1. 常用国内镜像源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%B4%E6%97%B6%E6%8D%A2%E6%BA%90%EF%BC%88%E5%8D%95%E6%AC%A1%E5%AE%89%E8%A3%85%E6%97%B6%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 临时换源（单次安装时使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B0%B8%E4%B9%85%E6%8D%A2%E6%BA%90%EF%BC%88%E5%85%A8%E5%B1%80%E9%BB%98%E8%AE%A4%E7%94%9F%E6%95%88%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. 永久换源（全局默认生效）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89Windows%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.1.</span> <span class="nav-text">（1）Windows系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89Linux-macOS%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.</span> <span class="nav-text">（2）Linux&#x2F;macOS系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%AA%8C%E8%AF%81%E6%8D%A2%E6%BA%90%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">4. 验证换源结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81uv%E6%8D%A2%E6%BA%90%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8Euv-install%E5%91%BD%E4%BB%A4%EF%BC%8Cuv%E6%98%AF%E5%BF%AB%E9%80%9F%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">二、uv换源（适用于uv install命令，uv是快速包管理器）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%89%8D%E7%BD%AE%EF%BC%9A%E5%9C%A8Miniconda%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%AE%89%E8%A3%85uv"><span class="nav-number">1.</span> <span class="nav-text">1. 前置：在Miniconda环境中安装uv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%EF%BC%88%E5%90%8Cpip%EF%BC%8Cuv%E5%85%BC%E5%AE%B9PyPI%E6%A0%BC%E5%BC%8F%E6%BA%90%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 常用国内镜像源（同pip，uv兼容PyPI格式源）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%B4%E6%97%B6%E6%8D%A2%E6%BA%90%EF%BC%88%E5%8D%95%E6%AC%A1%E5%AE%89%E8%A3%85%E6%97%B6%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. 临时换源（单次安装时使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%B0%B8%E4%B9%85%E6%8D%A2%E6%BA%90%EF%BC%88%E5%85%A8%E5%B1%80%E9%BB%98%E8%AE%A4%E7%94%9F%E6%95%88%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">4. 永久换源（全局默认生效）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%80%9A%E8%BF%87uv-config%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">（1）通过uv config命令配置（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%89%8B%E5%8A%A8%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8E%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%E6%97%B6%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">（2）手动修改配置文件（适用于命令失效时）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%AA%8C%E8%AF%81%E6%8D%A2%E6%BA%90%E7%BB%93%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">5. 验证换源结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">三、注意事项</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -577,7 +578,7 @@ id="手动修改配置文件适用于命令失效时">（2）手动修改配置�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

@@ -323,7 +323,7 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -342,156 +342,177 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
 <h2 id="求解直线方程">求解直线方程</h2>
-<h3 id="一点斜式已知-一点-斜率">一、点斜式：已知 “一点 + 斜率”</h3>
-<h4 id="适用条件">1. 适用条件</h4>
-<p>已知直线上<strong>一个定点</strong> (P(x_0,
-y_0))，且直线的<strong>斜率 k 存在</strong>（即直线不垂直于 x 轴）。</p>
-<h4 id="核心公式">2. 核心公式</h4>
+<h3 id="一、点斜式：已知-“一点-斜率”">一、点斜式：已知 “一点 + 斜率”</h3>
+<h4 id="1-适用条件">1. 适用条件</h4>
+<p>已知直线上<strong>一个定点</strong> (P(x_0, y_0))，且直线的<strong>斜率 k 存在</strong>（即直线不垂直于 x 轴）。</p>
+<h4 id="2-核心公式">2. 核心公式</h4>
 <p>(y - y_0 = k(x - x_0))</p>
-<ul>
-<li>公式本质：通过斜率的定义推导（斜率 (k = )，交叉相乘即得）。</li>
-<li>注意：此形式<strong>不含垂直于 x 轴的直线</strong>（垂直于 x
-轴的直线斜率不存在，无法用点斜式表示）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>公式本质：通过斜率的定义推导（斜率 (k = \frac{y - y_0}{x - x_0})，交叉相乘即得）。</p>
+</li>
+<li class="lvl-2">
+<p>注意：此形式<strong>不含垂直于 x 轴的直线</strong>（垂直于 x 轴的直线斜率不存在，无法用点斜式表示）。</p>
+</li>
 </ul>
-<h4 id="求解步骤">3. 求解步骤</h4>
-<ol type="1">
-<li>确定定点 ((x_0, y_0)) 和斜率
-k（若未直接给出斜率，需先通过两点、倾斜角等计算 k）；</li>
-<li>将 (x_0, y_0, k) 代入点斜式公式；</li>
-<li>（可选）整理为一般式 (Ax + By + C = 0)（(A, B) 不同时为 0）。</li>
+<h4 id="3-求解步骤">3. 求解步骤</h4>
+<ol>
+<li class="lvl-3">
+<p>确定定点 ((x_0, y_0)) 和斜率 k（若未直接给出斜率，需先通过两点、倾斜角等计算 k）；</p>
+</li>
+<li class="lvl-3">
+<p>将 (x_0, y_0, k) 代入点斜式公式；</p>
+</li>
+<li class="lvl-3">
+<p>（可选）整理为一般式 (Ax + By + C = 0)（(A, B) 不同时为 0）。</p>
+</li>
 </ol>
-<h4 id="示例">4. 示例</h4>
-<p>已知直线过点 ((2, 3))，斜率 (k = 2)，求直线方程： 代入公式得：(y - 3
-= 2(x - 2))，整理为一般式：(2x - y - 1 = 0)。</p>
-<h3 id="二斜截式已知-斜率-y-轴截距">二、斜截式：已知 “斜率 + y
-轴截距”</h3>
-<h4 id="适用条件-1">1. 适用条件</h4>
-<p>已知直线的<strong>斜率 k</strong>，且已知直线与 y
-轴的<strong>交点（截距）</strong> ((0, b))（b 称为 y 轴截距），斜率 k
-需存在。</p>
-<h4 id="核心公式-1">2. 核心公式</h4>
+<h4 id="4-示例">4. 示例</h4>
+<p>已知直线过点 ((2, 3))，斜率 (k = 2)，求直线方程： 代入公式得：(y - 3 = 2(x - 2))，整理为一般式：(2x - y - 1 = 0)。</p>
+<h3 id="二、斜截式：已知-“斜率-y-轴截距”">二、斜截式：已知 “斜率 + y 轴截距”</h3>
+<h4 id="1-适用条件-2">1. 适用条件</h4>
+<p>已知直线的<strong>斜率 k</strong>，且已知直线与 y 轴的<strong>交点（截距）</strong> ((0, b))（b 称为 y 轴截距），斜率 k 需存在。</p>
+<h4 id="2-核心公式-2">2. 核心公式</h4>
 <p>(y = kx + b)</p>
-<ul>
-<li>公式本质：点斜式的特殊情况（将定点 ((0, b)) 代入点斜式 (y - b = k(x
-- 0))，简化即得）。</li>
-<li>优势：形式简洁，可直接通过 k 判断直线倾斜方向，通过 b 判断直线与 y
-轴的交点位置。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>公式本质：点斜式的特殊情况（将定点 ((0, b)) 代入点斜式 (y - b = k(x - 0))，简化即得）。</p>
+</li>
+<li class="lvl-2">
+<p>优势：形式简洁，可直接通过 k 判断直线倾斜方向，通过 b 判断直线与 y 轴的交点位置。</p>
+</li>
 </ul>
-<h4 id="求解步骤-1">3. 求解步骤</h4>
-<ol type="1">
-<li>确定斜率 k 和 y 轴截距 b；</li>
-<li>直接代入斜截式公式；</li>
-<li>（可选）整理为一般式。</li>
+<h4 id="3-求解步骤-2">3. 求解步骤</h4>
+<ol>
+<li class="lvl-3">
+<p>确定斜率 k 和 y 轴截距 b；</p>
+</li>
+<li class="lvl-3">
+<p>直接代入斜截式公式；</p>
+</li>
+<li class="lvl-3">
+<p>（可选）整理为一般式。</p>
+</li>
 </ol>
-<h4 id="示例-1">4. 示例</h4>
-<p>已知直线斜率 (k = -1)，与 y 轴交于 ((0, 4))（即 (b =
-4)），求直线方程： 代入公式得：(y = -x + 4)，整理为一般式：(x + y - 4 =
-0)。</p>
-<h3 id="三两点式已知-两个定点">三、两点式：已知 “两个定点”</h3>
-<h4 id="适用条件-2">1. 适用条件</h4>
-<p>已知直线上<strong>两个不重合的定点</strong> (P_1(x_1, y_1)) 和
-(P_2(x_2, y_2))，且直线<strong>不垂直于 x 轴、也不垂直于 y
-轴</strong>（即 (x_1 x_2) 且 (y_1 y_2)）。</p>
-<h4 id="核心公式-2">2. 核心公式</h4>
-<p>( = )</p>
-<ul>
-<li>公式本质：利用 “两点确定斜率”（(k =
-)），再代入点斜式推导而来，保证直线过两个定点。</li>
-<li>注意：若 (x_1 = x_2)（直线垂直于 x 轴），方程为 (x = x_1)；若 (y_1 =
-y_2)（直线平行于 x 轴），方程为 (y = y_1)，这两种情况需单独处理。</li>
+<h4 id="4-示例-2">4. 示例</h4>
+<p>已知直线斜率 (k = -1)，与 y 轴交于 ((0, 4))（即 (b = 4)），求直线方程： 代入公式得：(y = -x + 4)，整理为一般式：(x + y - 4 = 0)。</p>
+<h3 id="三、两点式：已知-“两个定点”">三、两点式：已知 “两个定点”</h3>
+<h4 id="1-适用条件-3">1. 适用条件</h4>
+<p>已知直线上<strong>两个不重合的定点</strong> (P_1(x_1, y_1)) 和 (P_2(x_2, y_2))，且直线<strong>不垂直于 x 轴、也不垂直于 y 轴</strong>（即 (x_1 \neq x_2) 且 (y_1 \neq y_2)）。</p>
+<h4 id="2-核心公式-3">2. 核心公式</h4>
+<p>(\frac{y - y_1}{y_2 - y_1} = \frac{x - x_1}{x_2 - x_1})</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>公式本质：利用 “两点确定斜率”（(k = \frac{y_2 - y_1}{x_2 - x_1})），再代入点斜式推导而来，保证直线过两个定点。</p>
+</li>
+<li class="lvl-2">
+<p>注意：若 (x_1 = x_2)（直线垂直于 x 轴），方程为 (x = x_1)；若 (y_1 = y_2)（直线平行于 x 轴），方程为 (y = y_1)，这两种情况需单独处理。</p>
+</li>
 </ul>
-<h4 id="求解步骤-2">3. 求解步骤</h4>
-<ol type="1">
-<li>确认两点坐标 ((x_1, y_1))、((x_2,
-y_2))，判断是否垂直于坐标轴（是则直接写方程，否则继续）；</li>
-<li>代入两点式公式；</li>
-<li>交叉相乘整理为整式方程（避免分母为 0 的问题），再化为一般式。</li>
+<h4 id="3-求解步骤-3">3. 求解步骤</h4>
+<ol>
+<li class="lvl-3">
+<p>确认两点坐标 ((x_1, y_1))、((x_2, y_2))，判断是否垂直于坐标轴（是则直接写方程，否则继续）；</p>
+</li>
+<li class="lvl-3">
+<p>代入两点式公式；</p>
+</li>
+<li class="lvl-3">
+<p>交叉相乘整理为整式方程（避免分母为 0 的问题），再化为一般式。</p>
+</li>
 </ol>
-<h4 id="示例-2">4. 示例</h4>
-<p>已知直线过点 ((1, 2)) 和 ((3, 5))，求直线方程： 代入公式得：( = )，即
-( = )； 交叉整理：(2(y - 2) = 3(x - 1))，最终一般式：(3x - 2y + 1 =
-0)。</p>
-<h3 id="四截距式已知-x-轴截距-y-轴截距">四、截距式：已知 “x 轴截距 + y
-轴截距”</h3>
-<h4 id="适用条件-3">1. 适用条件</h4>
-<p>已知直线与 x 轴的交点（(a, 0)）和与 y 轴的交点（(0, b)），其中 (a )
-且 (b )（即直线<strong>不过原点、且不垂直于坐标轴</strong>）。</p>
-<ul>
-<li>定义：a 称为 x 轴截距（直线与 x 轴交点的横坐标），b 称为 y
-轴截距（直线与 y 轴交点的纵坐标），截距可正可负（区别于
-“距离”，距离非负）。</li>
+<h4 id="4-示例-3">4. 示例</h4>
+<p>已知直线过点 ((1, 2)) 和 ((3, 5))，求直线方程： 代入公式得：(\frac{y - 2}{5 - 2} = \frac{x - 1}{3 - 1})，即 (\frac{y - 2}{3} = \frac{x - 1}{2})； 交叉整理：(2(y - 2) = 3(x - 1))，最终一般式：(3x - 2y + 1 = 0)。</p>
+<h3 id="四、截距式：已知-“x-轴截距-y-轴截距”">四、截距式：已知 “x 轴截距 + y 轴截距”</h3>
+<h4 id="1-适用条件-4">1. 适用条件</h4>
+<p>已知直线与 x 轴的交点（(a, 0)）和与 y 轴的交点（(0, b)），其中 (a \neq 0) 且 (b \neq 0)（即直线<strong>不过原点、且不垂直于坐标轴</strong>）。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>定义：a 称为 x 轴截距（直线与 x 轴交点的横坐标），b 称为 y 轴截距（直线与 y 轴交点的纵坐标），截距可正可负（区别于 “距离”，距离非负）。</p>
+</li>
 </ul>
-<h4 id="核心公式-3">2. 核心公式</h4>
-<p>( + = 1)</p>
-<ul>
-<li>公式本质：两点式的特殊情况（将两个截距点 ((a, 0))、((0, b))
-代入两点式，简化即得）。</li>
-<li>注意：若直线过原点（(a = 0) 且 (b = 0)），或垂直于坐标轴（a 或 b
-不存在），则不能用截距式。</li>
+<h4 id="2-核心公式-4">2. 核心公式</h4>
+<p>(\frac{x}{a} + \frac{y}{b} = 1)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>公式本质：两点式的特殊情况（将两个截距点 ((a, 0))、((0, b)) 代入两点式，简化即得）。</p>
+</li>
+<li class="lvl-2">
+<p>注意：若直线过原点（(a = 0) 且 (b = 0)），或垂直于坐标轴（a 或 b 不存在），则不能用截距式。</p>
+</li>
 </ul>
-<h4 id="求解步骤-3">3. 求解步骤</h4>
-<ol type="1">
-<li>确定 x 轴截距 a 和 y 轴截距 b（需确认 (a ) 且 (b )）；</li>
-<li>代入截距式公式；</li>
-<li>通分整理为一般式。</li>
+<h4 id="3-求解步骤-4">3. 求解步骤</h4>
+<ol>
+<li class="lvl-3">
+<p>确定 x 轴截距 a 和 y 轴截距 b（需确认 (a \neq 0) 且 (b \neq 0)）；</p>
+</li>
+<li class="lvl-3">
+<p>代入截距式公式；</p>
+</li>
+<li class="lvl-3">
+<p>通分整理为一般式。</p>
+</li>
 </ol>
-<h4 id="示例-3">4. 示例</h4>
-<p>已知直线与 x 轴交于 ((4, 0))（(a = 4)），与 y 轴交于 ((0, -3))（(b =
--3)），求直线方程： 代入公式得：( + = 1)，通分整理：(3x - 4y - 12 =
-0)。</p>
-<h3 id="五一般式统一所有直线的-通用形式">五、一般式：统一所有直线的
-“通用形式”</h3>
-<h4 id="适用场景">1. 适用场景</h4>
-<ul>
-<li>作为所有直线方程的
-“最终统一形式”（无论用哪种方法求解，均可整理为一般式）；</li>
-<li>已知直线满足某种一般条件（如过定点、与某直线平行 /
-垂直）时，可设一般式列方程求解。</li>
+<h4 id="4-示例-4">4. 示例</h4>
+<p>已知直线与 x 轴交于 ((4, 0))（(a = 4)），与 y 轴交于 ((0, -3))（(b = -3)），求直线方程： 代入公式得：(\frac{x}{4} + \frac{y}{-3} = 1)，通分整理：(3x - 4y - 12 = 0)。</p>
+<h3 id="五、一般式：统一所有直线的-“通用形式”">五、一般式：统一所有直线的 “通用形式”</h3>
+<h4 id="1-适用场景">1. 适用场景</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>作为所有直线方程的 “最终统一形式”（无论用哪种方法求解，均可整理为一般式）；</p>
+</li>
+<li class="lvl-2">
+<p>已知直线满足某种一般条件（如过定点、与某直线平行 / 垂直）时，可设一般式列方程求解。</p>
+</li>
 </ul>
-<h4 id="核心形式">2. 核心形式</h4>
+<h4 id="2-核心形式">2. 核心形式</h4>
 <p>(Ax + By + C = 0)</p>
-<ul>
-<li>要求：(A, B) 不同时为 0（若 (A = 0) 且 (B )，直线平行于 x 轴；若 (B
-= 0) 且 (A )，直线垂直于 x 轴）。</li>
-<li>与其他形式的转化：
-<ul>
-<li>一般式转斜截式：解出 y，即 (y = -x - )（需 (B )）；</li>
-<li>一般式转截距式：当 (A, B, C ) 时，整理为 ( + = 1)（此时 (a =
--C/A)，(b = -C/B)）。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>要求：(A, B) 不同时为 0（若 (A = 0) 且 (B \neq 0)，直线平行于 x 轴；若 (B = 0) 且 (A \neq 0)，直线垂直于 x 轴）。</p>
+</li>
+<li class="lvl-2">
+<p>与其他形式的转化：</p>
+<ul class="lvl-2">
+<li class="lvl-4">一般式转斜截式：解出 y，即 (y = -\frac{A}{B}x - \frac{C}{B})（需 (B \neq 0)）；</li>
+<li class="lvl-4">一般式转截距式：当 (A, B, C \neq 0) 时，整理为 (\frac{x}{-C/A} + \frac{y}{-C/B} = 1)（此时 (a = -C/A)，(b = -C/B)）。</li>
 </ul>
-<h4 id="求解步骤设一般式求解">3. 求解步骤（设一般式求解）</h4>
-<ol type="1">
-<li>设直线方程为 (Ax + By + C = 0)（根据条件简化，如垂直于 x 轴设为 (Ax
-+ C = 0)）；</li>
-<li>根据已知条件（如过定点、斜率、截距）列关于 (A, B, C)
-的方程（组）；</li>
-<li>求解方程（组），确定 (A, B, C)
-的比例关系（一般式中系数可同乘非零常数，形式不唯一，通常取整数系数）。</li>
+</li>
+</ul>
+<h4 id="3-求解步骤（设一般式求解）">3. 求解步骤（设一般式求解）</h4>
+<ol>
+<li class="lvl-3">
+<p>设直线方程为 (Ax + By + C = 0)（根据条件简化，如垂直于 x 轴设为 (Ax + C = 0)）；</p>
+</li>
+<li class="lvl-3">
+<p>根据已知条件（如过定点、斜率、截距）列关于 (A, B, C) 的方程（组）；</p>
+</li>
+<li class="lvl-3">
+<p>求解方程（组），确定 (A, B, C) 的比例关系（一般式中系数可同乘非零常数，形式不唯一，通常取整数系数）。</p>
+</li>
 </ol>
-<h4 id="示例-4">4. 示例</h4>
+<h4 id="4-示例-5">4. 示例</h4>
 <p>求过点 ((1, 1)) 且平行于直线 (2x - y + 3 = 0) 的直线方程：</p>
-<ul>
-<li>平行直线的系数关系：若两直线 (A_1x + B_1y + C_1 = 0) 与 (A_2x + B_2y
-+ C_2 = 0) 平行，则 (A_1B_2 = A_2B_1) 且 (A_1C_2 A_2C_1)；</li>
-<li>设所求直线为 (2x - y + C = 0)（与已知直线平行，(A, B) 相同）；</li>
-<li>代入点 ((1, 1))：(2 - 1 + C = 0)，解得 (C = -1)；</li>
-<li>最终方程：(2x - y - 1 = 0)。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>平行直线的系数关系：若两直线 (A_1x + B_1y + C_1 = 0) 与 (A_2x + B_2y + C_2 = 0) 平行，则 (A_1B_2 = A_2B_1) 且 (A_1C_2 \neq A_2C_1)；</p>
+</li>
+<li class="lvl-2">
+<p>设所求直线为 (2x - y + C = 0)（与已知直线平行，(A, B) 相同）；</p>
+</li>
+<li class="lvl-2">
+<p>代入点 ((1, 1))：(2 \times 1 - 1 + C = 0)，解得 (C = -1)；</p>
+</li>
+<li class="lvl-2">
+<p>最终方程：(2x - y - 1 = 0)。</p>
+</li>
 </ul>
-<h3 id="总结方法选择的核心逻辑">总结：方法选择的核心逻辑</h3>
-<p>求解直线方程的关键是
-<strong>“已知条件匹配对应形式”</strong>，避免盲目套用公式，具体选择原则如下：</p>
+<h3 id="总结：方法选择的核心逻辑">总结：方法选择的核心逻辑</h3>
+<p>求解直线方程的关键是 <strong>“已知条件匹配对应形式”</strong>，避免盲目套用公式，具体选择原则如下：</p>
 <table>
-<colgroup>
-<col style="width: 35%">
-<col style="width: 17%">
-<col style="width: 46%">
-</colgroup>
 <thead>
 <tr>
 <th>已知条件</th>
@@ -613,10 +634,7 @@ y_2))，判断是否垂直于坐标轴（是则直接写方程，否则继续）
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E7%9B%B4%E7%BA%BF%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">求解直线方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E6%96%9C%E5%BC%8F%E5%B7%B2%E7%9F%A5-%E4%B8%80%E7%82%B9-%E6%96%9C%E7%8E%87"><span class="nav-number">1.1.</span> <span class="nav-text">一、点斜式：已知 “一点 + 斜率”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%96%9C%E6%88%AA%E5%BC%8F%E5%B7%B2%E7%9F%A5-%E6%96%9C%E7%8E%87-y-%E8%BD%B4%E6%88%AA%E8%B7%9D"><span class="nav-number">1.2.</span> <span class="nav-text">二、斜截式：已知 “斜率 + y
-轴截距”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%A4%E7%82%B9%E5%BC%8F%E5%B7%B2%E7%9F%A5-%E4%B8%A4%E4%B8%AA%E5%AE%9A%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">三、两点式：已知 “两个定点”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%88%AA%E8%B7%9D%E5%BC%8F%E5%B7%B2%E7%9F%A5-x-%E8%BD%B4%E6%88%AA%E8%B7%9D-y-%E8%BD%B4%E6%88%AA%E8%B7%9D"><span class="nav-number">1.4.</span> <span class="nav-text">四、截距式：已知 “x 轴截距 + y
-轴截距”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-3"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E4%B8%80%E8%88%AC%E5%BC%8F%E7%BB%9F%E4%B8%80%E6%89%80%E6%9C%89%E7%9B%B4%E7%BA%BF%E7%9A%84-%E9%80%9A%E7%94%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">五、一般式：统一所有直线的
-“通用形式”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 核心形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4%E8%AE%BE%E4%B8%80%E8%88%AC%E5%BC%8F%E6%B1%82%E8%A7%A3"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 求解步骤（设一般式求解）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E6%96%B9%E6%B3%95%E9%80%89%E6%8B%A9%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="nav-number">1.6.</span> <span class="nav-text">总结：方法选择的核心逻辑</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E7%9B%B4%E7%BA%BF%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">求解直线方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%82%B9%E6%96%9C%E5%BC%8F%EF%BC%9A%E5%B7%B2%E7%9F%A5-%E2%80%9C%E4%B8%80%E7%82%B9-%E6%96%9C%E7%8E%87%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">一、点斜式：已知 “一点 + 斜率”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%96%9C%E6%88%AA%E5%BC%8F%EF%BC%9A%E5%B7%B2%E7%9F%A5-%E2%80%9C%E6%96%9C%E7%8E%87-y-%E8%BD%B4%E6%88%AA%E8%B7%9D%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">二、斜截式：已知 “斜率 + y 轴截距”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-2"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-2"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%A4%E7%82%B9%E5%BC%8F%EF%BC%9A%E5%B7%B2%E7%9F%A5-%E2%80%9C%E4%B8%A4%E4%B8%AA%E5%AE%9A%E7%82%B9%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">三、两点式：已知 “两个定点”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-3"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-3"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-3"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A4%BA%E4%BE%8B-3"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%88%AA%E8%B7%9D%E5%BC%8F%EF%BC%9A%E5%B7%B2%E7%9F%A5-%E2%80%9Cx-%E8%BD%B4%E6%88%AA%E8%B7%9D-y-%E8%BD%B4%E6%88%AA%E8%B7%9D%E2%80%9D"><span class="nav-number">1.4.</span> <span class="nav-text">四、截距式：已知 “x 轴截距 + y 轴截距”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6-4"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 适用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-4"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-4"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 求解步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A4%BA%E4%BE%8B-4"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%B8%80%E8%88%AC%E5%BC%8F%EF%BC%9A%E7%BB%9F%E4%B8%80%E6%89%80%E6%9C%89%E7%9B%B4%E7%BA%BF%E7%9A%84-%E2%80%9C%E9%80%9A%E7%94%A8%E5%BD%A2%E5%BC%8F%E2%80%9D"><span class="nav-number">1.5.</span> <span class="nav-text">五、一般式：统一所有直线的 “通用形式”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 核心形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4%EF%BC%88%E8%AE%BE%E4%B8%80%E8%88%AC%E5%BC%8F%E6%B1%82%E8%A7%A3%EF%BC%89"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 求解步骤（设一般式求解）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A4%BA%E4%BE%8B-5"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E6%96%B9%E6%B3%95%E9%80%89%E6%8B%A9%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="nav-number">1.6.</span> <span class="nav-text">总结：方法选择的核心逻辑</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -693,7 +711,7 @@ y_2))，判断是否垂直于坐标轴（是则直接写方程，否则继续）
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

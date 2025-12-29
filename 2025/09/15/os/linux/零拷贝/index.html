@@ -239,165 +239,213 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如何利用零拷贝技术优化性能，减低负荷 <span id="more"></span></p>
-<h1 id="零拷贝">零拷贝</h1>
-<p><strong>零拷贝（Zero-Copy）</strong>
-是一种通过减少数据在用户空间与内核空间之间的拷贝次数，来提升数据传输效率的关键技术。其核心思想是避免不必要的数据复制操作，让数据直接在内核空间中完成流转，从而降低
-CPU
-开销、减少内存带宽占用，特别适用于高吞吐量的场景（如大文件传输、高性能服务器等）。</p>
-<h3 id="一零拷贝的核心价值">一、零拷贝的核心价值</h3>
-<p>传统数据传输（如 “读取文件并发送到网络”）的流程通常包含 4 次拷贝和 2
-次用户态 / 内核态切换：</p>
-<ol type="1">
-<li>数据从磁盘拷贝到内核缓冲区（DMA 拷贝）；</li>
-<li>数据从内核缓冲区拷贝到用户缓冲区（CPU 拷贝）；</li>
-<li>数据从用户缓冲区拷贝到 Socket 内核缓冲区（CPU 拷贝）；</li>
-<li>数据从 Socket 内核缓冲区拷贝到网络接口（DMA 拷贝）。</li>
+        <p>如何利用零拷贝技术优化性能，减低负荷</p>
+ <span id="more"></span>
+<h1>零拷贝</h1>
+<p><strong>零拷贝（Zero-Copy）</strong> 是一种通过减少数据在用户空间与内核空间之间的拷贝次数，来提升数据传输效率的关键技术。其核心思想是避免不必要的数据复制操作，让数据直接在内核空间中完成流转，从而降低 CPU 开销、减少内存带宽占用，特别适用于高吞吐量的场景（如大文件传输、高性能服务器等）。</p>
+<h3 id="一、零拷贝的核心价值">一、零拷贝的核心价值</h3>
+<p>传统数据传输（如 “读取文件并发送到网络”）的流程通常包含 4 次拷贝和 2 次用户态 / 内核态切换：</p>
+<ol>
+<li class="lvl-3">
+<p>数据从磁盘拷贝到内核缓冲区（DMA 拷贝）；</p>
+</li>
+<li class="lvl-3">
+<p>数据从内核缓冲区拷贝到用户缓冲区（CPU 拷贝）；</p>
+</li>
+<li class="lvl-3">
+<p>数据从用户缓冲区拷贝到 Socket 内核缓冲区（CPU 拷贝）；</p>
+</li>
+<li class="lvl-3">
+<p>数据从 Socket 内核缓冲区拷贝到网络接口（DMA 拷贝）。</p>
+</li>
 </ol>
 <p>零拷贝技术通过省略步骤 2 和 3 中的 CPU 拷贝，显著提升效率。</p>
-<h3 id="二c-中常用的零拷贝函数及用法">二、C++
-中常用的零拷贝函数及用法</h3>
-<p>零拷贝的实现依赖于操作系统提供的系统调用，不同平台（Linux/Windows）函数不同，以下以
-Linux 为主（最常用）：</p>
-<h4 id="sendfile文件到网络的直接传输">1.
-<code>sendfile</code>：文件到网络的直接传输</h4>
-<p><code>sendfile</code> 是 Linux 内核 2.1
-版本后提供的零拷贝函数，专门用于将文件数据直接从文件描述符传输到 Socket
-描述符，全程在内核空间完成，完全避免用户空间参与。</p>
+<h3 id="二、C-中常用的零拷贝函数及用法">二、C++ 中常用的零拷贝函数及用法</h3>
+<p>零拷贝的实现依赖于操作系统提供的系统调用，不同平台（Linux/Windows）函数不同，以下以 Linux 为主（最常用）：</p>
+<h4 id="1-sendfile：文件到网络的直接传输">1. <code>sendfile</code>：文件到网络的直接传输</h4>
+<p><code>sendfile</code> 是 Linux 内核 2.1 版本后提供的零拷贝函数，专门用于将文件数据直接从文件描述符传输到 Socket 描述符，全程在内核空间完成，完全避免用户空间参与。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/sendfile.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">sendfile</span><span class="params">(<span class="type">int</span> out_fd, <span class="type">int</span> in_fd, <span class="type">off_t</span> *offset, <span class="type">size_t</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数说明</strong>：</p>
-<ul>
-<li><code>out_fd</code>：目标文件描述符（通常是 Socket 的 fd）；</li>
-<li><code>in_fd</code>：源文件描述符（必须是支持<code>mmap</code>的文件，不能是
-Socket）；</li>
-<li><code>offset</code>：文件读取的起始偏移量（若为<code>NULL</code>，则从当前位置开始）；</li>
-<li><code>count</code>：要传输的字节数。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>out_fd</code>：目标文件描述符（通常是 Socket 的 fd）；</p>
+</li>
+<li class="lvl-2">
+<p><code>in_fd</code>：源文件描述符（必须是支持<code>mmap</code>的文件，不能是 Socket）；</p>
+</li>
+<li class="lvl-2">
+<p><code>offset</code>：文件读取的起始偏移量（若为<code>NULL</code>，则从当前位置开始）；</p>
+</li>
+<li class="lvl-2">
+<p><code>count</code>：要传输的字节数。</p>
+</li>
 </ul>
 <p><strong>返回值</strong>：</p>
-<ul>
-<li>成功：实际传输的字节数；</li>
-<li>失败：-1（需通过<code>errno</code>判断错误原因）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>成功：实际传输的字节数；</p>
+</li>
+<li class="lvl-2">
+<p>失败：-1（需通过<code>errno</code>判断错误原因）。</p>
+</li>
 </ul>
 <p><strong>示例代码</strong>（用<code>sendfile</code>发送文件到网络）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/sendfile.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 创建Socket（假设已完成绑定、监听、 accept，得到client_fd）</span></span><br><span class="line">    <span class="type">int</span> client_fd = ...;  <span class="comment">// 已连接的客户端Socket</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 打开要发送的文件</span></span><br><span class="line">    <span class="type">int</span> file_fd = <span class="built_in">open</span>(<span class="string">&quot;large_file.dat&quot;</span>, O_RDONLY);</span><br><span class="line">    <span class="keyword">if</span> (file_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;open failed&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 获取文件大小（简化示例）</span></span><br><span class="line">    <span class="type">off_t</span> file_size = <span class="built_in">lseek</span>(file_fd, <span class="number">0</span>, SEEK_END);</span><br><span class="line">    <span class="built_in">lseek</span>(file_fd, <span class="number">0</span>, SEEK_SET);  <span class="comment">// 回到文件开头</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 使用sendfile传输文件</span></span><br><span class="line">    <span class="type">off_t</span> offset = <span class="number">0</span>;</span><br><span class="line">    <span class="type">ssize_t</span> total_sent = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (total_sent &lt; file_size) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> sent = <span class="built_in">sendfile</span>(client_fd, file_fd, &amp;offset, file_size - total_sent);</span><br><span class="line">        <span class="keyword">if</span> (sent == <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="built_in">perror</span>(<span class="string">&quot;sendfile failed&quot;</span>);</span><br><span class="line">            <span class="built_in">close</span>(file_fd);</span><br><span class="line">            <span class="built_in">close</span>(client_fd);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        total_sent += sent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;File sent successfully, total: &quot;</span> &lt;&lt; total_sent &lt;&lt; <span class="string">&quot; bytes\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 关闭资源</span></span><br><span class="line">    <span class="built_in">close</span>(file_fd);</span><br><span class="line">    <span class="built_in">close</span>(client_fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="mmap-write内存映射的间接零拷贝">2.
-<code>mmap + write</code>：内存映射的间接零拷贝</h4>
-<p><code>mmap</code>
-将文件直接映射到用户空间的内存地址，此时用户空间可以直接访问内核缓冲区的数据（无需拷贝到用户缓冲区），再通过<code>write</code>将数据发送到
-Socket。虽然仍有一次 “用户空间到 Socket 内核缓冲区”
-的拷贝，但比传统方式少一次拷贝。</p>
+<h4 id="2-mmap-write：内存映射的间接零拷贝">2. <code>mmap + write</code>：内存映射的间接零拷贝</h4>
+<p><code>mmap</code> 将文件直接映射到用户空间的内存地址，此时用户空间可以直接访问内核缓冲区的数据（无需拷贝到用户缓冲区），再通过<code>write</code>将数据发送到 Socket。虽然仍有一次 “用户空间到 Socket 内核缓冲区” 的拷贝，但比传统方式少一次拷贝。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">mmap</span><span class="params">(<span class="type">void</span> *addr, <span class="type">size_t</span> length, <span class="type">int</span> prot, <span class="type">int</span> flags, <span class="type">int</span> fd, <span class="type">off_t</span> offset)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">munmap</span><span class="params">(<span class="type">void</span> *addr, <span class="type">size_t</span> length)</span></span>;  <span class="comment">// 解除映射</span></span><br></pre></td></tr></table></figure>
 <p><strong>参数说明</strong>：</p>
-<ul>
-<li><code>addr</code>：映射的起始地址（通常为<code>NULL</code>，由系统自动分配）；</li>
-<li><code>length</code>：映射的字节数；</li>
-<li><code>prot</code>：内存保护标志（如<code>PROT_READ</code>表示可读）；</li>
-<li><code>flags</code>：映射属性（如<code>MAP_SHARED</code>表示修改会同步到文件）；</li>
-<li><code>fd</code>：文件描述符；</li>
-<li><code>offset</code>：文件映射的起始偏移量。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>addr</code>：映射的起始地址（通常为<code>NULL</code>，由系统自动分配）；</p>
+</li>
+<li class="lvl-2">
+<p><code>length</code>：映射的字节数；</p>
+</li>
+<li class="lvl-2">
+<p><code>prot</code>：内存保护标志（如<code>PROT_READ</code>表示可读）；</p>
+</li>
+<li class="lvl-2">
+<p><code>flags</code>：映射属性（如<code>MAP_SHARED</code>表示修改会同步到文件）；</p>
+</li>
+<li class="lvl-2">
+<p><code>fd</code>：文件描述符；</p>
+</li>
+<li class="lvl-2">
+<p><code>offset</code>：文件映射的起始偏移量。</p>
+</li>
 </ul>
 <p><strong>示例代码</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> client_fd = ...;  <span class="comment">// 已连接的客户端Socket</span></span><br><span class="line">    <span class="type">int</span> file_fd = <span class="built_in">open</span>(<span class="string">&quot;large_file.dat&quot;</span>, O_RDONLY);</span><br><span class="line">    <span class="keyword">if</span> (file_fd == <span class="number">-1</span>) &#123; <span class="comment">/* 错误处理 */</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取文件大小</span></span><br><span class="line">    <span class="type">off_t</span> file_size = <span class="built_in">lseek</span>(file_fd, <span class="number">0</span>, SEEK_END);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 映射文件到用户空间</span></span><br><span class="line">    <span class="type">void</span> *addr = <span class="built_in">mmap</span>(<span class="literal">NULL</span>, file_size, PROT_READ, MAP_SHARED, file_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (addr == MAP_FAILED) &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;mmap failed&quot;</span>);</span><br><span class="line">        <span class="built_in">close</span>(file_fd);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 直接通过write发送映射的内存（内部仍有一次内核拷贝）</span></span><br><span class="line">    <span class="type">ssize_t</span> sent = <span class="built_in">write</span>(client_fd, addr, file_size);</span><br><span class="line">    <span class="keyword">if</span> (sent == <span class="number">-1</span>) &#123; <span class="comment">/* 错误处理 */</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解除映射并关闭资源</span></span><br><span class="line">    <span class="built_in">munmap</span>(addr, file_size);</span><br><span class="line">    <span class="built_in">close</span>(file_fd);</span><br><span class="line">    <span class="built_in">close</span>(client_fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="splice任意文件描述符间的零拷贝">3.
-<code>splice</code>：任意文件描述符间的零拷贝</h4>
-<p><code>splice</code> 是 Linux 2.6.17
-后提供的更灵活的零拷贝函数，支持在两个文件描述符（可以是管道、Socket、文件等）之间直接传输数据，全程在内核空间完成，且无需用户空间参与。</p>
+<h4 id="3-splice：任意文件描述符间的零拷贝">3. <code>splice</code>：任意文件描述符间的零拷贝</h4>
+<p><code>splice</code> 是 Linux 2.6.17 后提供的更灵活的零拷贝函数，支持在两个文件描述符（可以是管道、Socket、文件等）之间直接传输数据，全程在内核空间完成，且无需用户空间参与。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">splice</span><span class="params">(<span class="type">int</span> fd_in, <span class="type">loff_t</span> *off_in, <span class="type">int</span> fd_out, <span class="type">loff_t</span> *off_out, <span class="type">size_t</span> len, <span class="type">unsigned</span> <span class="type">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数说明</strong>：</p>
-<ul>
-<li><code>fd_in</code>/<code>fd_out</code>：输入 /
-输出文件描述符（至少有一个必须是管道）；</li>
-<li><code>off_in</code>/<code>off_out</code>：输入 /
-输出的偏移量（<code>NULL</code>表示使用当前位置）；</li>
-<li><code>len</code>：传输的字节数；</li>
-<li><code>flags</code>：控制标志（如<code>SPLICE_F_MOVE</code>表示尽可能移动数据而非复制）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>fd_in</code>/<code>fd_out</code>：输入 / 输出文件描述符（至少有一个必须是管道）；</p>
+</li>
+<li class="lvl-2">
+<p><code>off_in</code>/<code>off_out</code>：输入 / 输出的偏移量（<code>NULL</code>表示使用当前位置）；</p>
+</li>
+<li class="lvl-2">
+<p><code>len</code>：传输的字节数；</p>
+</li>
+<li class="lvl-2">
+<p><code>flags</code>：控制标志（如<code>SPLICE_F_MOVE</code>表示尽可能移动数据而非复制）。</p>
+</li>
 </ul>
-<p><strong>示例代码</strong>（用<code>splice</code>在两个 Socket
-间转发数据）：</p>
+<p><strong>示例代码</strong>（用<code>splice</code>在两个 Socket 间转发数据）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> sock1 = ...;  <span class="comment">// 源Socket</span></span><br><span class="line">    <span class="type">int</span> sock2 = ...;  <span class="comment">// 目标Socket</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建管道（splice要求至少一个fd是管道）</span></span><br><span class="line">    <span class="type">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">pipe</span>(pipefd) == <span class="number">-1</span>) &#123; <span class="comment">/* 错误处理 */</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">size_t</span> BUF_SIZE = <span class="number">4096</span>;</span><br><span class="line">    <span class="type">ssize_t</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从sock1读取数据到管道，再从管道写入sock2</span></span><br><span class="line">    <span class="keyword">while</span> ((n = <span class="built_in">splice</span>(sock1, <span class="literal">NULL</span>, pipefd[<span class="number">1</span>], <span class="literal">NULL</span>, BUF_SIZE, SPLICE_F_MOVE)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="type">ssize_t</span> written = <span class="built_in">splice</span>(pipefd[<span class="number">0</span>], <span class="literal">NULL</span>, sock2, <span class="literal">NULL</span>, n, SPLICE_F_MOVE);</span><br><span class="line">        <span class="keyword">if</span> (written != n) &#123; <span class="comment">/* 错误处理 */</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span>(pipefd[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">close</span>(pipefd[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">close</span>(sock1);</span><br><span class="line">    <span class="built_in">close</span>(sock2);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="控制标志">控制标志</h5>
-<ol type="1">
-<li><code>SPLICE_F_MOVE</code></li>
+<ol>
+<li class="lvl-3">
+<p><code>SPLICE_F_MOVE</code></p>
+</li>
 </ol>
-<ul>
-<li><strong>作用</strong>：尝试以 “移动” 方式传输数据，而非复制。</li>
-<li><strong>行为</strong>：告知内核尽可能重用页面（如将页面所有权从源文件描述符转移到目标），减少内存复制开销。</li>
-<li><strong>注意</strong>：这只是一个
-“建议”，内核可能因条件限制（如页面被其他进程引用）而退化为复制方式。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：尝试以 “移动” 方式传输数据，而非复制。</p>
+</li>
+<li class="lvl-2">
+<p><strong>行为</strong>：告知内核尽可能重用页面（如将页面所有权从源文件描述符转移到目标），减少内存复制开销。</p>
+</li>
+<li class="lvl-2">
+<p><strong>注意</strong>：这只是一个 “建议”，内核可能因条件限制（如页面被其他进程引用）而退化为复制方式。</p>
+</li>
 </ul>
-<ol start="2" type="1">
-<li><code>SPLICE_F_NONBLOCK</code></li>
+<ol start="2">
+<li class="lvl-3">
+<p><code>SPLICE_F_NONBLOCK</code></p>
+</li>
 </ol>
-<ul>
-<li><strong>作用</strong>：使 <code>splice()</code>
-操作非阻塞执行。</li>
-<li><strong>行为</strong>：若操作无法立即完成（如数据未就绪），函数会立即返回
-<code>-1</code> 并设置 <code>errno</code> 为 <code>EAGAIN</code> 或
-<code>EWOULDBLOCK</code>，而非阻塞等待。</li>
-<li><strong>注意</strong>：需确保相关文件描述符本身支持非阻塞操作（如通过
-<code>fcntl()</code> 设置 <code>O_NONBLOCK</code>）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：使 <code>splice()</code> 操作非阻塞执行。</p>
+</li>
+<li class="lvl-2">
+<p><strong>行为</strong>：若操作无法立即完成（如数据未就绪），函数会立即返回 <code>-1</code> 并设置 <code>errno</code> 为 <code>EAGAIN</code> 或 <code>EWOULDBLOCK</code>，而非阻塞等待。</p>
+</li>
+<li class="lvl-2">
+<p><strong>注意</strong>：需确保相关文件描述符本身支持非阻塞操作（如通过 <code>fcntl()</code> 设置 <code>O_NONBLOCK</code>）。</p>
+</li>
 </ul>
-<ol start="3" type="1">
-<li><code>SPLICE_F_MORE</code></li>
+<ol start="3">
+<li class="lvl-3">
+<p><code>SPLICE_F_MORE</code></p>
+</li>
 </ol>
-<ul>
-<li><strong>作用</strong>：提示内核后续还有更多数据要传输。</li>
-<li><strong>行为</strong>：内核可据此优化 I/O
-调度（如延迟提交数据，合并成更大的 I/O 操作），提升效率。</li>
-<li><strong>适用场景</strong>：连续多次调用 <code>splice()</code>
-传输大量数据时使用。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：提示内核后续还有更多数据要传输。</p>
+</li>
+<li class="lvl-2">
+<p><strong>行为</strong>：内核可据此优化 I/O 调度（如延迟提交数据，合并成更大的 I/O 操作），提升效率。</p>
+</li>
+<li class="lvl-2">
+<p><strong>适用场景</strong>：连续多次调用 <code>splice()</code> 传输大量数据时使用。</p>
+</li>
 </ul>
-<ol start="4" type="1">
-<li><code>SPLICE_F_GIFT</code></li>
+<ol start="4">
+<li class="lvl-3">
+<p><code>SPLICE_F_GIFT</code></p>
+</li>
 </ol>
-<ul>
-<li><strong>作用</strong>：表示传输的数据是给内核的
-“礼物”，用户态不再需要访问这些数据。</li>
-<li><strong>行为</strong>：内核可自由处理数据页面（如直接丢弃），通常用于管道写端向内核传递数据的场景。</li>
-<li><strong>限制</strong>：仅适用于从用户态文件描述符（如匿名管道）向内核态传输数据的情况。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：表示传输的数据是给内核的 “礼物”，用户态不再需要访问这些数据。</p>
+</li>
+<li class="lvl-2">
+<p><strong>行为</strong>：内核可自由处理数据页面（如直接丢弃），通常用于管道写端向内核传递数据的场景。</p>
+</li>
+<li class="lvl-2">
+<p><strong>限制</strong>：仅适用于从用户态文件描述符（如匿名管道）向内核态传输数据的情况。</p>
+</li>
 </ul>
-<h4 id="windows-平台transmitfile">4.Windows
-平台：<code>TransmitFile</code></h4>
-<p>Windows 提供的<code>TransmitFile</code>函数类似 Linux
-的<code>sendfile</code>，用于将文件数据直接发送到
-Socket，实现零拷贝。</p>
+<h4 id="4-Windows-平台：TransmitFile">4.Windows 平台：<code>TransmitFile</code></h4>
+<p>Windows 提供的<code>TransmitFile</code>函数类似 Linux 的<code>sendfile</code>，用于将文件数据直接发送到 Socket，实现零拷贝。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">TransmitFile</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  SOCKET hSocket,</span></span></span><br><span class="line"><span class="params"><span class="function">  HANDLE hFile,</span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD nNumberOfBytesToWrite,</span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD nNumberOfBytesPerSend,</span></span></span><br><span class="line"><span class="params"><span class="function">  LPOVERLAPPED lpOverlapped,</span></span></span><br><span class="line"><span class="params"><span class="function">  LPTRANSMIT_FILE_BUFFERS lpTransmitBuffers,</span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwFlags</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
-<h3 id="三注意事项">三、注意事项</h3>
-<ol type="1">
-<li><strong>平台依赖性</strong>：
-零拷贝函数是操作系统相关的（如<code>sendfile</code>仅 Linux
-有效，<code>TransmitFile</code>仅 Windows
-有效），跨平台开发需封装适配层（如使用 Boost.Asio 等库抽象）。</li>
-<li><strong>适用场景限制</strong>：
-<ul>
-<li><code>sendfile</code>早期版本仅支持 “文件到 Socket”
-的传输（无法反向或 Socket 到 Socket）；</li>
-<li><code>splice</code>要求至少一个文件描述符是管道，灵活性受限；</li>
-<li>小数据传输可能因函数调用开销高于拷贝开销，反而效率更低。</li>
-</ul></li>
-<li><strong>错误处理</strong>： 零拷贝函数的错误码与普通 IO
-函数不同（如<code>sendfile</code>失败时<code>errno</code>可能为<code>EINVAL</code>表示不支持的
-fd 类型），需针对性处理。</li>
-<li><strong>内存映射风险</strong>：
-<code>mmap</code>映射的内存若被意外修改（如<code>MAP_SHARED</code>模式），可能导致文件数据损坏；且映射大文件可能耗尽虚拟内存。</li>
-<li><strong>偏移量管理</strong>：
-<code>sendfile</code>和<code>mmap</code>的<code>offset</code>参数需手动管理，多次调用时需确保偏移量正确递增，避免数据重复或丢失。</li>
+<h3 id="三、注意事项">三、注意事项</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>平台依赖性</strong>：零拷贝函数是操作系统相关的（如<code>sendfile</code>仅 Linux 有效，<code>TransmitFile</code>仅 Windows 有效），跨平台开发需封装适配层（如使用 Boost.Asio 等库抽象）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>适用场景限制</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>sendfile</code>早期版本仅支持 “文件到 Socket” 的传输（无法反向或 Socket 到 Socket）；</li>
+<li class="lvl-5"><code>splice</code>要求至少一个文件描述符是管道，灵活性受限；</li>
+<li class="lvl-5">小数据传输可能因函数调用开销高于拷贝开销，反而效率更低。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>错误处理</strong>：零拷贝函数的错误码与普通 IO 函数不同（如<code>sendfile</code>失败时<code>errno</code>可能为<code>EINVAL</code>表示不支持的 fd 类型），需针对性处理。</p>
+</li>
+<li class="lvl-3">
+<p><strong>内存映射风险</strong>：<code>mmap</code>映射的内存若被意外修改（如<code>MAP_SHARED</code>模式），可能导致文件数据损坏；且映射大文件可能耗尽虚拟内存。</p>
+</li>
+<li class="lvl-3">
+<p><strong>偏移量管理</strong>：<code>sendfile</code>和<code>mmap</code>的<code>offset</code>参数需手动管理，多次调用时需确保偏移量正确递增，避免数据重复或丢失。</p>
+</li>
 </ol>
-<h3 id="四典型使用场景">四、典型使用场景</h3>
-<ol type="1">
-<li><strong>静态文件服务器</strong>（如 Nginx）：
-用<code>sendfile</code>直接将磁盘文件发送到网络，避免用户空间拷贝，支撑高并发下载。</li>
-<li><strong>大文件传输</strong>（如视频、备份数据）： 数据量通常达 GB
-级，零拷贝可减少 90% 以上的 CPU 开销，显著提升传输速度。</li>
-<li><strong>代理服务器</strong>（如反向代理）：
-用<code>splice</code>在客户端与后端服务器间转发数据，全程内核态处理，提升转发吞吐量。</li>
-<li><strong>高性能日志收集</strong>：
-用<code>mmap</code>映射日志文件，应用程序直接写入映射内存，避免频繁 IO
-拷贝。</li>
+<h3 id="四、典型使用场景">四、典型使用场景</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>静态文件服务器</strong>（如 Nginx）：用<code>sendfile</code>直接将磁盘文件发送到网络，避免用户空间拷贝，支撑高并发下载。</p>
+</li>
+<li class="lvl-3">
+<p><strong>大文件传输</strong>（如视频、备份数据）：数据量通常达 GB 级，零拷贝可减少 90% 以上的 CPU 开销，显著提升传输速度。</p>
+</li>
+<li class="lvl-3">
+<p><strong>代理服务器</strong>（如反向代理）：用<code>splice</code>在客户端与后端服务器间转发数据，全程内核态处理，提升转发吞吐量。</p>
+</li>
+<li class="lvl-3">
+<p><strong>高性能日志收集</strong>：用<code>mmap</code>映射日志文件，应用程序直接写入映射内存，避免频繁 IO 拷贝。</p>
+</li>
 </ol>
 
     </div>
@@ -486,12 +534,7 @@ fd 类型），需针对性处理。</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.</span> <span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、零拷贝的核心价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cc-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%87%BD%E6%95%B0%E5%8F%8A%E7%94%A8%E6%B3%95"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、C++
-中常用的零拷贝函数及用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sendfile%E6%96%87%E4%BB%B6%E5%88%B0%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9B%B4%E6%8E%A5%E4%BC%A0%E8%BE%93"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1.
-sendfile：文件到网络的直接传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap-write%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E7%9A%84%E9%97%B4%E6%8E%A5%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2.
-mmap + write：内存映射的间接零拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E9%97%B4%E7%9A%84%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3.
-splice：任意文件描述符间的零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%A0%87%E5%BF%97"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">控制标志</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#windows-%E5%B9%B3%E5%8F%B0transmitfile"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.Windows
-平台：TransmitFile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%85%B8%E5%9E%8B%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、典型使用场景</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、零拷贝的核心价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81C-%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E9%9B%B6%E6%8B%B7%E8%B4%9D%E5%87%BD%E6%95%B0%E5%8F%8A%E7%94%A8%E6%B3%95"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、C++ 中常用的零拷贝函数及用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-sendfile%EF%BC%9A%E6%96%87%E4%BB%B6%E5%88%B0%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9B%B4%E6%8E%A5%E4%BC%A0%E8%BE%93"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1. sendfile：文件到网络的直接传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-mmap-write%EF%BC%9A%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E7%9A%84%E9%97%B4%E6%8E%A5%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2. mmap + write：内存映射的间接零拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-splice%EF%BC%9A%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E9%97%B4%E7%9A%84%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3. splice：任意文件描述符间的零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%A0%87%E5%BF%97"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">控制标志</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Windows-%E5%B9%B3%E5%8F%B0%EF%BC%9ATransmitFile"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.Windows 平台：TransmitFile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B8%E5%9E%8B%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、典型使用场景</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -568,7 +611,7 @@ splice：任意文件描述符间的零拷贝</span></a><ol class="nav-child"><l
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

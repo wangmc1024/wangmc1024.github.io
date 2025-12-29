@@ -219,7 +219,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -242,64 +242,91 @@
 <p>介绍了MySQL一些基础指令,增删改查</p>
 </blockquote>
 <span id="more"></span>
-<h3 id="mysql">MySQL</h3>
+<h3 id="MySQL">MySQL</h3>
 <h4 id="准备工作">准备工作</h4>
-<ul>
-<li><p>添加环境变量</p></li>
-<li><p>初始化MySQL</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>添加环境变量</p>
+</li>
+<li class="lvl-2">
+<p>初始化MySQL</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld <span class="comment">--initialize-insecure</span></span><br></pre></td></tr></table></figure>
-<p>该命令在安全性方面存在缺陷，主要用于开发和测试环境</p></li>
-<li><p>注册MySQL服务</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld <span class="operator">-</span>install</span><br></pre></td></tr></table></figure></li>
-<li><p>启动/停止 MySQL服务</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net <span class="keyword">start</span> mysql</span><br><span class="line"></span><br><span class="line">net stop mysql</span><br></pre></td></tr></table></figure></li>
-<li><p>修改默认账户密码</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin <span class="operator">-</span>u root password xxxx</span><br></pre></td></tr></table></figure></li>
-<li><p>登录MySQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>uroot <span class="operator">-</span>pxxxx [<span class="operator">-</span>h数据库服务器IP地址 <span class="operator">-</span>P端口号]</span><br></pre></td></tr></table></figure></li>
-<li><p>卸载MySQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql</span><br><span class="line"></span><br><span class="line">mysqld <span class="operator">-</span>remove mysql</span><br></pre></td></tr></table></figure></li>
+<p>该命令在安全性方面存在缺陷，主要用于开发和测试环境</p>
+</li>
+<li class="lvl-2">
+<p>注册MySQL服务</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld <span class="operator">-</span>install</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p>启动/停止 MySQL服务</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net <span class="keyword">start</span> mysql</span><br><span class="line"></span><br><span class="line">net stop mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p>修改默认账户密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin <span class="operator">-</span>u root password xxxx</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p>登录MySQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>uroot <span class="operator">-</span>pxxxx [<span class="operator">-</span>h数据库服务器IP地址 <span class="operator">-</span>P端口号]</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-2">
+<p>卸载MySQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql</span><br><span class="line"></span><br><span class="line">mysqld <span class="operator">-</span>remove mysql</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="sql分类">SQL分类</h4>
-<ul>
-<li>==DDL==:Data Definition Language 定义数据库对象</li>
-<li>==DML== :Data Manipulation Language 操作数据，进行增删改</li>
-<li>==DQL==:Data Query Language 查询数据库中的记录</li>
-<li>==DCL==:Data Control Language 创建数据库的用户，控制访问权限</li>
+<h4 id="SQL分类">SQL分类</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><mark>DDL</mark>:Data Definition Language      定义数据库对象</p>
+</li>
+<li class="lvl-2">
+<p><mark>DML</mark> :Data Manipulation Language   操作数据，进行增删改</p>
+</li>
+<li class="lvl-2">
+<p><mark>DQL</mark>:Data Query Language                  查询数据库中的记录</p>
+</li>
+<li class="lvl-2">
+<p><mark>DCL</mark>:Data Control Language                创建数据库的用户，控制访问权限</p>
+</li>
 </ul>
 <h4 id="基础语法">基础语法</h4>
 <blockquote>
 <p>以分号结尾，不区分大小写</p>
 </blockquote>
-<h5 id="ddl">DDL</h5>
-<ul>
-<li>查询数据库</li>
+<h5 id="DDL">DDL</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>查询数据库</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> databases;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>创建数据库</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>创建数据库</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database filename;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database if <span class="keyword">not</span> <span class="keyword">exists</span> filename; #如果不存在名为filename的数据库就进行创建</span><br></pre></td></tr></table></figure>
-<ul>
-<li>切换数据库</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>切换数据库</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use filename;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看当前正在使用的数据库</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>查看当前正在使用的数据库</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> database();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>删除数据库</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>删除数据库</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> database filename;</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> database if <span class="keyword">exists</span> filename;</span><br></pre></td></tr></table></figure>
-<h6 id="表操作">==表操作==</h6>
+<h6 id="表操作"><mark>表操作</mark></h6>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> 表名(</span><br><span class="line">		字段<span class="number">1</span> 字段类型 [约束] [comment 字段<span class="number">1</span>注解],</span><br><span class="line">    	字段<span class="number">2</span> 字段类型 [约束] [comment 字段<span class="number">2</span>注解]</span><br><span class="line">)[comment 表注解];</span><br></pre></td></tr></table></figure>
 <table>
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 51%" />
-<col style="width: 39%" />
-</colgroup>
 <thead>
 <tr>
 <th>约束</th>
@@ -320,8 +347,8 @@
 </tr>
 <tr>
 <td>主键约束</td>
-<td>主键是一行数据的唯一标识，==要求非空且唯一==</td>
-<td>primary key （auto_increment自增）</td>
+<td>主键是一行数据的唯一标识，<mark>要求非空且唯一</mark></td>
+<td>primary key    （auto_increment自增）</td>
 </tr>
 <tr>
 <td>默认约束</td>
@@ -336,54 +363,76 @@
 </tbody>
 </table>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">creat <span class="keyword">table</span> tb_user(</span><br><span class="line">	id <span class="type">int</span> <span class="keyword">primary key</span> auto_increment comment <span class="string">&#x27;ID，唯一标识&#x27;</span>,</span><br><span class="line">    username <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">not null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;用户名&#x27;</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not null</span> comment <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">    age <span class="type">int</span> comment <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">    gender <span class="type">char</span>(<span class="number">1</span>) <span class="keyword">default</span> <span class="string">&#x27;男&#x27;</span> comment <span class="string">&#x27;性别&#x27;</span></span><br><span class="line">)comment <span class="string">&#x27;用户表&#x27;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查询</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>查询</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看当下数据库的表</span></span><br><span class="line"><span class="keyword">show</span> tables;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看指定表结构</span></span><br><span class="line"><span class="keyword">desc</span> tablename;</span><br><span class="line"></span><br><span class="line"><span class="comment">--  查看数据库的建表语句</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">create table</span> tablename;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>修改</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 为表example 添加字段 qq varchar(11)</span></span><br><span class="line"><span class="keyword">alter table</span> example <span class="keyword">add</span> qq <span class="type">varchar</span>(<span class="number">11</span>) comment <span class="string">&#x27;QQ&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改example 字段类型 qq varchar(13)</span></span><br><span class="line"><span class="keyword">alter table</span> example modify qq <span class="type">varchar</span>(<span class="number">13</span>) comment <span class="string">&#x27;QQ&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改example 字段名qq为qq_num</span></span><br><span class="line"><span class="keyword">alter table</span> example change qq qq_num <span class="type">varchar</span>(<span class="number">13</span>) comment <span class="string">&#x27;QQ&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除qq_num字段</span></span><br><span class="line"><span class="keyword">alter table</span> example <span class="keyword">drop</span> <span class="keyword">column</span> qq_num;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 将example 表名修改为hello</span></span><br><span class="line">rename <span class="keyword">table</span> example <span class="keyword">to</span> hello;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>删除</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>删除</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除 example 表</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> eample;</span><br></pre></td></tr></table></figure>
-<h5 id="dml">DML</h5>
-<ul>
-<li>insert语句</li>
+<h5 id="DML">DML</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>insert语句</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--  为 example 表的 username，name，gender 字段插入值</span></span><br><span class="line"><span class="keyword">insert into</span> example(username, name, gender) <span class="keyword">values</span> (<span class="string">&#x27;tinali&#x27;</span>,<span class="string">&#x27; 提纳里&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 为 example 表的 所有字段 插入值</span></span><br><span class="line"><span class="keyword">insert into</span> example <span class="keyword">values</span>(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="string">&#x27;tinali&#x27;</span>,<span class="string">&#x27; 提纳里&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 批量为 example 表的 username，name，gender字段插入数据</span></span><br><span class="line"><span class="keyword">insert into</span> example(username, name, gender) <span class="keyword">values</span> (<span class="string">&#x27;tinali&#x27;</span>,<span class="string">&#x27;提纳里&#x27;</span>,<span class="number">1</span>),(<span class="string">&#x27;审判官&#x27;</span>,<span class="string">&#x27;那维莱特&#x27;</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>update语句</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>update语句</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 将 example 中ID为1的 name 字段 更新为 张三,username 字段更新为 hello</span></span><br><span class="line"><span class="keyword">update</span> example <span class="keyword">set</span> name <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>, username <span class="operator">=</span> <span class="string">&#x27;hello&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 将example 中所有 gender 字段改为 1</span></span><br><span class="line"><span class="keyword">update</span> example <span class="keyword">set</span> gender <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>delete语句</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>delete语句</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 [<span class="keyword">where</span> 条件];</span><br><span class="line"><span class="comment">-- 删除 example 中ID为1的信息</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> example <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除表中所有信息</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> example;</span><br></pre></td></tr></table></figure>
-<h5 id="dql">DQL</h5>
-<ul>
-<li>基本查询</li>
+<h5 id="DQL">DQL</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>基本查询</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询特定字段 name，entrydate 并返回</span></span><br><span class="line"><span class="keyword">select</span> name,entrydate <span class="keyword">from</span> example;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询返回所有字段 (通配符)</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询特定字段 name，entrydate 并起别名</span></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">as</span> 姓名,entrydate <span class="keyword">as</span> 入职日期 <span class="keyword">from</span> example;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询job字段的记录（不重复）</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> job <span class="keyword">from</span> example;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>条件查询（==where==）</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>条件查询（<mark>where</mark>）</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- select 字段列表 from 表名 where 条件列表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 name 为 三子曰 的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> name <span class="operator">=</span> <span class="string">&#x27;三子曰&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 id 小于等于5 的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> id <span class="operator">&lt;=</span> <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 job 为空值的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> job <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 job 非空值的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> job <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 password 不是 123456</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> password <span class="operator">!=</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 age 在 20 到 30 之间的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> age <span class="operator">&gt;=</span> <span class="number">20</span> <span class="operator">&amp;&amp;</span> age <span class="operator">&lt;=</span> <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询id 为1，2，3的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> id <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)l;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 name 为两个字的记录 （两条下划线）</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;__&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 name 字段中第一个字为 张 的记录</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;张%&#x27;</span></span><br><span class="line"></span><br><span class="line">_可替代一个字符  <span class="operator">%</span>可替代随机数目的字符</span><br></pre></td></tr></table></figure>
-<ul>
-<li>分组查询（==groud by==）
-<ul>
-<li>聚合函数 count max min avg sum</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>分组查询（<mark>groud by</mark>）</p>
+<ul class="lvl-2">
+<li class="lvl-4">聚合函数 count max min avg sum</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- select 聚合函数 from 表名</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 统计 id 字段数的数目</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(id) <span class="keyword">from</span> example;</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- select 字段列表 from 表名 [where 条件] group by 分组字段名[having 分组后的过滤的条件];</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 根据 gender 分组，统计男女员工的数量</span></span><br><span class="line"><span class="keyword">select</span> gender,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> example <span class="keyword">group</span> <span class="keyword">by</span> gender;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询 age 在30（包含）以前的员工，并对job进行分组，获得数量大于等于2的job数据</span></span><br><span class="line"><span class="keyword">select</span> job,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> example <span class="keyword">where</span> age <span class="operator">&lt;=</span> <span class="number">30</span> <span class="keyword">group</span> <span class="keyword">by</span> job <span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">&gt;=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>排序查询（==order by==）</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>排序查询（<mark>order by</mark>）</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--select 字段列表 from 表名 [where 条件列表][group by 分组字段] order by 字段1 排序方法1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--根据年龄进行升序排序  (降序desc)</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>分页查询（==limit==）</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>分页查询（<mark>limit</mark>）</p>
+</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- select 字段列表 from 表名 limit 起始索引，查询记录数;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 从 起始索引为0，开始查询，每夜展示五条数据</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example limit <span class="number">0</span>,<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询第一页数据，每页展示五条数据</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example limit <span class="number">0</span>,<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询第二，每页展示五条数据</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> example limit <span class="number">5</span>,<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
 
@@ -472,7 +521,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">SQL分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ddl"><span class="nav-number">1.3.1.</span> <span class="nav-text">DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">&#x3D;&#x3D;表操作&#x3D;&#x3D;</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dml"><span class="nav-number">1.3.2.</span> <span class="nav-text">DML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dql"><span class="nav-number">1.3.3.</span> <span class="nav-text">DQL</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">SQL分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DDL"><span class="nav-number">1.3.1.</span> <span class="nav-text">DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">表操作</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DML"><span class="nav-number">1.3.2.</span> <span class="nav-text">DML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DQL"><span class="nav-number">1.3.3.</span> <span class="nav-text">DQL</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -549,7 +598,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

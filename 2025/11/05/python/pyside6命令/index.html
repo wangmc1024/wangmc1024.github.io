@@ -231,84 +231,134 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h1 id="pyside6-命令行工具介绍">PySide6 命令行工具介绍</h1>
-<p>PySide6 提供了一系列命令行工具来帮助开发 Qt
-应用程序。以下是主要命令及其作用：</p>
-<h2 id="pyside6-uic">1. pyside6-uic</h2>
-<ul>
-<li><strong>作用</strong>：UI 编译器，将 Qt Designer 创建的
-<code>.ui</code> 文件转换为 Python 代码</li>
-<li><strong>用法</strong>：<code>pyside6-uic input.ui -o output.py</code></li>
-<li><strong>示例</strong>：<code>pyside6-uic mainwindow.ui -o ui_mainwindow.py</code></li>
-<li><strong>说明</strong>：生成的文件通常包含一个
-<code>Ui_MainWindow</code> 类，可以在应用程序中继承使用</li>
+<h1>PySide6 命令行工具介绍</h1>
+<p>PySide6 提供了一系列命令行工具来帮助开发 Qt 应用程序。以下是主要命令及其作用：</p>
+<h2 id="1-pyside6-uic">1. pyside6-uic</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：UI 编译器，将 Qt Designer 创建的 <code>.ui</code> 文件转换为 Python 代码</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-uic input.ui -o output.py</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>示例</strong>：<code>pyside6-uic mainwindow.ui -o ui_mainwindow.py</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：生成的文件通常包含一个 <code>Ui_MainWindow</code> 类，可以在应用程序中继承使用</p>
+</li>
 </ul>
-<h2 id="pyside6-rcc">2. pyside6-rcc</h2>
-<ul>
-<li><strong>作用</strong>：资源编译器，将 <code>.qrc</code>
-资源文件编译为 Python 代码</li>
-<li><strong>用法</strong>：<code>pyside6-rcc input.qrc -o output.py</code></li>
-<li><strong>示例</strong>：<code>pyside6-rcc resources.qrc -o resources_rc.py</code></li>
-<li><strong>说明</strong>：用于将图片、图标、翻译文件等资源嵌入到应用程序中</li>
+<h2 id="2-pyside6-rcc">2. pyside6-rcc</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：资源编译器，将 <code>.qrc</code> 资源文件编译为 Python 代码</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-rcc input.qrc -o output.py</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>示例</strong>：<code>pyside6-rcc resources.qrc -o resources_rc.py</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：用于将图片、图标、翻译文件等资源嵌入到应用程序中</p>
+</li>
 </ul>
-<h2 id="pyside6-lupdate">3. pyside6-lupdate</h2>
-<ul>
-<li><strong>作用</strong>：从源代码中提取可翻译的字符串</li>
-<li><strong>用法</strong>：<code>pyside6-lupdate [options] source-files -ts translation-files</code></li>
-<li><strong>示例</strong>：<code>pyside6-lupdate main.py -ts translations/en.ts translations/zh.ts</code></li>
-<li><strong>说明</strong>：生成的 <code>.ts</code> 文件可以用 Qt
-Linguist 进行翻译</li>
+<h2 id="3-pyside6-lupdate">3. pyside6-lupdate</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：从源代码中提取可翻译的字符串</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-lupdate [options] source-files -ts translation-files</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>示例</strong>：<code>pyside6-lupdate main.py -ts translations/en.ts translations/zh.ts</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：生成的 <code>.ts</code> 文件可以用 Qt Linguist 进行翻译</p>
+</li>
 </ul>
-<h2 id="pyside6-lrelease">4. pyside6-lrelease</h2>
-<ul>
-<li><strong>作用</strong>：将 <code>.ts</code> 翻译文件编译为
-<code>.qm</code> 二进制文件</li>
-<li><strong>用法</strong>：<code>pyside6-lrelease input.ts -o output.qm</code></li>
-<li><strong>示例</strong>：<code>pyside6-lrelease translations/en.ts -o translations/en.qm</code></li>
-<li><strong>说明</strong>：应用程序运行时加载 <code>.qm</code>
-文件来实现国际化</li>
+<h2 id="4-pyside6-lrelease">4. pyside6-lrelease</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：将 <code>.ts</code> 翻译文件编译为 <code>.qm</code> 二进制文件</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-lrelease input.ts -o output.qm</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>示例</strong>：<code>pyside6-lrelease translations/en.ts -o translations/en.qm</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：应用程序运行时加载 <code>.qm</code> 文件来实现国际化</p>
+</li>
 </ul>
-<h2 id="pyside6-designer">5. pyside6-designer</h2>
-<ul>
-<li><strong>作用</strong>：Qt Designer 可视化 UI 设计工具</li>
-<li><strong>用法</strong>：<code>pyside6-designer</code></li>
-<li><strong>说明</strong>：提供拖拽式界面设计，生成 <code>.ui</code>
-文件</li>
+<h2 id="5-pyside6-designer">5. pyside6-designer</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：Qt Designer 可视化 UI 设计工具</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-designer</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：提供拖拽式界面设计，生成 <code>.ui</code> 文件</p>
+</li>
 </ul>
-<h2 id="pyside6-qmlscene">6. pyside6-qmlscene</h2>
-<ul>
-<li><strong>作用</strong>：QML 场景查看器</li>
-<li><strong>用法</strong>：<code>pyside6-qmlscene input.qml</code></li>
-<li><strong>说明</strong>：用于快速预览和测试 QML 文件</li>
+<h2 id="6-pyside6-qmlscene">6. pyside6-qmlscene</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：QML 场景查看器</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-qmlscene input.qml</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：用于快速预览和测试 QML 文件</p>
+</li>
 </ul>
-<h2 id="pyside6-metaobjectdump">7. pyside6-metaobjectdump</h2>
-<ul>
-<li><strong>作用</strong>：元对象系统转储工具</li>
-<li><strong>用法</strong>：<code>pyside6-metaobjectdump [options] [files]</code></li>
-<li><strong>说明</strong>：用于调试 Qt 元对象系统，显示类的元信息</li>
+<h2 id="7-pyside6-metaobjectdump">7. pyside6-metaobjectdump</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：元对象系统转储工具</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-metaobjectdump [options] [files]</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：用于调试 Qt 元对象系统，显示类的元信息</p>
+</li>
 </ul>
-<h2 id="pyside6-genpyi">8. pyside6-genpyi</h2>
-<ul>
-<li><strong>作用</strong>：生成类型提示文件</li>
-<li><strong>用法</strong>：<code>pyside6-genpyi [options] module</code></li>
-<li><strong>示例</strong>：<code>pyside6-genpyi QtWidgets</code></li>
-<li><strong>说明</strong>：为 PySide6 模块生成 <code>.pyi</code>
-类型提示文件，提高 IDE 支持</li>
+<h2 id="8-pyside6-genpyi">8. pyside6-genpyi</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：生成类型提示文件</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-genpyi [options] module</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>示例</strong>：<code>pyside6-genpyi QtWidgets</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：为 PySide6 模块生成 <code>.pyi</code> 类型提示文件，提高 IDE 支持</p>
+</li>
 </ul>
-<h2 id="pyside6-project">9. pyside6-project</h2>
-<ul>
-<li><strong>作用</strong>：创建 PySide6 项目文件</li>
-<li><strong>用法</strong>：<code>pyside6-project [options]</code></li>
-<li><strong>说明</strong>：生成 <code>.pro</code>
-项目文件，用于管理大型项目</li>
+<h2 id="9-pyside6-project">9. pyside6-project</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>作用</strong>：创建 PySide6 项目文件</p>
+</li>
+<li class="lvl-2">
+<p><strong>用法</strong>：<code>pyside6-project [options]</code></p>
+</li>
+<li class="lvl-2">
+<p><strong>说明</strong>：生成 <code>.pro</code> 项目文件，用于管理大型项目</p>
+</li>
 </ul>
-<p>这些工具通常在安装 PySide6 时会自动安装。你可以通过在命令行中输入
-<code>pyside6-&lt;command&gt; --help</code>
-来查看每个命令的详细选项和用法。</p>
+<p>这些工具通常在安装 PySide6 时会自动安装。你可以通过在命令行中输入 <code>pyside6-&lt;command&gt; --help</code> 来查看每个命令的详细选项和用法。</p>
 
     </div>
 
@@ -396,7 +446,7 @@ Linguist 进行翻译</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pyside6-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">PySide6 命令行工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-uic"><span class="nav-number">1.1.</span> <span class="nav-text">1. pyside6-uic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-rcc"><span class="nav-number">1.2.</span> <span class="nav-text">2. pyside6-rcc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-lupdate"><span class="nav-number">1.3.</span> <span class="nav-text">3. pyside6-lupdate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-lrelease"><span class="nav-number">1.4.</span> <span class="nav-text">4. pyside6-lrelease</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-designer"><span class="nav-number">1.5.</span> <span class="nav-text">5. pyside6-designer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-qmlscene"><span class="nav-number">1.6.</span> <span class="nav-text">6. pyside6-qmlscene</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-metaobjectdump"><span class="nav-number">1.7.</span> <span class="nav-text">7. pyside6-metaobjectdump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-genpyi"><span class="nav-number">1.8.</span> <span class="nav-text">8. pyside6-genpyi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyside6-project"><span class="nav-number">1.9.</span> <span class="nav-text">9. pyside6-project</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">PySide6 命令行工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-pyside6-uic"><span class="nav-number">1.1.</span> <span class="nav-text">1. pyside6-uic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-pyside6-rcc"><span class="nav-number">1.2.</span> <span class="nav-text">2. pyside6-rcc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-pyside6-lupdate"><span class="nav-number">1.3.</span> <span class="nav-text">3. pyside6-lupdate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-pyside6-lrelease"><span class="nav-number">1.4.</span> <span class="nav-text">4. pyside6-lrelease</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-pyside6-designer"><span class="nav-number">1.5.</span> <span class="nav-text">5. pyside6-designer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-pyside6-qmlscene"><span class="nav-number">1.6.</span> <span class="nav-text">6. pyside6-qmlscene</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-pyside6-metaobjectdump"><span class="nav-number">1.7.</span> <span class="nav-text">7. pyside6-metaobjectdump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-pyside6-genpyi"><span class="nav-number">1.8.</span> <span class="nav-text">8. pyside6-genpyi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-pyside6-project"><span class="nav-number">1.9.</span> <span class="nav-text">9. pyside6-project</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -473,7 +523,7 @@ Linguist 进行翻译</li>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

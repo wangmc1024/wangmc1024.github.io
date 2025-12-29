@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念 源码可至GitHub查看">
+  <meta name="description" content="记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念源码可至GitHub查看">
 <meta property="og:type" content="article">
 <meta property="og:title" content="身份证号码简易识别(opencv + Qt)">
 <meta property="og:url" content="https://wangmc1024.github.io/2024/05/30/school_assignments/%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81%E7%AE%80%E6%98%93%E8%AF%86%E5%88%AB-opencv-Qt/index.html">
 <meta property="og:site_name" content="Computer Science">
-<meta property="og:description" content="记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念 源码可至GitHub查看">
+<meta property="og:description" content="记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念源码可至GitHub查看">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125045766.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125148573.png">
@@ -243,294 +243,360 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念
-源码可至GitHub查看 <span id="more"></span></p>
-<h1 id="身份证信息识别">身份证信息识别</h1>
-<h3 id="图片的读取-显示">1. 图片的读取 显示</h3>
+        <p>记录了一下项目制作过程中 opencv基本API的使用,以及一些基本概念源码可至GitHub查看</p>
+ <span id="more"></span>
+<h1>身份证信息识别</h1>
+<h3 id="1-图片的读取-显示">1. 图片的读取 显示</h3>
 <blockquote>
-<p><strong>==imread()读取图像==</strong>，imread包含两个参数：imread(图像路径，
-图像形式)；</p>
-<p><strong>==namedWindow()==</strong>
-用来新建一个显示窗口,用来显示图像,包含两个参数：namedWindow(窗口名称，
-窗口形式)</p>
-<p><strong>==imshow()==</strong>用于显示图像,包含两个参数：imshow(窗口名称，图像名称)</p>
+<p><strong><mark>imread()读取图像</mark></strong>，imread包含两个参数：imread(图像路径， 图像形式)；</p>
+<p><strong><mark>namedWindow()</mark></strong> 用来新建一个显示窗口,用来显示图像,包含两个参数：namedWindow(窗口名称， 窗口形式)</p>
+<p>**<mark>imshow()</mark>**用于显示图像,包含两个参数：imshow(窗口名称，图像名称)</p>
 </blockquote>
 <p><strong>图像形式有三种</strong></p>
-<ul>
-<li>加载彩色图片 (默认加载形式)</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>加载彩色图片 (默认加载形式)</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">imread</span>(图像路径， IMREAD_COLOR)；</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="built_in">imread</span>(图像路径， <span class="number">1</span>)；</span><br></pre></td></tr></table></figure>
-<ul>
-<li>加载灰度模式图像</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>加载灰度模式图像</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">imread</span>(图像路径， IMREAD_GRAYSCALE)；</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="built_in">imread</span>(图像路径， <span class="number">0</span>)；</span><br></pre></td></tr></table></figure>
-<ul>
-<li>加载图像,包括alpha通道</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>加载图像,包括alpha通道</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">imread</span>(图像路径，IMREAD_UNCHANGED)；</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="built_in">imread</span>(图像路径， <span class="number">-1</span>)；</span><br></pre></td></tr></table></figure>
 <p><strong>窗口形式</strong></p>
-<ul>
-<li><p>显示的图像大小不能改变（默认形式）</p>
-<p>namedWindow(窗口名称， WINDOW_AUTOSIZE) 1</p></li>
-<li><p>图像大小能够调节</p>
-<p>namedWindow(窗口名称， WINDOW_NORMAL) 0</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>显示的图像大小不能改变（默认形式）</p>
+<p>namedWindow(窗口名称， WINDOW_AUTOSIZE)     1</p>
+</li>
+<li class="lvl-2">
+<p>图像大小能够调节</p>
+<p>namedWindow(窗口名称， WINDOW_NORMAL)      0</p>
+</li>
 </ul>
 <p><strong>示例代码</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Mat image;   <span class="comment">//创建一个空图像image</span></span><br><span class="line">	image = <span class="built_in">imread</span>(<span class="string">&quot;D://work//c++//Imageprocessing1//企鹅.jpg&quot;</span>);  <span class="comment">//读取文件夹中的图像</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//检测图像是否加载成功</span></span><br><span class="line">	<span class="keyword">if</span> (image.<span class="built_in">empty</span>())  <span class="comment">//检测image有无数据，无数据 image.empty()返回 真</span></span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Could not open or find the image&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">namedWindow</span>(<span class="string">&quot;IMAGE&quot;</span>);  <span class="comment">//创建显示窗口，不加这行代码，也能显示，默认窗口大小不能改变</span></span><br><span class="line">	<span class="built_in">imshow</span>(<span class="string">&quot;IMAGE&quot;</span>, image);  <span class="comment">//在窗口显示图像</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">imwrite</span>(<span class="string">&quot;1.png&quot;</span>, image); <span class="comment">//保存图像为png格式，文件名称为1</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">waitKey</span>(<span class="number">0</span>);  <span class="comment">//暂停，保持图像显示，等待按键结束</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="qt中的string转化为opencv中的string">2.
-qt中的string转化为opencv中的string</h3>
+<h3 id="2-qt中的string转化为opencv中的string">2. qt中的string转化为opencv中的string</h3>
 <blockquote>
-<p>先调用 <code>toLocal8Bit()</code> 方法将 <code>fileName</code>
-转换为本地8位编码的 <code>QByteArray</code>，然后再调用
-<code>data()</code> 方法获取该 <code>QByteArray</code> 中存储的 C
-风格字符串的指针</p>
+<p>先调用 <code>toLocal8Bit()</code> 方法将 <code>fileName</code> 转换为本地8位编码的 <code>QByteArray</code>，然后再调用 <code>data()</code> 方法获取该 <code>QByteArray</code> 中存储的 C 风格字符串的指针</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ID_card_recognition::read_image</span><span class="params">(<span class="type">const</span> QString&amp; fileName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QString tmpPath = fileName.<span class="built_in">toLocal8Bit</span>().<span class="built_in">data</span>();<span class="comment">//将 fileName 转换为本地8位编码的 C 风格字符串</span></span><br><span class="line">    Mat image;   <span class="comment">//创建一个空图像image</span></span><br><span class="line">    image = <span class="built_in">imread</span>(tmpPath.<span class="built_in">toStdString</span>(), IMREAD_COLOR);  <span class="comment">//读取文件夹中的图像</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="二值化处理">3. 二值化处理</h3>
+<h3 id="3-二值化处理">3. 二值化处理</h3>
 <blockquote>
 <p>二值化处理（Binarization）是一种图像处理技术，它将图像中的像素值根据特定的阈值转化为两种值（通常是0和255），从而简化图像的数据表示。</p>
-<p>通常需要==先将图片转换为灰度图像==再进行二值化处理</p>
+<p>通常需要<mark>先将图片转换为灰度图像</mark>再进行二值化处理</p>
 </blockquote>
-<ul>
-<li><strong>void threshold(InputArray src, OutputArray dst, double
-thresh, double maxval, int type);</strong></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>void threshold(InputArray src, OutputArray dst, double thresh, double maxval, int type);</strong></p>
+</li>
 </ul>
 <blockquote>
-<p><code>threshold()</code> 函数是 OpenCV
-中用于图像二值化的函数，它将输入图像的像素值根据指定的阈值进行分割，生成一个二值化图像</p>
+<p><code>threshold()</code> 函数是 OpenCV 中用于图像二值化的函数，它将输入图像的像素值根据指定的阈值进行分割，生成一个二值化图像</p>
 </blockquote>
-<ol type="1">
-<li>==cv::THRESH_BINARY==：如果源图像像素值大于阈值，则输出图像的对应像素值设置为<code>maxval</code>，否则设置为0。</li>
-<li>==cv::THRESH_BINARY_INV==：与<code>THRESH_BINARY</code>相反，如果源图像像素值大于阈值，则输出图像的对应像素值设置为0，否则设置为<code>maxval</code>。</li>
-<li><code>cv::THRESH_TRUNC</code>：如果源图像像素值大于阈值，则输出图像的对应像素值设置为阈值<code>thresh</code>，否则保持源图像的像素值不变。</li>
-<li><code>cv::THRESH_TOZERO</code>：如果源图像像素值大于阈值，则输出图像的对应像素值保持不变，否则设置为0。</li>
-<li><code>cv::THRESH_TOZERO_INV</code>：与<code>THRESH_TOZERO</code>相反，如果源图像像素值大于阈值，则输出图像的对应像素值设置为0，否则保持源图像的像素值不变。</li>
-<li><code>cv::THRESH_MASK</code>：这是一个掩码值，用于与上述其他值进行按位或操作，以保持旧的OpenCV兼容性。</li>
-<li><code>cv::THRESH_OTSU</code>：在使用<code>THRESH_BINARY</code>或<code>THRESH_BINARY_INV</code>阈值类型时，这个标志可以自动选择最优的阈值。它会计算源图像的直方图，并使用大津二值化方法来找到将图像分为两个类别的最佳阈值。</li>
-<li><code>cv::THRESH_TRIANGLE</code>：这是另一个自动选择阈值的标志，它使用三角形方法来找到最优阈值，这种方法通常比大津方法更快，但在某些情况下可能不如大津方法准确。</li>
+<ol>
+<li class="lvl-3">
+<p><mark>cv::THRESH_BINARY</mark>：如果源图像像素值大于阈值，则输出图像的对应像素值设置为<code>maxval</code>，否则设置为0。</p>
+</li>
+<li class="lvl-3">
+<p><mark>cv::THRESH_BINARY_INV</mark>：与<code>THRESH_BINARY</code>相反，如果源图像像素值大于阈值，则输出图像的对应像素值设置为0，否则设置为<code>maxval</code>。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_TRUNC</code>：如果源图像像素值大于阈值，则输出图像的对应像素值设置为阈值<code>thresh</code>，否则保持源图像的像素值不变。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_TOZERO</code>：如果源图像像素值大于阈值，则输出图像的对应像素值保持不变，否则设置为0。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_TOZERO_INV</code>：与<code>THRESH_TOZERO</code>相反，如果源图像像素值大于阈值，则输出图像的对应像素值设置为0，否则保持源图像的像素值不变。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_MASK</code>：这是一个掩码值，用于与上述其他值进行按位或操作，以保持旧的OpenCV兼容性。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_OTSU</code>：在使用<code>THRESH_BINARY</code>或<code>THRESH_BINARY_INV</code>阈值类型时，这个标志可以自动选择最优的阈值。它会计算源图像的直方图，并使用大津二值化方法来找到将图像分为两个类别的最佳阈值。</p>
+</li>
+<li class="lvl-3">
+<p><code>cv::THRESH_TRIANGLE</code>：这是另一个自动选择阈值的标志，它使用三角形方法来找到最优阈值，这种方法通常比大津方法更快，但在某些情况下可能不如大津方法准确。</p>
+</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取灰度图像</span></span><br><span class="line">    Mat image = <span class="built_in">imread</span>(<span class="string">&quot;image.jpg&quot;</span>, IMREAD_GRAYSCALE);</span><br><span class="line">    <span class="keyword">if</span> (image.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Could not open or find the image&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置阈值和最大值</span></span><br><span class="line">    <span class="type">int</span> thresh_value = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> max_value = <span class="number">255</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 应用二值化</span></span><br><span class="line">    Mat binary_image;</span><br><span class="line"> 	<span class="built_in">threshold</span>(image, binary_image, thresh_val, max_value, THRESH_BINARY | THRESH_OTSU);</span><br><span class="line">    <span class="comment">/*THRESH_BINARY：大于阈值的像素赋值为 maxval，小于等于阈值的像素赋值为 0。</span></span><br><span class="line"><span class="comment">    THRESH_OTSU可以实现 Otsu&#x27;s 二值化方法，即自动选择最优的阈值，而无需手动指定阈值</span></span><br><span class="line"><span class="comment">    二者通常结合使用  使用Otsu&#x27;s时thresh 参数可以设置为 0，因为该值不会被实际使用*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示结果</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;Binary Image&quot;</span>, binary_image);</span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">destroyAllWindows</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="双边滤波">4. 双边滤波</h3>
+<h3 id="4-双边滤波">4. 双边滤波</h3>
 <blockquote>
-<p>双边滤波（Bilateral
-Filter）是一种非线性滤波技术，它能够在保持边缘清晰的同时有效地去除图像中的噪声</p>
+<p>双边滤波（Bilateral Filter）是一种非线性滤波技术，它能够在保持边缘清晰的同时有效地去除图像中的噪声</p>
 </blockquote>
-<p><strong>void bilateralFilter(InputArray src, OutputArray dst, int d,
-double sigmaColor, double sigmaSpace, int borderType =
-BORDER_DEFAULT);</strong></p>
-<ul>
-<li><code>d</code>：滤波器的直径。如果为 -1，则根据
-<code>sigmaSpace</code> 自动计算。</li>
-<li><code>sigmaColor</code>：颜色空间的标准差，较大的值表示颜色空间中更大的像素距离将相互混合。</li>
-<li><code>sigmaSpace</code>：空间域的标准差，较大的值表示在空间域内的像素距离将相互混合。</li>
-<li><code>borderType</code>：用于处理边界的类型，默认为
-<code>BORDER_DEFAULT</code>。</li>
+<p><strong>void bilateralFilter(InputArray src, OutputArray dst, int d, double sigmaColor, double sigmaSpace, int borderType = BORDER_DEFAULT);</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>d</code>：滤波器的直径。如果为 -1，则根据 <code>sigmaSpace</code> 自动计算。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigmaColor</code>：颜色空间的标准差，较大的值表示颜色空间中更大的像素距离将相互混合。</p>
+</li>
+<li class="lvl-2">
+<p><code>sigmaSpace</code>：空间域的标准差，较大的值表示在空间域内的像素距离将相互混合。</p>
+</li>
+<li class="lvl-2">
+<p><code>borderType</code>：用于处理边界的类型，默认为 <code>BORDER_DEFAULT</code>。</p>
+</li>
 </ul>
-<h3 id="查找轮廓">5. 查找轮廓</h3>
+<h3 id="5-查找轮廓">5.  查找轮廓</h3>
 <blockquote>
 <p>轮廓可以看作是将具有相同颜色或灰度值的所有连续点（沿着边界）连接起来的曲线</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数原型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cv::findContours</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    InputOutputArray image,</span></span></span><br><span class="line"><span class="params"><span class="function">    OutputArrayOfArrays contours,</span></span></span><br><span class="line"><span class="params"><span class="function">    OutputArray hierarchy,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> mode,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> method,</span></span></span><br><span class="line"><span class="params"><span class="function">    Point offset = Point()</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="comment">//在黑色背景中寻找白色轮廓</span></span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><strong>image</strong>：输入图像（8位单通道图像），也是输出图像。
-<ul>
-<li>图像必须是二值化图像（通常通过 <code>cv::threshold</code> 或
-<code>cv::Canny</code> 等方法预处理）。</li>
-<li>该函数会修改输入图像，建议在调用该函数之前对图像进行备份。</li>
-</ul></li>
-<li><strong>contours</strong>：输出参数，用于存储检测到的轮廓。
-<ul>
-<li>轮廓存储为点的向量的向量，每个轮廓是一个
-<code>std::vector&lt;cv::Point&gt;</code> 类型的对象。</li>
-</ul></li>
-<li><strong>hierarchy</strong>：输出参数，用于存储每个轮廓的层次结构信息。
-<ul>
-<li>这是一个 <code>std::vector&lt;cv::Vec4i&gt;</code> 类型的向量。</li>
-<li><code>hierarchy[i][0]</code> 表示后一个轮廓的索引。</li>
-<li><code>hierarchy[i][1]</code> 表示前一个轮廓的索引。</li>
-<li><code>hierarchy[i][2]</code> 表示父轮廓的索引。</li>
-<li><code>hierarchy[i][3]</code> 表示第一个子轮廓的索引。</li>
-</ul></li>
-<li><strong>mode</strong>：轮廓检索模式，决定轮廓的提取方式和层次结构。
-<ul>
-<li><code>cv::RETR_EXTERNAL</code>：只检索最外层的轮廓。</li>
-<li><code>cv::RETR_LIST</code>：检索所有轮廓，但不建立层次结构。</li>
-<li><code>cv::RETR_CCOMP</code>：检索所有轮廓并将它们组织成两级层次结构。</li>
-<li><code>cv::RETR_TREE</code>：检索所有轮廓并重建嵌套轮廓的完整层次结构。</li>
-</ul></li>
-<li><strong>method</strong>：轮廓近似方法，决定如何存储轮廓点。
-<ul>
-<li><code>cv::CHAIN_APPROX_NONE</code>：存储所有轮廓点。</li>
-<li><code>cv::CHAIN_APPROX_SIMPLE</code>：压缩水平、垂直和对角线段，只保留它们的端点。</li>
-<li><code>cv::CHAIN_APPROX_TC89_L1</code> 和
-<code>cv::CHAIN_APPROX_TC89_KCOS</code>：使用 Teh-Chin 链近似算法。</li>
-</ul></li>
-<li><strong>offset</strong>（可选）：可选参数，用于对输出的轮廓点坐标进行偏移，默认为
-<code>(0, 0)</code>。</li>
+<ol>
+<li class="lvl-3">
+<p><strong>image</strong>：输入图像（8位单通道图像），也是输出图像。</p>
+<ul class="lvl-2">
+<li class="lvl-5">图像必须是二值化图像（通常通过 <code>cv::threshold</code> 或 <code>cv::Canny</code> 等方法预处理）。</li>
+<li class="lvl-5">该函数会修改输入图像，建议在调用该函数之前对图像进行备份。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>contours</strong>：输出参数，用于存储检测到的轮廓。</p>
+<ul class="lvl-2">
+<li class="lvl-5">轮廓存储为点的向量的向量，每个轮廓是一个 <code>std::vector&lt;cv::Point&gt;</code> 类型的对象。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>hierarchy</strong>：输出参数，用于存储每个轮廓的层次结构信息。</p>
+<ul class="lvl-2">
+<li class="lvl-5">这是一个 <code>std::vector&lt;cv::Vec4i&gt;</code> 类型的向量。</li>
+<li class="lvl-5"><code>hierarchy[i][0]</code> 表示后一个轮廓的索引。</li>
+<li class="lvl-5"><code>hierarchy[i][1]</code> 表示前一个轮廓的索引。</li>
+<li class="lvl-5"><code>hierarchy[i][2]</code> 表示父轮廓的索引。</li>
+<li class="lvl-5"><code>hierarchy[i][3]</code> 表示第一个子轮廓的索引。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>mode</strong>：轮廓检索模式，决定轮廓的提取方式和层次结构。</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>cv::RETR_EXTERNAL</code>：只检索最外层的轮廓。</li>
+<li class="lvl-5"><code>cv::RETR_LIST</code>：检索所有轮廓，但不建立层次结构。</li>
+<li class="lvl-5"><code>cv::RETR_CCOMP</code>：检索所有轮廓并将它们组织成两级层次结构。</li>
+<li class="lvl-5"><code>cv::RETR_TREE</code>：检索所有轮廓并重建嵌套轮廓的完整层次结构。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>method</strong>：轮廓近似方法，决定如何存储轮廓点。</p>
+<ul class="lvl-2">
+<li class="lvl-5"><code>cv::CHAIN_APPROX_NONE</code>：存储所有轮廓点。</li>
+<li class="lvl-5"><code>cv::CHAIN_APPROX_SIMPLE</code>：压缩水平、垂直和对角线段，只保留它们的端点。</li>
+<li class="lvl-5"><code>cv::CHAIN_APPROX_TC89_L1</code> 和 <code>cv::CHAIN_APPROX_TC89_KCOS</code>：使用 Teh-Chin 链近似算法。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>offset</strong>（可选）：可选参数，用于对输出的轮廓点坐标进行偏移，默认为 <code>(0, 0)</code>。</p>
+</li>
 </ol>
-<h3 id="绘制轮廓">6. 绘制轮廓</h3>
+<h3 id="6-绘制轮廓">6. 绘制轮廓</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数原型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cv::drawContours</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    InputOutputArray image,</span></span></span><br><span class="line"><span class="params"><span class="function">    InputArrayOfArrays contours,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> contourIdx,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="params"><span class="function">    InputArray hierarchy = noArray(),</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> maxLevel = INT_MAX,</span></span></span><br><span class="line"><span class="params"><span class="function">    Point offset = Point()</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><strong>image</strong>：输入输出参数，用于绘制轮廓的图像。
-<ul>
-<li>类型为 <code>cv::InputOutputArray</code>，通常为
-<code>cv::Mat</code> 类型。</li>
-<li>这是一个修改后的图像，轮廓会被绘制在该图像上。</li>
-</ul></li>
-<li><strong>contours</strong>：输入参数，表示轮廓的集合。
-<ul>
-<li>类型为 <code>cv::InputArrayOfArrays</code>，通常是
-<code>std::vector&lt;std::vector&lt;cv::Point&gt;&gt;</code> 类型。</li>
-<li>每个轮廓都是一个点的集合，表示图像中的一个连通区域。</li>
-</ul></li>
-<li><strong>contourIdx</strong>：输入参数，指定绘制哪个轮廓的索引。
-<ul>
-<li>如果为负值（例如 <code>-1</code>），则绘制所有轮廓。</li>
-</ul></li>
-<li><strong>color</strong>：输入参数，指定绘制轮廓的颜色。
-<ul>
-<li>类型为 <code>cv::Scalar</code>，例如
-<code>cv::Scalar(0, 255, 0)</code> 表示绿色。</li>
-</ul></li>
-<li><strong>thickness</strong>（可选）：输入参数，指定绘制轮廓的线条粗细。
-<ul>
-<li>默认值为 <code>1</code>。</li>
-<li>如果值为 <code>FILLED</code> 或负值，则填充整个轮廓。</li>
-</ul></li>
-<li><strong>lineType</strong>（可选）：输入参数，指定线条的类型。
-<ul>
-<li>默认值为 <code>cv::LINE_8</code>，表示 8-连接线。</li>
-<li>可以为 <code>cv::LINE_4</code>（4-连接线）或
-<code>cv::LINE_AA</code>（抗锯齿线）。</li>
-</ul></li>
-<li><strong>hierarchy</strong>（可选）：输入参数，指定轮廓的层次结构。
-<ul>
-<li>类型为 <code>cv::InputArray</code>，通常是
-<code>std::vector&lt;cv::Vec4i&gt;</code> 类型。</li>
-<li>如果不需要层次结构，可以传递 <code>cv::noArray()</code>。</li>
-</ul></li>
-<li><strong>maxLevel</strong>（可选）：输入参数，指定绘制轮廓的最大层次。
-<ul>
-<li>默认值为 <code>INT_MAX</code>，表示绘制所有层次的轮廓。</li>
-<li>例如，如果设置为 <code>0</code>，则只绘制最外层的轮廓。</li>
-</ul></li>
-<li><strong>offset</strong>（可选）：输入参数，指定绘制轮廓时的偏移量。
-<ul>
-<li>类型为 <code>cv::Point</code>，默认值为
-<code>cv::Point(0, 0)</code>。</li>
-</ul></li>
+<ol>
+<li class="lvl-3">
+<p><strong>image</strong>：输入输出参数，用于绘制轮廓的图像。</p>
+<ul class="lvl-2">
+<li class="lvl-5">类型为 <code>cv::InputOutputArray</code>，通常为 <code>cv::Mat</code> 类型。</li>
+<li class="lvl-5">这是一个修改后的图像，轮廓会被绘制在该图像上。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>contours</strong>：输入参数，表示轮廓的集合。</p>
+<ul class="lvl-2">
+<li class="lvl-5">类型为 <code>cv::InputArrayOfArrays</code>，通常是 <code>std::vector&lt;std::vector&lt;cv::Point&gt;&gt;</code> 类型。</li>
+<li class="lvl-5">每个轮廓都是一个点的集合，表示图像中的一个连通区域。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>contourIdx</strong>：输入参数，指定绘制哪个轮廓的索引。</p>
+<ul class="lvl-2">
+<li class="lvl-5">如果为负值（例如 <code>-1</code>），则绘制所有轮廓。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>color</strong>：输入参数，指定绘制轮廓的颜色。</p>
+<ul class="lvl-2">
+<li class="lvl-5">类型为 <code>cv::Scalar</code>，例如 <code>cv::Scalar(0, 255, 0)</code> 表示绿色。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>thickness</strong>（可选）：输入参数，指定绘制轮廓的线条粗细。</p>
+<ul class="lvl-2">
+<li class="lvl-5">默认值为 <code>1</code>。</li>
+<li class="lvl-5">如果值为 <code>FILLED</code> 或负值，则填充整个轮廓。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>lineType</strong>（可选）：输入参数，指定线条的类型。</p>
+<ul class="lvl-2">
+<li class="lvl-5">默认值为 <code>cv::LINE_8</code>，表示 8-连接线。</li>
+<li class="lvl-5">可以为 <code>cv::LINE_4</code>（4-连接线）或 <code>cv::LINE_AA</code>（抗锯齿线）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>hierarchy</strong>（可选）：输入参数，指定轮廓的层次结构。</p>
+<ul class="lvl-2">
+<li class="lvl-5">类型为 <code>cv::InputArray</code>，通常是 <code>std::vector&lt;cv::Vec4i&gt;</code> 类型。</li>
+<li class="lvl-5">如果不需要层次结构，可以传递 <code>cv::noArray()</code>。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>maxLevel</strong>（可选）：输入参数，指定绘制轮廓的最大层次。</p>
+<ul class="lvl-2">
+<li class="lvl-5">默认值为 <code>INT_MAX</code>，表示绘制所有层次的轮廓。</li>
+<li class="lvl-5">例如，如果设置为 <code>0</code>，则只绘制最外层的轮廓。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>offset</strong>（可选）：输入参数，指定绘制轮廓时的偏移量。</p>
+<ul class="lvl-2">
+<li class="lvl-5">类型为 <code>cv::Point</code>，默认值为 <code>cv::Point(0, 0)</code>。</li>
+</ul>
+</li>
 </ol>
-<h3 id="绘制轮廓二">7 绘制轮廓(二)</h3>
+<h3 id="7-绘制轮廓-二">7 绘制轮廓(二)</h3>
 <p><strong>7.1 <code>cv::boundingRect</code> 函数</strong></p>
 <blockquote>
 <p>用于计算给定点集或轮廓的最小边界矩形。这个矩形是完全包含输入轮廓的最小矩形，并且其边与坐标轴对齐。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">cv::Rect <span class="title">cv::boundingRect</span><span class="params">(InputArray points)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>points</strong>：输入的点集，可以是一个轮廓（如
-<code>std::vector&lt;cv::Point&gt;</code>）或者是 <code>cv::Mat</code>
-类型的点集。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>points</strong>：输入的点集，可以是一个轮廓（如 <code>std::vector&lt;cv::Point&gt;</code>）或者是 <code>cv::Mat</code> 类型的点集。</p>
+</li>
 </ul>
 <p><strong>返回值</strong></p>
-<ul>
-<li>返回一个 <code>cv::Rect</code>
-对象，表示包含所有输入点的最小边界矩形。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>返回一个 <code>cv::Rect</code> 对象，表示包含所有输入点的最小边界矩形。</p>
+</li>
 </ul>
 <p><strong>7.2 <code>cv::rectangle</code> 函数</strong></p>
 <blockquote>
 <p>用于在图像上绘制矩形。可以根据需要设置矩形的位置、大小、颜色和线条厚度等属性。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数原型</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cv::rectangle</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    InputOutputArray img,</span></span></span><br><span class="line"><span class="params"><span class="function">    Point pt1,</span></span></span><br><span class="line"><span class="params"><span class="function">    Point pt2,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line">或者</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cv::rectangle</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    InputOutputArray img,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> Rect&amp; rec,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>img</strong>：输入输出图像，用于绘制矩形的图像。</li>
-<li><strong>pt1</strong>：矩形的一个顶点。</li>
-<li><strong>pt2</strong>：矩形的对角顶点。</li>
-<li><strong>rec</strong>：表示矩形的 <code>cv::Rect</code> 对象。</li>
-<li><strong>color</strong>：矩形的颜色，使用 <code>cv::Scalar</code>
-定义，例如 <code>cv::Scalar(0, 255, 0)</code> 表示绿色。</li>
-<li><strong>thickness</strong>：线条厚度。默认值为
-<code>1</code>。如果值为负数（如
-<code>FILLED</code>），则填充矩形。</li>
-<li><strong>lineType</strong>：线条类型，可以是
-<code>cv::LINE_8</code>、<code>cv::LINE_4</code> 或
-<code>cv::LINE_AA</code>。</li>
-<li><strong>shift</strong>：坐标点的小数点位数，默认值为
-<code>0</code>。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>img</strong>：输入输出图像，用于绘制矩形的图像。</p>
+</li>
+<li class="lvl-2">
+<p><strong>pt1</strong>：矩形的一个顶点。</p>
+</li>
+<li class="lvl-2">
+<p><strong>pt2</strong>：矩形的对角顶点。</p>
+</li>
+<li class="lvl-2">
+<p><strong>rec</strong>：表示矩形的 <code>cv::Rect</code> 对象。</p>
+</li>
+<li class="lvl-2">
+<p><strong>color</strong>：矩形的颜色，使用 <code>cv::Scalar</code> 定义，例如 <code>cv::Scalar(0, 255, 0)</code> 表示绿色。</p>
+</li>
+<li class="lvl-2">
+<p><strong>thickness</strong>：线条厚度。默认值为 <code>1</code>。如果值为负数（如 <code>FILLED</code>），则填充矩形。</p>
+</li>
+<li class="lvl-2">
+<p><strong>lineType</strong>：线条类型，可以是 <code>cv::LINE_8</code>、<code>cv::LINE_4</code> 或 <code>cv::LINE_AA</code>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>shift</strong>：坐标点的小数点位数，默认值为 <code>0</code>。</p>
+</li>
 </ul>
-<p>==<strong>示例代码</strong>==</p>
+<p><mark><strong>示例代码</strong></mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; contours.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">    <span class="comment">// 计算轮廓的最小边界矩形</span></span><br><span class="line">    cv::Rect boundingRect = cv::<span class="built_in">boundingRect</span>(contours[i]);</span><br><span class="line">    <span class="comment">// 在图像上绘制边界矩形</span></span><br><span class="line">    cv::<span class="built_in">rectangle</span>(image, boundingRect, cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算并标记矩形的中心点</span></span><br><span class="line">    cv::Point center = (boundingRect.<span class="built_in">tl</span>() + boundingRect.<span class="built_in">br</span>()) * <span class="number">0.5</span>;</span><br><span class="line">    cv::<span class="built_in">circle</span>(image, center, <span class="number">5</span>, cv::<span class="built_in">Scalar</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="腐蚀-与-膨胀">8. 腐蚀 与 膨胀</h3>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125045766.png" alt="image-20240526125045766" style="zoom:200%;" /></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125148573.png" alt="image-20240526125148573" style="zoom:200%;" /></p>
-<h3 id="开操作-闭操作">9. 开操作 闭操作</h3>
-<p><strong>开操作</strong>先腐蚀后膨胀的操作称之为开操作。主要用于消除小的物体、在纤细点处分离物体、平滑较大物体的边界，同时并不明显改变其面积。此外，开操作还==可以用于提取水平或竖直的线条==</p>
-<p><strong>闭操作</strong>先膨胀后腐蚀
-主要用于填充物体内的小空洞、连接邻近物体、平滑其边界，同时并不明显改变其面积
-==可以用于填充小的封闭区域==</p>
+<h3 id="8-腐蚀-与-膨胀">8. 腐蚀 与 膨胀</h3>
+<img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125045766.png" alt="image-20240526125045766" style="zoom:200%;" />
+<img data-src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/image-20240526125148573.png" alt="image-20240526125148573" style="zoom:200%;" />
+<h3 id="9-开操作-闭操作">9. 开操作 闭操作</h3>
+<p><strong>开操作</strong>先腐蚀后膨胀的操作称之为开操作。主要用于消除小的物体、在纤细点处分离物体、平滑较大物体的边界，同时并不明显改变其面积。此外，开操作还<mark>可以用于提取水平或竖直的线条</mark></p>
+<p><strong>闭操作</strong>先膨胀后腐蚀 主要用于填充物体内的小空洞、连接邻近物体、平滑其边界，同时并不明显改变其面积 <mark>可以用于填充小的封闭区域</mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/imgproc/imgproc.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取图像</span></span><br><span class="line">    cv::Mat image = cv::<span class="built_in">imread</span>(<span class="string">&quot;path_to_your_image.jpg&quot;</span>, cv::IMREAD_COLOR);</span><br><span class="line">    <span class="keyword">if</span> (image.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;无法读取图像&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示原始图像</span></span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, image);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义结构元素，用于开操作和闭操作</span></span><br><span class="line">    cv::Mat kernel = cv::<span class="built_in">getStructuringElement</span>(cv::MORPH_RECT, cv::<span class="built_in">Size</span>(<span class="number">5</span>, <span class="number">5</span>));</span><br><span class="line">	<span class="comment">/*kernel2 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10, 10)) # 椭圆结构</span></span><br><span class="line"><span class="comment">	kernel3 = cv2.getStructuringElement(cv2.MORPH_CROSS, (10, 10)) # 十字结构*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行开操作</span></span><br><span class="line">    cv::Mat open_result;</span><br><span class="line">    cv::<span class="built_in">morphologyEx</span>(image, open_result, cv::MORPH_OPEN, kernel);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示开操作结果</span></span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;开操作结果&quot;</span>, open_result);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行闭操作</span></span><br><span class="line">    cv::Mat close_result;</span><br><span class="line">    cv::<span class="built_in">morphologyEx</span>(image, close_result, cv::MORPH_CLOSE, kernel);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示闭操作结果</span></span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;闭操作结果&quot;</span>, close_result);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待按键后退出</span></span><br><span class="line">    cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="模板匹配">10. 模板匹配</h3>
-<p><strong>void matchTemplate(InputArray image, InputArray templ,
-OutputArray result, int method);</strong></p>
-<ul>
-<li><p><code>image</code>：输入图像，必须是 8 位或 32
-位浮点数。</p></li>
-<li><p><code>template</code>：模板图像，必须是相同类型和深度的大小小于或等于输入图像的图像。</p></li>
-<li><p><code>result</code>：匹配结果图像，是一个单通道 32
-位浮点数。每个像素表示该区域与模板的匹配程度。</p></li>
-<li><p><code>method</code>指定的匹配方法，可以是以下之一：</p>
-<ul>
-<li><code>TM_SQDIFF</code>：平方差匹配法，计算模板与图像之间的平方差，值越小表示匹配度越高。</li>
-<li><code>TM_SQDIFF_NORMED</code>：归一化平方差匹配法，计算归一化的平方差，值越小表示匹配度越高。</li>
-<li><code>TM_CCORR</code>：相关性匹配法，计算模板与图像之间的相关性，值越大表示匹配度越高。</li>
-<li><code>TM_CCORR_NORMED</code>：归一化相关性匹配法，计算归一化的相关性，值越大表示匹配度越高。</li>
-<li><code>TM_CCOEFF</code>：相关系数匹配法，计算模板与图像之间的相关系数，值越大表示匹配度越高。</li>
-<li><code>TM_CCOEFF_NORMED</code>：归一化相关系数匹配法，计算归一化的相关系数，值越大表示匹配度越高。</li>
-</ul></li>
+<h3 id="10-模板匹配">10. 模板匹配</h3>
+<p><strong>void matchTemplate(InputArray image, InputArray templ, OutputArray result, int method);</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>image</code>：输入图像，必须是 8 位或 32 位浮点数。</p>
+</li>
+<li class="lvl-2">
+<p><code>template</code>：模板图像，必须是相同类型和深度的大小小于或等于输入图像的图像。</p>
+</li>
+<li class="lvl-2">
+<p><code>result</code>：匹配结果图像，是一个单通道 32 位浮点数。每个像素表示该区域与模板的匹配程度。</p>
+</li>
+<li class="lvl-2">
+<p><code>method</code>指定的匹配方法，可以是以下之一：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>TM_SQDIFF</code>：平方差匹配法，计算模板与图像之间的平方差，值越小表示匹配度越高。</li>
+<li class="lvl-4"><code>TM_SQDIFF_NORMED</code>：归一化平方差匹配法，计算归一化的平方差，值越小表示匹配度越高。</li>
+<li class="lvl-4"><code>TM_CCORR</code>：相关性匹配法，计算模板与图像之间的相关性，值越大表示匹配度越高。</li>
+<li class="lvl-4"><code>TM_CCORR_NORMED</code>：归一化相关性匹配法，计算归一化的相关性，值越大表示匹配度越高。</li>
+<li class="lvl-4"><code>TM_CCOEFF</code>：相关系数匹配法，计算模板与图像之间的相关系数，值越大表示匹配度越高。</li>
+<li class="lvl-4"><code>TM_CCOEFF_NORMED</code>：归一化相关系数匹配法，计算归一化的相关系数，值越大表示匹配度越高。</li>
 </ul>
-<p><strong>void minMaxLoc(InputArray src, double* minVal, double* maxVal
-= 0, Point* minLoc = 0, Point* maxLoc = 0, InputArray mask =
-noArray());</strong></p>
+</li>
+</ul>
+<p><em><em>void minMaxLoc(InputArray src, double</em> minVal, double</em> maxVal = 0, Point* minLoc = 0, Point* maxLoc = 0, InputArray mask = noArray());**</p>
 <blockquote>
 <p>用于在给定的矩阵中找到最小值和最大值，并返回它们的位置。这个函数在图像处理中非常有用，尤其是在需要找到图像中的最亮或最暗点、或者在模板匹配中找到最佳匹配位置时</p>
 </blockquote>
-<ul>
-<li><code>src</code>：输入的单通道数组。</li>
-<li><code>minVal</code>：返回最小值的指针（如果不需要，则可以设置为
-<code>NULL</code>）。</li>
-<li><code>maxVal</code>：返回最大值的指针（如果不需要，则可以设置为
-<code>NULL</code>）。</li>
-<li><code>minLoc</code>：返回最小值位置的指针（如果不需要，则可以设置为
-<code>NULL</code>）。</li>
-<li><code>maxLoc</code>：返回最大值位置的指针（如果不需要，则可以设置为
-<code>NULL</code>）。</li>
-<li><code>mask</code>：用于选择数组元素的感兴趣区域，如果不需要，则使用
-<code>noArray()</code>。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>src</code>：输入的单通道数组。</p>
+</li>
+<li class="lvl-2">
+<p><code>minVal</code>：返回最小值的指针（如果不需要，则可以设置为 <code>NULL</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>maxVal</code>：返回最大值的指针（如果不需要，则可以设置为 <code>NULL</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>minLoc</code>：返回最小值位置的指针（如果不需要，则可以设置为 <code>NULL</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>maxLoc</code>：返回最大值位置的指针（如果不需要，则可以设置为 <code>NULL</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>mask</code>：用于选择数组元素的感兴趣区域，如果不需要，则使用 <code>noArray()</code>。</p>
+</li>
 </ul>
-<p><strong>void resize(InputArray src, OutputArray dst, Size dsize,
-double fx=0, double fy=0, int interpolation=INTER_LINEAR);</strong></p>
+<p><strong>void resize(InputArray src, OutputArray dst, Size dsize, double fx=0, double fy=0, int interpolation=INTER_LINEAR);</strong></p>
 <blockquote>
 <p>缩放图片</p>
 </blockquote>
-<ul>
-<li><code>src</code>：输入图像，可以是任意通道数的 <code>Mat</code>
-对象。</li>
-<li><code>dst</code>：输出图像，大小为 <code>dsize</code>，或者与
-<code>src</code> 相同类型和大小的 <code>Mat</code> 对象。</li>
-<li><code>dsize</code>：输出图像的大小。如果这个参数为 0，则它由
-<code>fx</code> 和 <code>fy</code> 参数决定。</li>
-<li><code>fx</code>：水平方向的缩放比例。如果这个参数为 0，则它由
-<code>dsize</code> 参数决定。</li>
-<li><code>fy</code>：垂直方向的缩放比例。如果这个参数为 0，则它由
-<code>dsize</code> 参数决定。</li>
-<li><code>interpolation</code>插值方法，用于在缩放时计算新像素值。可选的插值方法包括：
-<ul>
-<li><code>INTER_NEAREST</code>：最近邻插值。</li>
-<li><code>INTER_LINEAR</code>：双线性插值（默认值）。</li>
-<li><code>INTER_AREA</code>：使用像素区域关系重采样。当图像缩小时，这种方法可以避免波纹出现，通常用于图像缩放。</li>
-<li><code>INTER_CUBIC</code>：三次样条插值。</li>
-<li><code>INTER_LANCZOS4</code>：Lanczos 插值，超过 8x8
-像素邻域的采样。</li>
-</ul></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>src</code>：输入图像，可以是任意通道数的 <code>Mat</code> 对象。</p>
+</li>
+<li class="lvl-2">
+<p><code>dst</code>：输出图像，大小为 <code>dsize</code>，或者与 <code>src</code> 相同类型和大小的 <code>Mat</code> 对象。</p>
+</li>
+<li class="lvl-2">
+<p><code>dsize</code>：输出图像的大小。如果这个参数为 0，则它由 <code>fx</code> 和 <code>fy</code> 参数决定。</p>
+</li>
+<li class="lvl-2">
+<p><code>fx</code>：水平方向的缩放比例。如果这个参数为 0，则它由 <code>dsize</code> 参数决定。</p>
+</li>
+<li class="lvl-2">
+<p><code>fy</code>：垂直方向的缩放比例。如果这个参数为 0，则它由 <code>dsize</code> 参数决定。</p>
+</li>
+<li class="lvl-2">
+<p><code>interpolation</code>插值方法，用于在缩放时计算新像素值。可选的插值方法包括：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>INTER_NEAREST</code>：最近邻插值。</li>
+<li class="lvl-4"><code>INTER_LINEAR</code>：双线性插值（默认值）。</li>
+<li class="lvl-4"><code>INTER_AREA</code>：使用像素区域关系重采样。当图像缩小时，这种方法可以避免波纹出现，通常用于图像缩放。</li>
+<li class="lvl-4"><code>INTER_CUBIC</code>：三次样条插值。</li>
+<li class="lvl-4"><code>INTER_LANCZOS4</code>：Lanczos 插值，超过 8x8 像素邻域的采样。</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ID_number.<span class="built_in">size</span>() != <span class="number">18</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">18</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">	Mat roi = ID_number[i].mat;</span><br><span class="line">	<span class="built_in">resize</span>(roi, roi, <span class="built_in">Size</span>(<span class="number">30</span>, <span class="number">40</span>), <span class="number">0</span>, <span class="number">0</span>, INTER_AREA);</span><br><span class="line">	Mat gray_image;</span><br><span class="line">	<span class="built_in">cvtColor</span>(roi, gray_image, cv::COLOR_BGR2GRAY);</span><br><span class="line">	Mat binary_image;</span><br><span class="line">	<span class="built_in">threshold</span> (gray_image, binary_image, <span class="number">0</span>, <span class="number">255</span>, THRESH_BINARY_INV | THRESH_OTSU);</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> maxIndex = <span class="number">0</span>;</span><br><span class="line">	<span class="type">double</span> Max = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">11</span>; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		Mat template_num = templates_cards[j].mat;</span><br><span class="line">		<span class="built_in">resize</span>(template_num, template_num, <span class="built_in">Size</span>(<span class="number">30</span>, <span class="number">40</span>), <span class="number">0</span>, <span class="number">0</span>, INTER_AREA);</span><br><span class="line">		Mat gray_template_num;</span><br><span class="line">		<span class="built_in">cvtColor</span>(template_num, gray_template_num, cv::COLOR_BGR2GRAY);</span><br><span class="line">		Mat binary_template_num;</span><br><span class="line">		<span class="built_in">threshold</span>(gray_template_num, binary_template_num, <span class="number">0</span>, <span class="number">255</span>, THRESH_BINARY_INV | THRESH_OTSU);</span><br><span class="line"></span><br><span class="line">		Mat result;</span><br><span class="line">		<span class="built_in">matchTemplate</span>(binary_image, binary_template_num, result, TM_CCOEFF_NORMED);</span><br><span class="line">		<span class="type">double</span> minVal, maxVal;</span><br><span class="line">		Point minLoc, maxLoc;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">minMaxLoc</span>(result, &amp;minVal, &amp;maxVal, &amp;minLoc, &amp;maxLoc);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (maxVal &gt; Max)</span><br><span class="line">		&#123;</span><br><span class="line">			Max = maxVal;</span><br><span class="line">			maxIndex = j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	result[i] = maxIndex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -621,8 +687,7 @@ double fx=0, double fy=0, int interpolation=INTER_LINEAR);</strong></p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">身份证信息识别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9A%84%E8%AF%BB%E5%8F%96-%E6%98%BE%E7%A4%BA"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 图片的读取 显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qt%E4%B8%AD%E7%9A%84string%E8%BD%AC%E5%8C%96%E4%B8%BAopencv%E4%B8%AD%E7%9A%84string"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.
-qt中的string转化为opencv中的string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 二值化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E8%BE%B9%E6%BB%A4%E6%B3%A2"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 双边滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E8%BD%AE%E5%BB%93"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 查找轮廓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E8%BD%AE%E5%BB%93"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. 绘制轮廓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E8%BD%AE%E5%BB%93%E4%BA%8C"><span class="nav-number">1.0.7.</span> <span class="nav-text">7 绘制轮廓(二)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%85%90%E8%9A%80-%E4%B8%8E-%E8%86%A8%E8%83%80"><span class="nav-number">1.0.8.</span> <span class="nav-text">8. 腐蚀 与 膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%93%8D%E4%BD%9C-%E9%97%AD%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.9.</span> <span class="nav-text">9. 开操作 闭操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">1.0.10.</span> <span class="nav-text">10. 模板匹配</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">身份证信息识别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9B%BE%E7%89%87%E7%9A%84%E8%AF%BB%E5%8F%96-%E6%98%BE%E7%A4%BA"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 图片的读取 显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-qt%E4%B8%AD%E7%9A%84string%E8%BD%AC%E5%8C%96%E4%B8%BAopencv%E4%B8%AD%E7%9A%84string"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. qt中的string转化为opencv中的string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 二值化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%8C%E8%BE%B9%E6%BB%A4%E6%B3%A2"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 双边滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9F%A5%E6%89%BE%E8%BD%AE%E5%BB%93"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.  查找轮廓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%BB%98%E5%88%B6%E8%BD%AE%E5%BB%93"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. 绘制轮廓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E7%BB%98%E5%88%B6%E8%BD%AE%E5%BB%93-%E4%BA%8C"><span class="nav-number">1.0.7.</span> <span class="nav-text">7 绘制轮廓(二)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%85%90%E8%9A%80-%E4%B8%8E-%E8%86%A8%E8%83%80"><span class="nav-number">1.0.8.</span> <span class="nav-text">8. 腐蚀 与 膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%BC%80%E6%93%8D%E4%BD%9C-%E9%97%AD%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.9.</span> <span class="nav-text">9. 开操作 闭操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">1.0.10.</span> <span class="nav-text">10. 模板匹配</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -699,7 +764,7 @@ qt中的string转化为opencv中的string</span></a></li><li class="nav-item nav
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

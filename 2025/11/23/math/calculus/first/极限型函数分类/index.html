@@ -323,14 +323,14 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>2.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -342,116 +342,136 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h3 id="含_n-xkn的指数型极限函数k为常数">1. 含(_{n }
-x^{kn})的指数型极限函数（(k)为常数）</h3>
-<ul>
-<li><strong>核心特征</strong>：极限中含(x)的指数为(kn)（(n
-)），如(x<sup>n)、(x</sup>{2n})等形式。</li>
-<li><strong>分类依据</strong>：指数函数(t^n)（(t =
-x^k)）的极限由底数(t)的绝对值与(1)的大小决定，因此按(|x|)与(1)的大小分类。</li>
-<li><strong>解题思路</strong>：
-<ul>
-<li>(|x| &lt; 1)：(_{n } (x<sup>k)</sup>n =
-0)（底数绝对值小于(1)，指数无穷大时趋近于(0)）；</li>
-<li>(|x| = 1)：(_{n } (x<sup>k)</sup>n =
-1)（底数为()，指数无穷大时结果为(1)）；</li>
-<li>(|x| &gt; 1)：(_{n } (x<sup>k)</sup>n =
-)，分式形式需分子分母同除(x^{kn})化简。</li>
-</ul></li>
-<li><strong>例子</strong>：求(f(x) = _{n } x)
-<ul>
-<li>(|x| &lt; 1)：(x^{2n} )，故(f(x) = x)；</li>
-<li>(|x| = 1)：(x^{2n} = 1)，故(f(x) = 0)；</li>
-<li>(|x| &gt; 1)：分子分母同除(x^{2n})，得(f(x) = -x)。</li>
-</ul></li>
+<h3 id="1-含-lim-limits-n-to-infty-x-kn-的指数型极限函数（-k-为常数）">1. 含(\lim\limits_{n \to \infty} x^{kn})的指数型极限函数（(k)为常数）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>核心特征</strong>：极限中含(x)的指数为(kn)（(n \to \infty)），如(x<sup>n)、(x</sup>{2n})等形式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分类依据</strong>：指数函数(t^n)（(t = x^k)）的极限由底数(t)的绝对值与(1)的大小决定，因此按(|x|)与(1)的大小分类。</p>
+</li>
+<li class="lvl-2">
+<p><strong>解题思路</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">(|x| &lt; 1)：(\lim\limits_{n \to \infty} (x<sup>k)</sup>n = 0)（底数绝对值小于(1)，指数无穷大时趋近于(0)）；</li>
+<li class="lvl-4">(|x| = 1)：(\lim\limits_{n \to \infty} (x<sup>k)</sup>n = 1)（底数为(\pm1)，指数无穷大时结果为(1)）；</li>
+<li class="lvl-4">(|x| &gt; 1)：(\lim\limits_{n \to \infty} (x<sup>k)</sup>n = \infty)，分式形式需分子分母同除(x^{kn})化简。</li>
 </ul>
-<h3 id="含_x-ekx的指数型极限函数k为常数">2. 含(_{x }
-e^{kx})的指数型极限函数（(k)为常数）</h3>
-<ul>
-<li><strong>核心特征</strong>：极限中含(e)的指数为(kx)（(x
-)），如(e<sup>{2x})、(e</sup>{-x})等形式。</li>
-<li><strong>分类依据</strong>：指数函数(e^t)的性质（(t +)时(e^t +)，(t
--)时(e^t )），按(k)的符号与(x)的趋向（(+/- )）分类。</li>
-<li><strong>解题思路</strong>：
-<ul>
-<li>(k &gt; 0)：(x +)时(e^{kx} +)，(x -)时(e^{kx} )；</li>
-<li>(k &lt; 0)：(x +)时(e^{kx} )，(x -)时(e^{kx} +)；</li>
-<li>(k = 0)：(e^{kx} = 1)，极限为(1)。</li>
-</ul></li>
-<li><strong>例子</strong>：求(_{x } )
-<ul>
-<li>(x +)：(e^{2x} +)，分子分母同除(e^{2x})，得极限为(1)；</li>
-<li>(x -)：(e^{2x} )，得极限为(-1)；</li>
-<li>因此极限不存在（左右极限不等）。</li>
-</ul></li>
+</li>
+<li class="lvl-2">
+<p><strong>例子</strong>：求(f(x) = \lim\limits_{n \to \infty} \frac{1 - x^{2n}}{1 + x^{2n}} \cdot x)</p>
+<ul class="lvl-2">
+<li class="lvl-4">(|x| &lt; 1)：(x^{2n} \to 0)，故(f(x) = x)；</li>
+<li class="lvl-4">(|x| = 1)：(x^{2n} = 1)，故(f(x) = 0)；</li>
+<li class="lvl-4">(|x| &gt; 1)：分子分母同除(x^{2n})，得(f(x) = -x)。</li>
 </ul>
-<h3 id="对数-幂函数型x-xk-x或x-k为常数">3. 对数-幂函数型（(<em>{x ^+}
-x^k x)或(</em>{x +} )，(k)为常数）</h3>
-<ul>
-<li><strong>核心特征</strong>：幂函数与对数函数的乘积/商，属(0
-)或()型，结果由幂函数指数(k)决定（对数增长远慢于幂函数）。</li>
-<li><strong>分类依据</strong>：按幂函数指数(k)的符号（正、负、零）分类。</li>
-<li><strong>解题思路</strong>：
-<ul>
-<li>对(_{x ^+} x^k x)（(0 )型）：
-<ul>
-<li>(k &gt; 0)：转化为()（()型），洛必达后极限为(0)；</li>
-<li>(k )：(x^k )（(k &lt; 0)）或(x^k = 1)（(k=0)），极限为(-)；</li>
-</ul></li>
-<li>对(_{x +} )（()型）：
-<ul>
-<li>(k &gt; 0)：洛必达后极限为(0)；</li>
-<li>(k )：极限为(+)。</li>
-</ul></li>
-</ul></li>
-<li><strong>例子</strong>：求(_{x ^+} x^a x)（(a)为常数）
-<ul>
-<li>(a &gt; 0)：洛必达后极限为(0)；</li>
-<li>(a )：极限为(-)。</li>
-</ul></li>
+</li>
 </ul>
-<h3 id="三角-分式型x-x_0-或x-x">4. 三角-分式型（(<em>{x x_0} )或(</em>{x
-} x )）</h3>
-<ul>
-<li><strong>核心特征</strong>：三角函数（(/)）与分式结合，三角函数自变量为()（(t
-= x - x_0)或(t = )等），利用“有界函数×无穷小=无穷小”或凑重要极限(_{u } =
-1)。</li>
-<li><strong>分类依据</strong>：按(t = )或(t =
-)的趋向（即(x)的趋向）分类，看分式是否为无穷小。</li>
-<li><strong>解题思路</strong>：
-<ul>
-<li>(t )（(x x_0)或(x
-)）：分式为无穷小，()有界，故“有界×无穷小”为无穷小（极限为(0)）；若分式为无穷大（如(_{x
-} )），则极限振荡不存在；</li>
-<li>(t )（(x )或(x x_0)）：令(u = )，凑重要极限(_{u } = 1)。</li>
-</ul></li>
-<li><strong>例子</strong>：
-<ul>
-<li>(_{x } x )：(x )时(x)为无穷小，()有界，极限为(0)；</li>
-<li>(_{x } x )：令(u = )，得极限为(1)。</li>
-</ul></li>
+<h3 id="2-含-lim-limits-x-to-infty-e-kx-的指数型极限函数（-k-为常数）">2. 含(\lim\limits_{x \to \infty} e^{kx})的指数型极限函数（(k)为常数）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>核心特征</strong>：极限中含(e)的指数为(kx)（(x \to \infty)），如(e<sup>{2x})、(e</sup>{-x})等形式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分类依据</strong>：指数函数(e^t)的性质（(t \to +\infty)时(e^t \to +\infty)，(t \to -\infty)时(e^t \to 0)），按(k)的符号与(x)的趋向（(+\infty/- \infty)）分类。</p>
+</li>
+<li class="lvl-2">
+<p><strong>解题思路</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">(k &gt; 0)：(x \to +\infty)时(e^{kx} \to +\infty)，(x \to -\infty)时(e^{kx} \to 0)；</li>
+<li class="lvl-4">(k &lt; 0)：(x \to +\infty)时(e^{kx} \to 0)，(x \to -\infty)时(e^{kx} \to +\infty)；</li>
+<li class="lvl-4">(k = 0)：(e^{kx} = 1)，极限为(1)。</li>
 </ul>
-<h3 id="幂指型1型_x-1-bx-cabc为常数">5. 幂指型（(1^)型，(_{x } (1 +
-)^{bx + c})，(a,b,c)为常数）</h3>
-<ul>
-<li><strong>核心特征</strong>：形式为“((1 +
-)<sup>{})”，属(1</sup>)型未定式，利用重要极限(_{t } (1 + )^t = e)。</li>
-<li><strong>分类依据</strong>：按常数(a,b)是否为零分类，凑重要极限形式。</li>
-<li><strong>解题思路</strong>：
-<ul>
-<li>(a )且(b )：变形为(_{x }
-^{})，指数极限为(ab)，故整体极限为(e^{ab})；</li>
-<li>(a = 0)或(b = 0)：底数为(1)或指数为常数，极限为(1)。</li>
-</ul></li>
-<li><strong>例子</strong>：求(_{x } (1 + )^{mx + n})（(k,m)为常数）
-<ul>
-<li>(k )且(m )：极限为(e^{km})；</li>
-<li>(k = 0)或(m = 0)：极限为(1)。</li>
-</ul></li>
+</li>
+<li class="lvl-2">
+<p><strong>例子</strong>：求(\lim\limits_{x \to \infty} \frac{e^{2x} - 1}{e^{2x} + 1})</p>
+<ul class="lvl-2">
+<li class="lvl-4">(x \to +\infty)：(e^{2x} \to +\infty)，分子分母同除(e^{2x})，得极限为(1)；</li>
+<li class="lvl-4">(x \to -\infty)：(e^{2x} \to 0)，得极限为(-1)；</li>
+<li class="lvl-4">因此极限不存在（左右极限不等）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-对数-幂函数型（-lim-limits-x-to-0-x-k-ln-x-或-lim-limits-x-to-infty-frac-ln-x-x-k-，-k-为常数）">3. 对数-幂函数型（(\lim\limits_{x \to 0^+} x^k \ln x)或(\lim\limits_{x \to +\infty} \frac{\ln x}{x^k})，(k)为常数）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>核心特征</strong>：幂函数与对数函数的乘积/商，属(0 \cdot \infty)或(\frac{\infty}{\infty})型，结果由幂函数指数(k)决定（对数增长远慢于幂函数）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分类依据</strong>：按幂函数指数(k)的符号（正、负、零）分类。</p>
+</li>
+<li class="lvl-2">
+<p><strong>解题思路</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">对(\lim\limits_{x \to 0^+} x^k \ln x)（(0 \cdot \infty)型）：
+<ul class="lvl-4">
+<li class="lvl-6">(k &gt; 0)：转化为(\frac{\ln x}{x^{-k}})（(\frac{\infty}{\infty})型），洛必达后极限为(0)；</li>
+<li class="lvl-6">(k \leq 0)：(x^k \to \infty)（(k &lt; 0)）或(x^k = 1)（(k=0)），极限为(-\infty)；</li>
+</ul>
+</li>
+<li class="lvl-4">对(\lim\limits_{x \to +\infty} \frac{\ln x}{x^k})（(\frac{\infty}{\infty})型）：
+<ul class="lvl-4">
+<li class="lvl-6">(k &gt; 0)：洛必达后极限为(0)；</li>
+<li class="lvl-6">(k \leq 0)：极限为(+\infty)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>例子</strong>：求(\lim\limits_{x \to 0^+} x^a \ln x)（(a)为常数）</p>
+<ul class="lvl-2">
+<li class="lvl-4">(a &gt; 0)：洛必达后极限为(0)；</li>
+<li class="lvl-4">(a \leq 0)：极限为(-\infty)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-三角-分式型（-lim-limits-x-to-x-0-frac-sin-frac-1-x-x-0-x-x-0-或-lim-limits-x-to-infty-x-sin-frac-1-x-）">4. 三角-分式型（(\lim\limits_{x \to x_0} \frac{\sin \frac{1}{x - x_0}}{x - x_0})或(\lim\limits_{x \to \infty} x \sin \frac{1}{x})）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>核心特征</strong>：三角函数（(\sin/\cos)）与分式结合，三角函数自变量为(\frac{1}{t})（(t = x - x_0)或(t = \frac{1}{x})等），利用“有界函数×无穷小=无穷小”或凑重要极限(\lim\limits_{u \to 0} \frac{\sin u}{u} = 1)。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分类依据</strong>：按(t = \frac{1}{x - x_0})或(t = \frac{1}{x})的趋向（即(x)的趋向）分类，看分式是否为无穷小。</p>
+</li>
+<li class="lvl-2">
+<p><strong>解题思路</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">(t \to 0)（(x \to x_0)或(x \to \infty)）：分式为无穷小，(\sin \frac{1}{t})有界，故“有界×无穷小”为无穷小（极限为(0)）；若分式为无穷大（如(\lim\limits_{x \to 0} \frac{\sin \frac{1}{x}}{x})），则极限振荡不存在；</li>
+<li class="lvl-4">(t \to \infty)（(x \to \infty)或(x \to x_0)）：令(u = \frac{1}{t} \to 0)，凑重要极限(\lim\limits_{u \to 0} \frac{\sin u}{u} = 1)。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>例子</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">(\lim\limits_{x \to 0} x \sin \frac{1}{x})：(x \to 0)时(x)为无穷小，(\sin \frac{1}{x})有界，极限为(0)；</li>
+<li class="lvl-4">(\lim\limits_{x \to \infty} x \sin \frac{1}{x})：令(u = \frac{1}{x} \to 0)，得极限为(1)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-幂指型（-1-infty-型，-lim-limits-x-to-infty-left-1-frac-a-x-right-bx-c-，-a-b-c-为常数）">5. 幂指型（(1^\infty)型，(\lim\limits_{x \to \infty} \left(1 + \frac{a}{x}\right)^{bx + c})，(a,b,c)为常数）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>核心特征</strong>：形式为“((1 + \text{无穷小})<sup>{\text{无穷大}})”，属(1</sup>\infty)型未定式，利用重要极限(\lim\limits_{t \to \infty} \left(1 + \frac{1}{t}\right)^t = e)。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分类依据</strong>：按常数(a,b)是否为零分类，凑重要极限形式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>解题思路</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-4">(a \neq 0)且(b \neq 0)：变形为(\lim\limits_{x \to \infty} \left[\left(1 + \frac{a}{x}\right)<sup>{\frac{x}{a}}\right]</sup>{\frac{a(bx + c)}{x}})，指数极限为(ab)，故整体极限为(e^{ab})；</li>
+<li class="lvl-4">(a = 0)或(b = 0)：底数为(1)或指数为常数，极限为(1)。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><strong>例子</strong>：求(\lim\limits_{x \to \infty} \left(1 + \frac{k}{x}\right)^{mx + n})（(k,m)为常数）</p>
+<ul class="lvl-2">
+<li class="lvl-4">(k \neq 0)且(m \neq 0)：极限为(e^{km})；</li>
+<li class="lvl-4">(k = 0)或(m = 0)：极限为(1)。</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -539,12 +559,7 @@ x^k x)或(</em>{x +} )，(k)为常数）</h3>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AB_n-xkn%E7%9A%84%E6%8C%87%E6%95%B0%E5%9E%8B%E6%9E%81%E9%99%90%E5%87%BD%E6%95%B0k%E4%B8%BA%E5%B8%B8%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1. 含(_{n }
-x^{kn})的指数型极限函数（(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AB_x-ekx%E7%9A%84%E6%8C%87%E6%95%B0%E5%9E%8B%E6%9E%81%E9%99%90%E5%87%BD%E6%95%B0k%E4%B8%BA%E5%B8%B8%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">2. 含(_{x }
-e^{kx})的指数型极限函数（(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0-%E5%B9%82%E5%87%BD%E6%95%B0%E5%9E%8Bx-xk-x%E6%88%96x-k%E4%B8%BA%E5%B8%B8%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3. 对数-幂函数型（({x ^+}
-x^k x)或({x +} )，(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%A7%92-%E5%88%86%E5%BC%8F%E5%9E%8Bx-x_0-%E6%88%96x-x"><span class="nav-number">4.</span> <span class="nav-text">4. 三角-分式型（({x x_0} )或({x
-} x )）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E6%8C%87%E5%9E%8B1%E5%9E%8B_x-1-bx-cabc%E4%B8%BA%E5%B8%B8%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">5. 幂指型（(1^)型，(_{x } (1 +
-)^{bx + c})，(a,b,c)为常数）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%90%AB-lim-limits-n-to-infty-x-kn-%E7%9A%84%E6%8C%87%E6%95%B0%E5%9E%8B%E6%9E%81%E9%99%90%E5%87%BD%E6%95%B0%EF%BC%88-k-%E4%B8%BA%E5%B8%B8%E6%95%B0%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. 含(\lim\limits_{n \to \infty} x^{kn})的指数型极限函数（(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%90%AB-lim-limits-x-to-infty-e-kx-%E7%9A%84%E6%8C%87%E6%95%B0%E5%9E%8B%E6%9E%81%E9%99%90%E5%87%BD%E6%95%B0%EF%BC%88-k-%E4%B8%BA%E5%B8%B8%E6%95%B0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 含(\lim\limits_{x \to \infty} e^{kx})的指数型极限函数（(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AF%B9%E6%95%B0-%E5%B9%82%E5%87%BD%E6%95%B0%E5%9E%8B%EF%BC%88-lim-limits-x-to-0-x-k-ln-x-%E6%88%96-lim-limits-x-to-infty-frac-ln-x-x-k-%EF%BC%8C-k-%E4%B8%BA%E5%B8%B8%E6%95%B0%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3. 对数-幂函数型（(\lim\limits_{x \to 0^+} x^k \ln x)或(\lim\limits_{x \to +\infty} \frac{\ln x}{x^k})，(k)为常数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%89%E8%A7%92-%E5%88%86%E5%BC%8F%E5%9E%8B%EF%BC%88-lim-limits-x-to-x-0-frac-sin-frac-1-x-x-0-x-x-0-%E6%88%96-lim-limits-x-to-infty-x-sin-frac-1-x-%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">4. 三角-分式型（(\lim\limits_{x \to x_0} \frac{\sin \frac{1}{x - x_0}}{x - x_0})或(\lim\limits_{x \to \infty} x \sin \frac{1}{x})）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%B9%82%E6%8C%87%E5%9E%8B%EF%BC%88-1-infty-%E5%9E%8B%EF%BC%8C-lim-limits-x-to-infty-left-1-frac-a-x-right-bx-c-%EF%BC%8C-a-b-c-%E4%B8%BA%E5%B8%B8%E6%95%B0%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">5. 幂指型（(1^\infty)型，(\lim\limits_{x \to \infty} \left(1 + \frac{a}{x}\right)^{bx + c})，(a,b,c)为常数）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -621,7 +636,7 @@ x^k x)或({x +} )，(k)为常数）</span></a></li><li class="nav-item nav-level
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

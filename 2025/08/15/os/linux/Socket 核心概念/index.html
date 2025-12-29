@@ -240,172 +240,169 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>socket基础概念 <span id="more"></span></p>
-<p>在网络编程中，<strong>Socket（套接字）</strong>
-是进程间通信的抽象接口，用于实现不同主机或同一主机内不同进程之间的网络数据传输。它是
-TCP/IP 协议栈的编程接口，现代 C++
-网络开发中依然是核心基础（尽管常被封装为更高层库如 Boost.Asio）。</p>
-<h3 id="一socket-核心概念">一、Socket 核心概念</h3>
-<ol type="1">
-<li><strong>本质</strong>：Socket 是一个 “文件描述符”（Linux/Unix）或
-“句柄”（Windows），代表一个网络通信端点，通过它可进行数据的发送 /
-接收。</li>
-<li><strong>分类</strong>：
-<ul>
-<li><strong>流式套接字（SOCK_STREAM）</strong>：基于 TCP
-协议，提供可靠、有序、双向的字节流传输（无数据丢失 /
-重复，适合文件传输、HTTP 等）。</li>
-<li><strong>数据报套接字（SOCK_DGRAM）</strong>：基于 UDP
-协议，提供无连接、不可靠的数据包传输（速度快，适合视频通话、DNS
-等）。</li>
-<li><strong>原始套接字（SOCK_RAW）</strong>：直接操作底层协议（如
-IP），用于网络诊断或自定义协议（需管理员权限）。</li>
-</ul></li>
-<li><strong>通信模型</strong>：
-<ul>
-<li>TCP 采用 “客户端 - 服务器”
-模型，需先建立连接（三次握手），再传输数据。</li>
-<li>UDP 无连接，直接发送数据包，无需提前建立连接。</li>
-</ul></li>
+        <p>socket基础概念</p>
+ <span id="more"></span>
+<p>在网络编程中，<strong>Socket（套接字）</strong> 是进程间通信的抽象接口，用于实现不同主机或同一主机内不同进程之间的网络数据传输。它是 TCP/IP 协议栈的编程接口，现代 C++ 网络开发中依然是核心基础（尽管常被封装为更高层库如 Boost.Asio）。</p>
+<h3 id="一、Socket-核心概念">一、Socket 核心概念</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>本质</strong>：Socket 是一个 “文件描述符”（Linux/Unix）或 “句柄”（Windows），代表一个网络通信端点，通过它可进行数据的发送 / 接收。</p>
+</li>
+<li class="lvl-3">
+<p><strong>分类</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5"><strong>流式套接字（SOCK_STREAM）</strong>：基于 TCP 协议，提供可靠、有序、双向的字节流传输（无数据丢失 / 重复，适合文件传输、HTTP 等）。</li>
+<li class="lvl-5"><strong>数据报套接字（SOCK_DGRAM）</strong>：基于 UDP 协议，提供无连接、不可靠的数据包传输（速度快，适合视频通话、DNS 等）。</li>
+<li class="lvl-5"><strong>原始套接字（SOCK_RAW）</strong>：直接操作底层协议（如 IP），用于网络诊断或自定义协议（需管理员权限）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>通信模型</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">TCP 采用 “客户端 - 服务器” 模型，需先建立连接（三次握手），再传输数据。</li>
+<li class="lvl-5">UDP 无连接，直接发送数据包，无需提前建立连接。</li>
+</ul>
+</li>
 </ol>
-<h3 id="二核心函数解析基于-tcp现代-c-视角">二、核心函数解析（基于
-TCP，现代 C++ 视角）</h3>
-<p>以下函数是 TCP
-通信的核心，主要用于服务器端和客户端的连接建立过程。</p>
-<h4 id="socket创建套接字">1. <code>socket()</code>：创建套接字</h4>
+<h3 id="二、核心函数解析（基于-TCP，现代-C-视角）">二、核心函数解析（基于 TCP，现代 C++ 视角）</h3>
+<p>以下函数是 TCP 通信的核心，主要用于服务器端和客户端的连接建立过程。</p>
+<h4 id="1-socket-：创建套接字">1. <code>socket()</code>：创建套接字</h4>
 <p><strong>作用</strong>：初始化一个套接字，返回其描述符（后续操作的句柄）。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数解析</strong>：</p>
-<ul>
-<li><code>domain</code>：地址族（协议族），指定网络层协议。常见值：
-<ul>
-<li><code>AF_INET</code>：IPv4 协议（最常用）。</li>
-<li><code>AF_INET6</code>：IPv6 协议。</li>
-<li><code>AF_UNIX</code>：本地进程间通信（Unix 域套接字）。</li>
-</ul></li>
-<li><code>type</code>：套接字类型，指定传输层协议特性：
-<ul>
-<li><code>SOCK_STREAM</code>：TCP 流式套接字。</li>
-<li><code>SOCK_DGRAM</code>：UDP 数据报套接字。</li>
-</ul></li>
-<li><code>protocol</code>：具体协议（通常为
-0，由系统根据前两个参数自动选择）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>domain</code>：地址族（协议族），指定网络层协议。常见值：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>AF_INET</code>：IPv4 协议（最常用）。</li>
+<li class="lvl-4"><code>AF_INET6</code>：IPv6 协议。</li>
+<li class="lvl-4"><code>AF_UNIX</code>：本地进程间通信（Unix 域套接字）。</li>
 </ul>
-<p><strong>返回值</strong>：成功返回非负套接字描述符（<code>sockfd</code>），失败返回
-- 1（需检查<code>errno</code>）。</p>
-<p><strong>现代 C++ 实践</strong>：
-用智能指针（如<code>std::unique_ptr</code>）配合自定义删除器管理<code>sockfd</code>，避免资源泄漏：</p>
+</li>
+<li class="lvl-2">
+<p><code>type</code>：套接字类型，指定传输层协议特性：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><code>SOCK_STREAM</code>：TCP 流式套接字。</li>
+<li class="lvl-4"><code>SOCK_DGRAM</code>：UDP 数据报套接字。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p><code>protocol</code>：具体协议（通常为 0，由系统根据前两个参数自动选择）。</p>
+</li>
+</ul>
+<p><strong>返回值</strong>：成功返回非负套接字描述符（<code>sockfd</code>），失败返回 - 1（需检查<code>errno</code>）。</p>
+<p><strong>现代 C++ 实践</strong>：用智能指针（如<code>std::unique_ptr</code>）配合自定义删除器管理<code>sockfd</code>，避免资源泄漏：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义删除器：关闭套接字</span></span><br><span class="line"><span class="keyword">auto</span> socket_deleter = [](<span class="type">int</span> fd) &#123; </span><br><span class="line">  <span class="keyword">if</span> (fd != <span class="number">-1</span>) ::<span class="built_in">close</span>(fd); </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">using</span> UniqueSocket = std::unique_ptr&lt;<span class="type">int</span>, <span class="keyword">decltype</span>(socket_deleter)&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建套接字</span></span><br><span class="line"><span class="function">UniqueSocket <span class="title">create_socket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> sockfd = ::<span class="built_in">socket</span>(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> (sockfd == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;socket creation failed: &quot;</span> + std::<span class="built_in">string</span>(<span class="built_in">strerror</span>(errno)));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">UniqueSocket</span>(<span class="keyword">new</span> <span class="built_in">int</span>(sockfd), socket_deleter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="bind绑定地址与端口">2. <code>bind()</code>：绑定地址与端口</h4>
-<p><strong>作用</strong>：将套接字与特定的 IP
-地址和端口号绑定（主要用于服务器端，客户端通常不绑定，由系统自动分配端口）。</p>
+<h4 id="2-bind-：绑定地址与端口">2. <code>bind()</code>：绑定地址与端口</h4>
+<p><strong>作用</strong>：将套接字与特定的 IP 地址和端口号绑定（主要用于服务器端，客户端通常不绑定，由系统自动分配端口）。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr* addr, <span class="type">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数解析</strong>：</p>
-<ul>
-<li><code>sockfd</code>：<code>socket()</code>返回的套接字描述符。</li>
-<li><code>addr</code>：指向地址结构的指针（需根据<code>domain</code>选择对应类型，如
-IPv4 用<code>sockaddr_in</code>）。</li>
-<li><code>addrlen</code>：地址结构的大小（字节数）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sockfd</code>：<code>socket()</code>返回的套接字描述符。</p>
+</li>
+<li class="lvl-2">
+<p><code>addr</code>：指向地址结构的指针（需根据<code>domain</code>选择对应类型，如 IPv4 用<code>sockaddr_in</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>addrlen</code>：地址结构的大小（字节数）。</p>
+</li>
 </ul>
-<p><strong>地址结构处理</strong>（以 IPv4 为例）：
-<code>sockaddr</code>是通用地址结构，实际使用时需转换为具体协议的结构（如<code>sockaddr_in</code>）：</p>
+<p><strong>地址结构处理</strong>（以 IPv4 为例）：<code>sockaddr</code>是通用地址结构，实际使用时需转换为具体协议的结构（如<code>sockaddr_in</code>）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">  <span class="type">sa_family_t</span>     sin_family;  <span class="comment">// 地址族（必须为AF_INET）</span></span><br><span class="line">  <span class="type">uint16_t</span>        sin_port;    <span class="comment">// 端口号（需转换为网络字节序）</span></span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">in_addr</span>  sin_addr;    <span class="comment">// IP地址（需转换为网络字节序）</span></span><br><span class="line">  <span class="type">char</span>            sin_zero[<span class="number">8</span>]; <span class="comment">// 填充字段（通常为0）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>字节序转换</strong>：
-网络协议使用<strong>大端字节序</strong>（网络字节序），而主机可能是小端
-/ 大端，需用函数转换：</p>
-<ul>
-<li><code>htons()</code>：主机字节序→网络字节序（16
-位，用于端口）。</li>
-<li><code>htonl()</code>：主机字节序→网络字节序（32 位，用于 IPv4
-地址）。</li>
-<li><code>inet_pton()</code>：字符串 IP（如
-“127.0.0.1”）→网络字节序的整数（现代 C++
-推荐，替代旧的<code>inet_addr()</code>）。</li>
+<p><strong>字节序转换</strong>：网络协议使用<strong>大端字节序</strong>（网络字节序），而主机可能是小端 / 大端，需用函数转换：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>htons()</code>：主机字节序→网络字节序（16 位，用于端口）。</p>
+</li>
+<li class="lvl-2">
+<p><code>htonl()</code>：主机字节序→网络字节序（32 位，用于 IPv4 地址）。</p>
+</li>
+<li class="lvl-2">
+<p><code>inet_pton()</code>：字符串 IP（如 “127.0.0.1”）→网络字节序的整数（现代 C++ 推荐，替代旧的<code>inet_addr()</code>）。</p>
+</li>
 </ul>
 <p><strong>示例</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 绑定到IPv4地址127.0.0.1:8080</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> server_addr;</span><br><span class="line"><span class="built_in">memset</span>(&amp;server_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(server_addr));</span><br><span class="line">server_addr.sin_family = AF_INET;</span><br><span class="line">server_addr.sin_port = <span class="built_in">htons</span>(<span class="number">8080</span>); <span class="comment">// 端口转换为网络字节序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// IP地址转换（&quot;0.0.0.0&quot;表示监听所有网络接口）</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">inet_pton</span>(AF_INET, <span class="string">&quot;0.0.0.0&quot;</span>, &amp;server_addr.sin_addr) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;invalid IP address: &quot;</span> + std::<span class="built_in">string</span>(<span class="built_in">strerror</span>(errno)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绑定</span></span><br><span class="line"><span class="keyword">if</span> (::<span class="built_in">bind</span>(sockfd, <span class="built_in">reinterpret_cast</span>&lt;<span class="keyword">struct</span> sockaddr*&gt;(&amp;server_addr), <span class="built_in">sizeof</span>(server_addr)) == <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;bind failed: &quot;</span> + std::<span class="built_in">string</span>(<span class="built_in">strerror</span>(errno)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="listen监听连接服务器端">3.
-<code>listen()</code>：监听连接（服务器端）</h4>
-<p><strong>作用</strong>：将套接字转为
-“监听状态”，允许接收客户端的连接请求（仅用于 TCP
-服务器端的<code>sockfd</code>）。</p>
+<h4 id="3-listen-：监听连接（服务器端）">3. <code>listen()</code>：监听连接（服务器端）</h4>
+<p><strong>作用</strong>：将套接字转为 “监听状态”，允许接收客户端的连接请求（仅用于 TCP 服务器端的<code>sockfd</code>）。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">listen</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数解析</strong>：</p>
-<ul>
-<li><code>sockfd</code>：已绑定的套接字描述符（<code>bind()</code>之后）。</li>
-<li><code>backlog</code>：未完成连接队列（三次握手未完成）的最大长度（超过则客户端连接失败）。实际值受系统限制（如<code>/proc/sys/net/core/somaxconn</code>），现代系统通常建议设为
-128 或更高。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sockfd</code>：已绑定的套接字描述符（<code>bind()</code>之后）。</p>
+</li>
+<li class="lvl-2">
+<p><code>backlog</code>：未完成连接队列（三次握手未完成）的最大长度（超过则客户端连接失败）。实际值受系统限制（如<code>/proc/sys/net/core/somaxconn</code>），现代系统通常建议设为 128 或更高。</p>
+</li>
 </ul>
 <p><strong>返回值</strong>：成功返回 0，失败返回 - 1。</p>
-<p><strong>注意</strong>：
-<code>listen()</code>不阻塞，仅设置套接字状态。后续需通过<code>accept()</code>获取实际连接。</p>
-<h4 id="accept接受连接服务器端">4.
-<code>accept()</code>：接受连接（服务器端）</h4>
+<p><strong>注意</strong>：<code>listen()</code>不阻塞，仅设置套接字状态。后续需通过<code>accept()</code>获取实际连接。</p>
+<h4 id="4-accept-：接受连接（服务器端）">4. <code>accept()</code>：接受连接（服务器端）</h4>
 <p><strong>作用</strong>：从<code>listen()</code>创建的连接队列中取出一个已完成的连接，返回一个<strong>新的套接字描述符</strong>（用于与该客户端通信）。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">accept</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr* addr, <span class="type">socklen_t</span>* addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数解析</strong>：</p>
-<ul>
-<li><code>sockfd</code>：处于监听状态的套接字（监听套接字）。</li>
-<li><code>addr</code>：输出参数，用于存储客户端的地址信息（可设为<code>nullptr</code>忽略）。</li>
-<li><code>addrlen</code>：输入输出参数，传入<code>addr</code>的大小，输出实际存储的地址长度（可设为<code>nullptr</code>）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sockfd</code>：处于监听状态的套接字（监听套接字）。</p>
+</li>
+<li class="lvl-2">
+<p><code>addr</code>：输出参数，用于存储客户端的地址信息（可设为<code>nullptr</code>忽略）。</p>
+</li>
+<li class="lvl-2">
+<p><code>addrlen</code>：输入输出参数，传入<code>addr</code>的大小，输出实际存储的地址长度（可设为<code>nullptr</code>）。</p>
+</li>
 </ul>
-<p><strong>返回值</strong>：成功返回新的套接字描述符（<code>client_fd</code>，用于与客户端通信），失败返回
-- 1。</p>
-<p><strong>特性</strong>：
-<code>accept()</code>默认是<strong>阻塞函数</strong>，直到有客户端连接到达才返回。现代
-C++ 中可结合非阻塞 I/O
-或多线程处理（如用<code>std::thread</code>为每个新连接创建线程）。</p>
+<p><strong>返回值</strong>：成功返回新的套接字描述符（<code>client_fd</code>，用于与客户端通信），失败返回 - 1。</p>
+<p><strong>特性</strong>：<code>accept()</code>默认是<strong>阻塞函数</strong>，直到有客户端连接到达才返回。现代 C++ 中可结合非阻塞 I/O 或多线程处理（如用<code>std::thread</code>为每个新连接创建线程）。</p>
 <p><strong>示例</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> client_addr;</span><br><span class="line"><span class="type">socklen_t</span> client_addr_len = <span class="built_in">sizeof</span>(client_addr);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻塞等待客户端连接</span></span><br><span class="line"><span class="type">int</span> client_fd = ::<span class="built_in">accept</span>(listen_fd, <span class="built_in">reinterpret_cast</span>&lt;<span class="keyword">struct</span> sockaddr*&gt;(&amp;client_addr), &amp;client_addr_len);</span><br><span class="line"><span class="keyword">if</span> (client_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;accept failed: &quot;</span> + std::<span class="built_in">string</span>(<span class="built_in">strerror</span>(errno)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印客户端信息（将网络字节序转为字符串）</span></span><br><span class="line"><span class="type">char</span> client_ip[INET_ADDRSTRLEN];</span><br><span class="line"><span class="built_in">inet_ntop</span>(AF_INET, &amp;client_addr.sin_addr, client_ip, INET_ADDRSTRLEN);</span><br><span class="line"><span class="type">uint16_t</span> client_port = <span class="built_in">ntohs</span>(client_addr.sin_port); <span class="comment">// 网络字节序→主机字节序</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;New connection from &quot;</span> &lt;&lt; client_ip &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; client_port &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<h4 id="connect发起连接客户端">5.
-<code>connect()</code>：发起连接（客户端）</h4>
-<p><strong>作用</strong>：客户端通过该函数向服务器发起 TCP
-连接（三次握手的触发点）。</p>
+<h4 id="5-connect-：发起连接（客户端）">5. <code>connect()</code>：发起连接（客户端）</h4>
+<p><strong>作用</strong>：客户端通过该函数向服务器发起 TCP 连接（三次握手的触发点）。</p>
 <p><strong>函数原型</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">connect</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr* addr, <span class="type">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><strong>参数解析</strong>：</p>
-<ul>
-<li><code>sockfd</code>：客户端的套接字描述符（<code>socket()</code>创建，通常不<code>bind()</code>）。</li>
-<li><code>addr</code>：服务器的地址结构（包含服务器 IP 和端口）。</li>
-<li><code>addrlen</code>：服务器地址结构的大小。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>sockfd</code>：客户端的套接字描述符（<code>socket()</code>创建，通常不<code>bind()</code>）。</p>
+</li>
+<li class="lvl-2">
+<p><code>addr</code>：服务器的地址结构（包含服务器 IP 和端口）。</p>
+</li>
+<li class="lvl-2">
+<p><code>addrlen</code>：服务器地址结构的大小。</p>
+</li>
 </ul>
-<p><strong>返回值</strong>：成功返回 0（连接建立），失败返回 -
-1（如服务器未监听、网络不可达等）。</p>
-<p><strong>特性</strong>：
-默认是阻塞函数，直到连接建立或失败才返回。非阻塞模式下，可能返回<code>EINPROGRESS</code>（连接正在建立），需通过<code>select()</code>/<code>poll()</code>等检查状态。</p>
+<p><strong>返回值</strong>：成功返回 0（连接建立），失败返回 - 1（如服务器未监听、网络不可达等）。</p>
+<p><strong>特性</strong>：默认是阻塞函数，直到连接建立或失败才返回。非阻塞模式下，可能返回<code>EINPROGRESS</code>（连接正在建立），需通过<code>select()</code>/<code>poll()</code>等检查状态。</p>
 <p><strong>示例</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 客户端连接服务器（127.0.0.1:8080）</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> server_addr;</span><br><span class="line"><span class="built_in">memset</span>(&amp;server_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(server_addr));</span><br><span class="line">server_addr.sin_family = AF_INET;</span><br><span class="line">server_addr.sin_port = <span class="built_in">htons</span>(<span class="number">8080</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转换服务器IP</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">inet_pton</span>(AF_INET, <span class="string">&quot;127.0.0.1&quot;</span>, &amp;server_addr.sin_addr) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;invalid server IP&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发起连接</span></span><br><span class="line"><span class="keyword">if</span> (::<span class="built_in">connect</span>(client_fd, <span class="built_in">reinterpret_cast</span>&lt;<span class="keyword">struct</span> sockaddr*&gt;(&amp;server_addr), <span class="built_in">sizeof</span>(server_addr)) == <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;connect failed: &quot;</span> + std::<span class="built_in">string</span>(<span class="built_in">strerror</span>(errno)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三现代-c-最佳实践">三、现代 C++ 最佳实践</h3>
-<ol type="1">
-<li><strong>资源管理</strong>：用
-RAII（如智能指针、自定义封装类）管理<code>sockfd</code>，避免手动<code>close()</code>导致的泄漏。</li>
-<li><strong>错误处理</strong>：用异常（<code>std::runtime_error</code>）替代传统的<code>if-else</code>检查，提高代码可读性。</li>
-<li><strong>类型安全</strong>：用<code>reinterpret_cast</code>显式转换地址结构，避免隐式转换错误。</li>
-<li><strong>异步操作</strong>：结合 Boost.Asio 或 C++20
-的<code>std::net</code>（提案阶段）实现非阻塞 I/O，避免线程阻塞。</li>
-<li><strong>跨平台</strong>：封装系统差异（如 Windows
-的<code>WSASend</code>与 Linux
-的<code>send</code>），用条件编译或跨平台库。</li>
+<h3 id="三、现代-C-最佳实践">三、现代 C++ 最佳实践</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>资源管理</strong>：用 RAII（如智能指针、自定义封装类）管理<code>sockfd</code>，避免手动<code>close()</code>导致的泄漏。</p>
+</li>
+<li class="lvl-3">
+<p><strong>错误处理</strong>：用异常（<code>std::runtime_error</code>）替代传统的<code>if-else</code>检查，提高代码可读性。</p>
+</li>
+<li class="lvl-3">
+<p><strong>类型安全</strong>：用<code>reinterpret_cast</code>显式转换地址结构，避免隐式转换错误。</p>
+</li>
+<li class="lvl-3">
+<p><strong>异步操作</strong>：结合 Boost.Asio 或 C++20 的<code>std::net</code>（提案阶段）实现非阻塞 I/O，避免线程阻塞。</p>
+</li>
+<li class="lvl-3">
+<p><strong>跨平台</strong>：封装系统差异（如 Windows 的<code>WSASend</code>与 Linux 的<code>send</code>），用条件编译或跨平台库。</p>
+</li>
 </ol>
-<h3 id="四总结">四、总结</h3>
-<p><code>socket()</code>/<code>bind()</code>/<code>listen()</code>/<code>accept()</code>/<code>connect()</code>是
-TCP 通信的
-“骨架”：服务器通过<code>socket()</code>创建套接字→<code>bind()</code>绑定地址→<code>listen()</code>监听→<code>accept()</code>接受连接；客户端通过<code>socket()</code>创建套接字→<code>connect()</code>连接服务器。理解这些函数的参数和交互流程，是掌握网络编程的基础。现代
-C++
-通过封装和抽象（如智能指针、异常），可让这些底层操作更安全、易维护。</p>
+<h3 id="四、总结">四、总结</h3>
+<p><code>socket()</code>/<code>bind()</code>/<code>listen()</code>/<code>accept()</code>/<code>connect()</code>是 TCP 通信的 “骨架”：服务器通过<code>socket()</code>创建套接字→<code>bind()</code>绑定地址→<code>listen()</code>监听→<code>accept()</code>接受连接；客户端通过<code>socket()</code>创建套接字→<code>connect()</code>连接服务器。理解这些函数的参数和交互流程，是掌握网络编程的基础。现代 C++ 通过封装和抽象（如智能指针、异常），可让这些底层操作更安全、易维护。</p>
 <h3 id="附-socket-选项">附: socket 选项</h3>
 <table>
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 7%" />
-<col style="width: 32%" />
-<col style="width: 9%" />
-<col style="width: 32%" />
-</colgroup>
 <thead>
 <tr>
 <th>选项名</th>
@@ -512,8 +509,7 @@ C++
 <td>struct linger</td>
 <td>控制 close 时的延迟关闭行为（等待未发送数据）</td>
 <td>get/set</td>
-<td>struct linger {int l_onoff; int l_linger;}，l_onoff=1 启用，l_linger
-为等待秒数</td>
+<td>struct linger {int l_onoff; int l_linger;}，l_onoff=1 启用，l_linger 为等待秒数</td>
 </tr>
 <tr>
 <td>SO_PASSCRED</td>
@@ -644,13 +640,16 @@ C++
 </tbody>
 </table>
 <h3 id="说明">说明</h3>
-<ol type="1">
-<li>选项级别说明：<code>SOL_SOCKET</code>为通用选项，<code>IPPROTO_IP</code>为
-IPv4 协议选项，<code>IPPROTO_TCP</code>为 TCP
-协议选项，还有<code>IPPROTO_UDP</code>（UDP 选项，较少用）等。</li>
-<li>部分选项为系统特定（如<code>SO_REUSEPORT</code>在不同 OS
-上行为可能不同），使用前需参考目标系统的<code>man</code>手册。</li>
-<li>多播相关选项（如<code>IP_ADD_MEMBERSHIP</code>）需结合多播地址（224.0.0.0~239.255.255.255）使用。</li>
+<ol>
+<li class="lvl-3">
+<p>选项级别说明：<code>SOL_SOCKET</code>为通用选项，<code>IPPROTO_IP</code>为 IPv4 协议选项，<code>IPPROTO_TCP</code>为 TCP 协议选项，还有<code>IPPROTO_UDP</code>（UDP 选项，较少用）等。</p>
+</li>
+<li class="lvl-3">
+<p>部分选项为系统特定（如<code>SO_REUSEPORT</code>在不同 OS 上行为可能不同），使用前需参考目标系统的<code>man</code>手册。</p>
+</li>
+<li class="lvl-3">
+<p>多播相关选项（如<code>IP_ADD_MEMBERSHIP</code>）需结合多播地址（224.0.0.0~239.255.255.255）使用。</p>
+</li>
 </ol>
 
     </div>
@@ -740,11 +739,7 @@ IPv4 协议选项，<code>IPPROTO_TCP</code>为 TCP
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80socket-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、Socket 核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90%E5%9F%BA%E4%BA%8E-tcp%E7%8E%B0%E4%BB%A3-c-%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">二、核心函数解析（基于
-TCP，现代 C++ 视角）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#socket%E5%88%9B%E5%BB%BA%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">2.1.</span> <span class="nav-text">1. socket()：创建套接字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind%E7%BB%91%E5%AE%9A%E5%9C%B0%E5%9D%80%E4%B8%8E%E7%AB%AF%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">2. bind()：绑定地址与端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#listen%E7%9B%91%E5%90%AC%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="nav-number">2.3.</span> <span class="nav-text">3.
-listen()：监听连接（服务器端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#accept%E6%8E%A5%E5%8F%97%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="nav-number">2.4.</span> <span class="nav-text">4.
-accept()：接受连接（服务器端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect%E5%8F%91%E8%B5%B7%E8%BF%9E%E6%8E%A5%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.5.</span> <span class="nav-text">5.
-connect()：发起连接（客户端）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%8E%B0%E4%BB%A3-c-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">三、现代 C++ 最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">四、总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84-socket-%E9%80%89%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">附: socket 选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">说明</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Socket-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、Socket 核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90%EF%BC%88%E5%9F%BA%E4%BA%8E-TCP%EF%BC%8C%E7%8E%B0%E4%BB%A3-C-%E8%A7%86%E8%A7%92%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、核心函数解析（基于 TCP，现代 C++ 视角）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-socket-%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">2.1.</span> <span class="nav-text">1. socket()：创建套接字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-bind-%EF%BC%9A%E7%BB%91%E5%AE%9A%E5%9C%B0%E5%9D%80%E4%B8%8E%E7%AB%AF%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">2. bind()：绑定地址与端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-listen-%EF%BC%9A%E7%9B%91%E5%90%AC%E8%BF%9E%E6%8E%A5%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">3. listen()：监听连接（服务器端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-accept-%EF%BC%9A%E6%8E%A5%E5%8F%97%E8%BF%9E%E6%8E%A5%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">4. accept()：接受连接（服务器端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-connect-%EF%BC%9A%E5%8F%91%E8%B5%B7%E8%BF%9E%E6%8E%A5%EF%BC%88%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">5. connect()：发起连接（客户端）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%8E%B0%E4%BB%A3-C-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">三、现代 C++ 最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">四、总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84-socket-%E9%80%89%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">附: socket 选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">说明</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -821,7 +816,7 @@ connect()：发起连接（客户端）</span></a></li></ol></li><li class="nav-
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

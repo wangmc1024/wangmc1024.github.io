@@ -201,14 +201,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -220,71 +220,108 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h1 id="寻找函数渐近线的方法">寻找函数渐近线的方法</h1>
+<h1>寻找函数渐近线的方法</h1>
 <p>渐近线是指当曲线上的点沿曲线无限远离原点时，该点与某条直线的距离趋近于零的直线，主要分为<strong>垂直渐近线</strong>、<strong>水平渐近线</strong>和<strong>斜渐近线</strong>三类。考研数学中需掌握这三类渐近线的定义、判定条件和求解步骤，以下是结构化的方法梳理：</p>
-<h2 id="一垂直渐近线">一、垂直渐近线</h2>
+<h2 id="一、垂直渐近线">一、垂直渐近线</h2>
 <h3 id="定义">定义</h3>
-<p>若函数 ( f(x) ) 在 ( x = x_0 ) 处满足： [ <em>{x x_0^+} f(x) =
-</em>{x x_0^-} f(x) = ] 则直线 ( x = x_0 ) 为 ( f(x) )
-的<strong>垂直渐近线</strong>。</p>
+<p>若函数 ( f(x) ) 在 ( x = x_0 ) 处满足：<br>
+[<br>
+\lim_{x \to x_0^+} f(x) = \pm\infty \quad \text{或} \quad \lim_{x \to x_0^-} f(x) = \pm\infty<br>
+]<br>
+则直线 ( x = x_0 ) 为 ( f(x) ) 的<strong>垂直渐近线</strong>。</p>
 <h3 id="求解步骤">求解步骤</h3>
-<ol type="1">
-<li><strong>确定间断点</strong>：找出函数 ( f(x) )
-的无定义点、分段函数的分段点、使分母为零的点等（这些是垂直渐近线的候选点）。</li>
-<li><strong>计算单侧极限</strong>：对每个候选点 ( x_0 )，计算 ( x x_0^+
-) 和 ( x x_0^- ) 时 ( f(x) ) 的极限，若单侧极限为 ( )，则 ( x = x_0 )
-是垂直渐近线。</li>
+<ol>
+<li class="lvl-3">
+<p><strong>确定间断点</strong>：找出函数 ( f(x) ) 的无定义点、分段函数的分段点、使分母为零的点等（这些是垂直渐近线的候选点）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>计算单侧极限</strong>：对每个候选点 ( x_0 )，计算 ( x \to x_0^+ ) 和 ( x \to x_0^- ) 时 ( f(x) ) 的极限，若单侧极限为 ( \pm\infty )，则 ( x = x_0 ) 是垂直渐近线。</p>
+</li>
 </ol>
 <h3 id="例子">例子</h3>
-<p>求 ( f(x) = + x ) 的垂直渐近线： - 无定义点：( x = 0 )、( x = 1 )。 -
-( <em>{x ^+} x = -)，故 ( x = 0 ) 是垂直渐近线； - ( </em>{x ^+} = +)，(
-_{x ^-} = -)，故 ( x = 1 ) 是垂直渐近线。</p>
-<h2 id="二水平渐近线">二、水平渐近线</h2>
-<h3 id="定义-1">定义</h3>
-<p>若函数 ( f(x) ) 满足： [ <em>{x +} f(x) = C </em>{x -} f(x) = C (C )
-] 则直线 ( y = C ) 为 ( f(x) ) 的<strong>水平渐近线</strong>。</p>
-<h3 id="关键说明">关键说明</h3>
-<ul>
-<li>( x +) 和 ( x -)
-的极限可能不同，因此一个函数可能有<strong>两条水平渐近线</strong>（如 (
-f(x) = x )）。</li>
-<li>若 ( x +) 时存在水平渐近线，则 ( x +)
-方向一定不存在斜渐近线（因为水平渐近线对应斜渐近线中 ( k = 0
-)，而斜渐近线要求 ( k )）。</li>
+<p>求 ( f(x) = \frac{1}{x-1} + \ln x ) 的垂直渐近线：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>无定义点：( x = 0 )、( x = 1 )。</p>
+</li>
+<li class="lvl-2">
+<p>( \lim_{x \to 0^+} \ln x = -\infty )，故 ( x = 0 ) 是垂直渐近线；</p>
+</li>
+<li class="lvl-2">
+<p>( \lim_{x \to 1^+} \frac{1}{x-1} = +\infty )，( \lim_{x \to 1^-} \frac{1}{x-1} = -\infty )，故 ( x = 1 ) 是垂直渐近线。</p>
+</li>
 </ul>
-<h3 id="例子-1">例子</h3>
-<p>求 ( f(x) = + e^{-x} ) 的水平渐近线： - ( <em>{x +} ( + e^{-x} ) = 2
-+ 0 = 2 )，故 ( y = 2 ) 是水平渐近线； - ( </em>{x -} ( + e^{-x} ) = 2 +
-= )，无水平渐近线。</p>
-<h2 id="三斜渐近线">三、斜渐近线</h2>
+<h2 id="二、水平渐近线">二、水平渐近线</h2>
 <h3 id="定义-2">定义</h3>
-<p>若函数 ( f(x) ) 满足： [ <em>{x +} [f(x) - (kx + b)] = 0 </em>{x -}
-[f(x) - (kx + b)] = 0 (k ) ] 其中 ( k = <em>{x +} )，( b = </em>{x +}
-[f(x) - kx] )（( x -) 时同理），则直线 ( y = kx + b ) 为 ( f(x) )
-的<strong>斜渐近线</strong>。</p>
-<h3 id="求解步骤-1">求解步骤</h3>
-<ol type="1">
-<li>计算斜率 ( k )：( k = _{x } )，==若 ( k = 0 )
-或极限不存在==，则该方向无斜渐近线；</li>
-<li>若 ( k )，计算截距 ( b )：( b = _{x } [f(x) - kx] )；</li>
-<li>若 ( b ) 为常数，则 ( y = kx + b ) 是斜渐近线。</li>
-</ol>
+<p>若函数 ( f(x) ) 满足：<br>
+[<br>
+\lim_{x \to +\infty} f(x) = C \quad \text{或} \quad \lim_{x \to -\infty} f(x) = C \quad (C \text{为常数})<br>
+]<br>
+则直线 ( y = C ) 为 ( f(x) ) 的<strong>水平渐近线</strong>。</p>
+<h3 id="关键说明">关键说明</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>( x \to +\infty ) 和 ( x \to -\infty ) 的极限可能不同，因此一个函数可能有<strong>两条水平渐近线</strong>（如 ( f(x) = \arctan x )）。</p>
+</li>
+<li class="lvl-2">
+<p>若 ( x \to +\infty ) 时存在水平渐近线，则 ( x \to +\infty ) 方向一定不存在斜渐近线（因为水平渐近线对应斜渐近线中 ( k = 0 )，而斜渐近线要求 ( k \neq 0 )）。</p>
+</li>
+</ul>
 <h3 id="例子-2">例子</h3>
-<p>求 ( f(x) = ) 的斜渐近线： 1. 计算 ( k )：( k = <em>{x } = </em>{x }
-= 1 )； 2. 计算 ( b )：( b = <em>{x } ( - x ) = </em>{x } = 2 )； 3.
-因此斜渐近线为 ( y = x + 2 )。</p>
-<h2 id="四寻找渐近线的通用流程">四、寻找渐近线的通用流程</h2>
-<ol type="1">
-<li><strong>找垂直渐近线</strong>：列出函数的间断点，计算每个间断点的单侧极限，判断是否为
-( )；</li>
-<li><strong>找水平渐近线</strong>：计算 ( x +) 和 ( x -) 时 ( f(x) )
-的极限，若为常数则得到水平渐近线；</li>
-<li><strong>找斜渐近线</strong>：对无水平渐近线的方向，计算 ( k ) 和 ( b
-)，判断是否存在斜渐近线。</li>
+<p>求 ( f(x) = \frac{2x}{x+1} + e^{-x} ) 的水平渐近线：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>( \lim_{x \to +\infty} \left( \frac{2x}{x+1} + e^{-x} \right) = 2 + 0 = 2 )，故 ( y = 2 ) 是水平渐近线；</p>
+</li>
+<li class="lvl-2">
+<p>( \lim_{x \to -\infty} \left( \frac{2x}{x+1} + e^{-x} \right) = 2 + \infty = \infty )，无水平渐近线。</p>
+</li>
+</ul>
+<h2 id="三、斜渐近线">三、斜渐近线</h2>
+<h3 id="定义-3">定义</h3>
+<p>若函数 ( f(x) ) 满足：<br>
+[<br>
+\lim_{x \to +\infty} [f(x) - (kx + b)] = 0 \quad \text{或} \quad \lim_{x \to -\infty} [f(x) - (kx + b)] = 0 \quad (k \neq 0)<br>
+]<br>
+其中 ( k = \lim_{x \to +\infty} \frac{f(x)}{x} )，( b = \lim_{x \to +\infty} [f(x) - kx] )（( x \to -\infty ) 时同理），则直线 ( y = kx + b ) 为 ( f(x) ) 的<strong>斜渐近线</strong>。</p>
+<h3 id="求解步骤-2">求解步骤</h3>
+<ol>
+<li class="lvl-3">
+<p>计算斜率 ( k )：( k = \lim_{x \to \pm\infty} \frac{f(x)}{x} )，<mark>若 ( k = 0 ) 或极限不存在</mark>，则该方向无斜渐近线；</p>
+</li>
+<li class="lvl-3">
+<p>若 ( k \neq 0 )，计算截距 ( b )：( b = \lim_{x \to \pm\infty} [f(x) - kx] )；</p>
+</li>
+<li class="lvl-3">
+<p>若 ( b ) 为常数，则 ( y = kx + b ) 是斜渐近线。</p>
+</li>
+</ol>
+<h3 id="例子-3">例子</h3>
+<p>求 ( f(x) = \frac{x^2 + x - 1}{x - 1} ) 的斜渐近线：</p>
+<ol>
+<li class="lvl-3">
+<p>计算 ( k )：( k = \lim_{x \to \infty} \frac{x^2 + x - 1}{x(x - 1)} = \lim_{x \to \infty} \frac{x^2 + x - 1}{x^2 - x} = 1 )；</p>
+</li>
+<li class="lvl-3">
+<p>计算 ( b )：( b = \lim_{x \to \infty} \left( \frac{x^2 + x - 1}{x - 1} - x \right) = \lim_{x \to \infty} \frac{2x - 1}{x - 1} = 2 )；</p>
+</li>
+<li class="lvl-3">
+<p>因此斜渐近线为 ( y = x + 2 )。</p>
+</li>
+</ol>
+<h2 id="四、寻找渐近线的通用流程">四、寻找渐近线的通用流程</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>找垂直渐近线</strong>：列出函数的间断点，计算每个间断点的单侧极限，判断是否为 ( \pm\infty )；</p>
+</li>
+<li class="lvl-3">
+<p><strong>找水平渐近线</strong>：计算 ( x \to +\infty ) 和 ( x \to -\infty ) 时 ( f(x) ) 的极限，若为常数则得到水平渐近线；</p>
+</li>
+<li class="lvl-3">
+<p><strong>找斜渐近线</strong>：对无水平渐近线的方向，计算 ( k ) 和 ( b )，判断是否存在斜渐近线。</p>
+</li>
 </ol>
 
     </div>
@@ -368,7 +405,7 @@ f(x) = x )）。</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%87%BD%E6%95%B0%E6%B8%90%E8%BF%91%E7%BA%BF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">寻找函数渐近线的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%9E%82%E7%9B%B4%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">一、垂直渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">求解步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%B0%B4%E5%B9%B3%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">二、水平渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.</span> <span class="nav-text">关键说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%96%9C%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">三、斜渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">求解步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%AF%BB%E6%89%BE%E6%B8%90%E8%BF%91%E7%BA%BF%E7%9A%84%E9%80%9A%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">四、寻找渐近线的通用流程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">寻找函数渐近线的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9E%82%E7%9B%B4%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">一、垂直渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">求解步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B0%B4%E5%B9%B3%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">二、水平渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.</span> <span class="nav-text">关键说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-2"><span class="nav-number">1.2.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%9C%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">三、斜渐近线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">求解步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-3"><span class="nav-number">1.3.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AF%BB%E6%89%BE%E6%B8%90%E8%BF%91%E7%BA%BF%E7%9A%84%E9%80%9A%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">四、寻找渐近线的通用流程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -445,7 +482,7 @@ f(x) = x )）。</li>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

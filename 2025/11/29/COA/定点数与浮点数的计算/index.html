@@ -217,7 +217,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -236,177 +236,332 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h1 id="定点数与浮点数计算题目整理知识点题目讲解">408
-定点数与浮点数计算题目整理（知识点+题目+讲解）</h1>
-<h2
-id="一定点数计算核心考点原反补移码表示加减运算溢出判断">一、定点数计算（核心考点：原/反/补/移码表示、加减运算、溢出判断）</h2>
+<h1>408 定点数与浮点数计算题目整理（知识点+题目+讲解）</h1>
+<h2 id="一、定点数计算（核心考点：原-反-补-移码表示、加减运算、溢出判断）">一、定点数计算（核心考点：原/反/补/移码表示、加减运算、溢出判断）</h2>
 <h3 id="知识点铺垫">知识点铺垫</h3>
-<ol type="1">
-<li><strong>表示规则</strong>：
-<ul>
-<li>原码：符号位+数值位（正数符号位0，负数1，数值位为绝对值）；</li>
-<li>反码：正数与原码一致，负数符号位不变，数值位按位取反；</li>
-<li>补码：正数与原码一致，负数=反码+1（模2ⁿ，n为数值位位数）；</li>
-<li>移码：补码符号位取反（仅用于浮点数阶码，便于比较大小）。</li>
-</ul></li>
-<li><strong>加减运算</strong>：补码运算核心——“减法变加法”，即
-<code>x - y = [x]补 + [-y]补</code>，结果仍为补码，需验证溢出。</li>
-<li><strong>溢出判断</strong>：
-<ul>
-<li>双符号位法（模4补码）：结果符号位为01（正溢出）、10（负溢出）；</li>
-<li>单符号位法：符号位进位≠最高数值位进位（溢出）。</li>
-</ul></li>
-</ol>
-<h3
-id="题目1定点数原反补移码转换408高频基础题">题目1：定点数原/反/补/移码转换（408高频基础题）</h3>
-<h4 id="题目描述">题目描述</h4>
-<p>设机器字长为8位（含1位符号位），请写出十进制数 <code>x = +53</code>
-和 <code>y = -47</code> 的原码、反码、补码和移码。</p>
-<h4 id="讲解与解答">讲解与解答</h4>
-<p>第一步：将十进制数转换为二进制绝对值（7位数值位）： - 53₁₀ = 64 - 11
-= 64 - 8 - 2 - 1 = 0110101₂（7位数值位：0110101）； - 47₁₀ = 32 + 8 + 4
-+ 2 + 1 = 0101111₂（7位数值位：0101111）。</p>
-<p>第二步：按表示规则计算各码制： | 数值 | 原码（符号位+数值位） |
-反码（正数同原码，负数取反） | 补码（负数反码+1） |
-移码（补码符号位取反） | |——–|————————|——————————–|——————–|————————| |
-+53 | 00110101 | 00110101 | 00110101 | 10110101 | | -47 | 10101111 |
-11010000（符号位不变，数值位取反） | 11010001（反码+1） |
-01010001（补码符号位取反） |</p>
-<p><strong>关键注意</strong>：移码仅关注补码符号位反转，数值位不变；负数补码计算时若反码末位为1，需注意进位（如-47反码11010000，+1后为11010001，无连续进位）。</p>
-<h3
-id="题目2补码加法运算与溢出判断408必考题型">题目2：补码加法运算与溢出判断（408必考题型）</h3>
-<h4 id="题目描述-1">题目描述</h4>
-<p>设机器字长为8位（含1位符号位），用补码计算 <code>x + y</code> 和
-<code>x - y</code>，并判断是否溢出（x=+35，y=+28）。</p>
-<h4 id="讲解与解答-1">讲解与解答</h4>
-<p>第一步：计算
-<code>[x]补</code>、<code>[y]补</code>、<code>[-y]补</code>： -
-x=+35₁₀=0100011₂ → [x]补=00100011； - y=+28₁₀=0011100₂ →
-[y]补=00011100； - [-y]补：先取[y]补的反码（11100011），再加1 →
-11100100。</p>
-<p>第二步：计算 <code>x + y = [x]补 + [y]补</code>： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  00100011  （[x]补）</span><br><span class="line">+ 00011100  （[y]补）</span><br><span class="line">= 00111111  （结果补码）</span><br></pre></td></tr></table></figure> -
-符号位为0（正数），双符号位验证（扩展为00 111111），无溢出； -
-转换为十进制：0111111₂=63₁₀，正确。</p>
-<p>第三步：计算 <code>x - y = [x]补 + [-y]补</code>： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  00100011  （[x]补）</span><br><span class="line">+ 11100100  （[-y]补）</span><br><span class="line">= 11111111  （结果补码）</span><br></pre></td></tr></table></figure> -
-结果补码为11111111，转换为原码：符号位1，数值位取反+1 →
-10000001（-1₁₀）； - 双符号位验证（00 + 11 = 11
-111111），无溢出，正确（35-28=7？此处计算错误！重新核对：） →
-修正：35的二进制为0100011（7位），补码为00100011；28的二进制为0011100，[-y]补为11100100。
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  00100011</span><br><span class="line">+ 11100100</span><br><span class="line">= 100000111  （8位机器字长，舍弃最高位进位1）</span><br><span class="line">→ 结果为00000111（补码），对应十进制7₁₀，正确！</span><br></pre></td></tr></table></figure> -
-溢出判断：单符号位法——符号位进位1，最高数值位进位1，进位一致，无溢出。</p>
-<p><strong>核心技巧</strong>：补码运算时，机器字长固定，超出位数的进位直接舍弃；溢出判断优先用双符号位法（直观不易错）。</p>
-<h2
-id="二浮点数计算核心考点ieee-754标准规格化加减运算溢出判断">二、浮点数计算（核心考点：IEEE
-754标准、规格化、加减运算、溢出判断）</h2>
-<h3 id="知识点铺垫-1">知识点铺垫</h3>
-<ol type="1">
-<li><strong>浮点数表示</strong>：<code>N = (-1)^S × M × 2^E</code>，其中：
-<ul>
-<li>S（符号位）：0正1负；</li>
-<li>M（尾数）：定点小数，规格化形式为
-<code>1.xxxx</code>（二进制），隐含整数位1（IEEE 754标准）；</li>
-<li>E（阶码）：移码表示，IEEE
-754单精度（32位）阶码偏移量为127，双精度（64位）为1023。</li>
-</ul></li>
-<li><strong>IEEE 754标准（32位单精度）</strong>：
-<ul>
-<li>格式：1位符号位（S）+ 8位阶码（E）+ 23位尾数（M）；</li>
-<li>阶码：<code>E = 移码 - 127</code>（移码=E_true + 127）；</li>
-<li>尾数：<code>M = 1 + 小数部分</code>（小数部分为23位存储值）。</li>
-</ul></li>
-<li><strong>浮点数加减运算步骤</strong>：
-<ol type="1">
-<li>对阶：小阶向大阶看齐（尾数右移，阶码增大，保持数值不变）；</li>
-<li>尾数加减：按定点小数补码运算；</li>
-<li>规格化：尾数调整为 <code>1.xxxx</code> 形式（左规/右规）；</li>
-<li>舍入：尾数超出位数时处理（0舍1入法）；</li>
-<li>溢出判断：阶码溢出（超过最大阶码为上溢，低于最小阶码为下溢）。</li>
-</ol></li>
-</ol>
-<h3 id="题目4ieee-754单精度浮点数表示408高频题">题目4：IEEE
-754单精度浮点数表示（408高频题）</h3>
-<h4 id="题目描述-2">题目描述</h4>
-<p>将十进制数 <code>x = +13.25</code> 转换为IEEE
-754单精度（32位）浮点数，写出二进制表示和十六进制表示。</p>
-<h4 id="讲解与解答-2">讲解与解答</h4>
-<p>第一步：将十进制数转换为二进制规格化形式： - 整数部分：13₁₀ = 1101₂；
-- 小数部分：0.25₁₀ = 0.01₂； - 合并：13.25₁₀ = 1101.01₂ = 1.10101 ×
-2³（规格化形式，M=1.10101，E_true=3）。</p>
-<p>第二步：确定各字段值： - 符号位S：正数→S=0； - 阶码E：移码=E_true +
-127 = 3 + 127 = 130₁₀ = 10000010₂（8位）； -
-尾数M：存储小数部分（隐含整数位1），即1.10101的小数部分10101，补0至23位→10101000000000000000000。</p>
-<p>第三步：拼接32位浮点数： - 二进制：0 10000010
-10101000000000000000000； - 十六进制：将二进制每4位分组→0100 0001 0101
-0100 0000 0000 0000 0000 → 0x41540000。</p>
-<p><strong>关键注意</strong>：IEEE
-754尾数隐含整数位1，仅存储小数部分；阶码偏移量单精度127、双精度1023是固定值，必须牢记。</p>
-<h3
-id="题目5浮点数加减运算408必考综合题">题目5：浮点数加减运算（408必考综合题）</h3>
-<h4 id="题目描述-3">题目描述</h4>
-<p>设两个IEEE
-754单精度浮点数A和B，其十六进制表示分别为A=0x41360000，B=0x40E80000，计算A+B的结果（要求写出完整步骤）。</p>
-<h4 id="讲解与解答-3">讲解与解答</h4>
-<p>第一步：解析A和B的IEEE 754格式（32位：S+E+M）： -
-先将十六进制转换为二进制： - A=0x41360000 → 0 10000010
-01101100000000000000000； - B=0x40E80000 → 0 10000001
-11010000000000000000000。</p>
-<ul>
-<li>解析各字段： | 字段 | A（0x41360000） | B（0x40E80000） |
-|——–|——————|——————| | S（符号位） | 0（正） | 0（正） | | E（阶码移码）
-| 10000010（130） | 10000001（129） | | E_true（真值） | 130-127=3 |
-129-127=2 | | M（尾数小数部分） | 0110110…0（23位） | 1101000…0（23位）
-| | 完整尾数M | 1.0110110（隐含1） | 1.1101000（隐含1） |</li>
+<ol>
+<li class="lvl-3">
+<p><strong>表示规则</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">原码：符号位+数值位（正数符号位0，负数1，数值位为绝对值）；</li>
+<li class="lvl-5">反码：正数与原码一致，负数符号位不变，数值位按位取反；</li>
+<li class="lvl-5">补码：正数与原码一致，负数=反码+1（模2ⁿ，n为数值位位数）；</li>
+<li class="lvl-5">移码：补码符号位取反（仅用于浮点数阶码，便于比较大小）。</li>
 </ul>
-<p>第二步：对阶（小阶向大阶看齐，B的阶码小，尾数右移1位，阶码+1）： -
-B的阶码调整为3（与A一致），尾数右移1位（保持数值不变）： -
-B的尾数：1.1101000 →
-右移1位→0.11101000（补0至23位→11101000000000000000000）； -
-此时A和B的阶码均为3，可进行尾数加减。</p>
-<p>第三步：尾数加减（定点小数加法，符号位均为0）： -
-A的尾数（小数部分）：01101100000000000000000 → 对应数值0.0110110； -
-B的尾数（小数部分）：11101000000000000000000 → 对应数值0.1110100； -
-相加：0.0110110 + 0.1110100 = 1.0101010（二进制）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>加减运算</strong>：补码运算核心——“减法变加法”，即 <code>x - y = [x]补 + [-y]补</code>，结果仍为补码，需验证溢出。</p>
+</li>
+<li class="lvl-3">
+<p><strong>溢出判断</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">双符号位法（模4补码）：结果符号位为01（正溢出）、10（负溢出）；</li>
+<li class="lvl-5">单符号位法：符号位进位≠最高数值位进位（溢出）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="题目1：定点数原-反-补-移码转换（408高频基础题）">题目1：定点数原/反/补/移码转换（408高频基础题）</h3>
+<h4 id="题目描述">题目描述</h4>
+<p>设机器字长为8位（含1位符号位），请写出十进制数 <code>x = +53</code> 和 <code>y = -47</code> 的原码、反码、补码和移码。</p>
+<h4 id="讲解与解答">讲解与解答</h4>
+<p>第一步：将十进制数转换为二进制绝对值（7位数值位）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>53₁₀ = 64 - 11 = 64 - 8 - 2 - 1 = 0110101₂（7位数值位：0110101）；</p>
+</li>
+<li class="lvl-2">
+<p>47₁₀ = 32 + 8 + 4 + 2 + 1 = 0101111₂（7位数值位：0101111）。</p>
+</li>
+</ul>
+<p>第二步：按表示规则计算各码制：</p>
+<table>
+<thead>
+<tr>
+<th>数值</th>
+<th>原码（符号位+数值位）</th>
+<th>反码（正数同原码，负数取反）</th>
+<th>补码（负数反码+1）</th>
+<th>移码（补码符号位取反）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+53</td>
+<td>00110101</td>
+<td>00110101</td>
+<td>00110101</td>
+<td>10110101</td>
+</tr>
+<tr>
+<td>-47</td>
+<td>10101111</td>
+<td>11010000（符号位不变，数值位取反）</td>
+<td>11010001（反码+1）</td>
+<td>01010001（补码符号位取反）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键注意</strong>：移码仅关注补码符号位反转，数值位不变；负数补码计算时若反码末位为1，需注意进位（如-47反码11010000，+1后为11010001，无连续进位）。</p>
+<h3 id="题目2：补码加法运算与溢出判断（408必考题型）">题目2：补码加法运算与溢出判断（408必考题型）</h3>
+<h4 id="题目描述-2">题目描述</h4>
+<p>设机器字长为8位（含1位符号位），用补码计算 <code>x + y</code> 和 <code>x - y</code>，并判断是否溢出（x=+35，y=+28）。</p>
+<h4 id="讲解与解答-2">讲解与解答</h4>
+<p>第一步：计算 <code>[x]补</code>、<code>[y]补</code>、<code>[-y]补</code>：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>x=+35₁₀=0100011₂ → [x]补=00100011；</p>
+</li>
+<li class="lvl-2">
+<p>y=+28₁₀=0011100₂ → [y]补=00011100；</p>
+</li>
+<li class="lvl-2">
+<p>[-y]补：先取[y]补的反码（11100011），再加1 → 11100100。</p>
+</li>
+</ul>
+<p>第二步：计算 <code>x + y = [x]补 + [y]补</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  00100011  （[x]补）</span><br><span class="line">+ 00011100  （[y]补）</span><br><span class="line">= 00111111  （结果补码）</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>符号位为0（正数），双符号位验证（扩展为00 111111），无溢出；</p>
+</li>
+<li class="lvl-2">
+<p>转换为十进制：0111111₂=63₁₀，正确。</p>
+</li>
+</ul>
+<p>第三步：计算 <code>x - y = [x]补 + [-y]补</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  00100011  （[x]补）</span><br><span class="line">+ 11100100  （[-y]补）</span><br><span class="line">= 11111111  （结果补码）</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>结果补码为11111111，转换为原码：符号位1，数值位取反+1 → 10000001（-1₁₀）；</p>
+</li>
+<li class="lvl-2">
+<p>双符号位验证（00 + 11 = 11 111111），无溢出，正确（35-28=7？此处计算错误！重新核对：）<br>
+→ 修正：35的二进制为0100011（7位），补码为00100011；28的二进制为0011100，[-y]补为11100100。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  00100011</span><br><span class="line">+ 11100100</span><br><span class="line">= 100000111  （8位机器字长，舍弃最高位进位1）</span><br><span class="line">→ 结果为00000111（补码），对应十进制7₁₀，正确！</span><br></pre></td></tr></table></figure>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>溢出判断：单符号位法——符号位进位1，最高数值位进位1，进位一致，无溢出。</p>
+</li>
+</ul>
+<p><strong>核心技巧</strong>：补码运算时，机器字长固定，超出位数的进位直接舍弃；溢出判断优先用双符号位法（直观不易错）。</p>
+<h2 id="二、浮点数计算（核心考点：IEEE-754标准、规格化、加减运算、溢出判断）">二、浮点数计算（核心考点：IEEE 754标准、规格化、加减运算、溢出判断）</h2>
+<h3 id="知识点铺垫-2">知识点铺垫</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>浮点数表示</strong>：<code>N = (-1)^S × M × 2^E</code>，其中：</p>
+<ul class="lvl-2">
+<li class="lvl-5">S（符号位）：0正1负；</li>
+<li class="lvl-5">M（尾数）：定点小数，规格化形式为 <code>1.xxxx</code>（二进制），隐含整数位1（IEEE 754标准）；</li>
+<li class="lvl-5">E（阶码）：移码表示，IEEE 754单精度（32位）阶码偏移量为127，双精度（64位）为1023。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>IEEE 754标准（32位单精度）</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">格式：1位符号位（S）+ 8位阶码（E）+ 23位尾数（M）；</li>
+<li class="lvl-5">阶码：<code>E = 移码 - 127</code>（移码=E_true + 127）；</li>
+<li class="lvl-5">尾数：<code>M = 1 + 小数部分</code>（小数部分为23位存储值）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>浮点数加减运算步骤</strong>：</p>
+<ol>
+<li class="lvl-6">对阶：小阶向大阶看齐（尾数右移，阶码增大，保持数值不变）；</li>
+<li class="lvl-6">尾数加减：按定点小数补码运算；</li>
+<li class="lvl-6">规格化：尾数调整为 <code>1.xxxx</code> 形式（左规/右规）；</li>
+<li class="lvl-6">舍入：尾数超出位数时处理（0舍1入法）；</li>
+<li class="lvl-6">溢出判断：阶码溢出（超过最大阶码为上溢，低于最小阶码为下溢）。</li>
+</ol>
+</li>
+</ol>
+<h3 id="题目4：IEEE-754单精度浮点数表示（408高频题）">题目4：IEEE 754单精度浮点数表示（408高频题）</h3>
+<h4 id="题目描述-3">题目描述</h4>
+<p>将十进制数 <code>x = +13.25</code> 转换为IEEE 754单精度（32位）浮点数，写出二进制表示和十六进制表示。</p>
+<h4 id="讲解与解答-3">讲解与解答</h4>
+<p>第一步：将十进制数转换为二进制规格化形式：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>整数部分：13₁₀ = 1101₂；</p>
+</li>
+<li class="lvl-2">
+<p>小数部分：0.25₁₀ = 0.01₂；</p>
+</li>
+<li class="lvl-2">
+<p>合并：13.25₁₀ = 1101.01₂ = 1.10101 × 2³（规格化形式，M=1.10101，E_true=3）。</p>
+</li>
+</ul>
+<p>第二步：确定各字段值：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>符号位S：正数→S=0；</p>
+</li>
+<li class="lvl-2">
+<p>阶码E：移码=E_true + 127 = 3 + 127 = 130₁₀ = 10000010₂（8位）；</p>
+</li>
+<li class="lvl-2">
+<p>尾数M：存储小数部分（隐含整数位1），即1.10101的小数部分10101，补0至23位→10101000000000000000000。</p>
+</li>
+</ul>
+<p>第三步：拼接32位浮点数：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>二进制：0 10000010 10101000000000000000000；</p>
+</li>
+<li class="lvl-2">
+<p>十六进制：将二进制每4位分组→0100 0001 0101 0100 0000 0000 0000 0000 → 0x41540000。</p>
+</li>
+</ul>
+<p><strong>关键注意</strong>：IEEE 754尾数隐含整数位1，仅存储小数部分；阶码偏移量单精度127、双精度1023是固定值，必须牢记。</p>
+<h3 id="题目5：浮点数加减运算（408必考综合题）">题目5：浮点数加减运算（408必考综合题）</h3>
+<h4 id="题目描述-4">题目描述</h4>
+<p>设两个IEEE 754单精度浮点数A和B，其十六进制表示分别为A=0x41360000，B=0x40E80000，计算A+B的结果（要求写出完整步骤）。</p>
+<h4 id="讲解与解答-4">讲解与解答</h4>
+<p>第一步：解析A和B的IEEE 754格式（32位：S+E+M）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>先将十六进制转换为二进制：</p>
+<ul class="lvl-2">
+<li class="lvl-4">A=0x41360000 → 0 10000010 01101100000000000000000；</li>
+<li class="lvl-4">B=0x40E80000 → 0 10000001 11010000000000000000000。</li>
+</ul>
+</li>
+<li class="lvl-2">
+<p>解析各字段：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>A（0x41360000）</th>
+<th>B（0x40E80000）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S（符号位）</td>
+<td>0（正）</td>
+<td>0（正）</td>
+</tr>
+<tr>
+<td>E（阶码移码）</td>
+<td>10000010（130）</td>
+<td>10000001（129）</td>
+</tr>
+<tr>
+<td>E_true（真值）</td>
+<td>130-127=3</td>
+<td>129-127=2</td>
+</tr>
+<tr>
+<td>M（尾数小数部分）</td>
+<td>0110110…0（23位）</td>
+<td>1101000…0（23位）</td>
+</tr>
+<tr>
+<td>完整尾数M</td>
+<td>1.0110110（隐含1）</td>
+<td>1.1101000（隐含1）</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>第二步：对阶（小阶向大阶看齐，B的阶码小，尾数右移1位，阶码+1）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>B的阶码调整为3（与A一致），尾数右移1位（保持数值不变）：</p>
+<ul class="lvl-2">
+<li class="lvl-4">B的尾数：1.1101000 → 右移1位→0.11101000（补0至23位→11101000000000000000000）；</li>
+<li class="lvl-4">此时A和B的阶码均为3，可进行尾数加减。</li>
+</ul>
+</li>
+</ul>
+<p>第三步：尾数加减（定点小数加法，符号位均为0）：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>A的尾数（小数部分）：01101100000000000000000 → 对应数值0.0110110；</p>
+</li>
+<li class="lvl-2">
+<p>B的尾数（小数部分）：11101000000000000000000 → 对应数值0.1110100；</p>
+</li>
+<li class="lvl-2">
+<p>相加：0.0110110 + 0.1110100 = 1.0101010（二进制）。</p>
+</li>
+</ul>
 <p>第四步：规格化（结果尾数已为1.xxxx形式，无需调整，规格化完成）。</p>
 <p>第五步：舍入（尾数加减后无溢出，无需舍入）。</p>
 <p>第六步：溢出判断（阶码为3，未超过单精度最大阶码127+127=254，无溢出）。</p>
-<p>第七步：拼接结果： - S=0（正）； - E移码=3+127=130 → 10000010； -
-M小数部分=01010100000000000000000； - 32位二进制：0 10000010
-01010100000000000000000 → 十六进制：0x412A0000。</p>
+<p>第七步：拼接结果：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>S=0（正）；</p>
+</li>
+<li class="lvl-2">
+<p>E移码=3+127=130 → 10000010；</p>
+</li>
+<li class="lvl-2">
+<p>M小数部分=01010100000000000000000；</p>
+</li>
+<li class="lvl-2">
+<p>32位二进制：0 10000010 01010100000000000000000 → 十六进制：0x412A0000。</p>
+</li>
+</ul>
 <p><strong>核心步骤总结</strong>：浮点数加减的关键是“对阶”（保证尾数对齐）和“规格化”（保证尾数格式正确），阶码溢出是唯一的溢出类型（尾数溢出可通过右规修正）。</p>
-<h3
-id="题目6浮点数溢出判断与规格化408易混淆题">题目6：浮点数溢出判断与规格化（408易混淆题）</h3>
-<h4 id="题目描述-4">题目描述</h4>
-<p>设IEEE
-754单精度浮点数，若某浮点数的阶码移码为11111111（8位），尾数小数部分为全0，判断该浮点数的类型（正常数、上溢、下溢、NaN）；若尾数小数部分为非全0，又是什么类型？</p>
-<h4 id="讲解与解答-4">讲解与解答</h4>
-<p>根据IEEE 754单精度标准，阶码移码的不同取值对应不同类型： 1.
-阶码移码=00000000（E_true=-127）： - 尾数全0→零； -
-尾数非全0→非规格化数（下溢）。 2. 阶码移码=00000001 ~
-11111110（E_true=-126~127）：正常规格化数。 3.
-阶码移码=11111111（E_true=128）： - 尾数全0→无穷大（上溢）； -
-尾数非全0→NaN（非数值）。</p>
-<p>因此： - 阶码11111111 + 尾数全0 → 上溢（无穷大）； - 阶码11111111 +
-尾数非全0 → NaN。</p>
-<p><strong>关键区分</strong>：IEEE
-754的溢出仅指“阶码超出最大范围”（上溢为无穷大，下溢为非规格化数或零），尾数溢出可通过规格化修正，不算真正溢出。</p>
-<h2 id="三核心考点总结与备考建议">三、核心考点总结与备考建议</h2>
-<ol type="1">
-<li><strong>定点数</strong>：
-<ul>
-<li>重点掌握补码的表示与加减运算（408必考），溢出判断的两种方法；</li>
-<li>原/反/补/移码的转换是基础，需熟练快速计算；</li>
-<li>乘法运算（Booth算法）关注步骤和规则，无需死算细节。</li>
-</ul></li>
-<li><strong>浮点数</strong>：
-<ul>
-<li>IEEE 754单精度格式是核心（1+8+23），阶码偏移量127必须牢记；</li>
-<li>浮点数加减运算的五步流程（对阶→尾数加减→规格化→舍入→溢出判断）是必考综合题，需按步骤解题；</li>
-<li>溢出与NaN的判断需明确IEEE 754的特殊规定，避免混淆。</li>
-</ul></li>
+<h3 id="题目6：浮点数溢出判断与规格化（408易混淆题）">题目6：浮点数溢出判断与规格化（408易混淆题）</h3>
+<h4 id="题目描述-5">题目描述</h4>
+<p>设IEEE 754单精度浮点数，若某浮点数的阶码移码为11111111（8位），尾数小数部分为全0，判断该浮点数的类型（正常数、上溢、下溢、NaN）；若尾数小数部分为非全0，又是什么类型？</p>
+<h4 id="讲解与解答-5">讲解与解答</h4>
+<p>根据IEEE 754单精度标准，阶码移码的不同取值对应不同类型：</p>
+<ol>
+<li class="lvl-3">
+<p>阶码移码=00000000（E_true=-127）：</p>
+<ul class="lvl-2">
+<li class="lvl-5">尾数全0→零；</li>
+<li class="lvl-5">尾数非全0→非规格化数（下溢）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p>阶码移码=00000001 ~ 11111110（E_true=-126~127）：正常规格化数。</p>
+</li>
+<li class="lvl-3">
+<p>阶码移码=11111111（E_true=128）：</p>
+<ul class="lvl-2">
+<li class="lvl-5">尾数全0→无穷大（上溢）；</li>
+<li class="lvl-5">尾数非全0→NaN（非数值）。</li>
+</ul>
+</li>
+</ol>
+<p>因此：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>阶码11111111 + 尾数全0 → 上溢（无穷大）；</p>
+</li>
+<li class="lvl-2">
+<p>阶码11111111 + 尾数非全0 → NaN。</p>
+</li>
+</ul>
+<p><strong>关键区分</strong>：IEEE 754的溢出仅指“阶码超出最大范围”（上溢为无穷大，下溢为非规格化数或零），尾数溢出可通过规格化修正，不算真正溢出。</p>
+<h2 id="三、核心考点总结与备考建议">三、核心考点总结与备考建议</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>定点数</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">重点掌握补码的表示与加减运算（408必考），溢出判断的两种方法；</li>
+<li class="lvl-5">原/反/补/移码的转换是基础，需熟练快速计算；</li>
+<li class="lvl-5">乘法运算（Booth算法）关注步骤和规则，无需死算细节。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>浮点数</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">IEEE 754单精度格式是核心（1+8+23），阶码偏移量127必须牢记；</li>
+<li class="lvl-5">浮点数加减运算的五步流程（对阶→尾数加减→规格化→舍入→溢出判断）是必考综合题，需按步骤解题；</li>
+<li class="lvl-5">溢出与NaN的判断需明确IEEE 754的特殊规定，避免混淆。</li>
+</ul>
+</li>
 </ol>
 
     </div>
@@ -494,10 +649,7 @@ id="题目6浮点数溢出判断与规格化408易混淆题">题目6：浮点数
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E9%A2%98%E7%9B%AE%E6%95%B4%E7%90%86%E7%9F%A5%E8%AF%86%E7%82%B9%E9%A2%98%E7%9B%AE%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">408
-定点数与浮点数计算题目整理（知识点+题目+讲解）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%AE%9A%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E5%8E%9F%E5%8F%8D%E8%A1%A5%E7%A7%BB%E7%A0%81%E8%A1%A8%E7%A4%BA%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="nav-number">1.1.</span> <span class="nav-text">一、定点数计算（核心考点：原&#x2F;反&#x2F;补&#x2F;移码表示、加减运算、溢出判断）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E9%93%BA%E5%9E%AB"><span class="nav-number">1.1.1.</span> <span class="nav-text">知识点铺垫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE1%E5%AE%9A%E7%82%B9%E6%95%B0%E5%8E%9F%E5%8F%8D%E8%A1%A5%E7%A7%BB%E7%A0%81%E8%BD%AC%E6%8D%A2408%E9%AB%98%E9%A2%91%E5%9F%BA%E7%A1%80%E9%A2%98"><span class="nav-number">1.1.2.</span> <span class="nav-text">题目1：定点数原&#x2F;反&#x2F;补&#x2F;移码转换（408高频基础题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE2%E8%A1%A5%E7%A0%81%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E4%B8%8E%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD408%E5%BF%85%E8%80%83%E9%A2%98%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">题目2：补码加法运算与溢出判断（408必考题型）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-1"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%B5%AE%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9ieee-754%E6%A0%87%E5%87%86%E8%A7%84%E6%A0%BC%E5%8C%96%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="nav-number">1.2.</span> <span class="nav-text">二、浮点数计算（核心考点：IEEE
-754标准、规格化、加减运算、溢出判断）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E9%93%BA%E5%9E%AB-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">知识点铺垫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE4ieee-754%E5%8D%95%E7%B2%BE%E5%BA%A6%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA408%E9%AB%98%E9%A2%91%E9%A2%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">题目4：IEEE
-754单精度浮点数表示（408高频题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-2"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE5%E6%B5%AE%E7%82%B9%E6%95%B0%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97408%E5%BF%85%E8%80%83%E7%BB%BC%E5%90%88%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">题目5：浮点数加减运算（408必考综合题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-3"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE6%E6%B5%AE%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD%E4%B8%8E%E8%A7%84%E6%A0%BC%E5%8C%96408%E6%98%93%E6%B7%B7%E6%B7%86%E9%A2%98"><span class="nav-number">1.2.4.</span> <span class="nav-text">题目6：浮点数溢出判断与规格化（408易混淆题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-4"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93%E4%B8%8E%E5%A4%87%E8%80%83%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.3.</span> <span class="nav-text">三、核心考点总结与备考建议</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">408 定点数与浮点数计算题目整理（知识点+题目+讲解）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9A%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%EF%BC%88%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%EF%BC%9A%E5%8E%9F-%E5%8F%8D-%E8%A1%A5-%E7%A7%BB%E7%A0%81%E8%A1%A8%E7%A4%BA%E3%80%81%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E3%80%81%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、定点数计算（核心考点：原&#x2F;反&#x2F;补&#x2F;移码表示、加减运算、溢出判断）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E9%93%BA%E5%9E%AB"><span class="nav-number">1.1.1.</span> <span class="nav-text">知识点铺垫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE1%EF%BC%9A%E5%AE%9A%E7%82%B9%E6%95%B0%E5%8E%9F-%E5%8F%8D-%E8%A1%A5-%E7%A7%BB%E7%A0%81%E8%BD%AC%E6%8D%A2%EF%BC%88408%E9%AB%98%E9%A2%91%E5%9F%BA%E7%A1%80%E9%A2%98%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">题目1：定点数原&#x2F;反&#x2F;补&#x2F;移码转换（408高频基础题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE2%EF%BC%9A%E8%A1%A5%E7%A0%81%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E4%B8%8E%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD%EF%BC%88408%E5%BF%85%E8%80%83%E9%A2%98%E5%9E%8B%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">题目2：补码加法运算与溢出判断（408必考题型）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-2"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B5%AE%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%EF%BC%88%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%EF%BC%9AIEEE-754%E6%A0%87%E5%87%86%E3%80%81%E8%A7%84%E6%A0%BC%E5%8C%96%E3%80%81%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E3%80%81%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、浮点数计算（核心考点：IEEE 754标准、规格化、加减运算、溢出判断）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E9%93%BA%E5%9E%AB-2"><span class="nav-number">1.2.1.</span> <span class="nav-text">知识点铺垫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE4%EF%BC%9AIEEE-754%E5%8D%95%E7%B2%BE%E5%BA%A6%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA%EF%BC%88408%E9%AB%98%E9%A2%91%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">题目4：IEEE 754单精度浮点数表示（408高频题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-3"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE5%EF%BC%9A%E6%B5%AE%E7%82%B9%E6%95%B0%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%EF%BC%88408%E5%BF%85%E8%80%83%E7%BB%BC%E5%90%88%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">题目5：浮点数加减运算（408必考综合题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-4"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE6%EF%BC%9A%E6%B5%AE%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD%E4%B8%8E%E8%A7%84%E6%A0%BC%E5%8C%96%EF%BC%88408%E6%98%93%E6%B7%B7%E6%B7%86%E9%A2%98%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">题目6：浮点数溢出判断与规格化（408易混淆题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-5"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3%E4%B8%8E%E8%A7%A3%E7%AD%94-5"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">讲解与解答</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93%E4%B8%8E%E5%A4%87%E8%80%83%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.3.</span> <span class="nav-text">三、核心考点总结与备考建议</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -574,7 +726,7 @@ id="题目6浮点数溢出判断与规格化408易混淆题">题目6：浮点数
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

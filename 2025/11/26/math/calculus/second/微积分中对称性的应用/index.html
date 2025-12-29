@@ -323,14 +323,14 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
+              <span>5.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -342,231 +342,291 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h1 id="微积分中对称性的应用---简化被积函数">微积分中对称性的应用 -
-简化被积函数</h1>
-<h2 id="一对称性的基本概念">一、对称性的基本概念</h2>
-<h3 id="对称性的定义">1.1 对称性的定义</h3>
+<h1>微积分中对称性的应用 - 简化被积函数</h1>
+<h2 id="一、对称性的基本概念">一、对称性的基本概念</h2>
+<h3 id="1-1-对称性的定义">1.1 对称性的定义</h3>
 <p>对称性是指数学对象的部分或整体运动具有某种规则性的现象。在微积分中，常见的对称性包括：</p>
-<ul>
-<li><p><strong>轴对称</strong>：数学对象在某个轴线旋转 180
-度后不改变其形状和大小</p></li>
-<li><p><strong>中心对称</strong>：数学对象在旋转 180
-度后不改变其形状和大小，并且具有中心</p></li>
-<li><p><strong>轮换对称</strong>：通过变量轮换得到新的函数形式</p></li>
-<li><p><strong>对角线对称</strong>：数学对象在 45
-度对角线上对称</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>轴对称</strong>：数学对象在某个轴线旋转 180 度后不改变其形状和大小</p>
+</li>
+<li class="lvl-2">
+<p><strong>中心对称</strong>：数学对象在旋转 180 度后不改变其形状和大小，并且具有中心</p>
+</li>
+<li class="lvl-2">
+<p><strong>轮换对称</strong>：通过变量轮换得到新的函数形式</p>
+</li>
+<li class="lvl-2">
+<p><strong>对角线对称</strong>：数学对象在 45 度对角线上对称</p>
+</li>
 </ul>
-<h2 id="二定积分中的对称性应用">二、定积分中的对称性应用</h2>
-<h3 id="基本对称性定理">2.1 基本对称性定理</h3>
+<h2 id="二、定积分中的对称性应用">二、定积分中的对称性应用</h2>
+<h3 id="2-1-基本对称性定理">2.1 基本对称性定理</h3>
 <p><strong>定理 1</strong>：设函数(f(x))在([-a,a])上连续，则：</p>
-<ul>
-<li>若(f(x))是偶函数（(f(-x)=f(x))），则：</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x))是偶函数（(f(-x)=f(x))），则：</p>
+</li>
 </ul>
-<p>(<em>{-a}^{a} f(x)dx = 2</em>{0}^{a} f(x)dx)</p>
-<ul>
-<li>若(f(x))是奇函数（(f(-x)=-f(x))），则：</li>
+<p>(\int_{-a}^{a} f(x)dx = 2\int_{0}^{a} f(x)dx)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x))是奇函数（(f(-x)=-f(x))），则：</p>
+</li>
 </ul>
-<p>(_{-a}^{a} f(x)dx = 0)</p>
-<h3 id="推广的对称性定理">2.2 推广的对称性定理</h3>
+<p>(\int_{-a}^{a} f(x)dx = 0)</p>
+<h3 id="2-2-推广的对称性定理">2.2 推广的对称性定理</h3>
 <p><strong>定理 2</strong>：设函数(f(x))连续：</p>
-<ol type="1">
-<li>若(f(x))的图像关于直线(x=c)对称（(f(2c-x)=f(x))），则：</li>
+<ol>
+<li class="lvl-3">
+<p>若(f(x))的图像关于直线(x=c)对称（(f(2c-x)=f(x))），则：</p>
+</li>
 </ol>
-<p>(<em>{a}^{b} f(x)dx = </em>{2c-b}^{2c-a} f(x)dx)</p>
-<ol start="2" type="1">
-<li>若(f(x))的图像关于点((c,0))中心对称（(f(2c-x)=-f(x))），则：</li>
+<p>(\int_{a}^{b} f(x)dx = \int_{2c-b}^{2c-a} f(x)dx)</p>
+<ol start="2">
+<li class="lvl-3">
+<p>若(f(x))的图像关于点((c,0))中心对称（(f(2c-x)=-f(x))），则：</p>
+</li>
 </ol>
-<p>(<em>{a}^{b} f(x)dx = -</em>{2c-b}^{2c-a} f(x)dx)</p>
-<h3 id="应用实例">2.3 应用实例</h3>
-<p><strong>例 1</strong>：计算(_{-1}^{1} (x^3 + x^2)dx)</p>
+<p>(\int_{a}^{b} f(x)dx = -\int_{2c-b}^{2c-a} f(x)dx)</p>
+<h3 id="2-3-应用实例">2.3 应用实例</h3>
+<p><strong>例 1</strong>：计算(\int_{-1}^{1} (x^3 + x^2)dx)</p>
 <p><strong>解</strong>：将被积函数分解为奇函数和偶函数：</p>
-<ul>
-<li><p>(x^3)是奇函数，积分值为 0</p></li>
-<li><p>(x<sup>2)是偶函数，积分值为(2_{0}</sup>{1} x^2dx)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(x^3)是奇函数，积分值为 0</p>
+</li>
+<li class="lvl-2">
+<p>(x<sup>2)是偶函数，积分值为(2\int_{0}</sup>{1} x^2dx)</p>
+</li>
 </ul>
 <p>因此：</p>
-<p>(_{-1}^{1} (x^3 + x^2)dx = 0 + 2_0^1 = )</p>
-<p><strong>例 2</strong>：计算(_{0}^{} dx)</p>
-<p><strong>解</strong>：利用对称性，令(x = - t)，则：</p>
-<p>(I = <em>{0}^{} dt = </em>{0}^{} dt - I)</p>
+<p>(\int_{-1}^{1} (x^3 + x^2)dx = 0 + 2\times\left[\frac{x<sup>3}{3}\right]_0</sup>1 = \frac{2}{3})</p>
+<p><strong>例 2</strong>：计算(\int_{0}^{\pi} \frac{x\sin x}{1 + \cos^2 x}dx)</p>
+<p><strong>解</strong>：利用对称性，令(x = \pi - t)，则：</p>
+<p>(I = \int_{0}^{\pi} \frac{(\pi - t)\sin(\pi - t)}{1 + \cos^2(\pi - t)}dt = \pi\int_{0}^{\pi} \frac{\sin t}{1 + \cos^2 t}dt - I)</p>
 <p>解得：</p>
-<p>(I = _{0}^{} dt = )</p>
-<h2 id="三重积分中的对称性应用">三、重积分中的对称性应用</h2>
-<h3 id="二重积分的对称性">3.1 二重积分的对称性</h3>
+<p>(I = \frac{\pi}{2}\int_{0}^{\pi} \frac{\sin t}{1 + \cos^2 t}dt = \frac{\pi^2}{4})</p>
+<h2 id="三、重积分中的对称性应用">三、重积分中的对称性应用</h2>
+<h3 id="3-1-二重积分的对称性">3.1 二重积分的对称性</h3>
 <p><strong>定理 3</strong>：设二元函数(f(x,y))在平面区域(D)上连续：</p>
-<ol type="1">
-<li><strong>关于 x 轴对称</strong>：若(D)关于 x 轴对称，则：</li>
+<ol>
+<li class="lvl-3">
+<p><strong>关于 x 轴对称</strong>：若(D)关于 x 轴对称，则：</p>
+</li>
 </ol>
-<ul>
-<li><p>若(f(x,-y) = -f(x,y))，则(_D f(x,y)dxdy = 0)</p></li>
-<li><p>若(f(x,-y) = f(x,y))，则(<em>D f(x,y)dxdy = 2</em>{D_1}
-f(x,y)dxdy)，其中(D_1)是(D)的上半部分</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x,-y) = -f(x,y))，则(\iint_D f(x,y)dxdy = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(x,-y) = f(x,y))，则(\iint_D f(x,y)dxdy = 2\iint_{D_1} f(x,y)dxdy)，其中(D_1)是(D)的上半部分</p>
+</li>
 </ul>
-<ol start="2" type="1">
-<li><strong>关于 y 轴对称</strong>：类似地，若(D)关于 y 轴对称：</li>
+<ol start="2">
+<li class="lvl-3">
+<p><strong>关于 y 轴对称</strong>：类似地，若(D)关于 y 轴对称：</p>
+</li>
 </ol>
-<ul>
-<li><p>若(f(-x,y) = -f(x,y))，则(_D f(x,y)dxdy = 0)</p></li>
-<li><p>若(f(-x,y) = f(x,y))，则(<em>D f(x,y)dxdy = 2</em>{D_2}
-f(x,y)dxdy)，其中(D_2)是(D)的右半部分</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(-x,y) = -f(x,y))，则(\iint_D f(x,y)dxdy = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(-x,y) = f(x,y))，则(\iint_D f(x,y)dxdy = 2\iint_{D_2} f(x,y)dxdy)，其中(D_2)是(D)的右半部分</p>
+</li>
 </ul>
-<ol start="3" type="1">
-<li><strong>关于原点对称</strong>：若(D)关于原点对称：</li>
+<ol start="3">
+<li class="lvl-3">
+<p><strong>关于原点对称</strong>：若(D)关于原点对称：</p>
+</li>
 </ol>
-<ul>
-<li><p>若(f(-x,-y) = -f(x,y))，则(_D f(x,y)dxdy = 0)</p></li>
-<li><p>若(f(-x,-y) = f(x,y))，则(<em>D f(x,y)dxdy = 2</em>{D_3}
-f(x,y)dxdy)，其中(D_3)是(D)的上半部分</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(-x,-y) = -f(x,y))，则(\iint_D f(x,y)dxdy = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(-x,-y) = f(x,y))，则(\iint_D f(x,y)dxdy = 2\iint_{D_3} f(x,y)dxdy)，其中(D_3)是(D)的上半部分</p>
+</li>
 </ul>
-<h3 id="轮换对称性">3.2 轮换对称性</h3>
-<p><strong>定理
-4</strong>：若积分区域(D)关于(x)和(y)具有轮换对称性（即(x)和(y)互换后区域不变），则：</p>
-<p>(_D f(x,y)dxdy = _D f(y,x)dxdy)</p>
+<h3 id="3-2-轮换对称性">3.2 轮换对称性</h3>
+<p><strong>定理 4</strong>：若积分区域(D)关于(x)和(y)具有轮换对称性（即(x)和(y)互换后区域不变），则：</p>
+<p>(\iint_D f(x,y)dxdy = \iint_D f(y,x)dxdy)</p>
 <p>特别地，有：</p>
-<p>(_D x^n dxdy = _D y^n dxdy)</p>
-<h3 id="三重积分的对称性">3.3 三重积分的对称性</h3>
+<p>(\iint_D x^n dxdy = \iint_D y^n dxdy)</p>
+<h3 id="3-3-三重积分的对称性">3.3 三重积分的对称性</h3>
 <p>三重积分的对称性类似于二重积分：</p>
-<p><strong>定理 5</strong>：设三元函数(f(x,y,z))在空间区域()上连续：</p>
-<ol type="1">
-<li><strong>关于坐标平面对称</strong>：若()关于(xy)平面对称，则：</li>
+<p><strong>定理 5</strong>：设三元函数(f(x,y,z))在空间区域(\Omega)上连续：</p>
+<ol>
+<li class="lvl-3">
+<p><strong>关于坐标平面对称</strong>：若(\Omega)关于(xy)平面对称，则：</p>
+</li>
 </ol>
-<ul>
-<li><p>若(f(x,y,-z) = -f(x,y,z))，则(_f(x,y,z)dxdydz = 0)</p></li>
-<li><p>若(f(x,y,-z) = f(x,y,z))，则(<em>f(x,y,z)dxdydz = 2</em>{_1}
-f(x,y,z)dxdydz)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x,y,-z) = -f(x,y,z))，则(\iiint_\Omega f(x,y,z)dxdydz = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(x,y,-z) = f(x,y,z))，则(\iiint_\Omega f(x,y,z)dxdydz = 2\iiint_{\Omega_1} f(x,y,z)dxdydz)</p>
+</li>
 </ul>
-<ol type="1">
-<li><strong>轮换对称性</strong>：若()关于(x,y,z)具有轮换对称性，则：</li>
+<ol>
+<li class="lvl-3">
+<p><strong>轮换对称性</strong>：若(\Omega)关于(x,y,z)具有轮换对称性，则：</p>
+</li>
 </ol>
-<p>(<em>x^n dxdydz = </em>y^n dxdydz = _z^n dxdydz)</p>
-<h3 id="应用实例-1">3.4 应用实例</h3>
-<p><strong>例 3</strong>：计算(_D (x^3 +
-y<sup>3)dxdy)，其中(D)是圆域(x</sup>2 + y^2 )</p>
+<p>(\iiint_\Omega x^n dxdydz = \iiint_\Omega y^n dxdydz = \iiint_\Omega z^n dxdydz)</p>
+<h3 id="3-4-应用实例">3.4 应用实例</h3>
+<p><strong>例 3</strong>：计算(\iint_D (x^3 + y<sup>3)dxdy)，其中(D)是圆域(x</sup>2 + y^2 \leq 1)</p>
 <p><strong>解</strong>：积分区域(D)关于 x 轴和 y 轴对称：</p>
-<ul>
-<li><p>(x^3)是关于 x 的奇函数，积分值为 0</p></li>
-<li><p>(y^3)是关于 y 的奇函数，积分值为 0</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(x^3)是关于 x 的奇函数，积分值为 0</p>
+</li>
+<li class="lvl-2">
+<p>(y^3)是关于 y 的奇函数，积分值为 0</p>
+</li>
 </ul>
 <p>因此：</p>
-<p>(_D (x^3 + y^3)dxdy = 0 + 0 = 0)</p>
-<p><strong>例 4</strong>：计算(_(x^2 + y^2 +
-z<sup>2)dxdydz)，其中()是球体(x</sup>2 + y^2 + z^2 )</p>
+<p>(\iint_D (x^3 + y^3)dxdy = 0 + 0 = 0)</p>
+<p><strong>例 4</strong>：计算(\iiint_\Omega (x^2 + y^2 + z<sup>2)dxdydz)，其中(\Omega)是球体(x</sup>2 + y^2 + z^2 \leq 1)</p>
 <p><strong>解</strong>：利用轮换对称性：</p>
-<p>(<em>x^2 dxdydz = </em>y^2 dxdydz = _z^2 dxdydz = I)</p>
+<p>(\iiint_\Omega x^2 dxdydz = \iiint_\Omega y^2 dxdydz = \iiint_\Omega z^2 dxdydz = I)</p>
 <p>则：</p>
-<p>(_(x^2 + y^2 + z^2)dxdydz = 3I)</p>
+<p>(\iiint_\Omega (x^2 + y^2 + z^2)dxdydz = 3I)</p>
 <p>计算(I)：</p>
-<p>(I = _{-1}^{1} x^2 (1 - x^2)dx = )</p>
+<p>(I = \int_{-1}^{1} x^2 \cdot \pi(1 - x^2)dx = \frac{4\pi}{15})</p>
 <p>因此：</p>
-<p>(_(x^2 + y^2 + z^2)dxdydz = 3 = )</p>
-<h2 id="四曲线积分中的对称性应用">四、曲线积分中的对称性应用</h2>
-<h3 id="第一类曲线积分对弧长的曲线积分">4.1
-第一类曲线积分（对弧长的曲线积分）</h3>
-<p><strong>定理 6</strong>：设分段光滑曲线(L)关于 x
-轴对称，(L_1)是(L)的上半部分：</p>
-<ul>
-<li><p>若(f(x,-y) = -f(x,y))，则(_L f(x,y)ds = 0)</p></li>
-<li><p>若(f(x,-y) = f(x,y))，则(<em>L f(x,y)ds = 2</em>{L_1}
-f(x,y)ds)</p></li>
+<p>(\iiint_\Omega (x^2 + y^2 + z^2)dxdydz = 3 \times \frac{4\pi}{15} = \frac{4\pi}{5})</p>
+<h2 id="四、曲线积分中的对称性应用">四、曲线积分中的对称性应用</h2>
+<h3 id="4-1-第一类曲线积分（对弧长的曲线积分）">4.1 第一类曲线积分（对弧长的曲线积分）</h3>
+<p><strong>定理 6</strong>：设分段光滑曲线(L)关于 x 轴对称，(L_1)是(L)的上半部分：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x,-y) = -f(x,y))，则(\int_L f(x,y)ds = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(x,-y) = f(x,y))，则(\int_L f(x,y)ds = 2\int_{L_1} f(x,y)ds)</p>
+</li>
 </ul>
 <p>类似地，对于关于 y 轴对称的曲线也有相应结论。</p>
-<h3 id="第二类曲线积分对坐标的曲线积分">4.2
-第二类曲线积分（对坐标的曲线积分）</h3>
-<p><strong>定理 7</strong>：设分段光滑曲线(L)关于 x
-轴对称，且上下两部分方向相反：</p>
-<ul>
-<li><p>对于(_L P(x,y)dx)：</p></li>
-<li><p>若(P(x,-y) = P(x,y))，则(_L P(x,y)dx = 0)</p></li>
-<li><p>若(P(x,-y) = -P(x,y))，则(<em>L P(x,y)dx = 2</em>{L_1}
-P(x,y)dx)</p></li>
-<li><p>对于(_L Q(x,y)dy)：</p></li>
-<li><p>若(Q(x,-y) = -Q(x,y))，则(_L Q(x,y)dy = 0)</p></li>
-<li><p>若(Q(x,-y) = Q(x,y))，则(<em>L Q(x,y)dy = 2</em>{L_1}
-Q(x,y)dy)</p></li>
+<h3 id="4-2-第二类曲线积分（对坐标的曲线积分）">4.2 第二类曲线积分（对坐标的曲线积分）</h3>
+<p><strong>定理 7</strong>：设分段光滑曲线(L)关于 x 轴对称，且上下两部分方向相反：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对于(\int_L P(x,y)dx)：</p>
+</li>
+<li class="lvl-2">
+<p>若(P(x,-y) = P(x,y))，则(\int_L P(x,y)dx = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(P(x,-y) = -P(x,y))，则(\int_L P(x,y)dx = 2\int_{L_1} P(x,y)dx)</p>
+</li>
+<li class="lvl-2">
+<p>对于(\int_L Q(x,y)dy)：</p>
+</li>
+<li class="lvl-2">
+<p>若(Q(x,-y) = -Q(x,y))，则(\int_L Q(x,y)dy = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(Q(x,-y) = Q(x,y))，则(\int_L Q(x,y)dy = 2\int_{L_1} Q(x,y)dy)</p>
+</li>
 </ul>
-<h3 id="应用实例-2">4.3 应用实例</h3>
-<p><strong>例 5</strong>：计算(_C (x^3 +
-y<sup>3)ds)，其中(C)是圆周(x</sup>2 + y^2 = a^2)</p>
+<h3 id="4-3-应用实例">4.3 应用实例</h3>
+<p><strong>例 5</strong>：计算(\oint_C (x^3 + y<sup>3)ds)，其中(C)是圆周(x</sup>2 + y^2 = a^2)</p>
 <p><strong>解</strong>：利用轮换对称性：</p>
-<p>(_C x^3 ds = _C y^3 ds)</p>
+<p>(\oint_C x^3 ds = \oint_C y^3 ds)</p>
 <p>又因为(x^3)是关于 x 的奇函数，积分值为 0，因此：</p>
-<p>(_C (x^3 + y^3)ds = 0 + 0 = 0)</p>
-<h2 id="五曲面积分中的对称性应用">五、曲面积分中的对称性应用</h2>
-<h3 id="第一类曲面积分">5.1 第一类曲面积分</h3>
-<p><strong>定理
-8</strong>：设分片光滑曲面()关于(xy)平面对称，(_1)是()的上半部分：</p>
-<ul>
-<li><p>若(f(x,y,-z) = -f(x,y,z))，则(_f(x,y,z)dS = 0)</p></li>
-<li><p>若(f(x,y,-z) = f(x,y,z))，则(<em>f(x,y,z)dS = 2</em>{_1}
-f(x,y,z)dS)</p></li>
+<p>(\oint_C (x^3 + y^3)ds = 0 + 0 = 0)</p>
+<h2 id="五、曲面积分中的对称性应用">五、曲面积分中的对称性应用</h2>
+<h3 id="5-1-第一类曲面积分">5.1 第一类曲面积分</h3>
+<p><strong>定理 8</strong>：设分片光滑曲面(\Sigma)关于(xy)平面对称，(\Sigma_1)是(\Sigma)的上半部分：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若(f(x,y,-z) = -f(x,y,z))，则(\iint_\Sigma f(x,y,z)dS = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(f(x,y,-z) = f(x,y,z))，则(\iint_\Sigma f(x,y,z)dS = 2\iint_{\Sigma_1} f(x,y,z)dS)</p>
+</li>
 </ul>
-<h3 id="第二类曲面积分">5.2 第二类曲面积分</h3>
-<p><strong>定理
-9</strong>：设分片光滑曲面()关于(xy)平面对称，且上下两部分方向相反：</p>
-<ul>
-<li><p>对于(_R(x,y,z)dxdy)：</p></li>
-<li><p>若(R(x,y,-z) = -R(x,y,z))，则(_R(x,y,z)dxdy = 0)</p></li>
-<li><p>若(R(x,y,-z) = R(x,y,z))，则(<em>R(x,y,z)dxdy = 2</em>{_1}
-R(x,y,z)dxdy)</p></li>
-<li><p>对于(<em>P(x,y,z)dydz)和(</em>Q(x,y,z)dzdx)，需要考虑相应的对称性。</p></li>
+<h3 id="5-2-第二类曲面积分">5.2 第二类曲面积分</h3>
+<p><strong>定理 9</strong>：设分片光滑曲面(\Sigma)关于(xy)平面对称，且上下两部分方向相反：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对于(\iint_\Sigma R(x,y,z)dxdy)：</p>
+</li>
+<li class="lvl-2">
+<p>若(R(x,y,-z) = -R(x,y,z))，则(\iint_\Sigma R(x,y,z)dxdy = 0)</p>
+</li>
+<li class="lvl-2">
+<p>若(R(x,y,-z) = R(x,y,z))，则(\iint_\Sigma R(x,y,z)dxdy = 2\iint_{\Sigma_1} R(x,y,z)dxdy)</p>
+</li>
+<li class="lvl-2">
+<p>对于(\iint_\Sigma P(x,y,z)dydz)和(\iint_\Sigma Q(x,y,z)dzdx)，需要考虑相应的对称性。</p>
+</li>
 </ul>
-<h3 id="应用实例-3">5.3 应用实例</h3>
-<p><strong>例 6</strong>：计算(_z dS)，其中()是球面(x^2 + y^2 + z^2 =
-a^2)</p>
+<h3 id="5-3-应用实例">5.3 应用实例</h3>
+<p><strong>例 6</strong>：计算(\iint_\Sigma z dS)，其中(\Sigma)是球面(x^2 + y^2 + z^2 = a^2)</p>
 <p><strong>解</strong>：球面关于(xy)平面对称，被积函数(z)是关于(z)的奇函数，因此：</p>
-<p>(_z dS = 0)</p>
-<h2 id="六对称性应用的一般方法">六、对称性应用的一般方法</h2>
-<h3 id="对称性判断步骤">6.1 对称性判断步骤</h3>
-<ol type="1">
-<li><p><strong>分析积分区域</strong>：确定积分区域是否具有对称性（轴对称、中心对称、轮换对称等）</p></li>
-<li><p><strong>分析被积函数</strong>：判断被积函数是否为奇函数或偶函数</p></li>
-<li><p><strong>应用对称性定理</strong>：根据对称性类型选择相应的定理</p></li>
-<li><p><strong>简化计算</strong>：将复杂积分转化为简单积分</p></li>
+<p>(\iint_\Sigma z dS = 0)</p>
+<h2 id="六、对称性应用的一般方法">六、对称性应用的一般方法</h2>
+<h3 id="6-1-对称性判断步骤">6.1 对称性判断步骤</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>分析积分区域</strong>：确定积分区域是否具有对称性（轴对称、中心对称、轮换对称等）</p>
+</li>
+<li class="lvl-3">
+<p><strong>分析被积函数</strong>：判断被积函数是否为奇函数或偶函数</p>
+</li>
+<li class="lvl-3">
+<p><strong>应用对称性定理</strong>：根据对称性类型选择相应的定理</p>
+</li>
+<li class="lvl-3">
+<p><strong>简化计算</strong>：将复杂积分转化为简单积分</p>
+</li>
 </ol>
-<h3 id="注意事项">6.2 注意事项</h3>
-<ol type="1">
-<li><p><strong>对称性的匹配</strong>：积分区域的对称性和被积函数的奇偶性必须匹配</p></li>
-<li><p><strong>方向的影响</strong>：第二类曲线积分和曲面积分需要考虑方向的影响</p></li>
-<li><p><strong>轮换对称的应用</strong>：合理利用轮换对称性可以大大简化计算</p></li>
-<li><p><strong>变量替换</strong>：通过变量替换可以构造对称性</p></li>
+<h3 id="6-2-注意事项">6.2 注意事项</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>对称性的匹配</strong>：积分区域的对称性和被积函数的奇偶性必须匹配</p>
+</li>
+<li class="lvl-3">
+<p><strong>方向的影响</strong>：第二类曲线积分和曲面积分需要考虑方向的影响</p>
+</li>
+<li class="lvl-3">
+<p><strong>轮换对称的应用</strong>：合理利用轮换对称性可以大大简化计算</p>
+</li>
+<li class="lvl-3">
+<p><strong>变量替换</strong>：通过变量替换可以构造对称性</p>
+</li>
 </ol>
-<h2 id="七典型应用案例分析">七、典型应用案例分析</h2>
-<h3 id="利用对称性计算复杂积分">7.1 利用对称性计算复杂积分</h3>
-<p><strong>例 7</strong>：计算(_{0}^{} dx)</p>
-<p><strong>解</strong>：令(x = - t)，则：</p>
-<p>(I = <em>{0}^{} dt = </em>{0}^{} dt - I)</p>
+<h2 id="七、典型应用案例分析">七、典型应用案例分析</h2>
+<h3 id="7-1-利用对称性计算复杂积分">7.1 利用对称性计算复杂积分</h3>
+<p><strong>例 7</strong>：计算(\int_{0}^{\pi} \frac{x\sin x}{1 + \cos^2 x}dx)</p>
+<p><strong>解</strong>：令(x = \pi - t)，则：</p>
+<p>(I = \int_{0}^{\pi} \frac{(\pi - t)\sin(\pi - t)}{1 + \cos^2(\pi - t)}dt = \pi\int_{0}^{\pi} \frac{\sin t}{1 + \cos^2 t}dt - I)</p>
 <p>解得：</p>
-<p>(I = _{0}^{} dt = )</p>
-<h3 id="利用轮换对称性简化计算">7.2 利用轮换对称性简化计算</h3>
-<p><strong>例 8</strong>：计算(_D (x^2 + y^2)dxdy)，其中(D)是正方形(0 x
-, 0 y )</p>
+<p>(I = \frac{\pi}{2}\int_{0}^{\pi} \frac{\sin t}{1 + \cos^2 t}dt = \frac{\pi^2}{4})</p>
+<h3 id="7-2-利用轮换对称性简化计算">7.2 利用轮换对称性简化计算</h3>
+<p><strong>例 8</strong>：计算(\iint_D (x^2 + y^2)dxdy)，其中(D)是正方形(0 \leq x \leq 1, 0 \leq y \leq 1)</p>
 <p><strong>解</strong>：利用轮换对称性：</p>
-<p>(_D x^2 dxdy = _D y^2 dxdy)</p>
+<p>(\iint_D x^2 dxdy = \iint_D y^2 dxdy)</p>
 <p>因此：</p>
-<p>(_D (x^2 + y^2)dxdy = 2<em>D x^2 dxdy =
-2</em>{0}<sup>{1}_{0}</sup>{1} x^2 dxdy = 2 = )</p>
-<h3 id="处理无法直接求解的积分">7.3 处理无法直接求解的积分</h3>
-<p><strong>例 9</strong>：计算(_{0}^{} e<sup>{-x</sup>2}dx)</p>
-<p><strong>解</strong>：令(I = _{0}^{} e<sup>{-x</sup>2}dx)，则：</p>
-<p>(I^2 = _{0}<sup>{}_{0}</sup>{} e<sup>{-(x</sup>2 + y^2)}dxdy)</p>
+<p>(\iint_D (x^2 + y^2)dxdy = 2\iint_D x^2 dxdy = 2\int_{0}<sup>{1}\int_{0}</sup>{1} x^2 dxdy = 2\times\frac{1}{3} = \frac{2}{3})</p>
+<h3 id="7-3-处理无法直接求解的积分">7.3 处理无法直接求解的积分</h3>
+<p><strong>例 9</strong>：计算(\int_{0}^{\infty} e<sup>{-x</sup>2}dx)</p>
+<p><strong>解</strong>：令(I = \int_{0}^{\infty} e<sup>{-x</sup>2}dx)，则：</p>
+<p>(I^2 = \int_{0}<sup>{\infty}\int_{0}</sup>{\infty} e<sup>{-(x</sup>2 + y^2)}dxdy)</p>
 <p>转换为极坐标：</p>
-<p>(I^2 = _{0}<sup>{}_{0}</sup>{} e<sup>{-r</sup>2}r drd= )</p>
+<p>(I^2 = \int_{0}<sup>{\frac{\pi}{2}}\int_{0}</sup>{\infty} e<sup>{-r</sup>2}r drd\theta = \frac{\pi}{4})</p>
 <p>因此：</p>
-<p>(I = )</p>
-<h2 id="九对称性应用的系统总结">九、对称性应用的系统总结</h2>
-<h3 id="各类对称性的核心要点">9.1 各类对称性的核心要点</h3>
-<h4 id="基本对称性类型总结">9.1.1 基本对称性类型总结</h4>
+<p>(I = \frac{\sqrt{\pi}}{2})</p>
+<h2 id="九、对称性应用的系统总结">九、对称性应用的系统总结</h2>
+<h3 id="9-1-各类对称性的核心要点">9.1 各类对称性的核心要点</h3>
+<h4 id="9-1-1-基本对称性类型总结">9.1.1 基本对称性类型总结</h4>
 <table>
-<colgroup>
-<col style="width: 16%">
-<col style="width: 30%">
-<col style="width: 25%">
-<col style="width: 27%">
-</colgroup>
 <thead>
 <tr>
 <th>对称性类型</th>
@@ -602,63 +662,106 @@ a^2)</p>
 </tr>
 </tbody>
 </table>
-<h4 id="奇函数和偶函数的积分性质">9.1.2 奇函数和偶函数的积分性质</h4>
+<h4 id="9-1-2-奇函数和偶函数的积分性质">9.1.2 奇函数和偶函数的积分性质</h4>
 <p><strong>奇函数积分性质</strong>：</p>
-<ul>
-<li><p>对称区间上的积分为 0</p></li>
-<li><p>反对称区域上的积分为 0</p></li>
-<li><p>常用于消除复杂积分项</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对称区间上的积分为 0</p>
+</li>
+<li class="lvl-2">
+<p>反对称区域上的积分为 0</p>
+</li>
+<li class="lvl-2">
+<p>常用于消除复杂积分项</p>
+</li>
 </ul>
 <p><strong>偶函数积分性质</strong>：</p>
-<ul>
-<li><p>对称区间上的积分等于 2 倍半区间积分</p></li>
-<li><p>对称区域上的积分等于 2 倍半区域积分</p></li>
-<li><p>常用于缩小积分范围</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对称区间上的积分等于 2 倍半区间积分</p>
+</li>
+<li class="lvl-2">
+<p>对称区域上的积分等于 2 倍半区域积分</p>
+</li>
+<li class="lvl-2">
+<p>常用于缩小积分范围</p>
+</li>
 </ul>
-<h3 id="各类积分的对称性应用要点">9.2 各类积分的对称性应用要点</h3>
-<h4 id="定积分对称性要点">9.2.1 定积分对称性要点</h4>
+<h3 id="9-2-各类积分的对称性应用要点">9.2 各类积分的对称性应用要点</h3>
+<h4 id="9-2-1-定积分对称性要点">9.2.1 定积分对称性要点</h4>
 <p><strong>基本对称区间</strong>：([-a,a])</p>
-<ul>
-<li><p>奇函数：(_{-a}^{a} f(x)dx = 0)</p></li>
-<li><p>偶函数：(<em>{-a}^{a} f(x)dx = 2</em>{0}^{a} f(x)dx)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>奇函数：(\int_{-a}^{a} f(x)dx = 0)</p>
+</li>
+<li class="lvl-2">
+<p>偶函数：(\int_{-a}^{a} f(x)dx = 2\int_{0}^{a} f(x)dx)</p>
+</li>
 </ul>
 <p><strong>推广对称区间</strong>：</p>
-<ul>
-<li><p>关于直线(x=c)对称：(<em>{a}^{b} f(x)dx = </em>{2c-b}^{2c-a}
-f(x)dx)</p></li>
-<li><p>关于点((c,0))对称：(<em>{a}^{b} f(x)dx = -</em>{2c-b}^{2c-a}
-f(x)dx)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>关于直线(x=c)对称：(\int_{a}^{b} f(x)dx = \int_{2c-b}^{2c-a} f(x)dx)</p>
+</li>
+<li class="lvl-2">
+<p>关于点((c,0))对称：(\int_{a}^{b} f(x)dx = -\int_{2c-b}^{2c-a} f(x)dx)</p>
+</li>
 </ul>
-<h4 id="重积分对称性要点">9.2.2 重积分对称性要点</h4>
+<h4 id="9-2-2-重积分对称性要点">9.2.2 重积分对称性要点</h4>
 <p><strong>二重积分</strong>：</p>
-<ul>
-<li><p>关于 x 轴对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>关于 y 轴对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>关于原点对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>轮换对称：(_D f(x,y)dxdy = _D f(y,x)dxdy)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>关于 x 轴对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>关于 y 轴对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>关于原点对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>轮换对称：(\iint_D f(x,y)dxdy = \iint_D f(y,x)dxdy)</p>
+</li>
 </ul>
 <p><strong>三重积分</strong>：</p>
-<ul>
-<li><p>关于坐标平面对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>轮换对称：(<em>x^n dV = </em>y^n dV = _z^n dV)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>关于坐标平面对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>轮换对称：(\iiint_\Omega x^n dV = \iiint_\Omega y^n dV = \iiint_\Omega z^n dV)</p>
+</li>
 </ul>
-<h4 id="曲线积分和曲面积分对称性要点">9.2.3
-曲线积分和曲面积分对称性要点</h4>
+<h4 id="9-2-3-曲线积分和曲面积分对称性要点">9.2.3 曲线积分和曲面积分对称性要点</h4>
 <p><strong>第一类曲线积分</strong>：</p>
-<ul>
-<li><p>关于 x 轴对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>关于 y 轴对称：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>轮换对称：(_C f(x,y)ds = _C f(y,x)ds)</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>关于 x 轴对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>关于 y 轴对称：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>轮换对称：(\oint_C f(x,y)ds = \oint_C f(y,x)ds)</p>
+</li>
 </ul>
 <p><strong>第二类曲线积分</strong>：</p>
-<ul>
-<li><p>方向相反时：奇函数积分 0，偶函数积分 2 倍</p></li>
-<li><p>方向相同时：结果相反</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>方向相反时：奇函数积分 0，偶函数积分 2 倍</p>
+</li>
+<li class="lvl-2">
+<p>方向相同时：结果相反</p>
+</li>
 </ul>
 <p><strong>曲面积分</strong>：</p>
-<ul>
-<li><p>第一类：类似曲线积分</p></li>
-<li><p>第二类：考虑方向影响</p></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>第一类：类似曲线积分</p>
+</li>
+<li class="lvl-2">
+<p>第二类：考虑方向影响</p>
+</li>
 </ul>
 
     </div>
@@ -746,11 +849,7 @@ f(x)dx)</p></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%AD%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E5%BA%94%E7%94%A8---%E7%AE%80%E5%8C%96%E8%A2%AB%E7%A7%AF%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">微积分中对称性的应用 -
-简化被积函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">一、对称性的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 对称性的定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">二、定积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%AE%9A%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 基本对称性定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%B9%BF%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%AE%9A%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 推广的对称性定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E9%87%8D%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">三、重积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 二重积分的对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AE%E6%8D%A2%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 轮换对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 三重积分的对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">四、曲线积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1
-第一类曲线积分（对弧长的曲线积分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2
-第二类曲线积分（对坐标的曲线积分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">五、曲面积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 第一类曲面积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 第二类曲面积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-3"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">六、对称性应用的一般方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%88%A4%E6%96%AD%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 对称性判断步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">七、典型应用案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E7%A7%AF%E5%88%86"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 利用对称性计算复杂积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%BD%AE%E6%8D%A2%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%AE%80%E5%8C%96%E8%AE%A1%E7%AE%97"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 利用轮换对称性简化计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E6%B1%82%E8%A7%A3%E7%9A%84%E7%A7%AF%E5%88%86"><span class="nav-number">1.7.3.</span> <span class="nav-text">7.3 处理无法直接求解的积分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">九、对称性应用的系统总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.1.</span> <span class="nav-text">9.1 各类对称性的核心要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">9.1.1 基本对称性类型总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%87%E5%87%BD%E6%95%B0%E5%92%8C%E5%81%B6%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E6%80%A7%E8%B4%A8"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">9.1.2 奇函数和偶函数的积分性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.</span> <span class="nav-text">9.2 各类积分的对称性应用要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">9.2.1 定积分对称性要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">9.2.2 重积分对称性要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E5%92%8C%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">9.2.3
-曲线积分和曲面积分对称性要点</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">微积分中对称性的应用 - 简化被积函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">一、对称性的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 对称性的定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">二、定积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%AE%9A%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 基本对称性定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%8E%A8%E5%B9%BF%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%AE%9A%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 推广的对称性定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%87%8D%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">三、重积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 二重积分的对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BD%AE%E6%8D%A2%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 轮换对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E4%B8%89%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 三重积分的对称性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">四、曲线积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E7%AC%AC%E4%B8%80%E7%B1%BB%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%EF%BC%88%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 第一类曲线积分（对弧长的曲线积分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%EF%BC%88%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 第二类曲线积分（对坐标的曲线积分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">五、曲面积分中的对称性应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E7%AC%AC%E4%B8%80%E7%B1%BB%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 第一类曲面积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 第二类曲面积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 应用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">六、对称性应用的一般方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%88%A4%E6%96%AD%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 对称性判断步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">七、典型应用案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E5%88%A9%E7%94%A8%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E7%A7%AF%E5%88%86"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 利用对称性计算复杂积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E5%88%A9%E7%94%A8%E8%BD%AE%E6%8D%A2%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%AE%80%E5%8C%96%E8%AE%A1%E7%AE%97"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 利用轮换对称性简化计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E5%A4%84%E7%90%86%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E6%B1%82%E8%A7%A3%E7%9A%84%E7%A7%AF%E5%88%86"><span class="nav-number">1.7.3.</span> <span class="nav-text">7.3 处理无法直接求解的积分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">九、对称性应用的系统总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E5%90%84%E7%B1%BB%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%9A%84%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.1.</span> <span class="nav-text">9.1 各类对称性的核心要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1-1-%E5%9F%BA%E6%9C%AC%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">9.1.1 基本对称性类型总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1-2-%E5%A5%87%E5%87%BD%E6%95%B0%E5%92%8C%E5%81%B6%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E6%80%A7%E8%B4%A8"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">9.1.2 奇函数和偶函数的积分性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E5%90%84%E7%B1%BB%E7%A7%AF%E5%88%86%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%BA%94%E7%94%A8%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.</span> <span class="nav-text">9.2 各类积分的对称性应用要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-1-%E5%AE%9A%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">9.2.1 定积分对称性要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-2-%E9%87%8D%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">9.2.2 重积分对称性要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-3-%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E5%92%8C%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E5%AF%B9%E7%A7%B0%E6%80%A7%E8%A6%81%E7%82%B9"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">9.2.3 曲线积分和曲面积分对称性要点</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -827,7 +926,7 @@ f(x)dx)</p></li>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         

@@ -230,176 +230,280 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-
-</blockquote>
+        <blockquote></blockquote>
 <span id="more"></span>
-<h2 id="io层次结构5层">I/O层次结构（5层）</h2>
-<h3 id="第1层用户层io软件">1. 第1层：用户层I/O软件</h3>
+<h2 id="I-O层次结构（5层）">I/O层次结构（5层）</h2>
+<h3 id="1-第1层：用户层I-O软件">1. 第1层：用户层I/O软件</h3>
 <h4 id="核心作用">核心作用</h4>
 <p>为用户/应用程序提供<strong>I/O操作的用户态接口</strong>，完成“用户请求→系统调用”的转换，是用户态与内核态的交互入口。</p>
 <h4 id="关联复习要点考点">关联复习要点考点</h4>
-<ul>
-<li>系统调用的触发机制（用户态→内核态的切换）</li>
-<li>I/O软件层次的最上层职责</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>系统调用的触发机制（用户态→内核态的切换）</p>
+</li>
+<li class="lvl-2">
+<p>I/O软件层次的最上层职责</p>
+</li>
 </ul>
 <h4 id="知识细节">知识细节</h4>
-<ul>
-<li>形式：编程语言标准库函数（如C的<code>read()</code>/<code>write()</code>、Python的<code>open()</code>）、Shell命令等；</li>
-<li>关键操作：将用户传入的参数（如文件描述符、缓冲区地址）封装，通过<strong>陷入（Trap）指令</strong>触发系统调用；</li>
-<li>态切换：用户程序运行在<strong>用户态</strong>，执行Trap指令后切换到<strong>内核态</strong>（CPU权限提升，才能访问硬件资源）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>形式：编程语言标准库函数（如C的<code>read()</code>/<code>write()</code>、Python的<code>open()</code>）、Shell命令等；</p>
+</li>
+<li class="lvl-2">
+<p>关键操作：将用户传入的参数（如文件描述符、缓冲区地址）封装，通过<strong>陷入（Trap）指令</strong>触发系统调用；</p>
+</li>
+<li class="lvl-2">
+<p>态切换：用户程序运行在<strong>用户态</strong>，执行Trap指令后切换到<strong>内核态</strong>（CPU权限提升，才能访问硬件资源）。</p>
+</li>
 </ul>
 <h4 id="典型考法">典型考法</h4>
-<ul>
-<li>简答题：“用户程序发起I/O请求的第一步是什么？如何从用户态进入内核态？”</li>
-<li>概念题：“用户层I/O软件的作用是直接控制硬件吗？为什么？”</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>简答题：“用户程序发起I/O请求的第一步是什么？如何从用户态进入内核态？”</p>
+</li>
+<li class="lvl-2">
+<p>概念题：“用户层I/O软件的作用是直接控制硬件吗？为什么？”</p>
+</li>
 </ul>
-<h3 id="第2层设备独立性软件">2. 第2层：设备独立性软件</h3>
-<h4 id="核心作用-1">核心作用</h4>
-<p>屏蔽硬件差异，提供<strong>统一的内核I/O框架</strong>，是“设备无关性”的核心实现层。</p>
-<h4 id="关联复习要点考点-1">关联复习要点考点</h4>
-<ul>
-<li>I/O软件层次的核心层职责</li>
-<li>缓冲管理（单缓冲、双缓冲、环形缓冲、缓冲池）</li>
-<li>设备命名与逻辑→物理设备映射</li>
-<li>内核页高速缓存的作用</li>
-<li>文件描述符与文件的映射（关联文件管理）</li>
-</ul>
-<h4 id="知识细节-1">知识细节</h4>
-<ol type="1">
-<li><strong>设备命名与映射</strong>：
-<ul>
-<li>将用户传入的“文件描述符（fd）”映射为“逻辑设备+文件在设备上的位置”（如<code>fd=3</code>对应<code>/dev/sda</code>磁盘的第12345逻辑块）；</li>
-<li>关联文件管理考点：文件目录中FCB的“物理位置”字段，是此处映射的依据。</li>
-</ul></li>
-<li><strong>缓冲与高速缓存</strong>：
-<ul>
-<li>实现内核级缓冲（单缓冲、双缓冲、环形缓冲、缓冲池），核心作用是<strong>减少硬件I/O次数、缓解CPU与设备的速度差异</strong>；</li>
-<li>页高速缓存：缓存磁盘文件的逻辑块，命中则直接从内存取数据（无需访问磁盘），未命中则触发“磁盘读请求”；</li>
-<li>考点细节( 以下时间计算 读入花费时间大于送至花费时间)
-<ul>
-<li>单缓冲：内存1个缓冲区，设备写缓冲→CPU读缓冲，时间计算为<code>(读入+送至+处理)  +  (读入+送至)*(盘块数-1 )</code>；</li>
-<li>双缓冲：2个缓冲区，设备与CPU并行操作（一个写、一个读），时间计算为<code>(读入+送至+处理)  +  读入*(盘块数-1)</code>；</li>
-<li>缓冲池：多个缓冲区组成的共享池，供多进程复用（解决单/双缓冲的资源浪费问题）。</li>
-</ul></li>
-</ul></li>
-<li><strong>差错处理</strong>：
-<ul>
-<li>提供通用错误码（如<code>EIO</code>（I/O错误）、<code>ENOSPC</code>（磁盘满）），屏蔽不同设备的错误格式差异。</li>
-</ul></li>
-</ol>
-<h4 id="典型考法-1">典型考法</h4>
-<ul>
-<li>综合题：“已知设备读一个数据块需10ms，CPU处理一个块需5ms，数据传输需1ms，分别计算单缓冲、双缓冲下的总时间”；</li>
-<li>简答题：“设备无关层的‘缓冲管理’有什么作用？列举3种缓冲类型”；</li>
-<li>关联题：“文件描述符在设备无关层的作用是什么？”</li>
-</ul>
-<h3 id="第3层设备驱动程序">3. 第3层：设备驱动程序</h3>
+<h3 id="2-第2层：设备独立性软件">2. 第2层：设备独立性软件</h3>
 <h4 id="核心作用-2">核心作用</h4>
-<p>作为“硬件与内核的翻译官”，将设备无关层的<strong>抽象I/O命令</strong>转换为<strong>硬件控制器能识别的具体指令</strong>。</p>
+<p>屏蔽硬件差异，提供<strong>统一的内核I/O框架</strong>，是“设备无关性”的核心实现层。</p>
 <h4 id="关联复习要点考点-2">关联复习要点考点</h4>
-<ul>
-<li>I/O控制方式的软件实现（程序I/O、中断驱动I/O、DMA、I/O通道）</li>
-<li>设备驱动的核心职责</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>I/O软件层次的核心层职责</p>
+</li>
+<li class="lvl-2">
+<p>缓冲管理（单缓冲、双缓冲、环形缓冲、缓冲池）</p>
+</li>
+<li class="lvl-2">
+<p>设备命名与逻辑→物理设备映射</p>
+</li>
+<li class="lvl-2">
+<p>内核页高速缓存的作用</p>
+</li>
+<li class="lvl-2">
+<p>文件描述符与文件的映射（关联文件管理）</p>
+</li>
 </ul>
 <h4 id="知识细节-2">知识细节</h4>
-<ol type="1">
-<li><strong>与I/O控制方式的配合</strong>：
-<ul>
-<li>程序I/O：驱动循环查询硬件状态（忙等），CPU全程参与；</li>
-<li>中断驱动I/O：驱动向硬件发命令后，阻塞进程，等待中断唤醒；</li>
-<li>DMA方式：驱动初始化DMA控制器（设置内存地址、传输长度），由DMA完成硬件→内存的数据传输；</li>
-<li>I/O通道：驱动向通道发送“通道程序”，由通道自主管理多设备的I/O。</li>
-</ul></li>
-<li><strong>硬件交互细节</strong>：
-<ul>
-<li>以磁盘驱动为例：将“逻辑块号（LBA）”转换为硬件的“柱面号+磁头号+扇区号”，向磁盘控制器寄存器写入“读扇区”指令。</li>
-</ul></li>
+<ol>
+<li class="lvl-3">
+<p><strong>设备命名与映射</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">将用户传入的“文件描述符（fd）”映射为“逻辑设备+文件在设备上的位置”（如<code>fd=3</code>对应<code>/dev/sda</code>磁盘的第12345逻辑块）；</li>
+<li class="lvl-5">关联文件管理考点：文件目录中FCB的“物理位置”字段，是此处映射的依据。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>缓冲与高速缓存</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">实现内核级缓冲（单缓冲、双缓冲、环形缓冲、缓冲池），核心作用是<strong>减少硬件I/O次数、缓解CPU与设备的速度差异</strong>；</li>
+<li class="lvl-5">页高速缓存：缓存磁盘文件的逻辑块，命中则直接从内存取数据（无需访问磁盘），未命中则触发“磁盘读请求”；</li>
+<li class="lvl-5">考点细节( 以下时间计算 读入花费时间大于送至花费时间)
+<ul class="lvl-4">
+<li class="lvl-7">单缓冲：内存1个缓冲区，设备写缓冲→CPU读缓冲，时间计算为<code>(读入+送至+处理)  +  (读入+送至)*(盘块数-1 )</code>；</li>
+<li class="lvl-7">双缓冲：2个缓冲区，设备与CPU并行操作（一个写、一个读），时间计算为<code> (读入+送至+处理)  +  读入*(盘块数-1)</code>；</li>
+<li class="lvl-7">缓冲池：多个缓冲区组成的共享池，供多进程复用（解决单/双缓冲的资源浪费问题）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>差错处理</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">提供通用错误码（如<code>EIO</code>（I/O错误）、<code>ENOSPC</code>（磁盘满）），屏蔽不同设备的错误格式差异。</li>
+</ul>
+</li>
 </ol>
 <h4 id="典型考法-2">典型考法</h4>
-<ul>
-<li>简答题：“设备驱动在DMA方式中的职责是什么？与程序I/O方式的驱动有什么区别？”；</li>
-<li>概念题：“为什么每个硬件都需要专属的设备驱动？”</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>综合题：“已知设备读一个数据块需10ms，CPU处理一个块需5ms，数据传输需1ms，分别计算单缓冲、双缓冲下的总时间”；</p>
+</li>
+<li class="lvl-2">
+<p>简答题：“设备无关层的‘缓冲管理’有什么作用？列举3种缓冲类型”；</p>
+</li>
+<li class="lvl-2">
+<p>关联题：“文件描述符在设备无关层的作用是什么？”</p>
+</li>
 </ul>
-<h3 id="第4层中断处理程序">4. 第4层：中断处理程序</h3>
+<h3 id="3-第3层：设备驱动程序">3. 第3层：设备驱动程序</h3>
 <h4 id="核心作用-3">核心作用</h4>
-<p>响应硬件的<strong>I/O完成通知</strong>，处理I/O后的收尾工作，是“异步I/O”的核心支撑。</p>
+<p>作为“硬件与内核的翻译官”，将设备无关层的<strong>抽象I/O命令</strong>转换为<strong>硬件控制器能识别的具体指令</strong>。</p>
 <h4 id="关联复习要点考点-3">关联复习要点考点</h4>
-<ul>
-<li>中断驱动I/O的核心流程</li>
-<li>进程状态切换（阻塞→就绪）</li>
-<li>中断的作用与处理步骤</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>I/O控制方式的软件实现（程序I/O、中断驱动I/O、DMA、I/O通道）</p>
+</li>
+<li class="lvl-2">
+<p>设备驱动的核心职责</p>
+</li>
 </ul>
 <h4 id="知识细节-3">知识细节</h4>
-<ol type="1">
-<li><strong>中断触发与处理流程</strong>：
-<ul>
-<li>硬件完成I/O后，向CPU发送<strong>中断信号</strong>；</li>
-<li>CPU暂停当前任务，跳转到中断处理程序（预设的内存地址）；</li>
-<li>处理程序：检查硬件状态（确认I/O成功）→唤醒阻塞进程（将进程状态从“阻塞”改为“就绪”）→记录I/O结果；</li>
-<li>中断返回：CPU恢复之前的任务，或调度刚唤醒的进程。</li>
-</ul></li>
-<li><strong>与进程管理的关联</strong>：
-<ul>
-<li>I/O请求发起时，进程被驱动程序“阻塞”（加入等待队列）；</li>
-<li>中断处理程序“唤醒”进程（移至就绪队列），后续由进程调度算法分配CPU。</li>
-</ul></li>
+<ol>
+<li class="lvl-3">
+<p><strong>与I/O控制方式的配合</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">程序I/O：驱动循环查询硬件状态（忙等），CPU全程参与；</li>
+<li class="lvl-5">中断驱动I/O：驱动向硬件发命令后，阻塞进程，等待中断唤醒；</li>
+<li class="lvl-5">DMA方式：驱动初始化DMA控制器（设置内存地址、传输长度），由DMA完成硬件→内存的数据传输；</li>
+<li class="lvl-5">I/O通道：驱动向通道发送“通道程序”，由通道自主管理多设备的I/O。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>硬件交互细节</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">以磁盘驱动为例：将“逻辑块号（LBA）”转换为硬件的“柱面号+磁头号+扇区号”，向磁盘控制器寄存器写入“读扇区”指令。</li>
+</ul>
+</li>
 </ol>
 <h4 id="典型考法-3">典型考法</h4>
-<ul>
-<li>简答题：“中断处理程序在I/O流程中的作用是什么？简述其处理步骤”；</li>
-<li>关联题：“I/O请求中，进程从‘运行’到‘阻塞’再到‘就绪’的触发条件是什么？”</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>简答题：“设备驱动在DMA方式中的职责是什么？与程序I/O方式的驱动有什么区别？”；</p>
+</li>
+<li class="lvl-2">
+<p>概念题：“为什么每个硬件都需要专属的设备驱动？”</p>
+</li>
 </ul>
-<h3 id="第5层硬件层">5. 第5层：硬件层</h3>
+<h3 id="4-第4层：中断处理程序">4. 第4层：中断处理程序</h3>
 <h4 id="核心作用-4">核心作用</h4>
-<p>执行实际I/O操作的物理组件，包括<strong>设备控制器</strong>（如磁盘控制器）和<strong>设备主体</strong>（如磁盘盘片）。</p>
+<p>响应硬件的<strong>I/O完成通知</strong>，处理I/O后的收尾工作，是“异步I/O”的核心支撑。</p>
 <h4 id="关联复习要点考点-4">关联复习要点考点</h4>
-<ul>
-<li>I/O控制方式的硬件支持（DMA控制器、I/O通道）</li>
-<li>磁盘物理操作（寻道、旋转延迟）</li>
-<li>磁盘调度算法的硬件基础</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>中断驱动I/O的核心流程</p>
+</li>
+<li class="lvl-2">
+<p>进程状态切换（阻塞→就绪）</p>
+</li>
+<li class="lvl-2">
+<p>中断的作用与处理步骤</p>
+</li>
 </ul>
 <h4 id="知识细节-4">知识细节</h4>
-<ol type="1">
-<li><strong>硬件组件与操作</strong>：
-<ul>
-<li>磁盘控制器：接收驱动指令，控制磁头臂移动（寻道）、选择磁头、读取扇区数据；</li>
-<li>DMA控制器：自主完成“硬件→内存”的数据传输，无需CPU干预；</li>
-<li>I/O通道：专用硬件，能执行“通道程序”，同时管理多个设备的I/O（进一步降低CPU负载）。</li>
-</ul></li>
-<li><strong>磁盘操作与调度算法</strong>：
-<ul>
-<li>物理操作：寻道（磁头移到目标柱面，耗时最长）→旋转延迟（目标扇区转到磁头下）→数据传输；</li>
-<li>磁盘调度算法的目标：优化“寻道时间”（如SCAN算法通过单向移动磁头减少寻道距离）；</li>
-<li>考点算法：FCFS（先来先服务）、SSTF（最短寻道时间优先）、SCAN（电梯算法）。</li>
-</ul></li>
+<ol>
+<li class="lvl-3">
+<p><strong>中断触发与处理流程</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">硬件完成I/O后，向CPU发送<strong>中断信号</strong>；</li>
+<li class="lvl-5">CPU暂停当前任务，跳转到中断处理程序（预设的内存地址）；</li>
+<li class="lvl-5">处理程序：检查硬件状态（确认I/O成功）→唤醒阻塞进程（将进程状态从“阻塞”改为“就绪”）→记录I/O结果；</li>
+<li class="lvl-5">中断返回：CPU恢复之前的任务，或调度刚唤醒的进程。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>与进程管理的关联</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">I/O请求发起时，进程被驱动程序“阻塞”（加入等待队列）；</li>
+<li class="lvl-5">中断处理程序“唤醒”进程（移至就绪队列），后续由进程调度算法分配CPU。</li>
+</ul>
+</li>
 </ol>
 <h4 id="典型考法-4">典型考法</h4>
-<ul>
-<li>综合题：“已知当前磁头在柱面10，请求队列是[2, 15, 7,
-20]，分别计算FCFS、SSTF、SCAN（向柱面增大方向）的总寻道长度”；</li>
-<li>简答题：“磁盘I/O的物理操作分为哪几步？为什么寻道时间是磁盘调度的优化重点？”；</li>
-<li>概念题：“DMA控制器的作用是什么？它如何降低CPU的I/O负担？”</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>简答题：“中断处理程序在I/O流程中的作用是什么？简述其处理步骤”；</p>
+</li>
+<li class="lvl-2">
+<p>关联题：“I/O请求中，进程从‘运行’到‘阻塞’再到‘就绪’的触发条件是什么？”</p>
+</li>
 </ul>
-<h2 id="io请求全流程嵌入考点">I/O请求全流程（嵌入考点）</h2>
-<ol type="1">
-<li>用户程序（用户态）调用<code>read(fd, buf, 100)</code>（<strong>用户层I/O软件考点：系统调用触发</strong>）；</li>
-<li>C库封装参数，通过Trap指令陷入内核（<strong>考点：用户态→内核态切换</strong>）；</li>
-<li>设备无关层：通过fd映射到磁盘文件，查页高速缓存（<strong>考点：缓冲管理</strong>）→未命中，转逻辑块为LBA（<strong>考点：逻辑→物理映射</strong>）；</li>
-<li>设备驱动：将LBA转为柱面/磁头/扇区，向磁盘控制器发读指令，阻塞进程（<strong>考点：驱动职责+进程阻塞</strong>）；</li>
-<li>硬件层：磁盘寻道→读扇区→DMA传数据到内核缓存（<strong>考点：磁盘物理操作+DMA控制</strong>）；</li>
-<li>硬件发中断→中断处理程序：唤醒进程（<strong>考点：中断处理+进程状态切换（阻塞→就绪）</strong>）；</li>
-<li>设备无关层：将内核缓存数据复制到用户buf（<strong>考点：缓冲数据传输</strong>）；</li>
-<li>用户程序（用户态）获得数据，继续执行。</li>
+<h3 id="5-第5层：硬件层">5. 第5层：硬件层</h3>
+<h4 id="核心作用-5">核心作用</h4>
+<p>执行实际I/O操作的物理组件，包括<strong>设备控制器</strong>（如磁盘控制器）和<strong>设备主体</strong>（如磁盘盘片）。</p>
+<h4 id="关联复习要点考点-5">关联复习要点考点</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>I/O控制方式的硬件支持（DMA控制器、I/O通道）</p>
+</li>
+<li class="lvl-2">
+<p>磁盘物理操作（寻道、旋转延迟）</p>
+</li>
+<li class="lvl-2">
+<p>磁盘调度算法的硬件基础</p>
+</li>
+</ul>
+<h4 id="知识细节-5">知识细节</h4>
+<ol>
+<li class="lvl-3">
+<p><strong>硬件组件与操作</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">磁盘控制器：接收驱动指令，控制磁头臂移动（寻道）、选择磁头、读取扇区数据；</li>
+<li class="lvl-5">DMA控制器：自主完成“硬件→内存”的数据传输，无需CPU干预；</li>
+<li class="lvl-5">I/O通道：专用硬件，能执行“通道程序”，同时管理多个设备的I/O（进一步降低CPU负载）。</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>磁盘操作与调度算法</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">物理操作：寻道（磁头移到目标柱面，耗时最长）→旋转延迟（目标扇区转到磁头下）→数据传输；</li>
+<li class="lvl-5">磁盘调度算法的目标：优化“寻道时间”（如SCAN算法通过单向移动磁头减少寻道距离）；</li>
+<li class="lvl-5">考点算法：FCFS（先来先服务）、SSTF（最短寻道时间优先）、SCAN（电梯算法）。</li>
+</ul>
+</li>
 </ol>
-<h2 id="io模块高频考点总结">I/O模块高频考点总结</h2>
-<ol type="1">
-<li>I/O五层结构的各层职责（简答题）；</li>
-<li>缓冲管理的类型、作用及时间计算（综合题）；</li>
-<li>4种I/O控制方式的对比（CPU参与度、效率，简答题）；</li>
-<li>中断处理程序的流程及与进程状态的关系（简答题）；</li>
-<li>磁盘调度算法的计算与适用场景（综合题）；</li>
-<li>设备无关层的“设备无关性”含义（概念题）。</li>
+<h4 id="典型考法-5">典型考法</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>综合题：“已知当前磁头在柱面10，请求队列是[2, 15, 7, 20]，分别计算FCFS、SSTF、SCAN（向柱面增大方向）的总寻道长度”；</p>
+</li>
+<li class="lvl-2">
+<p>简答题：“磁盘I/O的物理操作分为哪几步？为什么寻道时间是磁盘调度的优化重点？”；</p>
+</li>
+<li class="lvl-2">
+<p>概念题：“DMA控制器的作用是什么？它如何降低CPU的I/O负担？”</p>
+</li>
+</ul>
+<h2 id="I-O请求全流程（嵌入考点）">I/O请求全流程（嵌入考点）</h2>
+<ol>
+<li class="lvl-3">
+<p>用户程序（用户态）调用<code>read(fd, buf, 100)</code>（<strong>用户层I/O软件考点：系统调用触发</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>C库封装参数，通过Trap指令陷入内核（<strong>考点：用户态→内核态切换</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>设备无关层：通过fd映射到磁盘文件，查页高速缓存（<strong>考点：缓冲管理</strong>）→未命中，转逻辑块为LBA（<strong>考点：逻辑→物理映射</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>设备驱动：将LBA转为柱面/磁头/扇区，向磁盘控制器发读指令，阻塞进程（<strong>考点：驱动职责+进程阻塞</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>硬件层：磁盘寻道→读扇区→DMA传数据到内核缓存（<strong>考点：磁盘物理操作+DMA控制</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>硬件发中断→中断处理程序：唤醒进程（<strong>考点：中断处理+进程状态切换（阻塞→就绪）</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>设备无关层：将内核缓存数据复制到用户buf（<strong>考点：缓冲数据传输</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>用户程序（用户态）获得数据，继续执行。</p>
+</li>
+</ol>
+<h2 id="I-O模块高频考点总结">I/O模块高频考点总结</h2>
+<ol>
+<li class="lvl-3">
+<p>I/O五层结构的各层职责（简答题）；</p>
+</li>
+<li class="lvl-3">
+<p>缓冲管理的类型、作用及时间计算（综合题）；</p>
+</li>
+<li class="lvl-3">
+<p>4种I/O控制方式的对比（CPU参与度、效率，简答题）；</p>
+</li>
+<li class="lvl-3">
+<p>中断处理程序的流程及与进程状态的关系（简答题）；</p>
+</li>
+<li class="lvl-3">
+<p>磁盘调度算法的计算与适用场景（综合题）；</p>
+</li>
+<li class="lvl-3">
+<p>设备无关层的“设备无关性”含义（概念题）。</p>
+</li>
 </ol>
 
     </div>
@@ -487,7 +591,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%845%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">I&#x2F;O层次结构（5层）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC1%E5%B1%82%E7%94%A8%E6%88%B7%E5%B1%82io%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1. 第1层：用户层I&#x2F;O软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9"><span class="nav-number">1.1.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82"><span class="nav-number">1.1.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95"><span class="nav-number">1.1.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC2%E5%B1%82%E8%AE%BE%E5%A4%87%E7%8B%AC%E7%AB%8B%E6%80%A7%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2. 第2层：设备独立性软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC3%E5%B1%82%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">3. 第3层：设备驱动程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC4%E5%B1%82%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">4. 第4层：中断处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-3"><span class="nav-number">1.4.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-3"><span class="nav-number">1.4.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC5%E5%B1%82%E7%A1%AC%E4%BB%B6%E5%B1%82"><span class="nav-number">1.5.</span> <span class="nav-text">5. 第5层：硬件层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-4"><span class="nav-number">1.5.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-4"><span class="nav-number">1.5.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E8%AF%B7%E6%B1%82%E5%85%A8%E6%B5%81%E7%A8%8B%E5%B5%8C%E5%85%A5%E8%80%83%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">I&#x2F;O请求全流程（嵌入考点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E6%A8%A1%E5%9D%97%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">I&#x2F;O模块高频考点总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%EF%BC%885%E5%B1%82%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">I&#x2F;O层次结构（5层）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AC%AC1%E5%B1%82%EF%BC%9A%E7%94%A8%E6%88%B7%E5%B1%82I-O%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1. 第1层：用户层I&#x2F;O软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9"><span class="nav-number">1.1.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82"><span class="nav-number">1.1.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95"><span class="nav-number">1.1.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AC%AC2%E5%B1%82%EF%BC%9A%E8%AE%BE%E5%A4%87%E7%8B%AC%E7%AB%8B%E6%80%A7%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2. 第2层：设备独立性软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-2"><span class="nav-number">1.2.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-2"><span class="nav-number">1.2.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-2"><span class="nav-number">1.2.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-2"><span class="nav-number">1.2.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AC%AC3%E5%B1%82%EF%BC%9A%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">3. 第3层：设备驱动程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-3"><span class="nav-number">1.3.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-3"><span class="nav-number">1.3.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-3"><span class="nav-number">1.3.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-3"><span class="nav-number">1.3.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%AC%AC4%E5%B1%82%EF%BC%9A%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">4. 第4层：中断处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-4"><span class="nav-number">1.4.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-4"><span class="nav-number">1.4.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-4"><span class="nav-number">1.4.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-4"><span class="nav-number">1.4.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%AC%AC5%E5%B1%82%EF%BC%9A%E7%A1%AC%E4%BB%B6%E5%B1%82"><span class="nav-number">1.5.</span> <span class="nav-text">5. 第5层：硬件层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8-5"><span class="nav-number">1.5.1.</span> <span class="nav-text">核心作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%A4%8D%E4%B9%A0%E8%A6%81%E7%82%B9%E8%80%83%E7%82%B9-5"><span class="nav-number">1.5.2.</span> <span class="nav-text">关联复习要点考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82-5"><span class="nav-number">1.5.3.</span> <span class="nav-text">知识细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E8%80%83%E6%B3%95-5"><span class="nav-number">1.5.4.</span> <span class="nav-text">典型考法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O%E8%AF%B7%E6%B1%82%E5%85%A8%E6%B5%81%E7%A8%8B%EF%BC%88%E5%B5%8C%E5%85%A5%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">I&#x2F;O请求全流程（嵌入考点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O%E6%A8%A1%E5%9D%97%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">I&#x2F;O模块高频考点总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -564,7 +668,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">836k</span>
+    <span title="站点总字数">851k</span>
 </div>
 
         
