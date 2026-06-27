@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="四类IO方式的区别">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/01/02/COA/%E5%9B%9B%E7%B1%BBIO%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-02T07:00:12.000Z">
+<meta property="article:modified_time" content="2026-01-02T07:01:36.113Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/01/02/COA/%E5%9B%9B%E7%B1%BBIO%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>四类IO方式的区别 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/01/02/COA/%E5%9B%9B%E7%B1%BBIO%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          四类IO方式的区别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-01-02 15:00:12 / 修改时间：15:01:36" itemprop="dateCreated datePublished" datetime="2026-01-02T15:00:12+08:00">2026-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<p>核心定位速记：</p>
+<ol>
+<li class="lvl-4">
+<p><strong>程序I/O（查询式I/O）</strong>：CPU全程“盯梢”，主动查询设备状态，全程占用CPU，效率最低。</p>
+</li>
+<li class="lvl-4">
+<p><strong>中断驱动I/O</strong>：CPU“放手”，设备就绪后发中断通知CPU处理，仅中断时刻占用CPU，适配中低速设备。</p>
+</li>
+<li class="lvl-4">
+<p><strong>DMA（直接存储器访问）</strong>：专用硬件控制器“代劳”数据搬运，CPU仅初始化+结束中断，<strong>无CPU数据拷贝</strong>，适配高速单设备批量传输。</p>
+</li>
+<li class="lvl-4">
+<p><strong>I/O通道</strong>：专用I/O处理器，可编程，可管理<strong>多设备并发传输</strong>，CPU仅发启动指令，干预最少，适配大型机/多设备复杂场景。</p>
+</li>
+</ol>
+<hr>
+<h3 id="四大I-O方式核心差异对比表（408必考）">四大I/O方式核心差异对比表（408必考）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">对比项</th>
+<th style="text-align:left">程序I/O（查询式）</th>
+<th style="text-align:left">中断驱动I/O</th>
+<th style="text-align:left">DMA</th>
+<th style="text-align:left">I/O通道</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>核心控制者</strong></td>
+<td style="text-align:left">CPU（全程主导）</td>
+<td style="text-align:left">CPU（仅中断时处理）</td>
+<td style="text-align:left">DMA控制器（硬件）</td>
+<td style="text-align:left">专用I/O通道处理器（可编程）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>CPU干预程度</strong></td>
+<td style="text-align:left">极高：全程查询+数据拷贝</td>
+<td style="text-align:left">较低：初始化+中断处理</td>
+<td style="text-align:left">极低：仅初始化+传输结束中断</td>
+<td style="text-align:left">最低：仅发通道启动指令+最终中断</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>数据传输路径</strong></td>
+<td style="text-align:left">CPU寄存器 ↔ I/O设备</td>
+<td style="text-align:left">CPU寄存器 ↔ I/O设备</td>
+<td style="text-align:left">内存 ↔ I/O设备（<strong>直传</strong>）</td>
+<td style="text-align:left">内存 ↔ I/O设备（通道调度直传）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>传输粒度</strong></td>
+<td style="text-align:left">字节/字（单次1个单位）</td>
+<td style="text-align:left">字节/字</td>
+<td style="text-align:left">连续数据块</td>
+<td style="text-align:left">多块数据、非连续地址</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>设备管理能力</strong></td>
+<td style="text-align:left">一对一，单次控制一个设备</td>
+<td style="text-align:left">一对一/多对一，可多设备排队</td>
+<td style="text-align:left">一对一，单个设备专属DMA</td>
+<td style="text-align:left">一对多，可管理多个设备+控制器</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>灵活性</strong></td>
+<td style="text-align:left">最低，硬件固化，无编程性</td>
+<td style="text-align:left">较低，仅中断触发，无自主调度</td>
+<td style="text-align:left">较低，仅连续块传输，参数需CPU重配</td>
+<td style="text-align:left">最高，可编程（通道程序），适配新设备/新流程</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>适用场景</strong></td>
+<td style="text-align:left">低速简易设备（LED、按键）</td>
+<td style="text-align:left">中低速设备（键盘、打印机、串口）</td>
+<td style="text-align:left">高速单设备（磁盘、网卡、显卡）</td>
+<td style="text-align:left">大型机/服务器，多设备并发（多磁盘、多外设集群）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>效率排序</strong></td>
+<td style="text-align:left">1（最低）</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">4（最高）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="补充关键细节（易考点）">补充关键细节（易考点）</h3>
+<ol>
+<li class="lvl-4">
+<p>程序I/O <strong>无中断</strong>，CPU陷入查询循环，哪怕设备空闲也一直占用CPU，是最原始的I/O方式。</p>
+</li>
+<li class="lvl-4">
+<p>中断驱动I/O解决了程序I/O的“忙等”问题，但<strong>数据拷贝仍需CPU完成</strong>（这是它和DMA的核心区别）。</p>
+</li>
+<li class="lvl-4">
+<p>DMA的核心优势是<strong>脱离CPU完成数据直传</strong>，但它<strong>无独立指令集</strong>，只能做“搬运工”，不能做调度。</p>
+</li>
+<li class="lvl-4">
+<p>I/O通道是DMA的“升级版”：有精简指令集（通道指令），能执行通道程序，相当于给I/O系统配了“小CPU”，实现多设备并发调度。</p>
+</li>
+</ol>
+<hr>
+<h3 id="一句话总结">一句话总结</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>程序I/O：CPU干所有活；</p>
+</li>
+<li class="lvl-2">
+<p>中断驱动：CPU干“指挥+收尾”，数据拷贝仍自己来；</p>
+</li>
+<li class="lvl-2">
+<p>DMA：CPU干“初始化+收尾”，数据拷贝交给硬件；</p>
+</li>
+<li class="lvl-2">
+<p>I/O通道：CPU只“下令”，其余全交给通道处理器。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 计算机组成原理</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/01/02/COA/%E7%A3%81%E7%9B%98%E7%9A%84%E4%B8%89%E7%A7%8D%E7%BB%84%E7%BB%87%E5%BD%A2%E5%BC%8F/" rel="prev" title="磁盘的三种组织形式">
+      <i class="fa fa-chevron-left"></i> 磁盘的三种组织形式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/01/03/COA/%E8%AE%A1%E7%BB%84%E9%94%99%E9%A2%98%E6%80%BB%E7%BB%93/" rel="next" title="计组错题总结">
+      计组错题总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%A4%A7I-O%E6%96%B9%E5%BC%8F%E6%A0%B8%E5%BF%83%E5%B7%AE%E5%BC%82%E5%AF%B9%E6%AF%94%E8%A1%A8%EF%BC%88408%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">四大I&#x2F;O方式核心差异对比表（408必考）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E5%85%B3%E9%94%AE%E7%BB%86%E8%8A%82%EF%BC%88%E6%98%93%E8%80%83%E7%82%B9%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">补充关键细节（易考点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">一句话总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '06ab68277f5b17b0f66475ad56789834',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

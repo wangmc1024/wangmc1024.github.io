@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="大O小O的四则运算">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/03/31/math/calculus/first/%E5%A4%A7O%E5%B0%8FO%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-31T10:25:27.000Z">
+<meta property="article:modified_time" content="2026-03-31T10:25:45.513Z">
+<meta property="article:author" content="三子曰">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/03/31/math/calculus/first/%E5%A4%A7O%E5%B0%8FO%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>大O小O的四则运算 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/03/31/math/calculus/first/%E5%A4%A7O%E5%B0%8FO%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          大O小O的四则运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-31 18:25:27 / 修改时间：18:25:45" itemprop="dateCreated datePublished" datetime="2026-03-31T18:25:27+08:00">2026-03-31</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>📌 大O($O$)、小o($o$)的四则运算规则（$x\to0$ 场景，考研通用）</h1>
+<p>我们默认极限过程为 $x \to 0$，所有运算均在此前提下成立，核心是<strong>阶数的比较与吸收</strong>。</p>
+<hr>
+<h2 id="一、基础定义（先明确概念）">一、基础定义（先明确概念）</h2>
+<h3 id="1-小o记号-o-g-x">1. 小o记号 $o(g(x))$</h3>
+<p>若 $\lim_{x\to0}\frac{f(x)}{g(x)} = 0$，则称 $f(x)$ 是比 $g(x)$ <strong>更高阶</strong>的无穷小，记为 $f(x)=o(g(x))$。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>核心含义：$f(x)$ 趋于0的速度<strong>远快于</strong> $g(x)$。</p>
+</li>
+<li class="lvl-2">
+<p>常用：$o(x^n)$ 表示比 $x^n$ 高阶的无穷小，即 $\lim_{x\to0}\frac{o(x<sup>n)}{x</sup>n}=0$。</p>
+</li>
+</ul>
+<h3 id="2-大O记号-O-g-x">2. 大O记号 $O(g(x))$</h3>
+<p>若存在常数 $M&gt;0$，使得当 $x$ 足够小时，$|f(x)| \le M|g(x)|$，则称 $f(x)$ 是与 $g(x)$ <strong>同阶或更低阶</strong>的无穷大/无穷小，记为 $f(x)=O(g(x))$。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>核心含义：$f(x)$ 趋于0的速度<strong>不慢于</strong> $g(x)$（即阶数 $\le g(x)$ 的阶数）。</p>
+</li>
+<li class="lvl-2">
+<p>常用：$O(x^n)$ 表示阶数 $\le n$ 的无穷小，即 $\lim_{x\to0}\frac{O(x<sup>n)}{x</sup>n}$ 为有限值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="二、小o-o-的四则运算（考研高频）">二、小o($o$)的四则运算（考研高频）</h2>
+<h3 id="1-加法-减法（低阶吸收高阶）">1. 加法/减法（低阶吸收高阶）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>核心规则：<strong>低阶无穷小吸收高阶无穷小</strong><br>
+$$<br>
+o(x^m) \pm o(x^n) = o(x^{\min(m,n)}) \quad (m,n&gt;0)<br>
+$$<br>
+例：$o(x^2) + o(x^3) = o(x<sup>2)$（$x</sup>2$ 是低阶，吸收高阶的 $x^3$）</p>
+</li>
+<li class="lvl-2">
+<p>常数倍不改变阶数：<br>
+$$<br>
+c\cdot o(x^n) = o(x^n) \quad (c\neq0)<br>
+$$<br>
+例：$5\cdot o(x^2) = o(x^2)$</p>
+</li>
+</ul>
+<h3 id="2-乘法（幂次相加）">2. 乘法（幂次相加）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>同阶相乘：<br>
+$$<br>
+o(x^m) \cdot o(x^n) = o(x^{m+n})<br>
+$$<br>
+例：$o(x)\cdot o(x^2) = o(x^3)$</p>
+</li>
+<li class="lvl-2">
+<p>与多项式相乘：<br>
+$$<br>
+x^k \cdot o(x^n) = o(x^{k+n})<br>
+$$<br>
+例：$x^2 \cdot o(x^3) = o(x^5)$</p>
+</li>
+<li class="lvl-2">
+<p>与大O相乘：<br>
+$$<br>
+O(x^m) \cdot o(x^n) = o(x^{m+n})<br>
+$$</p>
+</li>
+</ul>
+<h3 id="3-除法（仅当分母阶数低于分子时成立）">3. 除法（仅当分母阶数低于分子时成立）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仅当 $m &lt; n$ 时：<br>
+$$<br>
+\frac{o(x<sup>n)}{x</sup>m} = o(x^{n-m})<br>
+$$<br>
+例：$\frac{o(x^3)}{x} = o(x^2)$</p>
+</li>
+<li class="lvl-2">
+<p>若 $m \ge n$，则 $\frac{o(x<sup>n)}{x</sup>m}$ 不是无穷小，无意义。</p>
+</li>
+</ul>
+<h3 id="4-复合运算">4. 复合运算</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若 $f(x)=o(x^n)$，则 $f(x)^k = o(x^{nk})$<br>
+例：$f(x)=o(x)$，则 $f(x)<sup>2=o(x</sup>2)$</p>
+</li>
+<li class="lvl-2">
+<p>若 $u(x)=o(1)$（即 $u(x)\to0$），则 $o(u(x))=o(1)$</p>
+</li>
+</ul>
+<hr>
+<h2 id="三、大O-O-的四则运算">三、大O($O$)的四则运算</h2>
+<h3 id="1-加法-减法（低阶吸收高阶）-2">1. 加法/减法（低阶吸收高阶）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>核心规则：<strong>低阶主导，吸收高阶</strong><br>
+$$<br>
+O(x^m) \pm O(x^n) = O(x^{\min(m,n)})<br>
+$$<br>
+例：$O(x) + O(x^2) = O(x)$</p>
+</li>
+<li class="lvl-2">
+<p>常数倍不改变阶数：<br>
+$$<br>
+c\cdot O(x^n) = O(x^n) \quad (c\neq0)<br>
+$$</p>
+</li>
+</ul>
+<h3 id="2-乘法（幂次相加）-2">2. 乘法（幂次相加）</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>同阶相乘：<br>
+$$<br>
+O(x^m) \cdot O(x^n) = O(x^{m+n})<br>
+$$<br>
+例：$O(x)\cdot O(x^2) = O(x^3)$</p>
+</li>
+<li class="lvl-2">
+<p>与多项式相乘：<br>
+$$<br>
+x^k \cdot O(x^n) = O(x^{k+n})<br>
+$$</p>
+</li>
+<li class="lvl-2">
+<p>与小o相乘：<br>
+$$<br>
+O(x^m) \cdot o(x^n) = o(x^{m+n})<br>
+$$</p>
+</li>
+</ul>
+<h3 id="3-除法">3. 除法</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仅当 $m \le n$ 时：<br>
+$$<br>
+\frac{O(x<sup>n)}{x</sup>m} = O(x^{n-m})<br>
+$$<br>
+例：$\frac{O(x^3)}{x} = O(x^2)$</p>
+</li>
+</ul>
+<h3 id="4-复合运算-2">4. 复合运算</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>若 $f(x)=O(x^n)$，则 $f(x)^k = O(x^{nk})$</p>
+</li>
+<li class="lvl-2">
+<p>若 $u(x)=O(1)$（有界量），则 $O(u(x))=O(1)$</p>
+</li>
+</ul>
+<hr>
+<h2 id="四、大O与小o的混合运算">四、大O与小o的混合运算</h2>
+<table>
+<thead>
+<tr>
+<th>运算</th>
+<th>结果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$o(x^n) + O(x^m)$</td>
+<td>$O(x^{\min(m,n)})$</td>
+<td>低阶主导</td>
+</tr>
+<tr>
+<td>$o(x^n) \cdot O(x^m)$</td>
+<td>$o(x^{n+m})$</td>
+<td>小o吸收大O</td>
+</tr>
+<tr>
+<td>$\frac{o(x<sup>n)}{O(x</sup>m)}$</td>
+<td>$o(x^{n-m})$（$n&gt;m$）</td>
+<td>分母阶数低于分子</td>
+</tr>
+<tr>
+<td>$\frac{O(x<sup>n)}{o(x</sup>m)}$</td>
+<td>无意义</td>
+<td>分母是高阶无穷小，趋于0更快</td>
+</tr>
+<tr>
+<td>$O(o(x^n))$</td>
+<td>$o(x^n)$</td>
+<td>大O包裹小o，结果仍为小o</td>
+</tr>
+<tr>
+<td>$o(O(x^n))$</td>
+<td>$o(x^n)$</td>
+<td>小o包裹大O，结果仍为小o</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="五、核心记忆口诀（考研直接背）">五、核心记忆口诀（考研直接背）</h2>
+<h3 id="小o：">小o：</h3>
+<p><strong>低阶吸收高阶，乘除幂次相加，常数不改变阶数</strong></p>
+<h3 id="大O：">大O：</h3>
+<p><strong>低阶主导高阶，乘除幂次相加，有界量不升阶</strong></p>
+<h3 id="混合：">混合：</h3>
+<p><strong>小o永远吸收大O，加减看低阶，乘除看幂次</strong></p>
+<hr>
+<h2 id="六、易错点提醒">六、易错点提醒</h2>
+<ol>
+<li class="lvl-4">
+<p><strong>$o(x^n) \neq o(x^m)$（$n\neq m$）</strong>：$o(x^2)$ 是比 $o(x)$ 更高阶的无穷小，不能混淆。</p>
+</li>
+<li class="lvl-4">
+<p><strong>$O(x^n)$ 包含 $o(x^n)$</strong>：所有 $o(x^n)$ 都是 $O(x^n)$，但反之不成立。</p>
+</li>
+<li class="lvl-4">
+<p><strong>加减运算不能直接用等价无穷小</strong>：等价无穷小本质是 $f(x)=g(x)+o(g(x))$，加减时低阶项会抵消，必须用泰勒展开保留足够阶数，不能只留 $O(x^n)$。</p>
+</li>
+<li class="lvl-4">
+<p><strong>幂指函数不能直接用o/O替换</strong>：必须先化为 $e^{v\ln u}$ 的指数形式，再对指数部分用o/O运算。</p>
+</li>
+</ol>
+<hr>
+<h2 id="七、结合你之前的题目举例">七、结合你之前的题目举例</h2>
+<p>对于 $(1+\sin x<sup>2)</sup>{\frac{1}{x}} = \left[1+x<sup>2+o(x</sup>4)\right]^{\frac{1}{x}}$：</p>
+<ol>
+<li class="lvl-4">
+<p>化为指数形式：$e<sup>{\frac{1}{x}\ln(1+x</sup>2+o(x^4))}$</p>
+</li>
+<li class="lvl-4">
+<p>展开 $\ln$：$\ln(1+x<sup>2+o(x</sup>4)) = x^2 + o(x^2)$（用 $\ln(1+u)=u+o(u)$）</p>
+</li>
+<li class="lvl-4">
+<p>指数运算：$\frac{1}{x}\cdot(x<sup>2+o(x</sup>2)) = x + o(x)$（用 $x^k\cdot o(x<sup>n)=o(x</sup>{k+n})$）</p>
+</li>
+<li class="lvl-4">
+<p>最终：$e^{x+o(x)} = 1+x+o(x)$（用 $e^u=1+u+o(u)$）</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/31/math/calculus/first/%E9%87%8D%E8%A6%81%E6%9E%81%E9%99%90/" rel="prev" title="重要极限">
+      <i class="fa fa-chevron-left"></i> 重要极限
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/31/math/calculus/first/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8/" rel="next" title="泰勒公式的应用">
+      泰勒公式的应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">📌 大O($O$)、小o($o$)的四则运算规则（$x\to0$ 场景，考研通用）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E5%AE%9A%E4%B9%89%EF%BC%88%E5%85%88%E6%98%8E%E7%A1%AE%E6%A6%82%E5%BF%B5%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、基础定义（先明确概念）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B0%8Fo%E8%AE%B0%E5%8F%B7-o-g-x"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 小o记号 $o(g(x))$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A4%A7O%E8%AE%B0%E5%8F%B7-O-g-x"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 大O记号 $O(g(x))$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B0%8Fo-o-%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%EF%BC%88%E8%80%83%E7%A0%94%E9%AB%98%E9%A2%91%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、小o($o$)的四则运算（考研高频）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8A%A0%E6%B3%95-%E5%87%8F%E6%B3%95%EF%BC%88%E4%BD%8E%E9%98%B6%E5%90%B8%E6%94%B6%E9%AB%98%E9%98%B6%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 加法&#x2F;减法（低阶吸收高阶）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B9%98%E6%B3%95%EF%BC%88%E5%B9%82%E6%AC%A1%E7%9B%B8%E5%8A%A0%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 乘法（幂次相加）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%99%A4%E6%B3%95%EF%BC%88%E4%BB%85%E5%BD%93%E5%88%86%E6%AF%8D%E9%98%B6%E6%95%B0%E4%BD%8E%E4%BA%8E%E5%88%86%E5%AD%90%E6%97%B6%E6%88%90%E7%AB%8B%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 除法（仅当分母阶数低于分子时成立）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A4%8D%E5%90%88%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 复合运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%A4%A7O-O-%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">三、大O($O$)的四则运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8A%A0%E6%B3%95-%E5%87%8F%E6%B3%95%EF%BC%88%E4%BD%8E%E9%98%B6%E5%90%B8%E6%94%B6%E9%AB%98%E9%98%B6%EF%BC%89-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 加法&#x2F;减法（低阶吸收高阶）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B9%98%E6%B3%95%EF%BC%88%E5%B9%82%E6%AC%A1%E7%9B%B8%E5%8A%A0%EF%BC%89-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 乘法（幂次相加）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%99%A4%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A4%8D%E5%90%88%E8%BF%90%E7%AE%97-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 复合运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A4%A7O%E4%B8%8E%E5%B0%8Fo%E7%9A%84%E6%B7%B7%E5%90%88%E8%BF%90%E7%AE%97"><span class="nav-number">1.4.</span> <span class="nav-text">四、大O与小o的混合运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A0%B8%E5%BF%83%E8%AE%B0%E5%BF%86%E5%8F%A3%E8%AF%80%EF%BC%88%E8%80%83%E7%A0%94%E7%9B%B4%E6%8E%A5%E8%83%8C%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">五、核心记忆口诀（考研直接背）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8Fo%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">小o：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7O%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">大O：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%EF%BC%9A"><span class="nav-number">1.5.3.</span> <span class="nav-text">混合：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%98%93%E9%94%99%E7%82%B9%E6%8F%90%E9%86%92"><span class="nav-number">1.6.</span> <span class="nav-text">六、易错点提醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%BB%93%E5%90%88%E4%BD%A0%E4%B9%8B%E5%89%8D%E7%9A%84%E9%A2%98%E7%9B%AE%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.7.</span> <span class="nav-text">七、结合你之前的题目举例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'bc922e773827dbe8a02590acc8c86814',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="计网错题">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/05/13/net/%E8%AE%A1%E7%BD%91%E9%94%99%E9%A2%98/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-13T12:13:22.000Z">
+<meta property="article:modified_time" content="2026-05-27T15:29:02.711Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/05/13/net/%E8%AE%A1%E7%BD%91%E9%94%99%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计网错题 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/05/13/net/%E8%AE%A1%E7%BD%91%E9%94%99%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计网错题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-05-13 20:13:22" itemprop="dateCreated datePublished" datetime="2026-05-13T20:13:22+08:00">2026-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-05-27 23:29:02" itemprop="dateModified" datetime="2026-05-27T23:29:02+08:00">2026-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>1</h1>
+<p>在下图所示的采用存储转发方式的分组交换网中，主机 A 向 B 发送两个长度为 1000B 的分组，路由器处理单个分组的时延为 10ms（假设路由器同时最多只能处理一个分组，若在处理某个分组时有新的分组到达，则存入缓存区），忽略链路的传播时延，所有链路的数据传输速率为 1Mb/s，则分组从 A 发送开始到 B 接收完为止，需要的时间至少是（ ）。</p>
+<p>（拓扑图：主机A → 路由器 → 主机B，共两段链路）</p>
+<p>A. 34ms<br>
+B. 36ms<br>
+C. 38ms<br>
+D. 52ms</p>
+<hr>
+<h3 id="关键参数整理">关键参数整理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>分组长度：$1000\ \text{B} = 1000 \times 8 = 8000\ \text{bit}$</p>
+</li>
+<li class="lvl-2">
+<p>链路速率：$1\ \text{Mb/s} = 10^6\ \text{bit/s}$</p>
+</li>
+<li class="lvl-2">
+<p>单个分组的发送时延：<br>
+[<br>
+t_{\text{发送}} = \frac{8000\ \text{bit}}{10^6\ \text{bit/s}} = 8\ \text{ms}<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p>路由器处理时延：$10\ \text{ms/分组}$，且一次只能处理一个分组</p>
+</li>
+<li class="lvl-2">
+<p>链路数量：主机A到路由器、路由器到主机B，共2段链路</p>
+</li>
+</ul>
+<hr>
+<h3 id="时间线分析（逐阶段拆解）">时间线分析（逐阶段拆解）</h3>
+<ol>
+<li class="lvl-4">
+<p><strong>主机A发送第1个分组</strong>：耗时 $8\ \text{ms}$，分组到达路由器。</p>
+</li>
+<li class="lvl-4">
+<p><strong>路由器处理第1个分组</strong>：耗时 $10\ \text{ms}$，处理完成后转发到主机B。</p>
+</li>
+<li class="lvl-4">
+<p><strong>路由器向主机B发送第1个分组</strong>：耗时 $8\ \text{ms}$，主机B接收完成。</p>
+<ul class="lvl-2">
+<li class="lvl-6">此时，主机A在第 $8\ \text{ms}$ 时已发完第1个分组，紧接着发送第2个分组，耗时 $8\ \text{ms}$，第2个分组在第 $16\ \text{ms}$ 时到达路由器。</li>
+<li class="lvl-6">路由器在第 $8\ \text{ms} \sim 18\ \text{ms}$ 正在处理第1个分组，因此第2个分组到达后进入缓存，等待处理。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>路由器处理第2个分组</strong>：从第 $18\ \text{ms}$ 开始，耗时 $10\ \text{ms}$，到第 $28\ \text{ms}$ 处理完成。</p>
+</li>
+<li class="lvl-4">
+<p><strong>路由器向主机B发送第2个分组</strong>：耗时 $8\ \text{ms}$，到第 $36\ \text{ms}$ 时主机B接收完成。</p>
+</li>
+</ol>
+<hr>
+<h3 id="最终答案">最终答案</h3>
+<p>主机B接收完两个分组的总时间为 <strong>36ms</strong>，对应选项 <strong>B</strong>。</p>
+<h1>2</h1>
+<p>如下图所示，主机 H1 和 H2 之间有三种可选的交换方式——电路交换、报文交换和分组交换，其中电路交换建立电路连接的时间为 2s，报文交换和分组交换都要经过由一个路由器连接的链路，分组大小为 5kb。三种交换方式的数据传输速率均为 2.5kb/s，忽略所有的传播时延、分组开销和不可预料的线路延迟，则下列说法中正确的是（ ）。</p>
+<p>拓扑图说明：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>左侧：电路交换场景，主机H1直接连接主机H2</p>
+</li>
+<li class="lvl-2">
+<p>右侧：报文交换/分组交换场景，主机H1→路由器→主机H2</p>
+</li>
+</ul>
+<p>A. 若 H1 向 H2 发送 5kb 的数据，则电路交换最节省时间<br>
+B. 若 H1 向 H2 发送 500kb 的数据，则电路交换和分组交换的时间相同<br>
+C. 若 H1 向 H2 发送 10kb 的数据，则报文交换比分组交换更节省时间<br>
+D. 若 H1 向 H2 发送 15kb 的数据，则报文交换比电路交换更节省时间</p>
+<hr>
+<h3 id="关键参数整理-2">关键参数整理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>链路速率：$R = 2.5\ \text{kb/s}$</p>
+</li>
+<li class="lvl-2">
+<p>电路交换连接建立时间：$t_{\text{建连}} = 2\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>分组大小：$L_{\text{分组}} = 5\ \text{kb}$</p>
+</li>
+<li class="lvl-2">
+<p>链路数量（报文/分组交换）：2段（H1→路由器、路由器→H2）</p>
+</li>
+</ul>
+<hr>
+<h3 id="三种交换方式的通用时延公式">三种交换方式的通用时延公式</h3>
+<ol>
+<li class="lvl-4">
+<p><strong>电路交换</strong><br>
+总时延 = 建立连接时间 + 数据发送时间（全程直通，无存储转发）<br>
+[<br>
+T_{\text{电路}} = t_{\text{建连}} + \frac{L}{R}<br>
+]</p>
+</li>
+<li class="lvl-4">
+<p><strong>报文交换</strong>（整包存储转发，两段链路）总时延 = 第一段发送时间 + 第二段发送时间<br>
+[<br>
+T_{\text{报文}} = 2 \times \frac{L}{R}<br>
+]</p>
+</li>
+<li class="lvl-4">
+<p><strong>分组交换</strong>（流水线转发，两段链路，分组数 $n = \frac{L}{L_{\text{分组}}}$）总时延 = 第一段发送全部分组的时间 + 第二段发送1个分组的时间<br>
+[<br>
+T_{\text{分组}} = n \times \frac{L_{\text{分组}}}{R} + \frac{L_{\text{分组}}}{R} = \frac{L}{R} + \frac{L_{\text{分组}}}{R}<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h3 id="选项逐一验证">选项逐一验证</h3>
+<h4 id="选项A：发送-5kb-数据">选项A：发送 5kb 数据</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>电路交换：$T_{\text{电路}} = 2 + \frac{5}{2.5} = 2 + 2 = 4\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>报文交换：$T_{\text{报文}} = 2 \times \frac{5}{2.5} = 4\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>分组交换：$T_{\text{分组}} = \frac{5}{2.5} + \frac{5}{2.5} = 2 + 2 = 4\ \text{s}$<br>
+三者时间相同，A错误。</p>
+</li>
+</ul>
+<h4 id="选项B：发送-500kb-数据">选项B：发送 500kb 数据</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>电路交换：$T_{\text{电路}} = 2 + \frac{500}{2.5} = 2 + 200 = 202\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>分组交换：$T_{\text{分组}} = \frac{500}{2.5} + \frac{5}{2.5} = 200 + 2 = 202\ \text{s}$<br>
+两者时间相同，B正确。</p>
+</li>
+</ul>
+<h4 id="选项C：发送-10kb-数据">选项C：发送 10kb 数据</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>报文交换：$T_{\text{报文}} = 2 \times \frac{10}{2.5} = 8\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>分组交换：$T_{\text{分组}} = \frac{10}{2.5} + \frac{5}{2.5} = 4 + 2 = 6\ \text{s}$<br>
+报文交换（8s）比分组交换（6s）耗时更长，C错误。</p>
+</li>
+</ul>
+<h4 id="选项D：发送-15kb-数据">选项D：发送 15kb 数据</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>电路交换：$T_{\text{电路}} = 2 + \frac{15}{2.5} = 2 + 6 = 8\ \text{s}$</p>
+</li>
+<li class="lvl-2">
+<p>报文交换：$T_{\text{报文}} = 2 \times \frac{15}{2.5} = 12\ \text{s}$<br>
+报文交换（12s）比电路交换（8s）耗时更长，D错误。</p>
+</li>
+</ul>
+<hr>
+<h3 id="答案">答案</h3>
+<p>正确选项为 <strong>B</strong>。</p>
+<h1>3</h1>
+<ol start="26">
+<li class="lvl-4">
+<p>在 TCP/IP 模型中，（ ）处理关于可靠性、流量控制和错误校正等问题。<br>
+A. 网络接口层<br>
+B. 网际层<br>
+C. 传输层<br>
+D. 应用层</p>
+</li>
+</ol>
+<hr>
+<h3 id="答案-2">答案</h3>
+<p><strong>C. 传输层</strong></p>
+<hr>
+<h3 id="详细解析">详细解析</h3>
+<ol>
+<li class="lvl-4">
+<p><strong>各层核心职责分析</strong></p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>A. 网络接口层</strong>：负责物理介质上的比特流传输、帧封装、MAC寻址，仅提供链路级差错检测（如CRC校验），不处理端到端的可靠性与流量控制。</li>
+<li class="lvl-6"><strong>B. 网际层（IP层）</strong>：负责IP寻址、路由选择、分组转发，提供无连接的“尽力而为”服务，不保证可靠传输，也不处理流量控制和错误校正。</li>
+<li class="lvl-6"><strong>C. 传输层</strong>：是TCP/IP模型中唯一提供<strong>端到端</strong>服务的层级。其中TCP协议实现了面向连接的可靠传输，包含确认重传机制、滑动窗口流量控制、拥塞控制和错误校正；UDP则为无连接的不可靠服务。题目中的可靠性、流量控制、错误校正正是传输层（TCP）的核心功能。</li>
+<li class="lvl-6"><strong>D. 应用层</strong>：为各类应用程序提供网络服务接口（如HTTP、FTP），不直接处理传输层的可靠性与流量控制问题。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>易错点区分</strong><br>
+数据链路层虽也具备相邻节点间的流量控制和差错检测，但它是<strong>链路级</strong>的局部控制；而传输层处理的是<strong>端到端</strong>的全局控制，这是二者的本质区别。</p>
+</li>
+</ol>
+<h1>4</h1>
+<hr>
+<h4 id="同轴电缆比双绞线的传输速率更快，得益于（-）。">同轴电缆比双绞线的传输速率更快，得益于（ ）。</h4>
+<p>A. 同轴电缆的铜芯比双绞线粗，能通过更大的电流<br>
+B. 同轴电缆的阻抗比较标准，减少了信号的衰减<br>
+C. 同轴电缆具有更高的屏蔽性，同时有更好的抗噪声性<br>
+D. 以上都正确</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>同轴电缆的结构是中心铜芯+绝缘层+金属屏蔽层+外层护套，而双绞线是成对绞合的铜线，屏蔽性差。</p>
+</li>
+<li class="lvl-2">
+<p>传输速率的核心限制因素是<strong>信号干扰（噪声）和信号衰减</strong>，同轴电缆的金属屏蔽层能有效抑制外界电磁干扰，抗噪声性能远优于双绞线，因此可以实现更高的传输速率和更远的传输距离。</p>
+</li>
+<li class="lvl-2">
+<p>A选项错误：传输速率和“通过更大电流”无关，通信中传输的是高频信号而非大电流。</p>
+</li>
+<li class="lvl-2">
+<p>B选项错误：阻抗标准确实存在，但这不是同轴电缆速率比双绞线快的核心原因，抗干扰才是关键。</p>
+</li>
+</ul>
+<hr>
+<h4 id="不受电磁干扰和噪声影响的传输介质是（-）。">不受电磁干扰和噪声影响的传输介质是（ ）。</h4>
+<p>A. 屏蔽双绞线<br>
+B. 非屏蔽双绞线<br>
+C. 光纤<br>
+D. 同轴电缆</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>光纤传输的是<strong>光信号</strong>而非电信号，完全不受外界电磁干扰、射频干扰和噪声的影响，这是它区别于所有铜质介质（双绞线、同轴电缆）的核心优势。</p>
+</li>
+<li class="lvl-2">
+<p>A/B/D选项都是以电信号传输的介质，即使有屏蔽层（如屏蔽双绞线、同轴电缆），也只能降低干扰，无法完全消除。</p>
+</li>
+</ul>
+<hr>
+<h4 id="06-多模光纤传输光信号的原理是（-）。">06. 多模光纤传输光信号的原理是（ ）。</h4>
+<p>A. 光的折射特性<br>
+B. 光的发射特性<br>
+C. 光的全反射特性<br>
+D. 光的绕射特性</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>光纤的核心原理是<strong>光的全反射</strong>：当光以大于临界角的角度入射到纤芯与包层的界面时，会被完全反射回纤芯，从而在光纤内部不断反射向前传播。</p>
+</li>
+<li class="lvl-2">
+<p>多模光纤和单模光纤都基于全反射原理，区别仅在于纤芯直径和传输模式的数量。</p>
+</li>
+<li class="lvl-2">
+<p>A选项错误：折射会导致光信号泄漏，不是光纤传输的原理；B选项的“发射特性”、D选项的“绕射特性”均与光纤传输无关。</p>
+</li>
+</ul>
+<hr>
+<h3 id="核心考点总结">核心考点总结</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">传输介质</th>
+<th style="text-align:left">信号类型</th>
+<th style="text-align:left">抗干扰性</th>
+<th style="text-align:left">核心原理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">双绞线</td>
+<td style="text-align:left">电信号</td>
+<td style="text-align:left">差（非屏蔽）/一般（屏蔽）</td>
+<td style="text-align:left">差分传输</td>
+</tr>
+<tr>
+<td style="text-align:left">同轴电缆</td>
+<td style="text-align:left">电信号</td>
+<td style="text-align:left">较好</td>
+<td style="text-align:left">屏蔽层抗干扰</td>
+</tr>
+<tr>
+<td style="text-align:left">光纤</td>
+<td style="text-align:left">光信号</td>
+<td style="text-align:left">极好（无干扰）</td>
+<td style="text-align:left">光的全反射</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>5</h1>
+<hr>
+<h4 id="第9题">第9题</h4>
+<p><strong>题目：</strong><br>
+某网络在物理层规定，信号的电平用+10V ~ +15V 表示二进制 0，用-10V ~ -15V 表示二进制 1，电线长度限于 15m 以内，这体现了物理层接口的（ ）。<br>
+A. 机械特性<br>
+B. 功能特性<br>
+C. 电气特性<br>
+D. 规程特性</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong><br>
+物理层接口的四大特性定义如下：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>机械特性</strong>：规定接口的外形、尺寸、引脚数量和排列等物理连接方式（如插头规格）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>功能特性</strong>：定义每个引脚的功能（如哪个引脚是发送数据、哪个是接收数据）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>电气特性</strong>：规定信号的电平范围、阻抗、传输速率、传输距离等电气参数。</p>
+</li>
+<li class="lvl-2">
+<p><strong>规程特性</strong>：定义信号的传输时序、控制流程等（如握手协议）。</p>
+</li>
+</ul>
+<p>本题中，规定了<strong>电平范围（+10V<sub>+15V表示0，-10V</sub>-15V表示1）<strong>和</strong>传输距离（15m以内）</strong>，这些都属于电气参数的范畴，因此体现的是<strong>电气特性</strong>。</p>
+<hr>
+<h4 id="第10题">第10题</h4>
+<p><strong>题目：</strong><br>
+当描述一个物理层接口引脚处于高电平时的含义时，该描述属于（ ）。<br>
+A. 机械特性<br>
+B. 电气特性<br>
+C. 功能特性<br>
+D. 规程特性</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>本题的关键在于区分“电平的定义”和“电平的含义”：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>电气特性</strong>只规定电平的物理值（比如高电平是+5V，低电平是0V），但不解释这个电平代表什么功能。</li>
+<li class="lvl-4"><strong>功能特性</strong>才会定义引脚电平对应的功能含义（比如高电平代表“数据有效”，低电平代表“数据无效”）。</li>
+</ul>
+</li>
+</ul>
+<p>题目描述的是<strong>高电平的含义</strong>，也就是这个电平在功能上代表什么，因此属于<strong>功能特性</strong>。</p>
+<hr>
+<h3 id="物理层四大特性速记表">物理层四大特性速记表</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性类型</th>
+<th style="text-align:left">核心定义</th>
+<th style="text-align:left">典型例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">机械特性</td>
+<td style="text-align:left">接口的物理外形、尺寸、引脚排列</td>
+<td style="text-align:left">插头有多少个针脚、接口的形状</td>
+</tr>
+<tr>
+<td style="text-align:left">电气特性</td>
+<td style="text-align:left">信号的电平、阻抗、传输速率、距离</td>
+<td style="text-align:left">高电平为+5V、低电平为0V，最大传输距离15m</td>
+</tr>
+<tr>
+<td style="text-align:left">功能特性</td>
+<td style="text-align:left">每个引脚的功能定义</td>
+<td style="text-align:left">某引脚高电平表示“发送数据使能”</td>
+</tr>
+<tr>
+<td style="text-align:left">规程特性</td>
+<td style="text-align:left">信号传输的时序和流程</td>
+<td style="text-align:left">发送方先发送请求信号，收到应答后再发数据</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>6</h1>
+<hr>
+<h4 id="04-由集线器连接多台设备构成的网络在物理上和逻辑上的结构分别是（-）。">04. 由集线器连接多台设备构成的网络在物理上和逻辑上的结构分别是（ ）。</h4>
+<p>A. 总线形、环形<br>
+B. 网状、星形<br>
+C. 总线形、星形<br>
+D. 星形、总线形</p>
+<p><strong>答案：D</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>物理结构</strong>：集线器是一个多端口设备，所有设备都以星形方式连接到集线器上，因此<strong>物理上是星形拓扑</strong>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>逻辑结构</strong>：集线器本质上是一个共享总线的设备，所有端口共享同一带宽，信号会被广播到所有端口，工作逻辑与传统的总线形网络完全一致，因此<strong>逻辑上是总线形拓扑</strong>。</p>
+</li>
+</ul>
+<hr>
+<h4 id="05-用集线器连接的工作站集合（-）。">05. 用集线器连接的工作站集合（ ）。</h4>
+<p>A. 同属一个冲突域，也同属一个广播域<br>
+B. 不同属一个冲突域，但同属一个广播域<br>
+C. 不同属一个冲突域，也不同属一个广播域<br>
+D. 同属一个冲突域，但不同属一个广播域</p>
+<p><strong>答案：A</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>集线器是<strong>物理层设备</strong>，所有端口共享同一传输介质：</p>
+<ul class="lvl-2">
+<li class="lvl-4"><strong>冲突域</strong>：所有设备发送信号都会竞争同一带宽，因此<strong>同属一个冲突域</strong>。</li>
+<li class="lvl-4"><strong>广播域</strong>：集线器收到广播帧后会转发给所有端口，因此<strong>同属一个广播域</strong>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="06-中继器可以用来连接（-）。">06. 中继器可以用来连接（ ）。</h4>
+<p>A. 不同类型的局域网<br>
+B. 不同速率的局域网<br>
+C. 不同介质的局域网<br>
+D. 不同协议的局域网</p>
+<p><strong>答案：C</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>中继器是<strong>物理层设备</strong>，仅对信号进行放大和再生，延长传输距离，不处理数据链路层以上的协议。</p>
+</li>
+<li class="lvl-2">
+<p>它可以连接使用<strong>不同传输介质</strong>的同类型局域网（如粗同轴电缆和细同轴电缆），但无法连接不同类型、不同速率或不同协议的网络。</p>
+</li>
+</ul>
+<hr>
+<h4 id="07-若有5台计算机连接到10Mb-s的集线器上，则每台计算机分得的平均带宽至多为（-）。">07. 若有5台计算机连接到10Mb/s的集线器上，则每台计算机分得的平均带宽至多为（ ）。</h4>
+<p>A. 2Mb/s<br>
+B. 5Mb/s<br>
+C. 10Mb/s<br>
+D. 50Mb/s</p>
+<p><strong>答案：A</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>集线器的所有端口<strong>共享同一带宽</strong>（10Mb/s），同一时间只能有一台设备发送数据。</p>
+</li>
+<li class="lvl-2">
+<p>当5台设备同时竞争发送时，平均带宽为总带宽除以设备数：$10 \div 5 = 2$ Mb/s。</p>
+</li>
+</ul>
+<hr>
+<h4 id="08-当集线器的一个端口收到数据后，将其（-）。">08. 当集线器的一个端口收到数据后，将其（ ）。</h4>
+<p>A. 从所有端口广播出去<br>
+B. 从除输入端口外的所有端口广播出去<br>
+C. 根据目的地址从合适的端口转发出去<br>
+D. 随机选择一个端口转发出去</p>
+<p><strong>答案：B</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>集线器工作在物理层，不识别MAC地址，收到数据后会<strong>泛洪转发</strong>。</p>
+</li>
+<li class="lvl-2">
+<p>为避免信号在输入端口形成回路，集线器会将数据转发到<strong>除输入端口外的所有其他端口</strong>，这是其基本工作方式。</p>
+</li>
+</ul>
+<hr>
+<h3 id="核心考点总结-2">核心考点总结</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">设备</th>
+<th style="text-align:left">工作层级</th>
+<th style="text-align:left">物理/逻辑拓扑</th>
+<th style="text-align:left">冲突域</th>
+<th style="text-align:left">广播域</th>
+<th style="text-align:left">带宽特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">集线器（HUB）</td>
+<td style="text-align:left">物理层L1</td>
+<td style="text-align:left">物理星形、逻辑总线形</td>
+<td style="text-align:left">所有端口同一冲突域</td>
+<td style="text-align:left">所有端口同一广播域</td>
+<td style="text-align:left">共享带宽</td>
+</tr>
+<tr>
+<td style="text-align:left">中继器</td>
+<td style="text-align:left">物理层L1</td>
+<td style="text-align:left">仅延长信号</td>
+<td style="text-align:left">不隔离冲突域</td>
+<td style="text-align:left">不隔离广播域</td>
+<td style="text-align:left">仅放大信号</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>7</h1>
+<hr>
+<h4 id="第03题">第03题</h4>
+<p><strong>题目：</strong> 下列选项中，不属于数据链路层协议功能的是（ ）。<br>
+A. 定义数据格式<br>
+B. 提供节点之间的可靠传输<br>
+C. 控制对物理传输介质的访问<br>
+D. 为终端节点隐蔽物理传输的细节</p>
+<p><strong>答案：D</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>A选项</strong>：数据链路层会定义帧的格式（如帧头、数据、校验位），属于其功能。</p>
+</li>
+<li class="lvl-2">
+<p><strong>B选项</strong>：数据链路层可通过确认、重传机制提供可靠传输（如HDLC协议），属于其功能。</p>
+</li>
+<li class="lvl-2">
+<p><strong>C选项</strong>：介质访问控制（MAC）子层负责控制节点对物理介质的访问（如CSMA/CD），属于其功能。</p>
+</li>
+<li class="lvl-2">
+<p><strong>D选项</strong>：<strong>为终端节点隐蔽物理传输细节</strong>是<strong>物理层</strong>的功能，而非数据链路层。物理层负责将数据转换为电/光信号传输，数据链路层只处理帧级的传输。</p>
+</li>
+</ul>
+<hr>
+<h4 id="第04题">第04题</h4>
+<p><strong>题目：</strong> 为了避免传输过程中帧的丢失，数据链路层采用的方法是（ ）。<br>
+A. 帧编号机制<br>
+B. 循环冗余检验码<br>
+C. 海明码<br>
+D. 计时器超时重发</p>
+<p><strong>答案：D</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>A选项</strong>：帧编号主要用于解决帧的乱序、重复问题，不能直接防止帧丢失。</p>
+</li>
+<li class="lvl-2">
+<p><strong>B选项</strong>：CRC仅用于检测帧是否出错，无法检测帧是否丢失，也不能纠正错误。</p>
+</li>
+<li class="lvl-2">
+<p><strong>C选项</strong>：海明码可纠正1位错误，但同样无法检测帧是否丢失。</p>
+</li>
+<li class="lvl-2">
+<p><strong>D选项</strong>：发送方发送帧后启动计时器，若超时未收到确认帧，则认为帧丢失，自动重发，这是数据链路层避免帧丢失的核心方法。</p>
+</li>
+</ul>
+<hr>
+<h4 id="第05题">第05题</h4>
+<p><strong>题目：</strong> 对于信道比较可靠且对实时性要求高的网络，数据链路层采用（ ）比较合适。<br>
+A. 无确认的无连接服务<br>
+B. 有确认的无连接服务<br>
+C. 无确认的面向连接服务<br>
+D. 有确认的面向连接服务</p>
+<p><strong>答案：A</strong></p>
+<p><strong>解析：</strong></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>无确认的无连接服务</strong>：发送方直接发送帧，无需建立连接、无需接收方确认，效率高、实时性好，适合信道可靠（出错概率低）的场景（如以太网）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>有确认的服务</strong>（B、D选项）需要接收方回复确认帧，会增加额外开销和延迟，不适合高实时性场景。</p>
+</li>
+<li class="lvl-2">
+<p><strong>无确认的面向连接服务</strong>（C选项）不存在这种标准服务模式，面向连接的服务通常需要确认机制来保证连接状态。</p>
+</li>
+</ul>
+<hr>
+<h3 id="数据链路层服务类型对比表">数据链路层服务类型对比表</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">服务类型</th>
+<th style="text-align:left">连接建立</th>
+<th style="text-align:left">确认机制</th>
+<th style="text-align:left">实时性</th>
+<th style="text-align:left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">无确认无连接</td>
+<td style="text-align:left">❌</td>
+<td style="text-align:left">❌</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">信道可靠、实时性要求高（如以太网）</td>
+</tr>
+<tr>
+<td style="text-align:left">有确认无连接</td>
+<td style="text-align:left">❌</td>
+<td style="text-align:left">✅</td>
+<td style="text-align:left">中</td>
+<td style="text-align:left">信道不可靠、需要纠错但无需长连接</td>
+</tr>
+<tr>
+<td style="text-align:left">有确认面向连接</td>
+<td style="text-align:left">✅</td>
+<td style="text-align:left">✅</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">信道不可靠、对可靠性要求极高（如广域网）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>8</h1>
+<p>这是一道经典的<strong>HDLC零比特填充</strong>真题，核心是掌握“五1插0”的规则。</p>
+<hr>
+<h4 id="题目：HDLC协议对-011111100-011111110-组帧后，对应的比特串为（-）">题目：HDLC协议对 <code>011111100 011111110</code> 组帧后，对应的比特串为（ ）</h4>
+<p>A. <code>011111100 001111110 10</code><br>
+B. <code>011111100 011111101 01111110</code><br>
+C. <code>011111100 011111101 0</code><br>
+D. <code>011111100 011111110 011111101</code></p>
+<p><strong>答案：C</strong></p>
+<hr>
+<h4 id="步骤1：拆分原始数据">步骤1：拆分原始数据</h4>
+<p>原始数据分为两段：</p>
+<ol>
+<li class="lvl-3">
+<p>第一段：<code>011111100</code></p>
+</li>
+<li class="lvl-3">
+<p>第二段：<code>011111110</code></p>
+</li>
+</ol>
+<h4 id="步骤2：对每段执行“零比特填充”">步骤2：对每段执行“零比特填充”</h4>
+<p>规则：遇到连续5个<code>1</code>，就在后面插入一个<code>0</code>。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>第一段 <code>011111100</code></strong>：序列为：<code>0 1 1 1 1 1 1 0 0</code>其中第2~6位是连续5个<code>1</code>，所以在第6位后插入一个<code>0</code>：<br>
+→ 填充后：<code>011111 0 100</code>（即 <code>0111110100</code>）</p>
+</li>
+<li class="lvl-2">
+<p><strong>第二段 <code>011111110</code></strong>：序列为：<code>0 1 1 1 1 1 1 1 0</code>第2<sub>6位是连续5个`1`，插入`0`；此时第7</sub>11位（<code>1 1 1 1 1</code>）也形成了连续5个<code>1</code>，再插入<code>0</code>：<br>
+→ 填充后：<code>011111 0 11 0</code>（即 <code>0111110110</code>）</p>
+</li>
+</ul>
+<p>合并两段填充后的数据：<br>
+<code>0111110100</code> + <code>0111110110</code> = <code>01111101000111110110</code></p>
+<h4 id="步骤3：匹配选项">步骤3：匹配选项</h4>
+<p>选项C <code>011111100 011111101 0</code> 就是上述合并结果的分段写法，与计算结果完全一致。</p>
+<hr>
+<h3 id="关键考点总结">关键考点总结</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>零比特填充的核心目的</strong>：防止数据中出现与帧标志 <code>01111110</code> 相同的序列，避免接收端误判帧边界。</p>
+</li>
+<li class="lvl-2">
+<p><strong>易错点</strong>：连续多个<code>1</code>时，只要出现5个<code>1</code>就必须插<code>0</code>，即使后面还有更多<code>1</code>也要按规则处理。</p>
+</li>
+</ul>
+<h1>9</h1>
+<ol start="18">
+<li class="lvl-4">
+<p>流量控制是实现发送方和接收方速度一致的机制，实现这种机制所采取的措施是（ ）。<br>
+A. 增大接收方接收速度<br>
+B. 减小发送方发送速度<br>
+C. 接收方向发送方反馈信息<br>
+D. 增加双方的缓冲区</p>
+</li>
+</ol>
+<hr>
+<h3 id="答案-3">答案</h3>
+<p><strong>C</strong></p>
+<hr>
+<h3 id="解析">解析</h3>
+<ol>
+<li class="lvl-4">
+<p><strong>核心概念</strong><br>
+流量控制的本质是<strong>协调发送方与接收方的传输速率</strong>，防止发送方速率过快，超出接收方的处理能力，导致接收方缓冲区溢出、数据丢失。</p>
+</li>
+<li class="lvl-4">
+<p><strong>选项分析</strong></p>
+<ul class="lvl-2">
+<li class="lvl-6"><strong>A选项：增大接收方接收速度</strong><br>
+接收方的接收速度受限于硬件性能、缓冲区大小等物理条件，无法随意增大，因此这不是可行的措施。</li>
+<li class="lvl-6"><strong>B选项：减小发送方发送速度</strong><br>
+这是流量控制带来的<strong>结果</strong>，而非实现机制本身。发送方并不知道接收方的处理能力，必须依赖反馈才能调整速度，因此该选项不成立。</li>
+<li class="lvl-6"><strong>C选项：接收方向发送方反馈信息</strong><br>
+这是流量控制的核心实现方式。接收方通过反馈（如确认帧、窗口大小）告知发送方自己当前的接收能力，发送方据此动态调整发送速率，使双方速率匹配。典型例子：TCP协议中的滑动窗口机制。</li>
+<li class="lvl-6"><strong>D选项：增加双方的缓冲区</strong><br>
+缓冲区只能缓解短时速率不匹配的问题，无法从根本上解决长期速率不一致的矛盾，因此不是实现流量控制的核心措施。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p><strong>结论</strong><br>
+流量控制的关键是<strong>反馈机制</strong>，只有接收方向发送方反馈信息，才能让发送方知道如何调整速率，实现双方速度一致。因此正确答案是C。</p>
+</li>
+</ol>
+<hr>
+<h3 id="补充知识点">补充知识点</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>流量控制 vs 拥塞控制</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">对比项</th>
+<th style="text-align:left">流量控制</th>
+<th style="text-align:left">拥塞控制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>控制对象</strong></td>
+<td style="text-align:left">发送方与接收方之间的速率匹配</td>
+<td style="text-align:left">网络中整体的流量负载</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>核心目标</strong></td>
+<td style="text-align:left">防止接收方来不及接收数据</td>
+<td style="text-align:left">防止网络因负载过大而瘫痪</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>实现方式</strong></td>
+<td style="text-align:left">接收方反馈（窗口、确认）</td>
+<td style="text-align:left">网络反馈（丢包、延迟）+ 发送方主动降速</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="lvl-2">
+<p><strong>常见的流量控制实现</strong></p>
+<ol>
+<li class="lvl-6">停止-等待协议：发送一帧，等待确认后再发下一帧。</li>
+<li class="lvl-6">滑动窗口协议：通过窗口大小动态控制连续发送的数据量。</li>
+</ol>
+</li>
+</ul>
+<h1>10</h1>
+<h3 id="题目">题目</h3>
+<p>两台主机之间的数据链路层采用后退N帧协议（GBN）传输数据，数据传输速率为16kb/s，单向传播时延为270ms，数据帧长范围是128~512字节，接收方总是以与数据帧等长的帧进行确认。为使信道利用率达到最高，帧序号的比特数至少为（ ）。<br>
+A. 5 B. 4 C. 3 D. 2</p>
+<h3 id="核心考点">核心考点</h3>
+<ol>
+<li class="lvl-3">
+<p>GBN协议的发送窗口大小限制：$W \le 2^n - 1$（$n$为帧序号比特数）</p>
+</li>
+<li class="lvl-3">
+<p>信道利用率的定义与最大化条件</p>
+</li>
+<li class="lvl-3">
+<p>发送时延、传播时延、往返时间（RTT）的正确计算</p>
+</li>
+</ol>
+<hr>
+<h2 id="二、关键概念澄清">二、关键概念澄清</h2>
+<h3 id="1-信道利用率（GBN）">1. 信道利用率（GBN）</h3>
+<p>信道利用率 = 发送方实际发送数据的时间 / 从发第一帧到收到ACK的总时间要使利用率最高（趋近100%），必须满足：<br>
+$$W \times T_f \ge T_{\text{总}}$$</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>$W$：发送窗口大小（可连续发送的最大帧数）</p>
+</li>
+<li class="lvl-2">
+<p>$T_f$：单个数据帧的发送时延</p>
+</li>
+<li class="lvl-2">
+<p>$T_{\text{总}}$：从发第一帧到收到对应ACK的<strong>完整往返周期</strong></p>
+</li>
+</ul>
+<h3 id="2-完整往返周期-T-text-总-的构成">2. 完整往返周期 $T_{\text{总}}$ 的构成</h3>
+<p>注意：这里的$T_{\text{总}}$不是狭义的“信号传播往返时间”，而是包含所有环节的协议级往返时间：<br>
+$$T_{\text{总}} = T_f + T_p + T_{\text{ack}} + T_p$$</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>$T_f$：数据帧发送时延（把数据帧放到信道上的时间）</p>
+</li>
+<li class="lvl-2">
+<p>$T_p$：单向传播时延（信号在信道中传输的时间）</p>
+</li>
+<li class="lvl-2">
+<p>$T_{\text{ack}}$：确认帧发送时延（本题中确认帧与数据帧等长，故$T_{\text{ack}}=T_f$）</p>
+</li>
+</ul>
+<hr>
+<h2 id="三、解题步骤（按最坏情况计算）">三、解题步骤（按最坏情况计算）</h2>
+<p>题目中数据帧长范围是128~512字节，<strong>帧越短，单位时间可发送的帧数越多，对窗口大小的要求越高</strong>，因此要按最短帧长128字节计算，才能保证所有帧长下利用率都最高。</p>
+<h3 id="步骤1：计算数据帧发送时延-T-f">步骤1：计算数据帧发送时延 $T_f$</h3>
+<p>已知：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>传输速率 $v = 16\ \text{kb/s} = 16000\ \text{bit/s}$</p>
+</li>
+<li class="lvl-2">
+<p>最短帧长 $L = 128\ \text{字节} = 128 \times 8 = 1024\ \text{bit}$</p>
+</li>
+</ul>
+<p>$$T_f = \frac{L}{v} = \frac{1024}{16000} = 0.064\ \text{s} = 64\ \text{ms}$$</p>
+<h3 id="步骤2：计算完整往返周期-T-text-总">步骤2：计算完整往返周期 $T_{\text{总}}$</h3>
+<p>已知：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>单向传播时延 $T_p = 270\ \text{ms}$</p>
+</li>
+<li class="lvl-2">
+<p>确认帧发送时延 $T_{\text{ack}} = T_f = 64\ \text{ms}$</p>
+</li>
+</ul>
+<p>$$T_{\text{总}} = T_f + T_p + T_{\text{ack}} + T_p = 64 + 270 + 64 + 270 = 668\ \text{ms} = 0.668\ \text{s}$$</p>
+<h3 id="步骤3：计算所需的最小发送窗口大小-W">步骤3：计算所需的最小发送窗口大小 $W$</h3>
+<p>利用率最大化条件：$W \times T_f \ge T_{\text{总}}$</p>
+<p>$$W \ge \frac{T_{\text{总}}}{T_f} = \frac{668}{64} \approx 10.44$$<br>
+向上取整，得 $W \ge 11$</p>
+<h3 id="步骤4：确定帧序号比特数-n">步骤4：确定帧序号比特数 $n$</h3>
+<p>GBN协议中，发送窗口最大为 $2^n - 1$，需满足：<br>
+$$2^n - 1 \ge 11$$</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>$n=3$：$2^3 - 1 = 7 &lt; 11$，不满足</p>
+</li>
+<li class="lvl-2">
+<p>$n=4$：$2^4 - 1 = 15 \ge 11$，满足</p>
+</li>
+</ul>
+<p>因此，帧序号的比特数至少为4，对应选项B。</p>
+<hr>
+<h2 id="四、易错点复盘">四、易错点复盘</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>未按最短帧长计算</strong>：如果按最长帧长512字节计算，$T_f = \frac{512 \times 8}{16000} = 0.256\ \text{s} = 256\ \text{ms}$，$T_{\text{总}} = 256 + 270 + 256 + 270 = 1052\ \text{ms}$，$W \ge \frac{1052}{256} \approx 4.1$，向上取整5，此时$n=3$（$2^3-1=7$）即可满足，但这不符合“为使信道利用率达到最高”的题意（必须考虑所有帧长的情况）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>混淆GBN与SR的窗口限制</strong>：GBN的发送窗口最大为$2^n - 1$，而选择重传（SR）的发送窗口最大为$2^{n-1}$，本题如果误用SR的公式，会得出错误结果。</p>
+</li>
+</ol>
+<hr>
+<h2 id="五、通用解题模板（直接套用）">五、通用解题模板（直接套用）</h2>
+<ol>
+<li class="lvl-4">
+<p><strong>确定最坏情况帧长</strong>：取最短帧长，计算$T_f = \frac{L_{\text{min}}}{v}$</p>
+</li>
+<li class="lvl-4">
+<p><strong>计算完整往返周期</strong>：$T_{\text{总}} = T_f + 2T_p + T_{\text{ack}}$（本题$T_{\text{ack}}=T_f$）</p>
+</li>
+<li class="lvl-4">
+<p><strong>求最小窗口大小</strong>：$W \ge \lceil \frac{T_{\text{总}}}{T_f} \rceil$（向上取整）</p>
+</li>
+<li class="lvl-4">
+<p><strong>求帧序号比特数</strong>：找最小的$n$，使得$2^n - 1 \ge W$</p>
+</li>
+</ol>
+<hr>
+<h1>11</h1>
+<p>【2014统考真题】主机甲与主机乙之间使用后退N帧协议（GBN）传输数据，主机甲的发送窗口尺寸为1000，数据帧长为1000字节，信道带宽为100Mb/s，主机乙每收到一个数据帧，就立即利用一个短帧（忽略其传输延迟）进行确认，若主机甲和主机乙之间的单向传播时延是50ms，则主机甲可以达到的最大平均数据传输速率约为（ ）。<br>
+A. 10Mb/s B. 20Mb/s C. 80Mb/s D. 100Mb/s</p>
+<hr>
+<h3 id="解题步骤">解题步骤</h3>
+<h4 id="1-明确核心目标">1. 明确核心目标</h4>
+<p>GBN协议的最大平均数据传输速率，由<strong>发送窗口内的数据量</strong>和<strong>一个往返周期（RTT）</strong> 决定：<br>
+[<br>
+\text{平均速率} = \frac{\text{发送窗口总数据量}}{\text{一个往返周期总时间}}<br>
+]</p>
+<h4 id="2-计算关键参数">2. 计算关键参数</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>发送窗口总数据量</strong>：窗口大小为1000帧，每帧1000字节，总数据量为：<br>
+[<br>
+1000 \times 1000\ \text{字节} = 10^6\ \text{字节} = 8 \times 10^6\ \text{bit}<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p><strong>数据帧发送时延</strong>：信道带宽为 (100\ \text{Mb/s} = 100 \times 10^6\ \text{bit/s})，单帧发送时延：<br>
+[<br>
+T_f = \frac{1000 \times 8}{100 \times 10^6} = 8 \times 10^{-5}\ \text{s} = 0.08\ \text{ms}<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p><strong>往返周期（RTT）</strong>：确认帧传输延迟忽略，往返周期包含：单帧发送时延 + 单向传播时延 + 确认帧传播时延<br>
+[<br>
+T_{\text{总}} = T_f + 2 \times 50\ \text{ms} \approx 100\ \text{ms} = 0.1\ \text{s}<br>
+]<br>
+（注：(T_f=0.08\ \text{ms}) 远小于传播时延，可忽略不计）</p>
+</li>
+</ul>
+<h4 id="3-计算最大平均数据传输速率">3. 计算最大平均数据传输速率</h4>
+<p>[<br>
+\text{平均速率} = \frac{8 \times 10^6\ \text{bit}}{0.1\ \text{s}} = 80 \times 10^6\ \text{bit/s} = 80\ \text{Mb/s}<br>
+]</p>
+<hr>
+<h3 id="答案-4">答案</h3>
+<p><strong>C. 80Mb/s</strong> ✅</p>
+<hr>
+<h3 id="补充解析">补充解析</h3>
+<ol>
+<li class="lvl-3">
+<p><strong>为什么发送时延可以忽略？</strong><br>
+本题中 (T_f=0.08\ \text{ms})，而传播时延 (50\ \text{ms})，发送时延占比不到0.2%，对总时间的影响可以忽略，因此 (T_{\text{总}} \approx 2 \times 50 = 100\ \text{ms})。</p>
+</li>
+<li class="lvl-3">
+<p><strong>平均速率的本质</strong><br>
+当发送窗口足够大，能在一个RTT内把信道“占满”时，平均速率等于发送窗口总数据量除以RTT。本题中窗口大小1000帧，在100ms内可以发送完所有数据，因此平均速率受限于窗口大小和RTT，而非信道带宽（100Mb/s是理论上限，实际受窗口和RTT限制）。</p>
+</li>
+<li class="lvl-3">
+<p><strong>与2012年真题的对比</strong></p>
+<ul class="lvl-2">
+<li class="lvl-5">2012题：已知速率、帧长、RTT，求窗口大小（序号比特数）</li>
+<li class="lvl-5">2014题：已知窗口大小、帧长、RTT，求平均速率两道题的核心公式是同一个：<br>
+[<br>
+\text{利用率} = \frac{W \times T_f}{T_{\text{总}}}, \quad \text{平均速率} = \text{利用率} \times \text{信道带宽}<br>
+]</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1>题目解析：选择重传（SR）协议窗口冲突</h1>
+<h2 id="题目-2">题目</h2>
+<p>在选择重传协议中，设序号用 3 比特编号，发送窗口 $W_t=6$，接收窗口 $W_r=3$，试找出一种情况，使得在此情况下协议不能正确工作。</p>
+<hr>
+<p>在选择重传协议中，序号用3比特编号（范围0~7），发送窗口 (W_T = 6)，接收窗口 (W_R = 3)，由于 (W_T + W_R = 9 &gt; 8)，可能发生序号回绕混淆。以下是一种导致协议无法正确工作的情形：</p>
+<ol>
+<li class="lvl-3">
+<p>发送方发送序号0、1、2、3、4、5（窗口内的所有分组）。</p>
+</li>
+<li class="lvl-3">
+<p>接收方正确接收所有分组，并按序交付。由于接收窗口大小为3，接收方在接收过程中滑动窗口：初始窗口[0,1,2]，接收0后窗口变为[1,2,3]，接收1后变为[2,3,4]，依此类推，最终在接收完5后，窗口滑动到[6,7,0]。</p>
+</li>
+<li class="lvl-3">
+<p>接收方为每个收到的分组发送确认（ACK），但所有ACK在传输中丢失。</p>
+</li>
+<li class="lvl-3">
+<p>发送方超时后未收到任何确认，于是重传所有分组（0~5）。</p>
+</li>
+<li class="lvl-3">
+<p>此时接收方的窗口为[6,7,0]，因此它只接受序号6、7、0。当重传的序号0到达时，接收方误认为它是新分组（因为0在窗口内），将其交付给上层，导致重复交付（之前已交付过序号0）。而重传的1~5不在窗口内，被丢弃。</p>
+</li>
+</ol>
+<p>这样，协议出现了重复数据，无法正确工作。</p>
+<h1>以太网CSMA/CD冲突检测原理题</h1>
+<hr>
+<h3 id="题目-3">题目</h3>
+<p>在以太网中，当数据传输速率提高时，帧的发送时间相应地缩短，这样可能会影响到冲突的检测。为了能有效地检测冲突，可以使用的解决方案有（ ）。<br>
+A. 减少电缆介质的长度或减少最短帧长<br>
+B. 减少电缆介质的长度或增加最短帧长<br>
+C. 增加电缆介质的长度或减少最短帧长<br>
+D. 增加电缆介质的长度或增加最短帧长</p>
+<hr>
+<h3 id="解题分析">解题分析</h3>
+<h4 id="核心原理（CSMA-CD冲突检测的必要条件）">核心原理（CSMA/CD冲突检测的必要条件）</h4>
+<p>要实现冲突检测，必须满足：<br>
+<strong>帧的发送时延 ≥ 两倍传播时延</strong><br>
+公式表达：<br>
+$$T_{\text{发送}} = \frac{L}{R} \ge 2 \times \frac{d}{v} = 2\tau$$<br>
+其中：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>$L$：帧长（最短帧长为 $L_{\text{min}}$）</p>
+</li>
+<li class="lvl-2">
+<p>$R$：数据传输速率</p>
+</li>
+<li class="lvl-2">
+<p>$d$：电缆介质长度</p>
+</li>
+<li class="lvl-2">
+<p>$v$：信号在介质中的传播速度（常数）</p>
+</li>
+<li class="lvl-2">
+<p>$\tau$：单向传播时延</p>
+</li>
+</ul>
+<h4 id="分析过程">分析过程</h4>
+<p>当数据传输速率 $R$ 提高时，为维持上述不等式成立，有两种可行方案：</p>
+<ol>
+<li class="lvl-4">
+<p><strong>调整帧长</strong>：增大 $L_{\text{min}}$<br>
+当 $R$ 增大，为了让 $\frac{L_{\text{min}}}{R}$ 不小于 $2\tau$，需要增大 $L_{\text{min}}$。</p>
+</li>
+<li class="lvl-4">
+<p><strong>调整传播时延</strong>：减小 $d$（电缆长度）当 $d$ 减小时，传播时延 $\tau$ 减小，因此 $2\tau$ 也随之减小，更容易满足不等式。</p>
+</li>
+</ol>
+<h4 id="结论">结论</h4>
+<p>符合条件的方案是：<strong>减少电缆介质的长度 或 增加最短帧长</strong>，对应选项 <strong>B</strong>。</p>
+<hr>
+<h3 id="答案-5">答案</h3>
+<p><strong>B</strong> ✅</p>
+<hr>
+<h3 id="补充考点">补充考点</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>以太网的最短帧长（64字节）就是基于10Mbps速率和最大传输距离（2500米）计算得出的。</p>
+</li>
+<li class="lvl-2">
+<p>速率提升（如从10Mbps到100Mbps、1Gbps）时，标准中通过“载波延伸”或直接增大帧长等方式，维持冲突检测条件。</p>
+</li>
+</ul>
+<h1>CSMA/CD冲突检测时间计算题</h1>
+<hr>
+<h3 id="题目-4">题目</h3>
+<p>在某 CSMA/CD 局域网中，使用一个 Hub 连接所有站点，且限定站点到 Hub 的最长距离为 100m，信号的传播速率为 200000km/s，则站点的最长冲突检测时间是（ ）。<br>
+A. 2μs<br>
+B. 2ms<br>
+C. 1μs<br>
+D. 1ms</p>
+<hr>
+<h3 id="解题分析-2">解题分析</h3>
+<h4 id="核心原理修正">核心原理修正</h4>
+<p>CSMA/CD 中，<strong>最长冲突检测时间 = 两个最远站点之间的往返传播时延</strong>，而不是单个站点到Hub的往返时间。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>站点到Hub的最长距离为 100m，因此两个最远站点之间的距离为：$100\ \text{m} + 100\ \text{m} = 200\ \text{m}$</p>
+</li>
+<li class="lvl-2">
+<p>信号传播速率：$200000\ \text{km/s} = 2 \times 10^8\ \text{m/s}$</p>
+</li>
+</ul>
+<h4 id="步骤1：计算单程传播时延（最远站点间）">步骤1：计算单程传播时延（最远站点间）</h4>
+<p>[<br>
+\tau = \frac{\text{最远站点间距}}{\text{信号传播速率}} = \frac{200\ \text{m}}{2 \times 10^8\ \text{m/s}} = 1 \times 10^{-6}\ \text{s} = 1\ \mu\text{s}<br>
+]</p>
+<h4 id="步骤2：计算冲突检测时间（往返时延）">步骤2：计算冲突检测时间（往返时延）</h4>
+<p>[<br>
+T_{\text{冲突检测}} = 2 \times \tau = 2 \times 1\ \mu\text{s} = 2\ \mu\text{s}<br>
+]</p>
+<hr>
+<h3 id="答案-6">答案</h3>
+<p><strong>A</strong> ✅</p>
+<hr>
+<h3 id="关键易错点说明">关键易错点说明</h3>
+<p>我之前的错误在于：只计算了单个站点到Hub的往返时间，而忽略了<strong>Hub连接的两个站点之间的距离是两倍的站点到Hub距离</strong>。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>冲突检测的最坏情况，是两个<strong>最远的站点</strong>同时发送信号，它们的信号需要经过“站点A→Hub→站点B”再返回“站点B→Hub→站点A”的完整路径，因此总距离是 $2 \times 200\ \text{m} = 400\ \text{m}$。</p>
+</li>
+<li class="lvl-2">
+<p>正确的计算是：$T = \frac{400\ \text{m}}{2 \times 10^8\ \text{m/s}} = 2\ \mu\text{s}$，和上面的推导结果一致。</p>
+</li>
+</ul>
+<h1>吉比特以太网</h1>
+<p>题目：下列关于吉比特以太网的说法中，错误的是（  ）。<br>
+A. 支持流量控制机制<br>
+B. 采用曼彻斯特编码，利用光纤进行数据传输<br>
+C. 数据的传输时间主要受线路传输延迟的制约<br>
+D. 同时支持全双工模式和半双工模式</p>
+<hr>
+<h2 id="选项解析">选项解析</h2>
+<h3 id="选项A-✅-正确">选项A ✅ 正确</h3>
+<p>吉比特以太网支持流量控制机制，在全双工模式下，可通过IEEE 802.3x的<strong>PAUSE帧</strong>实现流量控制，避免发送方速率过快导致接收方缓冲区溢出。</p>
+<h3 id="选项B-❌-错误">选项B ❌ 错误</h3>
+<p>这是本题的错误选项，原因有两点：</p>
+<ol>
+<li class="lvl-4">
+<p><strong>编码方式错误</strong>：曼彻斯特编码的效率只有50%（10Mbps以太网使用），而吉比特以太网速率高达1000Mbps，必须采用效率更高的编码方式：</p>
+<ul class="lvl-2">
+<li class="lvl-6">光纤/铜缆介质的吉比特以太网，使用的是<strong>8B/10B编码</strong>（编码效率80%），而非曼彻斯特编码。</li>
+</ul>
+</li>
+<li class="lvl-4">
+<p>虽然吉比特以太网可以使用光纤传输，但编码方式的描述本身就是错误的，因此该选项整体错误。</p>
+</li>
+</ol>
+<h3 id="选项C-✅-正确">选项C ✅ 正确</h3>
+<p>吉比特以太网的传输速率很高，帧的发送时间（即把整个帧放到链路上的时间）非常短，此时<strong>线路传输延迟（信号在线路上传播的时间）</strong> 会成为数据传输时间的主要制约因素。</p>
+<h3 id="选项D-✅-正确">选项D ✅ 正确</h3>
+<p>吉比特以太网同时支持两种工作模式：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>全双工模式</strong>：使用交换机连接，无冲突域，是主流应用模式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>半双工模式</strong>：使用集线器连接，需采用CSMA/CD机制，仅在早期共享式网络中使用。</p>
+</li>
+</ul>
+<hr>
+<h2 id="答案与总结">答案与总结</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>错误选项：<strong>B</strong></p>
+</li>
+<li class="lvl-2">
+<p>核心考点：吉比特以太网的编码方式、工作模式与流量控制机制。</p>
+</li>
+</ul>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/13/net/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="prev" title="计网知识点">
+      <i class="fa fa-chevron-left"></i> 计网知识点
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/05/19/math/probability_theory/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81/" rel="next" title="随机变量与数字特征">
+      随机变量与数字特征 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E6%95%B4%E7%90%86"><span class="nav-number">1.0.1.</span> <span class="nav-text">关键参数整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%BA%BF%E5%88%86%E6%9E%90%EF%BC%88%E9%80%90%E9%98%B6%E6%AE%B5%E6%8B%86%E8%A7%A3%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">时间线分析（逐阶段拆解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%AD%94%E6%A1%88"><span class="nav-number">1.0.3.</span> <span class="nav-text">最终答案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E6%95%B4%E7%90%86-2"><span class="nav-number">2.0.1.</span> <span class="nav-text">关键参数整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F%E7%9A%84%E9%80%9A%E7%94%A8%E6%97%B6%E5%BB%B6%E5%85%AC%E5%BC%8F"><span class="nav-number">2.0.2.</span> <span class="nav-text">三种交换方式的通用时延公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9%E9%80%90%E4%B8%80%E9%AA%8C%E8%AF%81"><span class="nav-number">2.0.3.</span> <span class="nav-text">选项逐一验证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9A%EF%BC%9A%E5%8F%91%E9%80%81-5kb-%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">选项A：发送 5kb 数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9B%EF%BC%9A%E5%8F%91%E9%80%81-500kb-%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">选项B：发送 500kb 数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9C%EF%BC%9A%E5%8F%91%E9%80%81-10kb-%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">选项C：发送 10kb 数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9D%EF%BC%9A%E5%8F%91%E9%80%81-15kb-%E6%95%B0%E6%8D%AE"><span class="nav-number">2.0.3.4.</span> <span class="nav-text">选项D：发送 15kb 数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88"><span class="nav-number">2.0.4.</span> <span class="nav-text">答案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90"><span class="nav-number">3.0.2.</span> <span class="nav-text">详细解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E8%BD%B4%E7%94%B5%E7%BC%86%E6%AF%94%E5%8F%8C%E7%BB%9E%E7%BA%BF%E7%9A%84%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87%E6%9B%B4%E5%BF%AB%EF%BC%8C%E5%BE%97%E7%9B%8A%E4%BA%8E%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">同轴电缆比双绞线的传输速率更快，得益于（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%8F%97%E7%94%B5%E7%A3%81%E5%B9%B2%E6%89%B0%E5%92%8C%E5%99%AA%E5%A3%B0%E5%BD%B1%E5%93%8D%E7%9A%84%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8%E6%98%AF%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">不受电磁干扰和噪声影响的传输介质是（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#06-%E5%A4%9A%E6%A8%A1%E5%85%89%E7%BA%A4%E4%BC%A0%E8%BE%93%E5%85%89%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">06. 多模光纤传输光信号的原理是（ ）。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">4.0.1.</span> <span class="nav-text">核心考点总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC9%E9%A2%98"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">第9题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC10%E9%A2%98"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">第10题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7%E9%80%9F%E8%AE%B0%E8%A1%A8"><span class="nav-number">5.0.1.</span> <span class="nav-text">物理层四大特性速记表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#04-%E7%94%B1%E9%9B%86%E7%BA%BF%E5%99%A8%E8%BF%9E%E6%8E%A5%E5%A4%9A%E5%8F%B0%E8%AE%BE%E5%A4%87%E6%9E%84%E6%88%90%E7%9A%84%E7%BD%91%E7%BB%9C%E5%9C%A8%E7%89%A9%E7%90%86%E4%B8%8A%E5%92%8C%E9%80%BB%E8%BE%91%E4%B8%8A%E7%9A%84%E7%BB%93%E6%9E%84%E5%88%86%E5%88%AB%E6%98%AF%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">04. 由集线器连接多台设备构成的网络在物理上和逻辑上的结构分别是（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#05-%E7%94%A8%E9%9B%86%E7%BA%BF%E5%99%A8%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%AB%99%E9%9B%86%E5%90%88%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">05. 用集线器连接的工作站集合（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#06-%E4%B8%AD%E7%BB%A7%E5%99%A8%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E8%BF%9E%E6%8E%A5%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">06. 中继器可以用来连接（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#07-%E8%8B%A5%E6%9C%895%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9E%E6%8E%A5%E5%88%B010Mb-s%E7%9A%84%E9%9B%86%E7%BA%BF%E5%99%A8%E4%B8%8A%EF%BC%8C%E5%88%99%E6%AF%8F%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%88%86%E5%BE%97%E7%9A%84%E5%B9%B3%E5%9D%87%E5%B8%A6%E5%AE%BD%E8%87%B3%E5%A4%9A%E4%B8%BA%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">6.0.0.4.</span> <span class="nav-text">07. 若有5台计算机连接到10Mb&#x2F;s的集线器上，则每台计算机分得的平均带宽至多为（ ）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#08-%E5%BD%93%E9%9B%86%E7%BA%BF%E5%99%A8%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%94%B6%E5%88%B0%E6%95%B0%E6%8D%AE%E5%90%8E%EF%BC%8C%E5%B0%86%E5%85%B6%EF%BC%88-%EF%BC%89%E3%80%82"><span class="nav-number">6.0.0.5.</span> <span class="nav-text">08. 当集线器的一个端口收到数据后，将其（ ）。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93-2"><span class="nav-number">6.0.1.</span> <span class="nav-text">核心考点总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC03%E9%A2%98"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">第03题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC04%E9%A2%98"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">第04题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC05%E9%A2%98"><span class="nav-number">7.0.0.3.</span> <span class="nav-text">第05题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E6%9C%8D%E5%8A%A1%E7%B1%BB%E5%9E%8B%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="nav-number">7.0.1.</span> <span class="nav-text">数据链路层服务类型对比表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9AHDLC%E5%8D%8F%E8%AE%AE%E5%AF%B9-011111100-011111110-%E7%BB%84%E5%B8%A7%E5%90%8E%EF%BC%8C%E5%AF%B9%E5%BA%94%E7%9A%84%E6%AF%94%E7%89%B9%E4%B8%B2%E4%B8%BA%EF%BC%88-%EF%BC%89"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">题目：HDLC协议对 011111100 011111110 组帧后，对应的比特串为（ ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E6%8B%86%E5%88%86%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">8.0.0.2.</span> <span class="nav-text">步骤1：拆分原始数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%AF%B9%E6%AF%8F%E6%AE%B5%E6%89%A7%E8%A1%8C%E2%80%9C%E9%9B%B6%E6%AF%94%E7%89%B9%E5%A1%AB%E5%85%85%E2%80%9D"><span class="nav-number">8.0.0.3.</span> <span class="nav-text">步骤2：对每段执行“零比特填充”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E5%8C%B9%E9%85%8D%E9%80%89%E9%A1%B9"><span class="nav-number">8.0.0.4.</span> <span class="nav-text">步骤3：匹配选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%80%83%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">8.0.1.</span> <span class="nav-text">关键考点总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-3"><span class="nav-number">9.0.1.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-number">9.0.2.</span> <span class="nav-text">解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">9.0.3.</span> <span class="nav-text">补充知识点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">10.</span> <span class="nav-text">10</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">10.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9"><span class="nav-number">10.0.2.</span> <span class="nav-text">核心考点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E6%BE%84%E6%B8%85"><span class="nav-number">10.1.</span> <span class="nav-text">二、关键概念澄清</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%A1%E9%81%93%E5%88%A9%E7%94%A8%E7%8E%87%EF%BC%88GBN%EF%BC%89"><span class="nav-number">10.1.1.</span> <span class="nav-text">1. 信道利用率（GBN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%8C%E6%95%B4%E5%BE%80%E8%BF%94%E5%91%A8%E6%9C%9F-T-text-%E6%80%BB-%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-number">10.1.2.</span> <span class="nav-text">2. 完整往返周期 $T_{\text{总}}$ 的构成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4%EF%BC%88%E6%8C%89%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E8%AE%A1%E7%AE%97%EF%BC%89"><span class="nav-number">10.2.</span> <span class="nav-text">三、解题步骤（按最坏情况计算）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE%E5%B8%A7%E5%8F%91%E9%80%81%E6%97%B6%E5%BB%B6-T-f"><span class="nav-number">10.2.1.</span> <span class="nav-text">步骤1：计算数据帧发送时延 $T_f$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E8%AE%A1%E7%AE%97%E5%AE%8C%E6%95%B4%E5%BE%80%E8%BF%94%E5%91%A8%E6%9C%9F-T-text-%E6%80%BB"><span class="nav-number">10.2.2.</span> <span class="nav-text">步骤2：计算完整往返周期 $T_{\text{总}}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%89%80%E9%9C%80%E7%9A%84%E6%9C%80%E5%B0%8F%E5%8F%91%E9%80%81%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F-W"><span class="nav-number">10.2.3.</span> <span class="nav-text">步骤3：计算所需的最小发送窗口大小 $W$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%B8%A7%E5%BA%8F%E5%8F%B7%E6%AF%94%E7%89%B9%E6%95%B0-n"><span class="nav-number">10.2.4.</span> <span class="nav-text">步骤4：确定帧序号比特数 $n$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%98%93%E9%94%99%E7%82%B9%E5%A4%8D%E7%9B%98"><span class="nav-number">10.3.</span> <span class="nav-text">四、易错点复盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E9%80%9A%E7%94%A8%E8%A7%A3%E9%A2%98%E6%A8%A1%E6%9D%BF%EF%BC%88%E7%9B%B4%E6%8E%A5%E5%A5%97%E7%94%A8%EF%BC%89"><span class="nav-number">10.4.</span> <span class="nav-text">五、通用解题模板（直接套用）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">11.</span> <span class="nav-text">11</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4"><span class="nav-number">11.0.1.</span> <span class="nav-text">解题步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%98%8E%E7%A1%AE%E6%A0%B8%E5%BF%83%E7%9B%AE%E6%A0%87"><span class="nav-number">11.0.1.1.</span> <span class="nav-text">1. 明确核心目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%A1%E7%AE%97%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">11.0.1.2.</span> <span class="nav-text">2. 计算关键参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%AE%A1%E7%AE%97%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87"><span class="nav-number">11.0.1.3.</span> <span class="nav-text">3. 计算最大平均数据传输速率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-4"><span class="nav-number">11.0.2.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E6%9E%90"><span class="nav-number">11.0.3.</span> <span class="nav-text">补充解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">12.</span> <span class="nav-text">题目解析：选择重传（SR）协议窗口冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-2"><span class="nav-number">12.1.</span> <span class="nav-text">题目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">13.</span> <span class="nav-text">以太网CSMA&#x2F;CD冲突检测原理题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-3"><span class="nav-number">13.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">13.0.2.</span> <span class="nav-text">解题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%88CSMA-CD%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6%EF%BC%89"><span class="nav-number">13.0.2.1.</span> <span class="nav-text">核心原理（CSMA&#x2F;CD冲突检测的必要条件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-number">13.0.2.2.</span> <span class="nav-text">分析过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">13.0.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-5"><span class="nav-number">13.0.3.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E8%80%83%E7%82%B9"><span class="nav-number">13.0.4.</span> <span class="nav-text">补充考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">14.</span> <span class="nav-text">CSMA&#x2F;CD冲突检测时间计算题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-4"><span class="nav-number">14.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E5%88%86%E6%9E%90-2"><span class="nav-number">14.0.2.</span> <span class="nav-text">解题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BF%AE%E6%AD%A3"><span class="nav-number">14.0.2.1.</span> <span class="nav-text">核心原理修正</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E8%AE%A1%E7%AE%97%E5%8D%95%E7%A8%8B%E4%BC%A0%E6%92%AD%E6%97%B6%E5%BB%B6%EF%BC%88%E6%9C%80%E8%BF%9C%E7%AB%99%E7%82%B9%E9%97%B4%EF%BC%89"><span class="nav-number">14.0.2.2.</span> <span class="nav-text">步骤1：计算单程传播时延（最远站点间）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E8%AE%A1%E7%AE%97%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B%E6%97%B6%E9%97%B4%EF%BC%88%E5%BE%80%E8%BF%94%E6%97%B6%E5%BB%B6%EF%BC%89"><span class="nav-number">14.0.2.3.</span> <span class="nav-text">步骤2：计算冲突检测时间（往返时延）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-6"><span class="nav-number">14.0.3.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%98%93%E9%94%99%E7%82%B9%E8%AF%B4%E6%98%8E"><span class="nav-number">14.0.4.</span> <span class="nav-text">关键易错点说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">15.</span> <span class="nav-text">吉比特以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E9%A1%B9%E8%A7%A3%E6%9E%90"><span class="nav-number">15.1.</span> <span class="nav-text">选项解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9A-%E2%9C%85-%E6%AD%A3%E7%A1%AE"><span class="nav-number">15.1.1.</span> <span class="nav-text">选项A ✅ 正确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9B-%E2%9D%8C-%E9%94%99%E8%AF%AF"><span class="nav-number">15.1.2.</span> <span class="nav-text">选项B ❌ 错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9C-%E2%9C%85-%E6%AD%A3%E7%A1%AE"><span class="nav-number">15.1.3.</span> <span class="nav-text">选项C ✅ 正确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9D-%E2%9C%85-%E6%AD%A3%E7%A1%AE"><span class="nav-number">15.1.4.</span> <span class="nav-text">选项D ✅ 正确</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%94%E6%A1%88%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">15.2.</span> <span class="nav-text">答案与总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '0082cb9caf408421a5b1c97f6066c48e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

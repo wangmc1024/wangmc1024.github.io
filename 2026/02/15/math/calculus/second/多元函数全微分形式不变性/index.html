@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="多元函数全微分形式不变性">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/02/15/math/calculus/second/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-15T15:26:20.000Z">
+<meta property="article:modified_time" content="2026-03-22T08:14:41.298Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="微积分">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/02/15/math/calculus/second/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多元函数全微分形式不变性 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/02/15/math/calculus/second/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多元函数全微分形式不变性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-02-15 23:26:20" itemprop="dateCreated datePublished" datetime="2026-02-15T23:26:20+08:00">2026-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-03-22 16:14:41" itemprop="dateModified" datetime="2026-03-22T16:14:41+08:00">2026-03-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>全微分形式不变性</h1>
+<h2 id="一、定义与本质">一、定义与本质</h2>
+<p>设 ( z = f(u,v) )，无论 ( u,v ) 是<strong>自变量</strong>还是<strong>中间变量（函数）</strong>，都有：<br>
+[<br>
+\mathrm{d}z = \frac{\partial z}{\partial u}\mathrm{d}u + \frac{\partial z}{\partial v}\mathrm{d}v<br>
+]<br>
+这就叫<strong>全微分形式不变性</strong>。</p>
+<hr>
+<h2 id="二、三大核心应用">二、三大核心应用</h2>
+<h3 id="1-复合函数求偏导（最稳、不易错）">1. 复合函数求偏导（最稳、不易错）</h3>
+<p>对 ( z=f(u,v),\ u=u(x,y),\ v=v(x,y) )<br>
+[<br>
+\mathrm{d}z = f_u’\mathrm{d}u + f_v’\mathrm{d}v<br>
+]<br>
+再把<br>
+[<br>
+\mathrm{d}u = u_x’\mathrm{d}x + u_y’\mathrm{d}y,\quad \mathrm{d}v = v_x’\mathrm{d}x + v_y’\mathrm{d}y<br>
+]<br>
+代入，<strong>合并同类项</strong>后：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(\mathrm{d}x) 的系数就是 ( \dfrac{\partial z}{\partial x} )</p>
+</li>
+<li class="lvl-2">
+<p>(\mathrm{d}y) 的系数就是 ( \dfrac{\partial z}{\partial y} )</p>
+</li>
+</ul>
+<p><strong>优点</strong>：不用记链式法则结构图，一步步写微分永远不会漏项。</p>
+<hr>
+<h3 id="2-隐函数求导（万能法）">2. 隐函数求导（万能法）</h3>
+<p>对 ( F(x,y,z)=0 ) 两边直接微分：<br>
+[<br>
+F_x’\mathrm{d}x + F_y’\mathrm{d}y + F_z’\mathrm{d}z = 0<br>
+]<br>
+解出：<br>
+[<br>
+\mathrm{d}z = -\frac{F_x’}{F_z’}\mathrm{d}x - \frac{F_y’}{F_z’}\mathrm{d}y<br>
+]<br>
+立刻读出：<br>
+[<br>
+\frac{\partial z}{\partial x} = -\frac{F_x’}{F_z’},\quad<br>
+\frac{\partial z}{\partial y} = -\frac{F_y’}{F_z’}<br>
+]</p>
+<p><strong>优点</strong>：不用背公式，微分一遍就出结果。</p>
+<hr>
+<h3 id="3-求二阶偏导-混合偏导（规范、不乱）">3. 求二阶偏导 / 混合偏导（规范、不乱）</h3>
+<p>先用一次不变性求出一阶微分：<br>
+[<br>
+\mathrm{d}z = A(x,y)\mathrm{d}x + B(x,y)\mathrm{d}y<br>
+]<br>
+再对 ( A,B ) 继续微分，就能<strong>自然得到二阶偏导</strong>，且：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>混合偏导相等会自动体现</p>
+</li>
+<li class="lvl-2">
+<p>比直接求导更不容易符号混乱</p>
+</li>
+</ul>
+<hr>
+<p>下面用<strong>3道最典型考研题</strong>，把<strong>全微分形式不变性</strong>的用法讲透，步骤直接可照搬。</p>
+<hr>
+<h1>一、复合函数偏导（最常用）</h1>
+<p><strong>题目</strong><br>
+设 (z=e^{u}\sin v)，(u=xy)，(v=x+y)，求<br>
+[<br>
+\frac{\partial z}{\partial x},\quad \frac{\partial z}{\partial y}<br>
+]</p>
+<h2 id="用全微分形式不变性做">用全微分形式不变性做</h2>
+<p>不管 (u,v) 是自变量还是中间变量，都先写：<br>
+[<br>
+dz = \frac{\partial z}{\partial u}du + \frac{\partial z}{\partial v}dv<br>
+]</p>
+<ol>
+<li class="lvl-3">
+<p>求偏导<br>
+[<br>
+\frac{\partial z}{\partial u}=e^u\sin v,\quad \frac{\partial z}{\partial v}=e^u\cos v<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p>写出 (du,dv)<br>
+[<br>
+du = ydx + xdy,\quad dv = dx + dy<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p>代入<br>
+[<br>
+dz = e^u\sin v,(ydx+xdy) + e^u\cos v,(dx+dy)<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p>按 (dx,dy) 合并同类项<br>
+[<br>
+dz = \underbrace{\bigl[e^u\sin v\cdot y + e^u\cos v\bigr]}_{\frac{\partial z}{\partial x}}dx</p>
+</li>
+</ol>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>\underbrace{\bigl[e^u\sin v\cdot x + e^u\cos v\bigr]}_{\frac{\partial z}{\partial y}}dy<br>
+]</p>
+</li>
+</ul>
+<ol start="5">
+<li class="lvl-3">
+<p>回代 (u=xy,v=x+y)<br>
+[<br>
+\frac{\partial z}{\partial x}=e^{xy}\bigl[y\sin(x+y)+\cos(x+y)\bigr]<br>
+]<br>
+[<br>
+\frac{\partial z}{\partial y}=e^{xy}\bigl[x\sin(x+y)+\cos(x+y)\bigr]<br>
+]</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>优点</strong>：不用画链式图，不漏项、不错层。</p>
+</blockquote>
+<hr>
+<h1>二、隐函数求导（万能法）</h1>
+<p><strong>题目</strong><br>
+设方程<br>
+[<br>
+e^z - xyz = 0<br>
+]<br>
+确定 (z=z(x,y))，求 (\dfrac{\partial z}{\partial x},\dfrac{\partial z}{\partial y})。</p>
+<h2 id="用全微分形式不变性">用全微分形式不变性</h2>
+<p>两边直接<strong>微分</strong>（对每个变量微分）：<br>
+[<br>
+d(e^z) - d(xyz) = d(0)<br>
+]<br>
+[<br>
+e^z dz - (yz dx + xz dy + xy dz) = 0<br>
+]</p>
+<p>把含 (dz) 放一边：<br>
+[<br>
+(e^z - xy)dz = yz dx + xz dy<br>
+]</p>
+<p>解出：<br>
+[<br>
+dz = \frac{yz}{e^z - xy}dx + \frac{xz}{e^z - xy}dy<br>
+]</p>
+<p>直接读出：<br>
+[<br>
+\frac{\partial z}{\partial x}=\frac{yz}{e^z - xy},\quad<br>
+\frac{\partial z}{\partial y}=\frac{xz}{e^z - xy}<br>
+]</p>
+<blockquote>
+<p><strong>秒杀</strong>：不用背隐函数公式，微分一遍就出结果。</p>
+</blockquote>
+<hr>
+<h1>三、求二阶混合偏导（体现不变性优势）</h1>
+<p><strong>题目</strong><br>
+设 (z=f(x<sup>2+y</sup>2,xy))，(f) 二阶连续可偏导，求<br>
+[<br>
+\frac{\partial^2 z}{\partial x\partial y}<br>
+]</p>
+<h2 id="第一步：一阶微分（不变性）">第一步：一阶微分（不变性）</h2>
+<p>令<br>
+[<br>
+u=x<sup>2+y</sup>2,\quad v=xy<br>
+]<br>
+[<br>
+dz = f_1’du + f_2’dv<br>
+]<br>
+[<br>
+du=2xdx+2ydy,\quad dv=ydx+xdy<br>
+]<br>
+[<br>
+dz = f_1’(2xdx+2ydy)+f_2’(ydx+xdy)<br>
+]</p>
+<p>整理：<br>
+[<br>
+\frac{\partial z}{\partial x} = 2x f_1’ + y f_2’<br>
+]</p>
+<h2 id="第二步：对-y-求偏导（求混合偏导）">第二步：对 (y) 求偏导（求混合偏导）</h2>
+<p>[<br>
+\frac{\partial^2 z}{\partial x\partial y}<br>
+= \frac{\partial}{\partial y}\bigl(2x f_1’ + y f_2’\bigr)<br>
+]</p>
+<p>[<br>
+= 2x\bigl(f_{11}‘’\cdot 2y + f_{12}‘’\cdot x\bigr)</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>f_2’ + y\bigl(f_{21}‘’\cdot 2y + f_{22}‘’\cdot x\bigr)<br>
+]</p>
+</li>
+</ul>
+<p>因为二阶连续，(f_{12}‘’=f_{21}‘’)，合并：<br>
+[<br>
+= 4xy f_{11}‘’ + 2(x<sup>2+y</sup>2)f_{12}‘’ + xy f_{22}‘’ + f_2’<br>
+]</p>
+<blockquote>
+<p><strong>关键</strong>：用全微分先拆一层，再求导<strong>结构极清晰</strong>，</p>
+</blockquote>
+<hr>
+<h1>四、一句话总结</h1>
+<ol>
+<li class="lvl-3">
+<p><strong>不管自变量还是中间变量，微分形式永远不变</strong><br>
+[<br>
+dz = f_u du + f_v dv<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p><strong>求偏导 = 拆微分，看 dx、dy 系数</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>隐函数 = 两边直接微分，解出 dz</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>二阶偏导 = 先用不变性求一阶，再求导更稳</strong></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag"><i class="fa fa-tag"></i> 微积分</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/02/15/math/calculus/second/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8(%E8%B7%AF%E5%BE%84%E6%B3%95)/" rel="prev" title="多元函数微分学基本性质(路径法)">
+      <i class="fa fa-chevron-left"></i> 多元函数微分学基本性质(路径法)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/02/math/calculus/second/%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86/" rel="next" title="曲线积分与曲面积分">
+      曲线积分与曲面积分 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">全微分形式不变性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">一、定义与本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">二、三大核心应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E6%B1%82%E5%81%8F%E5%AF%BC%EF%BC%88%E6%9C%80%E7%A8%B3%E3%80%81%E4%B8%8D%E6%98%93%E9%94%99%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 复合函数求偏导（最稳、不易错）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9A%90%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC%EF%BC%88%E4%B8%87%E8%83%BD%E6%B3%95%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 隐函数求导（万能法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B1%82%E4%BA%8C%E9%98%B6%E5%81%8F%E5%AF%BC-%E6%B7%B7%E5%90%88%E5%81%8F%E5%AF%BC%EF%BC%88%E8%A7%84%E8%8C%83%E3%80%81%E4%B8%8D%E4%B9%B1%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 求二阶偏导 &#x2F; 混合偏导（规范、不乱）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">一、复合函数偏导（最常用）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7%E5%81%9A"><span class="nav-number">2.1.</span> <span class="nav-text">用全微分形式不变性做</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">二、隐函数求导（万能法）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">用全微分形式不变性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">三、求二阶混合偏导（体现不变性优势）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E4%B8%80%E9%98%B6%E5%BE%AE%E5%88%86%EF%BC%88%E4%B8%8D%E5%8F%98%E6%80%A7%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">第一步：一阶微分（不变性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%AF%B9-y-%E6%B1%82%E5%81%8F%E5%AF%BC%EF%BC%88%E6%B1%82%E6%B7%B7%E5%90%88%E5%81%8F%E5%AF%BC%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">第二步：对 (y) 求偏导（求混合偏导）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">四、一句话总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : '3b140b46ab4e9c07362ee79c242bad9c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="定积分的几何与物理应用">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/02/07/math/calculus/second/%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%87%A0%E4%BD%95%E4%B8%8E%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-07T15:17:26.000Z">
+<meta property="article:modified_time" content="2026-02-07T15:30:21.203Z">
+<meta property="article:author" content="三子曰">
+<meta property="article:tag" content="微积分">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/02/07/math/calculus/second/%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%87%A0%E4%BD%95%E4%B8%8E%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>定积分的几何与物理应用 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/02/07/math/calculus/second/%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%87%A0%E4%BD%95%E4%B8%8E%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          定积分的几何与物理应用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-02-07 23:17:26 / 修改时间：23:30:21" itemprop="dateCreated datePublished" datetime="2026-02-07T23:17:26+08:00">2026-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>定积分的应用</h1>
+<hr>
+<h1>第一部分 定积分应用核心思想：微元法（通用）</h1>
+<h2 id="1-微元法原理">1. 微元法原理</h2>
+<p>若所求量 (U) 对区间 ([a,b]) 具有<strong>可加性</strong>，且局部微元 (dU = f(x)dx)（一阶无穷小，近似代替局部增量），则：<br>
+[<br>
+U = \int_a^b dU = \int_a^b f(x)dx<br>
+]</p>
+<h2 id="2-微元法通用步骤">2. 微元法通用步骤</h2>
+<ol>
+<li class="lvl-3">
+<p>建立坐标系，确定积分变量 (x) 与区间 ([a,b])；</p>
+</li>
+<li class="lvl-3">
+<p>取微小区间 ([x, x+dx])，写出微元 (dU)（<strong>以直代曲、以恒代变</strong>）；</p>
+</li>
+<li class="lvl-3">
+<p>确定上下限（<strong>从小到大</strong>，面积/体积/弧长/压力必满足），积分计算。</p>
+</li>
+</ol>
+<h2 id="3-核心性质">3. 核心性质</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>微元必须是 (dx) 的<strong>一阶无穷小</strong>，高阶无穷小可忽略；</p>
+</li>
+<li class="lvl-2">
+<p>所有几何、物理量均满足<strong>区间可加性</strong>（分段区间积分可相加）；</p>
+</li>
+<li class="lvl-2">
+<p>几何量（面积、体积、弧长）<strong>恒非负</strong>，积分结果必为正。</p>
+</li>
+</ul>
+<hr>
+<h1>第二部分 几何应用（数一全考，高频核心）</h1>
+<h2 id="一、平面图形的面积">一、平面图形的面积</h2>
+<h3 id="（一）直角坐标系下面积">（一）直角坐标系下面积</h3>
+<h4 id="1-核心公式">1. 核心公式</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>上下曲线型（(x) 为积分变量）：由 (y=f_{\text{上}}(x))、(y=f_{\text{下}}(x))、(x=a)、(x=b) 围成：<br>
+[<br>
+S = \int_a^b \left[f_{\text{上}}(x)-f_{\text{下}}(x)\right]dx<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p>左右曲线型（(y) 为积分变量，反函数复杂时优先用）：由 (x=\varphi_{\text{右}}(y))、(x=\varphi_{\text{左}}(y))、(y=c)、(y=d) 围成：<br>
+[<br>
+S = \int_c^d \left[\varphi_{\text{右}}(y)-\varphi_{\text{左}}(y)\right]dy<br>
+]</p>
+</li>
+</ul>
+<h4 id="2-重要性质">2. 重要性质</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>面积<strong>非负</strong>，被积函数必为正；</p>
+</li>
+<li class="lvl-2">
+<p>对称图形可算一半再翻倍（奇偶性、轴对称简化计算）；</p>
+</li>
+<li class="lvl-2">
+<p>交点为积分上下限，需先联立方程求交点。</p>
+</li>
+</ul>
+<h4 id="3-典型例题">3. 典型例题</h4>
+<p><strong>例题1</strong> 求由 (y=x^2) 与 (y=2x-x^2) 围成的平面图形面积。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>求交点：联立 (x<sup>2=2x-x</sup>2 \Rightarrow x=0,x=1)；</p>
+</li>
+<li class="lvl-3">
+<p>判上下曲线：(x\in(0,1)) 时，(2x-x^2 &gt; x^2)；</p>
+</li>
+<li class="lvl-3">
+<p>积分计算：<br>
+[<br>
+S = \int_0^1 \left[(2x-x<sup>2)-x</sup>2\right]dx = \int_0^1 (2x-2x^2)dx<br>
+]<br>
+[<br>
+= \left.x<sup>2-\frac{2}{3}x</sup>3\right|_0^1 = 1-\frac{2}{3} = \frac{1}{3}<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h3 id="（二）极坐标系下面积（数一高频：心形线、双纽线、圆）">（二）极坐标系下面积（数一高频：心形线、双纽线、圆）</h3>
+<h4 id="1-核心公式-2">1. 核心公式</h4>
+<p>曲线 (r=r(\theta))，(\theta\in[\alpha,\beta])，扇形微元 (dS=\frac{1}{2}r^2(\theta)d\theta)：<br>
+[<br>
+S = \frac{1}{2}\int_\alpha^\beta r^2(\theta)d\theta<br>
+]</p>
+<h4 id="2-重要性质-2">2. 重要性质</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>极坐标面积<strong>必须带系数 (\frac{1}{2})</strong>（易错点）；</p>
+</li>
+<li class="lvl-2">
+<p>闭合曲线常取 (\theta\in[0,2\pi])，对称图形取半区间翻倍。</p>
+</li>
+</ul>
+<h4 id="3-典型例题-2">3. 典型例题</h4>
+<p><strong>例题2</strong> 求心形线 (r=a(1+\cos\theta))（(a&gt;0)）围成的面积。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>对称性：关于极轴对称，算 (\theta\in[0,\pi]) 再×2；</p>
+</li>
+<li class="lvl-3">
+<p>微元与积分：<br>
+[<br>
+S = 2\cdot\frac{1}{2}\int_0^\pi a<sup>2(1+\cos\theta)</sup>2d\theta = a<sup>2\int_0</sup>\pi (1+2\cos\theta+\cos^2\theta)d\theta<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p>三角恒等变换 (\cos^2\theta=\frac{1+\cos2\theta}{2})：<br>
+[<br>
+S = a^2\cdot\frac{3\pi}{2} = \frac{3}{2}\pi a^2<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h3 id="（三）参数方程下面积">（三）参数方程下面积</h3>
+<h4 id="1-核心公式-3">1. 核心公式</h4>
+<p>(<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="18.342ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8107.1 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="7B" d="M434 -231Q434 -244 428 -250H410Q281 -250 230 -184Q225 -177 222 -172T217 -161T213 -148T211 -133T210 -111T209 -84T209 -47T209 0Q209 21 209 53Q208 142 204 153Q203 154 203 155Q189 191 153 211T82 231Q71 231 68 234T65 250T68 266T82 269Q116 269 152 289T203 345Q208 356 208 377T209 529V579Q209 634 215 656T244 698Q270 724 324 740Q361 748 377 749Q379 749 390 749T408 750H428Q434 744 434 732Q434 719 431 716Q429 713 415 713Q362 710 332 689T296 647Q291 634 291 499V417Q291 370 288 353T271 314Q240 271 184 255L170 250L184 245Q202 239 220 230T262 196T290 137Q291 131 291 1Q291 -134 296 -147Q306 -174 339 -192T415 -213Q429 -213 431 -216Q434 -219 434 -231Z"></path></g><g data-mml-node="mtable" transform="translate(500,0)"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(849.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1905.6,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(2477.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2866.6,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(3227.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mtext" fill="red" stroke="red" transform="translate(3616.6,0)"><path data-c="5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path><path data-c="79" d="M69 -66Q91 -66 104 -80T118 -116Q118 -134 109 -145T91 -160Q84 -163 97 -166Q104 -168 111 -168Q131 -168 148 -159T175 -138T197 -106T213 -75T225 -43L242 0L170 183Q150 233 125 297Q101 358 96 368T80 381Q79 382 78 382Q66 385 34 385H19V431H26L46 430Q65 430 88 429T122 428Q129 428 142 428T171 429T200 430T224 430L233 431H241V385H232Q183 385 185 366L286 112Q286 113 332 227L376 341V350Q376 365 366 373T348 383T334 385H331V431H337H344Q351 431 361 431T382 430T405 429T422 429Q477 429 503 431H508V385H497Q441 380 422 345Q420 343 378 235T289 9T227 -131Q180 -204 113 -204Q69 -204 44 -177T19 -116Q19 -89 35 -78T69 -66Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(4922.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(5978.1,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(6468.1,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(6857.1,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(7218.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g><g data-mml-node="mo" transform="translate(8107.1,0) translate(0 250)"></g></g></g></g></svg></mjx-container>)，(t\in[\alpha,\beta])，(x(t)) 单调：<br>
+[<br>
+S = \int_\alpha^\beta y(t)\cdot x’(t)dt<br>
+]</p>
+<h4 id="2-性质">2. 性质</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>上下限由 (x) 范围对应 (t) 范围，保证 (x(t)) 单调；</p>
+</li>
+<li class="lvl-2">
+<p>结果必为正，符号由 (x’(t)) 决定，负则取绝对值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="二、旋转体体积（考研最高频）">二、旋转体体积（考研最高频）</h2>
+<h3 id="（一）绕坐标轴旋转体积">（一）绕坐标轴旋转体积</h3>
+<h4 id="1-核心公式-4">1. 核心公式</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>绕 (x) 轴旋转（圆盘法）：(y=f(x),x\in[a,b])<br>
+[<br>
+V_x = \pi\int_a^b f^2(x)dx<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p>绕 (y) 轴旋转（壳层法，优先用，避免反函数）：<br>
+[<br>
+V_y = 2\pi\int_a^b x\cdot |f(x)|dx<br>
+]</p>
+</li>
+</ul>
+<h4 id="2-重要性质-3">2. 重要性质</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>旋转体体积<strong>非负</strong>，被积函数为平方/绝对值，恒正；</p>
+</li>
+<li class="lvl-2">
+<p>壳层法本质：圆柱侧面积×厚度 (dS=2\pi x\cdot |f(x)|dx)；</p>
+</li>
+<li class="lvl-2">
+<p>绕平行线旋转：平移坐标系（如绕 (x=k)，令 (t=x-k)）再套公式。</p>
+</li>
+</ul>
+<h4 id="3-典型例题-3">3. 典型例题</h4>
+<p><strong>例题3</strong> 求 (y=x^2,x\in[0,1]) 绕 (y) 轴旋转的体积。<br>
+<strong>解</strong>：选壳层法（更简便）：<br>
+[<br>
+V_y = 2\pi\int_0^1 x\cdot x^2 dx = 2\pi\int_0^1 x^3 dx<br>
+]<br>
+[<br>
+= 2\pi\cdot\frac{1}{4} = \frac{\pi}{2}<br>
+]</p>
+<hr>
+<h3 id="（二）平行截面面积已知的立体体积（数一专属）">（二）平行截面面积已知的立体体积（数一专属）</h3>
+<h4 id="1-核心公式-5">1. 核心公式</h4>
+<p>垂直于 (x) 轴的截面面积为 (A(x))，(x\in[a,b])：<br>
+[<br>
+V = \int_a^b A(x)dx<br>
+]</p>
+<h4 id="2-适用场景">2. 适用场景</h4>
+<p>非旋转体（楔体、椭球、底面为平面图形的柱体拉伸体）。</p>
+<h4 id="3-典型例题-4">3. 典型例题</h4>
+<p><strong>例题4</strong> 底面为 (x<sup>2+y</sup>2\leq a^2)，垂直于 (x) 轴的截面为等边三角形，求体积。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>截面边长：(y=2\sqrt{a<sup>2-x</sup>2})；</p>
+</li>
+<li class="lvl-3">
+<p>截面面积 (A(x)=\frac{\sqrt{3}}{4}(2\sqrt{a<sup>2-x</sup>2})<sup>2=\sqrt{3}(a</sup>2-x^2))；</p>
+</li>
+<li class="lvl-3">
+<p>对称积分：<br>
+[<br>
+V = 2\int_0^a \sqrt{3}(a<sup>2-x</sup>2)dx<br>
+]<br>
+[<br>
+= \frac{4\sqrt{3}}{3}a^3<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、平面曲线的弧长（数一、数二专属，数三不考）">三、平面曲线的弧长（数一、数二专属，数三不考）</h2>
+<h3 id="1-统一核心：弧微分-ds">1. 统一核心：弧微分 (ds)</h3>
+<p>[<br>
+s = \int ds<br>
+]</p>
+<h3 id="2-三种形式公式">2. 三种形式公式</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>直角坐标 (y=y(x),x\in[a,b])：<br>
+[<br>
+ds = \sqrt{1+[y’(x)]^2}dx,\quad s=\int_a^b \sqrt{1+y’^2}dx<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p>参数方程 (<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="18.342ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8107.1 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="7B" d="M434 -231Q434 -244 428 -250H410Q281 -250 230 -184Q225 -177 222 -172T217 -161T213 -148T211 -133T210 -111T209 -84T209 -47T209 0Q209 21 209 53Q208 142 204 153Q203 154 203 155Q189 191 153 211T82 231Q71 231 68 234T65 250T68 266T82 269Q116 269 152 289T203 345Q208 356 208 377T209 529V579Q209 634 215 656T244 698Q270 724 324 740Q361 748 377 749Q379 749 390 749T408 750H428Q434 744 434 732Q434 719 431 716Q429 713 415 713Q362 710 332 689T296 647Q291 634 291 499V417Q291 370 288 353T271 314Q240 271 184 255L170 250L184 245Q202 239 220 230T262 196T290 137Q291 131 291 1Q291 -134 296 -147Q306 -174 339 -192T415 -213Q429 -213 431 -216Q434 -219 434 -231Z"></path></g><g data-mml-node="mtable" transform="translate(500,0)"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(849.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1905.6,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(2477.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2866.6,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(3227.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mtext" fill="red" stroke="red" transform="translate(3616.6,0)"><path data-c="5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path><path data-c="79" d="M69 -66Q91 -66 104 -80T118 -116Q118 -134 109 -145T91 -160Q84 -163 97 -166Q104 -168 111 -168Q131 -168 148 -159T175 -138T197 -106T213 -75T225 -43L242 0L170 183Q150 233 125 297Q101 358 96 368T80 381Q79 382 78 382Q66 385 34 385H19V431H26L46 430Q65 430 88 429T122 428Q129 428 142 428T171 429T200 430T224 430L233 431H241V385H232Q183 385 185 366L286 112Q286 113 332 227L376 341V350Q376 365 366 373T348 383T334 385H331V431H337H344Q351 431 361 431T382 430T405 429T422 429Q477 429 503 431H508V385H497Q441 380 422 345Q420 343 378 235T289 9T227 -131Q180 -204 113 -204Q69 -204 44 -177T19 -116Q19 -89 35 -78T69 -66Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(4922.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(5978.1,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(6468.1,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(6857.1,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(7218.1,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g><g data-mml-node="mo" transform="translate(8107.1,0) translate(0 250)"></g></g></g></g></svg></mjx-container>,t\in[\alpha,\beta])：<br>
+[<br>
+ds = \sqrt{[x’(t)]<sup>2+[y’(t)]</sup>2}dt,\quad s=\int_\alpha^\beta \sqrt{x’<sup>2+y’</sup>2}dt<br>
+]</p>
+</li>
+<li class="lvl-2">
+<p>极坐标 (r=r(\theta),\theta\in[\alpha,\beta])：<br>
+[<br>
+ds = \sqrt{r<sup>2(\theta)+[r’(\theta)]</sup>2}d\theta,\quad s=\int_\alpha^\beta \sqrt{r<sup>2+r’</sup>2}d\theta<br>
+]</p>
+</li>
+</ul>
+<h3 id="3-重要性质">3. 重要性质</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>弧长<strong>恒正</strong>，积分上下限必从小到大；</p>
+</li>
+<li class="lvl-2">
+<p>弧微分是<strong>曲线固有量</strong>，与坐标系选择无关；</p>
+</li>
+<li class="lvl-2">
+<p>必含根号，常考三角换元/根式化简。</p>
+</li>
+</ul>
+<h3 id="4-典型例题">4. 典型例题</h3>
+<p><strong>例题5</strong> 求摆线 (<mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="32.372ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 14308.3 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="7B" d="M434 -231Q434 -244 428 -250H410Q281 -250 230 -184Q225 -177 222 -172T217 -161T213 -148T211 -133T210 -111T209 -84T209 -47T209 0Q209 21 209 53Q208 142 204 153Q203 154 203 155Q189 191 153 211T82 231Q71 231 68 234T65 250T68 266T82 269Q116 269 152 289T203 345Q208 356 208 377T209 529V579Q209 634 215 656T244 698Q270 724 324 740Q361 748 377 749Q379 749 390 749T408 750H428Q434 744 434 732Q434 719 431 716Q429 713 415 713Q362 710 332 689T296 647Q291 634 291 499V417Q291 370 288 353T271 314Q240 271 184 255L170 250L184 245Q202 239 220 230T262 196T290 137Q291 131 291 1Q291 -134 296 -147Q306 -174 339 -192T415 -213Q429 -213 431 -216Q434 -219 434 -231Z"></path></g><g data-mml-node="mtable" transform="translate(500,0)"><g data-mml-node="mtr"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(849.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1905.6,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(2434.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(2823.6,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(3406.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(4407,0)"><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(394,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(672,0)"></path></g><g data-mml-node="mo" transform="translate(5635,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mi" transform="translate(5801.7,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(6162.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mtext" fill="red" stroke="red" transform="translate(6551.7,0)"><path data-c="5C" d="M56 731Q56 740 62 745T75 750Q85 750 92 740Q96 733 270 255T444 -231Q444 -239 438 -244T424 -250Q414 -250 407 -240Q404 -236 230 242T56 731Z"></path><path data-c="79" d="M69 -66Q91 -66 104 -80T118 -116Q118 -134 109 -145T91 -160Q84 -163 97 -166Q104 -168 111 -168Q131 -168 148 -159T175 -138T197 -106T213 -75T225 -43L242 0L170 183Q150 233 125 297Q101 358 96 368T80 381Q79 382 78 382Q66 385 34 385H19V431H26L46 430Q65 430 88 429T122 428Q129 428 142 428T171 429T200 430T224 430L233 431H241V385H232Q183 385 185 366L286 112Q286 113 332 227L376 341V350Q376 365 366 373T348 383T334 385H331V431H337H344Q351 431 361 431T382 430T405 429T422 429Q477 429 503 431H508V385H497Q441 380 422 345Q420 343 378 235T289 9T227 -131Q180 -204 113 -204Q69 -204 44 -177T19 -116Q19 -89 35 -78T69 -66Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(7857.4,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(8913.2,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(9442.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(9831.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(10553.4,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(11553.7,0)"><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(444,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(944,0)"></path></g><g data-mml-node="mo" transform="translate(12891.7,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mi" transform="translate(13058.3,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(13419.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g><g data-mml-node="mo" transform="translate(14308.3,0) translate(0 250)"></g></g></g></g></svg></mjx-container>) 一拱（(t\in[0,2\pi])）的弧长。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>求导：(x’=a(1-\cos t),y’=a\sin t)；</p>
+</li>
+<li class="lvl-3">
+<p>弧微分：<br>
+[<br>
+ds = \sqrt{a^2(1-\cos t)<sup>2+a</sup>2\sin^2t}dt = a\sqrt{2-2\cos t}dt = 2a\sin\frac{t}{2}dt<br>
+]</p>
+</li>
+<li class="lvl-3">
+<p>积分：<br>
+[<br>
+s = \int_0^{2\pi}2a\sin\frac{t}{2}dt<br>
+]<br>
+[<br>
+= 8a<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h2 id="四、旋转曲面的侧面积（数一专属，必考易错）">四、旋转曲面的侧面积（数一专属，必考易错）</h2>
+<h3 id="1-核心公式-6">1. 核心公式</h3>
+<p>曲线 (y=f(x)\ge0,x\in[a,b]) 绕 (x) 轴旋转：微元 (dS=2\pi y\cdot ds)（<strong>必须用弧微分 (ds)，不能用 (dx)</strong>）<br>
+[<br>
+S = 2\pi\int_a^b f(x)\sqrt{1+[f’(x)]^2}dx<br>
+]</p>
+<h3 id="2-关键性质">2. 关键性质</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>侧面积 ≠ 体积：体积用 (dx)，侧面积<strong>必用 (ds)</strong>；</p>
+</li>
+<li class="lvl-2">
+<p>仅算侧面，不含底面/顶面；</p>
+</li>
+<li class="lvl-2">
+<p>结果恒正，被积函数非负。</p>
+</li>
+</ul>
+<hr>
+<h1>第三部分 物理应用（数一核心，数三不考）</h1>
+<p>均用<strong>微元法</strong>，核心：先写微元，再积分，注意矢量分解（引力）。</p>
+<h2 id="一、变力沿直线做功">一、变力沿直线做功</h2>
+<h3 id="1-核心公式-7">1. 核心公式</h3>
+<p>力 (F=F(x)) 沿 (x) 轴从 (a\to b)，微元功 (dW=F(x)dx)：<br>
+[<br>
+W = \int_a^b F(x)dx<br>
+]</p>
+<h3 id="2-常见模型">2. 常见模型</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>弹簧弹力：(F=kx)（胡克定律）；</p>
+</li>
+<li class="lvl-2">
+<p>抽水做功：微元水体重量×提升高度；</p>
+</li>
+<li class="lvl-2">
+<p>电场/引力做功：变力积分。</p>
+</li>
+</ul>
+<h3 id="3-典型例题-5">3. 典型例题</h3>
+<p><strong>例题6</strong> 弹簧原长1m，拉长0.05m需力10N，求拉长0.2m做的功。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>求 (k)：(F=kx\Rightarrow10=k\cdot0.05\Rightarrow k=200\ \text{N/m})；</p>
+</li>
+<li class="lvl-3">
+<p>微元功 (dW=200x dx)；</p>
+</li>
+<li class="lvl-3">
+<p>积分：<br>
+[<br>
+W = \int_0^{0.2}200x dx<br>
+]<br>
+[<br>
+= 4\ \text{J}<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h2 id="二、液体静压力（水压力，数一必考）">二、液体静压力（水压力，数一必考）</h2>
+<h3 id="1-核心原理">1. 核心原理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>压强：(p=\rho g h)（(h) 为深度，向下为正）；</p>
+</li>
+<li class="lvl-2">
+<p>微元压力：(dP=p\cdot dS=\rho g h\cdot dS)；</p>
+</li>
+<li class="lvl-2">
+<p>总压力：(P=\int\rho g h\cdot dS)。</p>
+</li>
+</ul>
+<h3 id="2-解题步骤">2. 解题步骤</h3>
+<ol>
+<li class="lvl-3">
+<p>建系：深度 (h) 为积分变量；</p>
+</li>
+<li class="lvl-3">
+<p>求深度 (h) 处水平宽度 (L(h))；</p>
+</li>
+<li class="lvl-3">
+<p>微元 (dP=\rho g h L(h)dh)，积分。</p>
+</li>
+</ol>
+<h3 id="3-典型例题-6">3. 典型例题</h3>
+<p><strong>例题7</strong> 矩形闸门宽2m，高3m，水面与顶齐平，求水压力（(\rho=10<sup>3 \text{kg/m}</sup>3,g=9.8\ \text{m/s}^2)）。<br>
+<strong>解</strong>：</p>
+<ol>
+<li class="lvl-3">
+<p>深度 (h\in[0,3])，宽度 (L(h)=2)；</p>
+</li>
+<li class="lvl-3">
+<p>微元 (dP=\rho g h\cdot 2 dh)；</p>
+</li>
+<li class="lvl-3">
+<p>积分：<br>
+[<br>
+P = 2\rho g\int_0^3 h dh<br>
+]<br>
+[<br>
+= 88200\ \text{N}<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、引力（细杆与质点，数一专属）">三、引力（细杆与质点，数一专属）</h2>
+<h3 id="1-核心原理-2">1. 核心原理</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>万有引力：(dF=G\frac{m\cdot dm}{r^2})（(G) 引力常数，(m) 质点质量，(dm) 细杆微元质量）；</p>
+</li>
+<li class="lvl-2">
+<p><strong>引力是矢量，必须分解为 (x/y) 分量分别积分</strong>，不可直接标量积分。</p>
+</li>
+</ul>
+<h3 id="2-解题步骤-2">2. 解题步骤</h3>
+<ol>
+<li class="lvl-3">
+<p>设细杆线密度 (\rho)，微元 (dm=\rho dx)；</p>
+</li>
+<li class="lvl-3">
+<p>写微元引力 (dF)，分解 (dF_x,dF_y)；</p>
+</li>
+<li class="lvl-3">
+<p>分别积分得分量，再求合力（考研常考某分量为0，简化计算）。</p>
+</li>
+</ol>
+<hr>
+<h2 id="四、平面薄片的形心（重心，均匀密度）">四、平面薄片的形心（重心，均匀密度）</h2>
+<h3 id="1-核心公式-8">1. 核心公式</h3>
+<p>设薄片由 (y=f_{\text{上}}(x),y=f_{\text{下}}(x),x\in[a,b]) 围成，面积 (S)：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>静矩：(S_y=\int_a^b x\left[f_{\text{上}}-f_{\text{下}}\right]dx,\ S_x=\frac{1}{2}\int_a^b \left[f_{\text{上}}<sup>2-f_{\text{下}}</sup>2\right]dx)</p>
+</li>
+<li class="lvl-2">
+<p>形心坐标：<br>
+[<br>
+\bar{x}=\frac{S_y}{S},\quad \bar{y}=\frac{S_x}{S}<br>
+]</p>
+</li>
+</ul>
+<h3 id="2-性质-2">2. 性质</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>均匀密度薄片，形心=几何中心；</p>
+</li>
+<li class="lvl-2">
+<p>对称图形：对称轴上坐标为0（简化计算）。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag"><i class="fa fa-tag"></i> 微积分</a>
+          </div>
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/02/03/math/calculus/second/%E5%88%86%E5%BC%8F%E5%88%86%E8%A7%A3(%E9%AB%98%E6%96%AF%E5%88%86%E8%A7%A3)/" rel="prev" title="分式分解(高斯分解)">
+      <i class="fa fa-chevron-left"></i> 分式分解(高斯分解)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/02/09/math/calculus/second/%E5%90%91%E9%87%8F%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/" rel="next" title="向量代数与空间解析几何">
+      向量代数与空间解析几何 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">定积分的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">第一部分 定积分应用核心思想：微元法（通用）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BE%AE%E5%85%83%E6%B3%95%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">1. 微元法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BE%AE%E5%85%83%E6%B3%95%E9%80%9A%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.</span> <span class="nav-text">2. 微元法通用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%A0%B8%E5%BF%83%E6%80%A7%E8%B4%A8"><span class="nav-number">2.3.</span> <span class="nav-text">3. 核心性质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">第二部分 几何应用（数一全考，高频核心）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B9%B3%E9%9D%A2%E5%9B%BE%E5%BD%A2%E7%9A%84%E9%9D%A2%E7%A7%AF"><span class="nav-number">3.1.</span> <span class="nav-text">一、平面图形的面积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%9B%B4%E8%A7%92%E5%9D%90%E6%A0%87%E7%B3%BB%E4%B8%8B%E9%9D%A2%E7%A7%AF"><span class="nav-number">3.1.1.</span> <span class="nav-text">（一）直角坐标系下面积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">2. 重要性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9E%81%E5%9D%90%E6%A0%87%E7%B3%BB%E4%B8%8B%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%95%B0%E4%B8%80%E9%AB%98%E9%A2%91%EF%BC%9A%E5%BF%83%E5%BD%A2%E7%BA%BF%E3%80%81%E5%8F%8C%E7%BA%BD%E7%BA%BF%E3%80%81%E5%9C%86%EF%BC%89"><span class="nav-number">3.1.2.</span> <span class="nav-text">（二）极坐标系下面积（数一高频：心形线、双纽线、圆）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-2"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8-2"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">2. 重要性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-2"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E4%B8%8B%E9%9D%A2%E7%A7%AF"><span class="nav-number">3.1.3.</span> <span class="nav-text">（三）参数方程下面积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-3"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%80%A7%E8%B4%A8"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">2. 性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%97%8B%E8%BD%AC%E4%BD%93%E4%BD%93%E7%A7%AF%EF%BC%88%E8%80%83%E7%A0%94%E6%9C%80%E9%AB%98%E9%A2%91%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">二、旋转体体积（考研最高频）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%BB%95%E5%9D%90%E6%A0%87%E8%BD%B4%E6%97%8B%E8%BD%AC%E4%BD%93%E7%A7%AF"><span class="nav-number">3.2.1.</span> <span class="nav-text">（一）绕坐标轴旋转体积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-4"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8-3"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">2. 重要性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-3"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B9%B3%E8%A1%8C%E6%88%AA%E9%9D%A2%E9%9D%A2%E7%A7%AF%E5%B7%B2%E7%9F%A5%E7%9A%84%E7%AB%8B%E4%BD%93%E4%BD%93%E7%A7%AF%EF%BC%88%E6%95%B0%E4%B8%80%E4%B8%93%E5%B1%9E%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">（二）平行截面面积已知的立体体积（数一专属）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-5"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2. 适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-4"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%B9%B3%E9%9D%A2%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%BC%A7%E9%95%BF%EF%BC%88%E6%95%B0%E4%B8%80%E3%80%81%E6%95%B0%E4%BA%8C%E4%B8%93%E5%B1%9E%EF%BC%8C%E6%95%B0%E4%B8%89%E4%B8%8D%E8%80%83%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">三、平面曲线的弧长（数一、数二专属，数三不考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BB%9F%E4%B8%80%E6%A0%B8%E5%BF%83%EF%BC%9A%E5%BC%A7%E5%BE%AE%E5%88%86-ds"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. 统一核心：弧微分 (ds)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%89%E7%A7%8D%E5%BD%A2%E5%BC%8F%E5%85%AC%E5%BC%8F"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. 三种形式公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%87%8D%E8%A6%81%E6%80%A7%E8%B4%A8"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. 重要性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98"><span class="nav-number">3.3.4.</span> <span class="nav-text">4. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%97%8B%E8%BD%AC%E6%9B%B2%E9%9D%A2%E7%9A%84%E4%BE%A7%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%95%B0%E4%B8%80%E4%B8%93%E5%B1%9E%EF%BC%8C%E5%BF%85%E8%80%83%E6%98%93%E9%94%99%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">四、旋转曲面的侧面积（数一专属，必考易错）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-6"><span class="nav-number">3.4.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E6%80%A7%E8%B4%A8"><span class="nav-number">3.4.2.</span> <span class="nav-text">2. 关键性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">第三部分 物理应用（数一核心，数三不考）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8F%98%E5%8A%9B%E6%B2%BF%E7%9B%B4%E7%BA%BF%E5%81%9A%E5%8A%9F"><span class="nav-number">4.1.</span> <span class="nav-text">一、变力沿直线做功</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-7"><span class="nav-number">4.1.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">2. 常见模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-5"><span class="nav-number">4.1.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B6%B2%E4%BD%93%E9%9D%99%E5%8E%8B%E5%8A%9B%EF%BC%88%E6%B0%B4%E5%8E%8B%E5%8A%9B%EF%BC%8C%E6%95%B0%E4%B8%80%E5%BF%85%E8%80%83%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">二、液体静压力（水压力，数一必考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.1.</span> <span class="nav-text">1. 核心原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.2.2.</span> <span class="nav-text">2. 解题步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98-6"><span class="nav-number">4.2.3.</span> <span class="nav-text">3. 典型例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%BC%95%E5%8A%9B%EF%BC%88%E7%BB%86%E6%9D%86%E4%B8%8E%E8%B4%A8%E7%82%B9%EF%BC%8C%E6%95%B0%E4%B8%80%E4%B8%93%E5%B1%9E%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">三、引力（细杆与质点，数一专属）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86-2"><span class="nav-number">4.3.1.</span> <span class="nav-text">1. 核心原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">4.3.2.</span> <span class="nav-text">2. 解题步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B9%B3%E9%9D%A2%E8%96%84%E7%89%87%E7%9A%84%E5%BD%A2%E5%BF%83%EF%BC%88%E9%87%8D%E5%BF%83%EF%BC%8C%E5%9D%87%E5%8C%80%E5%AF%86%E5%BA%A6%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">四、平面薄片的形心（重心，均匀密度）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F-8"><span class="nav-number">4.4.1.</span> <span class="nav-text">1. 核心公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%80%A7%E8%B4%A8-2"><span class="nav-number">4.4.2.</span> <span class="nav-text">2. 性质</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'da9b9adc9e823651ef5acfb9940ac9c9',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>

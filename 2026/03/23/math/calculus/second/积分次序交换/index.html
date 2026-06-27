@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangmc1024.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="积分次序交换">
+<meta property="og:url" content="https://wangmc1024.github.io/2026/03/23/math/calculus/second/%E7%A7%AF%E5%88%86%E6%AC%A1%E5%BA%8F%E4%BA%A4%E6%8D%A2/index.html">
+<meta property="og:site_name" content="Computer Science">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-23T10:19:36.000Z">
+<meta property="article:modified_time" content="2026-03-23T10:26:07.658Z">
+<meta property="article:author" content="三子曰">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangmc1024.github.io/2026/03/23/math/calculus/second/%E7%A7%AF%E5%88%86%E6%AC%A1%E5%BA%8F%E4%BA%A4%E6%8D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>积分次序交换 | Computer Science</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Computer Science</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">WangMC Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间轴</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div id="spa-content-wrap" class="content-wrap">
+            
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangmc1024.github.io/2026/03/23/math/calculus/second/%E7%A7%AF%E5%88%86%E6%AC%A1%E5%BA%8F%E4%BA%A4%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+      <meta itemprop="name" content="三子曰">
+      <meta itemprop="description" content="欢迎来到我的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Computer Science">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          积分次序交换
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-23 18:19:36 / 修改时间：18:26:07" itemprop="dateCreated datePublished" datetime="2026-03-23T18:19:36+08:00">2026-03-23</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote></blockquote>
+<span id="more"></span>
+<h1>积分次序交换 · 终极完整版</h1>
+<p>（严格按你要求：只保留<strong>1.什么时候交换积分次序</strong>、<strong>2.不可积函数</strong>两大核心，<strong>完整整合你提供的17个积分判断</strong>，极致详细、无遗漏）</p>
+<hr>
+<h1>一、什么时候使用积分次序交换（超详细版）</h1>
+<p>满足以下<strong>任意一种场景</strong>，必须/优先交换积分次序，每个场景含：识别特征+换序目的+典型例题</p>
+<h2 id="场景1：内层积分是「单独裸奔的不可积函数」（最高频、最核心）">场景1：内层积分是「单独裸奔的不可积函数」（最高频、最核心）</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：累次积分的<strong>内层积分</strong>，被积函数是「原函数非初等函数」，<strong>无任何可凑微分、换元的配套因子</strong>，纯单独出现。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：原次序对该变量<strong>完全算不出结果</strong>，只能先积另一个变量，消去/化简不可积结构。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：<br>
+(\int_{0}<sup>{1}\int_{y}</sup>{1}\frac{\sin x}{x}dxdy)<br>
+内层先对 (x) 积 (\frac{\sin x}{x})（单独不可积），必须换序先对 (y) 积分。</p>
+</li>
+</ul>
+<h2 id="场景2：原次序需要分块积分，换序后无需分块">场景2：原次序需要分块积分，换序后无需分块</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：原积分次序下，积分区域<strong>必须切成2段及以上</strong>才能写积分；换序后<strong>整块区域用一个积分式</strong>完成。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：避免分块多次计算，减少步骤、降低出错率。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：区域由 (y=x、y=2-x、y=0) 围成，先 (y) 后 (x) 需分2块，先 (x) 后 (y) 一块搞定。</p>
+</li>
+</ul>
+<h2 id="场景3：积分嵌套求导，变量与积分限嵌套">场景3：积分嵌套求导，变量与积分限嵌套</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：题型为<strong>先积分、后求导</strong>，形如 (\frac{d}{dx}\int_{0}<sup>{x}\left(\int_{t}</sup>{x}f(s)ds\right)dt)，<strong>求导变量 (x) 同时出现在积分限中</strong>，变量相互缠绕。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：避开复杂莱布尼茨求导，换序后变为<strong>单一变上限积分</strong>，求导一步出结果。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：<br>
+(\frac{d}{dx}\int_{0}<sup>{x}\left(\int_{t}</sup>{x}e<sup>{-s</sup>2}ds\right)dt)，换序后变 (\int_{0}^{x}s e<sup>{-s</sup>2}ds)，直接求导。</p>
+</li>
+</ul>
+<h2 id="场景4：原内层积分计算繁琐，换序后内层极简">场景4：原内层积分计算繁琐，换序后内层极简</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：原内层含<strong>根号、高次多项式、复杂分式、需分部积分</strong>，计算麻烦；换序后内层变为<strong>常数、简单幂函数</strong>，秒算。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：先把简单变量在内层积完，提前化简被积函数，降低整体难度。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：<br>
+(\iint_D \frac{x}{\sqrt{y}}dxdy)，先对 (y) 积根号繁琐，换序先对 (x) 积，内层一秒出结果。</p>
+</li>
+</ul>
+<h2 id="场景5：原积分限为复杂函数，换序后反解变简单">场景5：原积分限为复杂函数，换序后反解变简单</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：原积分限是<strong>指数 (e^x)、三角 (\sin x)</strong> 等复杂形式；换序后反解为<strong>对数 (\ln y)、反三角 (\arcsin y)</strong> 等简单显式。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：复杂积分限会增加计算/求导难度，换序后积分限更清爽、易运算。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：<br>
+(\int_{0}<sup>{1}\int_{e</sup>x}^{e}f(x,y)dydx)，原下限 (y=e^x) 复杂，换序后上限 (x=\ln y) 简单。</p>
+</li>
+</ul>
+<h2 id="场景6：积分区域关于-y-x-对称，用轮换对称性">场景6：积分区域关于 (y=x) 对称，用轮换对称性</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>识别特征</strong>：区域 (D) 满足：(x) 与 (y) 互换后，区域形状<strong>完全不变</strong>（关于 (y=x) 对称）。</p>
+</li>
+<li class="lvl-2">
+<p><strong>换序目的</strong>：交换次序等价于使用轮换对称性<br>
+(\iint_D f(x,y)d\sigma=\iint_D f(y,x)d\sigma)，可简化被积函数，甚至直接得结果。</p>
+</li>
+<li class="lvl-2">
+<p><strong>典型例子</strong>：区域 (D:0\le x\le1,0\le y\le1)，交换次序后可结合对称性合并计算。</p>
+</li>
+</ul>
+<hr>
+<h1>二、原函数不是初等函数（积不出来）的函数（超详细+整合你提供的全部17个积分）</h1>
+<h2 id="（一）核心定义">（一）核心定义</h2>
+<ol>
+<li class="lvl-3">
+<p><strong>积不出来</strong>：不是没有原函数，而是<strong>不定积分无法用初等函数表示</strong>，只能用<strong>特殊函数</strong>或<strong>数值方法</strong>求解。</p>
+</li>
+<li class="lvl-3">
+<p><strong>关键区分</strong>：</p>
+<ul class="lvl-2">
+<li class="lvl-5">单独裸奔（无配套因子）→ 绝大多数积不出</li>
+<li class="lvl-5">带配套因子（可凑微分/换元）→ 少数可积</li>
+</ul>
+</li>
+<li class="lvl-3">
+<p><strong>初等函数</strong>：常数、幂函数、指数、对数、三角、反三角函数，经<strong>有限次加减乘除/复合</strong>得到。</p>
+</li>
+</ol>
+<hr>
+<h2 id="（二）17个常见积分：精准区分「能积」vs「积不出」">（二）17个常见积分：精准区分「能积」vs「积不出」</h2>
+<h3 id="1-积不出来（原函数非初等，单独出现→必须交换积分次序）">1. 积不出来（原函数非初等，单独出现→必须交换积分次序）</h3>
+<h4 id="（1）三角函数相关不可积">（1）三角函数相关不可积</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(\int \frac{\sin x}{x}dx) ❌ 不能（特殊函数：正弦积分 (\text{Si}(x))）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \frac{\cos x}{x}dx) ❌ 不能（特殊函数：余弦积分 (\text{Ci}(x))）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \sin x^2 dx) ❌ 不能（特殊函数：菲涅尔积分）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \cos x^2 dx) ❌ 不能（特殊函数：菲涅尔积分）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \tan x^2 dx) ❌ 不能</p>
+</li>
+<li class="lvl-2">
+<p>(\int \frac{\tan x}{x} dx) ❌ 不能</p>
+</li>
+<li class="lvl-2">
+<p>(\int \ln \sin x dx) ❌ 不能（特殊函数）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \ln \cos x dx) ❌ 不能（特殊函数）</p>
+</li>
+</ul>
+<h4 id="（2）指数函数相关不可积">（2）指数函数相关不可积</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(\int e<sup>{x</sup>2} dx) ❌ 不能（特殊函数：虚误差函数 (\text{erfi}(x))）</p>
+</li>
+<li class="lvl-2">
+<p>(\int e<sup>{-x</sup>2} dx) ❌ 不能（特殊函数：误差函数 (\text{erf}(x))）</p>
+</li>
+<li class="lvl-2">
+<p>(\int \frac{e^x}{x} dx) ❌ 不能（特殊函数：指数积分 (\text{Ei}(x))）</p>
+</li>
+<li class="lvl-2">
+<p>(\int e^{\frac{1}{x}} dx) ❌ 不能</p>
+</li>
+<li class="lvl-2">
+<p>(\int e^{\sin x} dx) ❌ 不能</p>
+</li>
+<li class="lvl-2">
+<p>(\int e^{\cos x} dx) ❌ 不能</p>
+</li>
+</ul>
+<h4 id="（3）对数相关不可积">（3）对数相关不可积</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>(\int \frac{1}{\ln x} dx) ❌ 不能（特殊函数：对数积分 (\text{li}(x))）</p>
+</li>
+</ul>
+<hr>
+<h3 id="2-能积出来（可用初等函数表示，直接计算→无需交换积分次序）">2. 能积出来（可用初等函数表示，直接计算→无需交换积分次序）</h3>
+<p>只有以下<strong>2个</strong>，可直接用初等函数写出结果：</p>
+<ol>
+<li class="lvl-3">
+<p>(\int \frac{\ln x}{x} dx = \frac{1}{2}(\ln x)^2 + C) ✅（凑微分：(u=\ln x)）</p>
+</li>
+<li class="lvl-3">
+<p>(\int \ln x^2 dx = 2x\ln|x| - 2x + C) ✅（分部积分）</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、极简扩展口诀（10-秒记全）">三、极简扩展口诀（10 秒记全）</h2>
+<p><strong>单独无凑微，满足一条就积不出：</strong></p>
+<ol>
+<li class="lvl-3">
+<p>指数不是一次式</p>
+</li>
+<li class="lvl-3">
+<p>三角除以 x，或三角套非一次</p>
+</li>
+<li class="lvl-3">
+<p>指数除 x，对数取倒数</p>
+</li>
+<li class="lvl-3">
+<p>根号内高次 / 复杂三角</p>
+</li>
+<li class="lvl-3">
+<p>对数套三角</p>
+</li>
+</ol>
+<hr>
+<h2 id="（四）最终总结（你提供-核心考点合并）">（四）最终总结（你提供+核心考点合并）</h2>
+<ol>
+<li class="lvl-3">
+<p>你列出的<strong>17个积分里，只有 (\boldsymbol{\frac{\ln x}{x}}) 和 (\boldsymbol{\ln x^2}) 能用初等函数表示</strong>，其余全部属于「积不出来」类型，需特殊函数/数值方法。</p>
+</li>
+<li class="lvl-3">
+<p>二重积分中：</p>
+<ul class="lvl-2">
+<li class="lvl-5">内层是<strong>上述积不出函数单独裸奔</strong> → 必须交换积分次序；</li>
+<li class="lvl-5">内层是<strong>能积函数/带配套因子的函数</strong> → 直接计算，不用换序。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/23/COA/%E6%9C%BA%E5%99%A8%EF%BC%8C%E6%8C%87%E4%BB%A4%EF%BC%8C%E5%AD%98%E5%82%A8%E5%AD%97%E9%95%BF/" rel="prev" title="机器，指令，存储字长">
+      <i class="fa fa-chevron-left"></i> 机器，指令，存储字长
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/25/math/calculus/second/%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E4%B8%87%E8%83%BD%E4%BB%A3%E6%8D%A2/" rel="next" title="三角函数——万能代换">
+      三角函数——万能代换 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+            
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">积分次序交换 · 终极完整版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">一、什么时候使用积分次序交换（超详细版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF1%EF%BC%9A%E5%86%85%E5%B1%82%E7%A7%AF%E5%88%86%E6%98%AF%E3%80%8C%E5%8D%95%E7%8B%AC%E8%A3%B8%E5%A5%94%E7%9A%84%E4%B8%8D%E5%8F%AF%E7%A7%AF%E5%87%BD%E6%95%B0%E3%80%8D%EF%BC%88%E6%9C%80%E9%AB%98%E9%A2%91%E3%80%81%E6%9C%80%E6%A0%B8%E5%BF%83%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">场景1：内层积分是「单独裸奔的不可积函数」（最高频、最核心）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF2%EF%BC%9A%E5%8E%9F%E6%AC%A1%E5%BA%8F%E9%9C%80%E8%A6%81%E5%88%86%E5%9D%97%E7%A7%AF%E5%88%86%EF%BC%8C%E6%8D%A2%E5%BA%8F%E5%90%8E%E6%97%A0%E9%9C%80%E5%88%86%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">场景2：原次序需要分块积分，换序后无需分块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF3%EF%BC%9A%E7%A7%AF%E5%88%86%E5%B5%8C%E5%A5%97%E6%B1%82%E5%AF%BC%EF%BC%8C%E5%8F%98%E9%87%8F%E4%B8%8E%E7%A7%AF%E5%88%86%E9%99%90%E5%B5%8C%E5%A5%97"><span class="nav-number">2.3.</span> <span class="nav-text">场景3：积分嵌套求导，变量与积分限嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF4%EF%BC%9A%E5%8E%9F%E5%86%85%E5%B1%82%E7%A7%AF%E5%88%86%E8%AE%A1%E7%AE%97%E7%B9%81%E7%90%90%EF%BC%8C%E6%8D%A2%E5%BA%8F%E5%90%8E%E5%86%85%E5%B1%82%E6%9E%81%E7%AE%80"><span class="nav-number">2.4.</span> <span class="nav-text">场景4：原内层积分计算繁琐，换序后内层极简</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF5%EF%BC%9A%E5%8E%9F%E7%A7%AF%E5%88%86%E9%99%90%E4%B8%BA%E5%A4%8D%E6%9D%82%E5%87%BD%E6%95%B0%EF%BC%8C%E6%8D%A2%E5%BA%8F%E5%90%8E%E5%8F%8D%E8%A7%A3%E5%8F%98%E7%AE%80%E5%8D%95"><span class="nav-number">2.5.</span> <span class="nav-text">场景5：原积分限为复杂函数，换序后反解变简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF6%EF%BC%9A%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E5%85%B3%E4%BA%8E-y-x-%E5%AF%B9%E7%A7%B0%EF%BC%8C%E7%94%A8%E8%BD%AE%E6%8D%A2%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">2.6.</span> <span class="nav-text">场景6：积分区域关于 (y&#x3D;x) 对称，用轮换对称性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">二、原函数不是初等函数（积不出来）的函数（超详细+整合你提供的全部17个积分）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A0%B8%E5%BF%83%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">（一）核心定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%8917%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%A7%AF%E5%88%86%EF%BC%9A%E7%B2%BE%E5%87%86%E5%8C%BA%E5%88%86%E3%80%8C%E8%83%BD%E7%A7%AF%E3%80%8Dvs%E3%80%8C%E7%A7%AF%E4%B8%8D%E5%87%BA%E3%80%8D"><span class="nav-number">3.2.</span> <span class="nav-text">（二）17个常见积分：精准区分「能积」vs「积不出」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A7%AF%E4%B8%8D%E5%87%BA%E6%9D%A5%EF%BC%88%E5%8E%9F%E5%87%BD%E6%95%B0%E9%9D%9E%E5%88%9D%E7%AD%89%EF%BC%8C%E5%8D%95%E7%8B%AC%E5%87%BA%E7%8E%B0%E2%86%92%E5%BF%85%E9%A1%BB%E4%BA%A4%E6%8D%A2%E7%A7%AF%E5%88%86%E6%AC%A1%E5%BA%8F%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 积不出来（原函数非初等，单独出现→必须交换积分次序）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3%E4%B8%8D%E5%8F%AF%E7%A7%AF"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">（1）三角函数相关不可积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%8C%87%E6%95%B0%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3%E4%B8%8D%E5%8F%AF%E7%A7%AF"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">（2）指数函数相关不可积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%AF%B9%E6%95%B0%E7%9B%B8%E5%85%B3%E4%B8%8D%E5%8F%AF%E7%A7%AF"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">（3）对数相关不可积</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%83%BD%E7%A7%AF%E5%87%BA%E6%9D%A5%EF%BC%88%E5%8F%AF%E7%94%A8%E5%88%9D%E7%AD%89%E5%87%BD%E6%95%B0%E8%A1%A8%E7%A4%BA%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%AE%A1%E7%AE%97%E2%86%92%E6%97%A0%E9%9C%80%E4%BA%A4%E6%8D%A2%E7%A7%AF%E5%88%86%E6%AC%A1%E5%BA%8F%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. 能积出来（可用初等函数表示，直接计算→无需交换积分次序）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9E%81%E7%AE%80%E6%89%A9%E5%B1%95%E5%8F%A3%E8%AF%80%EF%BC%8810-%E7%A7%92%E8%AE%B0%E5%85%A8%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">三、极简扩展口诀（10 秒记全）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%9C%80%E7%BB%88%E6%80%BB%E7%BB%93%EF%BC%88%E4%BD%A0%E6%8F%90%E4%BE%9B-%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9%E5%90%88%E5%B9%B6%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">（四）最终总结（你提供+核心考点合并）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="三子曰"
+      src="https://cdn.jsdelivr.net/gh/MengChangWang/Blog_Image@main/img/avatar.png">
+  <p class="site-author-name" itemprop="name">三子曰</p>
+  <div class="site-description" itemprop="description">欢迎来到我的博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangmc1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangmc1024" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangmc1024@gmail.com" title="E-Mail → mailto:wangmc1024@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Mar 27 2024 08:00:00 GMT+0800 (China Standard Time) – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">三子曰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2719e26e1ea715ee8429',
+      clientSecret: '77a4ce8e9410a002f05c8f2c2b398c952a012d7c',
+      repo        : 'wangmc1024.github.io',
+      owner       : 'wangmc1024',
+      admin       : ['wangmc1024'],
+      id          : 'df2d1a623c5f96c104db2c40952dca15',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+
+</body>
+</html>
